@@ -1,0 +1,249 @@
+{
+  "demo": {
+    "username": "demo",
+    "createdAt": 1781782784844,
+    "lastSave": 1781803777623,
+    "lastTick": 1781803777623,
+    "cultivation": {
+      "world": "nhan_gioi",
+      "realmIndex": 0,
+      "stage": 2,
+      "tuVi": 0,
+      "maxTuVi": 200,
+      "daoEntry": null
+    },
+    "combat": {
+      "hp": 110,
+      "maxHp": 110,
+      "atk": 12,
+      "def": 6,
+      "critRate": 0.05,
+      "critDmg": 1.5
+    },
+    "gold": 0,
+    "inventory": [],
+    "currentZone": "rừng_thấp",
+    "autoFight": true,
+    "buffs": [],
+    "fortunesEncountered": [],
+    "stats": {
+      "totalKills": 18,
+      "totalExp": 0,
+      "totalGold": 0,
+      "playTime": 3600,
+      "totalTuVi": null
+    },
+    "permanentBonuses": {
+      "atk": 0,
+      "def": 0,
+      "expBonus": 0,
+      "goldBonus": 0
+    },
+    "bodyCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "soulCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "skills": {
+      "learned": {},
+      "equippedMartial": [],
+      "equippedDivine": []
+    },
+    "alchemy": {
+      "rank": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "spiritRoot": {
+      "element": null,
+      "evolution": null,
+      "awakenedAt": null,
+      "history": []
+    },
+    "spiritRoots": [],
+    "currencies": {
+      "so_linh_thach": 18,
+      "trung_linh_thach": 0,
+      "thuong_linh_thach": 0,
+      "so_tien_thach": 0,
+      "trung_tien_thach": 0,
+      "thuong_tien_thach": 0,
+      "so_nguyen_thach": 0,
+      "trung_nguyen_thach": 0,
+      "thuong_nguyen_thach": 0,
+      "so_dao_thach": 0,
+      "trung_dao_thach": 0,
+      "thuong_dao_thach": 0,
+      "so_chung_cuc_thach": 0,
+      "trung_chung_cuc_thach": 0,
+      "thuong_chung_cuc_thach": 0
+    },
+    "cave": {
+      "level": 1,
+      "resources": {
+        "aura": 0,
+        "herbEssence": 0,
+        "alchemyFire": 0
+      },
+      "buildings": {
+        "cave_core": {
+          "level": 1
+        },
+        "spirit_array": {
+          "level": 1
+        },
+        "herb_garden": {
+          "level": 1
+        },
+        "alchemy_room": {
+          "level": 1
+        },
+        "storage_room": {
+          "level": 1
+        }
+      },
+      "herbPlots": [],
+      "lastProcessAt": 1781803777623
+    },
+    "activePillBuffs": [],
+    "breakthroughPillLock": null
+  },
+  "GainGain": {
+    "username": "GainGain",
+    "createdAt": 1781782813936,
+    "lastSave": 1781804071295,
+    "lastTick": 1781804071291,
+    "cultivation": {
+      "world": "nhan_gioi",
+      "realmIndex": 0,
+      "stage": 6,
+      "tuVi": 0,
+      "maxTuVi": 600,
+      "daoEntry": null
+    },
+    "combat": {
+      "hp": 190,
+      "maxHp": 190,
+      "atk": 32,
+      "def": 14,
+      "critRate": 0.05,
+      "critDmg": 1.5
+    },
+    "gold": 473,
+    "inventory": [
+      {
+        "id": "linh_thach",
+        "name": "Linh Thạch",
+        "amount": 5
+      }
+    ],
+    "currentZone": "động_ma",
+    "autoFight": true,
+    "buffs": [],
+    "fortunesEncountered": [
+      "lien_hoa",
+      "tuyet_son",
+      "cuu_huynh_de"
+    ],
+    "stats": {
+      "totalKills": 303,
+      "totalExp": 70,
+      "totalGold": 355,
+      "playTime": 4039,
+      "totalTuVi": 2259
+    },
+    "permanentBonuses": {
+      "atk": 10,
+      "def": 0,
+      "expBonus": 0,
+      "goldBonus": 0
+    },
+    "lastFortune": {
+      "name": "🤝 Cứu Huynh Đệ",
+      "message": "🤝 Huynh đệ cảm kích tặng 118 linh thạch!",
+      "time": 1781782847962
+    },
+    "bodyCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "soulCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "skills": {
+      "learned": {},
+      "equippedMartial": [],
+      "equippedDivine": []
+    },
+    "alchemy": {
+      "rank": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "spiritRoot": {
+      "element": null,
+      "evolution": null,
+      "awakenedAt": null,
+      "history": []
+    },
+    "spiritRoots": [],
+    "currencies": {
+      "so_linh_thach": 259,
+      "trung_linh_thach": 0,
+      "thuong_linh_thach": 0,
+      "so_tien_thach": 0,
+      "trung_tien_thach": 0,
+      "thuong_tien_thach": 0,
+      "so_nguyen_thach": 0,
+      "trung_nguyen_thach": 0,
+      "thuong_nguyen_thach": 0,
+      "so_dao_thach": 0,
+      "trung_dao_thach": 0,
+      "thuong_dao_thach": 0,
+      "so_chung_cuc_thach": 0,
+      "trung_chung_cuc_thach": 0,
+      "thuong_chung_cuc_thach": 0
+    },
+    "cave": {
+      "level": 1,
+      "resources": {
+        "aura": 299,
+        "herbEssence": 0,
+        "alchemyFire": 0
+      },
+      "buildings": {
+        "cave_core": {
+          "level": 1
+        },
+        "spirit_array": {
+          "level": 1
+        },
+        "herb_garden": {
+          "level": 1
+        },
+        "alchemy_room": {
+          "level": 1
+        },
+        "storage_room": {
+          "level": 1
+        }
+      },
+      "herbPlots": [],
+      "lastProcessAt": 1781804071291
+    },
+    "activePillBuffs": [],
+    "breakthroughPillLock": null
+  }
+}

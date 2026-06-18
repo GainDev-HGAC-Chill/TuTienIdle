@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Tiên Idle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login -->
+        <div id="login-screen" class="screen">
+            <div class="login-box">
+                <h1>🧘 Tu Tiên Idle</h1>
+                <p>Nhập đạo hiệu của ngươi</p>
+                <input type="text" id="username-input" placeholder="Đạo hiệu..." maxlength="20">
+                <button id="login-btn">Nhập Đạo</button>
+            </div>
+        </div>
+
+        <!-- Game -->
+        <div id="game-screen" class="screen" style="display:none">
+            <!-- Header -->
+            <div class="game-header">
+                <h1>🧘 Tu Tiên Idle</h1>
+                <div class="user-info">
+                    <span id="player-name">Đạo hiệu</span>
+                    <button id="logout-btn">Thoát</button>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="game-grid">
+                <!-- Left: Trạng thái -->
+                <div class="panel status-panel">
+                    <h2>🌿 Tu Vi</h2>
+                    <div class="status-item">
+                        <label>Cảnh giới</label>
+                        <span id="realm">Luyện Khí</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Tầng</label>
+                        <span id="level">1</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Tu vi</label>
+                        <div class="progress-bar">
+                            <div id="exp-bar" style="width:0%"></div>
+                        </div>
+                        <span id="exp-text">0 / 100</span>
+                    </div>
+                    
+                    <h2>⚔️ Chiến Lực</h2>
+                    <div class="status-item">
+                        <label>HP</label>
+                        <div class="progress-bar">
+                            <div id="hp-bar" style="width:100%"></div>
+                        </div>
+                        <span id="hp-text">100 / 100</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Công</label>
+                        <span id="atk">10</span>
+                    </div>
+                    <div class="status-item">
+                        <label>Thủ</label>
+                        <span id="def">5</span>
+                    </div>
+                    <div class="status-item">
+                        <label>💰 Linh Thạch</label>
+                        <span id="gold">0</span>
+                    </div>
+                </div>
+
+                <!-- Center: Khu vực + Log -->
+                <div class="panel combat-panel">
+                    <h2>🗺️ Khu Vực</h2>
+                    <div class="zone-info">
+                        <span id="zone-name">Rừng Thấp</span>
+                        <span id="zone-monster">Yêu Lang</span>
+                    </div>
+                    <div class="combat-controls">
+                        <button id="zone-prev">◀</button>
+                        <button id="toggle-fight" class="btn-primary">⏸ Tạm Dừng</button>
+                        <button id="zone-next">▶</button>
+                    </div>
+                    
+                    <h2>📜 Nhật Ký</h2>
+                    <div id="log-container">
+                        <div class="log-entry">Chào mừng đến với Tu Tiên Idle!</div>
+                    </div>
+                </div>
+
+                <!-- Right: Inventory + Buffs -->
+                <div class="panel inventory-panel">
+                    <h2>🎒 Túi Đồ</h2>
+                    <div id="inventory-container">
+                        <div class="empty-inventory">Túi đồ trống</div>
+                    </div>
+                    
+                    <h2>✨ Buff</h2>
+                    <div id="buffs-container">
+                        <div class="empty-buffs">Không có buff</div>
+                    </div>
+                    
+                    <h2>💎 Kỳ Ngộ</h2>
+                    <div id="fortune-container">
+                        <div class="empty-fortune">Chưa có kỳ ngộ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

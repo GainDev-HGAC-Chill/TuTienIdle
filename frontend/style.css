@@ -1,0 +1,376 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a12;
+    color: #c8b88a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* ===== LOGIN ===== */
+#login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-box {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    padding: 50px;
+    border-radius: 20px;
+    border: 1px solid rgba(180, 150, 100, 0.2);
+    text-align: center;
+    min-width: 350px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+}
+
+.login-box h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #f0d68a;
+}
+
+.login-box p {
+    color: rgba(180, 160, 120, 0.6);
+    margin-bottom: 25px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(180, 150, 100, 0.15);
+    border-radius: 10px;
+    color: #e8d5b0;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.login-box input:focus {
+    border-color: rgba(180, 150, 100, 0.4);
+    box-shadow: 0 0 30px rgba(180, 150, 100, 0.05);
+}
+
+.login-box button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    background: linear-gradient(135deg, #4a3f2b, #6a5a3b);
+    border: none;
+    border-radius: 10px;
+    color: #f0e0c0;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.login-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(180, 150, 100, 0.2);
+}
+
+/* ===== GAME ===== */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(180, 150, 100, 0.1);
+}
+
+.game-header h1 {
+    font-size: 24px;
+    color: #f0d68a;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info span {
+    color: #c8b88a;
+    font-size: 16px;
+}
+
+#logout-btn {
+    padding: 6px 16px;
+    background: rgba(180, 50, 50, 0.2);
+    border: 1px solid rgba(180, 50, 50, 0.3);
+    border-radius: 6px;
+    color: #c88a7a;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#logout-btn:hover {
+    background: rgba(180, 50, 50, 0.3);
+}
+
+/* ===== GRID ===== */
+.game-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    gap: 20px;
+}
+
+.panel {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(180, 150, 100, 0.08);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.panel::-webkit-scrollbar {
+    width: 4px;
+}
+
+.panel::-webkit-scrollbar-thumb {
+    background: rgba(180, 150, 100, 0.2);
+    border-radius: 10px;
+}
+
+.panel h2 {
+    font-size: 16px;
+    color: rgba(180, 150, 100, 0.4);
+    margin: 15px 0 12px 0;
+    letter-spacing: 2px;
+    font-weight: 400;
+    border-bottom: 1px solid rgba(180, 150, 100, 0.05);
+    padding-bottom: 8px;
+}
+
+.panel h2:first-child {
+    margin-top: 0;
+}
+
+/* ===== STATUS ===== */
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 14px;
+}
+
+.status-item label {
+    color: rgba(180, 160, 120, 0.4);
+    font-size: 12px;
+}
+
+.status-item span {
+    color: #e8d5b0;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.progress-bar div {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+#exp-bar {
+    background: linear-gradient(90deg, #4a7a4a, #8ac88a);
+}
+
+#hp-bar {
+    background: linear-gradient(90deg, #7a2a2a, #d45a4a);
+}
+
+/* ===== ZONE ===== */
+.zone-info {
+    text-align: center;
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.zone-info #zone-name {
+    display: block;
+    font-size: 18px;
+    color: #f0d68a;
+}
+
+.zone-info #zone-monster {
+    display: block;
+    font-size: 13px;
+    color: rgba(180, 160, 120, 0.5);
+}
+
+.combat-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.combat-controls button {
+    padding: 8px 16px;
+    background: rgba(180, 150, 100, 0.08);
+    border: 1px solid rgba(180, 150, 100, 0.1);
+    border-radius: 6px;
+    color: #c8b88a;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.combat-controls button:hover {
+    background: rgba(180, 150, 100, 0.15);
+}
+
+.combat-controls .btn-primary {
+    background: rgba(180, 150, 100, 0.15);
+    border-color: rgba(180, 150, 100, 0.2);
+    flex: 1;
+}
+
+/* ===== LOG ===== */
+#log-container {
+    max-height: 300px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.log-entry {
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(180, 150, 100, 0.02);
+    color: rgba(200, 185, 160, 0.6);
+}
+
+.log-entry.fortune {
+    color: #f0d68a;
+}
+
+.log-entry.combat {
+    color: #d48a6a;
+}
+
+.log-entry.item {
+    color: #8ac8a0;
+}
+
+/* ===== INVENTORY ===== */
+#inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.inventory-item {
+    padding: 4px 10px;
+    background: rgba(180, 150, 100, 0.06);
+    border: 1px solid rgba(180, 150, 100, 0.08);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #c8b88a;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.inventory-item:hover {
+    background: rgba(180, 150, 100, 0.12);
+    border-color: rgba(180, 150, 100, 0.2);
+}
+
+.inventory-item .amount {
+    color: rgba(180, 160, 120, 0.4);
+    margin-left: 4px;
+}
+
+.empty-inventory, .empty-buffs, .empty-fortune {
+    color: rgba(180, 160, 120, 0.2);
+    font-style: italic;
+    font-size: 13px;
+    padding: 10px 0;
+}
+
+/* ===== BUFFS ===== */
+#buffs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.buff-item {
+    padding: 4px 10px;
+    background: rgba(100, 180, 200, 0.06);
+    border: 1px solid rgba(100, 180, 200, 0.1);
+    border-radius: 6px;
+    font-size: 12px;
+    color: #8ac8d4;
+}
+
+.buff-item .timer {
+    color: rgba(100, 180, 200, 0.4);
+    margin-left: 4px;
+}
+
+/* ===== FORTUNE ===== */
+#fortune-container {
+    min-height: 40px;
+}
+
+.fortune-item {
+    padding: 8px 12px;
+    background: rgba(200, 180, 80, 0.06);
+    border: 1px solid rgba(200, 180, 80, 0.1);
+    border-radius: 6px;
+    font-size: 13px;
+    color: #f0d68a;
+    margin-bottom: 6px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .game-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .panel:last-child {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+    .panel:last-child {
+        grid-column: span 1;
+    }
+    .login-box {
+        min-width: unset;
+        width: 100%;
+        padding: 30px;
+    }
+}
