@@ -2,21 +2,21 @@
   "demo": {
     "username": "demo",
     "createdAt": 1781782784844,
-    "lastSave": 1781816444327,
-    "lastTick": 1781816444310,
+    "lastSave": 1781816792342,
+    "lastTick": 1781816792318,
     "cultivation": {
       "world": "nhan_gioi",
-      "realmIndex": 0,
-      "stage": 8,
-      "tuVi": 232,
-      "maxTuVi": 800,
+      "realmIndex": 1,
+      "stage": 3,
+      "tuVi": 152,
+      "maxTuVi": 600,
       "daoEntry": null
     },
     "combat": {
-      "hp": 200,
-      "maxHp": 200,
-      "atk": 30,
-      "def": 15,
+      "hp": 240,
+      "maxHp": 240,
+      "atk": 38,
+      "def": 19,
       "critRate": 0.05,
       "critDmg": 1.5
     },
@@ -278,11 +278,11 @@
     "buffs": [],
     "fortunesEncountered": [],
     "stats": {
-      "totalKills": 307,
+      "totalKills": 475,
       "totalExp": 0,
       "totalGold": 0,
-      "playTime": 9139,
-      "totalTuVi": 13340
+      "playTime": 9447,
+      "totalTuVi": 15636
     },
     "permanentBonuses": {
       "atk": 0,
@@ -330,7 +330,7 @@
       "kim"
     ],
     "currencies": {
-      "so_linh_thach": 307,
+      "so_linh_thach": 475,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -384,7 +384,7 @@
           "plantedAt": 1781815181959
         }
       ],
-      "lastProcessAt": 1781816444310
+      "lastProcessAt": 1781816792318
     },
     "activePillBuffs": [],
     "breakthroughPillLock": null
@@ -516,6 +516,117 @@
       },
       "herbPlots": [],
       "lastProcessAt": 1781804193712
+    },
+    "activePillBuffs": [],
+    "breakthroughPillLock": null
+  },
+  "demo1": {
+    "username": "demo1",
+    "createdAt": 1781816614329,
+    "lastSave": 1781816626436,
+    "lastTick": 1781816625522,
+    "cultivation": {
+      "world": "nhan_gioi",
+      "realmIndex": 0,
+      "stage": 1,
+      "tuVi": 40,
+      "maxTuVi": 100,
+      "daoEntry": null
+    },
+    "bodyCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "soulCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "skills": {
+      "learned": {},
+      "equippedMartial": [],
+      "equippedDivine": []
+    },
+    "alchemy": {
+      "rank": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "spiritRoot": {
+      "element": null,
+      "evolution": null,
+      "awakenedAt": null,
+      "history": []
+    },
+    "spiritRoots": [],
+    "combat": {
+      "hp": 100,
+      "maxHp": 100,
+      "atk": 10,
+      "def": 5,
+      "speed": 5,
+      "critRate": 0.05,
+      "critDmg": 1.5
+    },
+    "inventory": [],
+    "currentZone": "ap_suong_mu",
+    "autoFight": true,
+    "stats": {
+      "totalKills": 3,
+      "totalTuVi": 40,
+      "playTime": 10
+    },
+    "permanentBonuses": {
+      "atk": 0,
+      "def": 0,
+      "tuViBonus": 0
+    },
+    "cave": {
+      "level": 1,
+      "resources": {
+        "aura": 10,
+        "herbEssence": 0,
+        "alchemyFire": 0
+      },
+      "buildings": {
+        "cave_core": {
+          "level": 1
+        },
+        "spirit_array": {
+          "level": 1
+        },
+        "herb_garden": {
+          "level": 1
+        },
+        "alchemy_room": {
+          "level": 1
+        },
+        "storage_room": {
+          "level": 1
+        }
+      },
+      "herbPlots": [],
+      "lastProcessAt": 1781816625521
+    },
+    "currencies": {
+      "so_linh_thach": 3,
+      "trung_linh_thach": 0,
+      "thuong_linh_thach": 0,
+      "so_tien_thach": 0,
+      "trung_tien_thach": 0,
+      "thuong_tien_thach": 0,
+      "so_nguyen_thach": 0,
+      "trung_nguyen_thach": 0,
+      "thuong_nguyen_thach": 0,
+      "so_dao_thach": 0,
+      "trung_dao_thach": 0,
+      "thuong_dao_thach": 0,
+      "so_chung_cuc_thach": 0,
+      "trung_chung_cuc_thach": 0,
+      "thuong_chung_cuc_thach": 0
     },
     "activePillBuffs": [],
     "breakthroughPillLock": null

@@ -5038,4 +5038,23 @@ const MAPS = [
   }
 ];
 
-module.exports = MAPS;
+function addMapRequirements(maps) {
+  const countByRealm = {};
+
+  return maps.map(map => {
+    const key = `${map.world}_${map.realmIndex}`;
+    const index = countByRealm[key] || 0;
+    countByRealm[key] = index + 1;
+
+    return {
+      ...map,
+      required: {
+        world: map.world,
+        realmIndex: map.realmIndex,
+        stage: index === 0 ? 1 : 5,
+      },
+    };
+  });
+}
+
+module.exports = addMapRequirements(MAPS);

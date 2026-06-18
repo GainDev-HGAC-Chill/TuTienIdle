@@ -179,16 +179,16 @@ function getDefaultMapId() {
 }
 
 function isMapUnlocked(player, map) {
-  const c = player.cultivation || {};
-  const pWorld = c.world || 'nhan_gioi';
-  const pRealmIndex = Number(c.realmIndex || 0);
+  const cult = player.cultivation || {};
+  const req = map.required || {};
 
-  const wDiff = worldOrder(pWorld) - worldOrder(map.world);
-  if (wDiff > 0) return true;
-  if (wDiff < 0) return false;
-  return pRealmIndex >= Number(map.realmIndex || 0);
+  if (cult.world !== req.world) return false;
+  if ((cult.realmIndex || 0) < (req.realmIndex || 0)) return false;
+  if ((cult.realmIndex || 0) === (req.realmIndex || 0)) {
+    return (cult.stage || 1) >= (req.stage || 1);
+  }
+  return true;
 }
-
 function getUnlockedMaps(player) {
   return getAllMaps().filter(map => isMapUnlocked(player, map));
 }
