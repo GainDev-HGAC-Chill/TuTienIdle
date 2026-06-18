@@ -2,21 +2,21 @@
   "demo": {
     "username": "demo",
     "createdAt": 1781782784844,
-    "lastSave": 1781815508288,
-    "lastTick": 1781815508288,
+    "lastSave": 1781816444327,
+    "lastTick": 1781816444310,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 2,
-      "tuVi": 42,
-      "maxTuVi": 200,
+      "stage": 8,
+      "tuVi": 232,
+      "maxTuVi": 800,
       "daoEntry": null
     },
     "combat": {
-      "hp": 140,
-      "maxHp": 140,
-      "atk": 18,
-      "def": 9,
+      "hp": 200,
+      "maxHp": 200,
+      "atk": 30,
+      "def": 15,
       "critRate": 0.05,
       "critDmg": 1.5
     },
@@ -273,16 +273,16 @@
         "category": "cultivation"
       }
     ],
-    "currentZone": "rừng_thấp",
+    "currentZone": "ap_suong_mu",
     "autoFight": true,
     "buffs": [],
     "fortunesEncountered": [],
     "stats": {
-      "totalKills": 135,
+      "totalKills": 307,
       "totalExp": 0,
       "totalGold": 0,
-      "playTime": 8248,
-      "totalTuVi": 9838
+      "playTime": 9139,
+      "totalTuVi": 13340
     },
     "permanentBonuses": {
       "atk": 0,
@@ -330,7 +330,7 @@
       "kim"
     ],
     "currencies": {
-      "so_linh_thach": 135,
+      "so_linh_thach": 307,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -384,7 +384,7 @@
           "plantedAt": 1781815181959
         }
       ],
-      "lastProcessAt": 1781815508288
+      "lastProcessAt": 1781816444310
     },
     "activePillBuffs": [],
     "breakthroughPillLock": null

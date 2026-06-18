@@ -195,14 +195,12 @@ function renderCultivation() {
     $('cultivation-progress').textContent = `${percent.toFixed(1)}%`;
     $('cultivation-bar').style.width = `${percent}%`;
     $('cult-world').textContent = info.worldName || cult.world || '-';
-	$('cult-type').textContent =
-    `${info.realmName || cult.realmName || ''} ${cult.stage || ''}/9`;
+    $('cult-type').textContent = info.progressType || '-';
     $('tuvi-rate').textContent = estimateTuViRate();
 
     $('zone-name').textContent = playerData.zoneName || '-';
     const zone = metaData?.zones?.[playerData.currentZone];
     $('zone-monster').textContent = zone?.monster || 'Không rõ';
-	renderMapButtons();
     $('toggle-fight').textContent = playerData.autoFight ? 'Tạm dừng tự đánh' : 'Tiếp tục tự đánh';
 
     const buffs = playerData.activePillBuffs || [];
@@ -218,31 +216,6 @@ function estimateTuViRate() {
     const base = 1 + caveAura;
     const bonus = (playerData.permanentBonuses?.tuViBonus || 0) + (effects.cultivationSpeedPercent || 0) + (effects.tuViBonusPercent || 0);
     return `${(base * (1 + bonus / 100)).toFixed(2)}/s`;
-}
-
-
-function ensureMapButtonsContainer() {
-  let el = document.getElementById('map-buttons') || document.getElementById('zone-buttons') || document.getElementById('zone-list');
-  if (el) return el;
-
-  const monsterEl = document.getElementById('zone-monster');
-  el = document.createElement('div');
-  el.id = 'map-buttons';
-  el.className = 'action-row zone-actions';
-
-  const card = monsterEl?.closest('.card, .panel, .glass-card, section, div');
-  if (card) card.appendChild(el);
-  else document.body.appendChild(el);
-  return el;
-}
-
-function renderMapButtons() {
-  const el = ensureMapButtonsContainer();
-  const maps = playerData?.unlockedMaps || [];
-  el.innerHTML = (maps || []).map(map => `<button class="secondary-btn map-btn ${map.id === playerData.currentZone ? 'active' : ''}" data-map-id="${map.id}">${map.name}</button>`).join('') || '<span class="muted">Chưa mở map.</span>';
-  el.querySelectorAll('.map-btn').forEach(btn => {
-    btn.onclick = () => changeZone(btn.dataset.mapId);
-});
 }
 
 async function toggleFight() {

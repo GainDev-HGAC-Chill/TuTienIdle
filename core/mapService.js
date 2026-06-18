@@ -1,191 +1,299 @@
 // ============================================
 // CORE - MAP SERVICE
-// Quản lý map/quái theo giới/cảnh giới.
+// Dùng config/maps.js thay cho ZONES test cũ.
+// Hỗ trợ nhiều format maps.js: array, { maps: [] }, { worlds: [...] }, object nested.
 // ============================================
 
-const MAPS = require('../config/maps');
+let MAP_CONFIG = [];
+try {
+  MAP_CONFIG = require('../config/maps');
+} catch (err) {
+  console.warn('[mapService] Không đọc được config/maps.js:', err.message);
+}
+
 const REALM_CONFIG = require('../config/realms');
 
-function getWorldOrder(worldId) {
-  const world = REALM_CONFIG.worlds.find(w => w.id === worldId);
-  return world ? world.order : 1;
+const FALLBACK_MAPS = [
+  {
+    id: 'ap_suong_mu',
+    name: 'Ấp Sương Mù',
+    world: 'nhan_gioi',
+    worldName: 'Nhân Giới',
+    realmIndex: 0,
+    realmName: 'Luyện Khí',
+    description: 'Một ngôi làng nhỏ bị sương mù bao phủ quanh năm.',
+    monsters: [
+      'Lang Mồ Côi', 'Cú Rít', 'Hồn Ma Đèn', 'Xác Ướp Đồng', 'Mắt Độc',
+      'Dơi Bạch Tạng', 'Gốc Cây Huyết', 'Chuột Đá', 'Rết Bảy Màu', 'Bùn Sống',
+    ],
+    boss: { name: 'Vương Lão Bà Sương' },
+    rewards: ['Sương Châu', 'Linh thạch cấp 1'],
+  },
+  {
+    id: 'rung_go_khoc',
+    name: 'Rừng Gỗ Khóc',
+    world: 'nhan_gioi',
+    worldName: 'Nhân Giới',
+    realmIndex: 0,
+    realmName: 'Luyện Khí',
+    description: 'Khu rừng nơi những cây cổ thụ phát ra tiếng khóc than.',
+    monsters: [
+      'Khỉ Nhăn', 'Chim Than', 'Nhện Ve', 'Cóc Cẩm Thạch', 'Rắn Lá Khô',
+      'Heo Gai', 'Ếch Móc', 'Tắc Kè Khói', 'Chồn Độc', 'Cây Chạy',
+    ],
+    boss: { name: 'Mộc Thần Khóc' },
+    rewards: ['Gỗ Khóc', 'Linh thạch cấp 1'],
+  },
+];
+
+function slug(input) {
+  return String(input || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
 }
 
-function getRealmOrder(worldId, realmId) {
-  const world = REALM_CONFIG.worlds.find(w => w.id === worldId);
-  if (!world) return 0;
-  const index = world.realms.findIndex(r => r.id === realmId);
-  return index >= 0 ? index + 1 : 0;
+function getWorldName(worldId) {
+  const world = REALM_CONFIG.worlds?.find(w => w.id === worldId);
+  return world?.name || world?.displayName || worldId || '-';
 }
 
-function getMapPower(map) {
-  const worldOrder = getWorldOrder(map.world);
-  const realmOrder = getRealmOrder(map.world, map.realm) || 1;
-
-  // Scale tạm để test idle:
-  // Nhân Giới đầu game nhẹ, càng lên giới/cảnh giới càng mạnh.
-  return Math.max(1, (worldOrder - 1) * 10 + realmOrder);
+function getRealmName(worldId, realmIndex) {
+  const world = REALM_CONFIG.worlds?.find(w => w.id === worldId);
+  const realm = world?.realms?.[Number(realmIndex || 0)];
+  return realm?.name || realm?.displayName || realm?.id || '-';
 }
 
-function enrichMap(map) {
-  if (!map) return null;
-
-  const power = getMapPower(map);
-  const hp = 40 + power * 35;
-  const atk = 4 + power * 5;
-  const def = 2 + power * 3;
-  const tuViReward = 8 + power * 12;
-
-  return {
-    ...map,
-    power,
-    recommendedPower: power,
-    monsterStats: {
-      hp,
-      atk,
-      def,
-      tuViReward,
-    },
-    bossStats: {
-      hp: Math.floor(hp * 8),
-      atk: Math.floor(atk * 3),
-      def: Math.floor(def * 3),
-      tuViReward: Math.floor(tuViReward * 20),
-    },
-  };
+function worldOrder(worldId) {
+  const world = REALM_CONFIG.worlds?.find(w => w.id === worldId);
+  return world?.order || 0;
 }
 
-function getAllMaps() {
-  return MAPS.map(enrichMap);
+function isMapLike(obj) {
+  return obj && typeof obj === 'object' && !Array.isArray(obj)
+    && (obj.name || obj.mapName || obj.title)
+    && (obj.monsters || obj.monster || obj.boss || obj.rewards || obj.reward);
 }
 
-function getMapById(mapId) {
-  return enrichMap(MAPS.find(m => m.id === mapId));
-}
+function flattenMaps(input, ctx = {}, out = []) {
+  if (!input) return out;
 
-function getMapsByRealm(worldId, realmId) {
-  return MAPS
-    .filter(m => m.world === worldId && m.realm === realmId)
-    .map(enrichMap);
-}
-
-function getCurrentRealmMaps(player) {
-  const c = player.cultivation || {};
-  const worldId = c.world || 'nhan_gioi';
-
-  const world = REALM_CONFIG.worlds.find(w => w.id === worldId);
-  const realm = world?.realms?.[c.realmIndex || 0];
-  const realmId = realm?.id;
-
-  return getMapsByRealm(worldId, realmId);
-}
-
-function getDefaultMapForPlayer(player) {
-  const current = getCurrentRealmMaps(player);
-  if (current.length > 0) return current[0];
-
-  // Fallback đầu game.
-  return getMapById('ap_suong_mu') || enrichMap(MAPS[0]);
-}
-
-function isMapUnlocked(player, mapId) {
-  const map = MAPS.find(m => m.id === mapId);
-  if (!map) return { ok: false, reason: 'Map không tồn tại.' };
-
-  const c = player.cultivation || {};
-  const playerWorldOrder = getWorldOrder(c.world || 'nhan_gioi');
-  const mapWorldOrder = getWorldOrder(map.world);
-
-  if (playerWorldOrder < mapWorldOrder) {
-    return {
-      ok: false,
-      reason: 'Chưa mở giới này.',
-      map,
-    };
+  if (Array.isArray(input)) {
+    for (const item of input) flattenMaps(item, ctx, out);
+    return out;
   }
 
-  if ((c.world || 'nhan_gioi') === map.world) {
-    const playerRealmOrder = (c.realmIndex || 0) + 1;
-    const mapRealmOrder = getRealmOrder(map.world, map.realm);
+  if (typeof input !== 'object') return out;
 
-    if (playerRealmOrder < mapRealmOrder) {
-      return {
-        ok: false,
-        reason: 'Chưa đạt cảnh giới yêu cầu.',
-        map,
-      };
+  const nextCtx = {
+    ...ctx,
+    world: input.world || input.worldId || ctx.world,
+    worldName: input.worldName || ctx.worldName,
+    realm: input.realm || input.realmId || ctx.realm,
+    realmName: input.realmName || input.realmTitle || ctx.realmName,
+    realmIndex: input.realmIndex ?? input.realmOrder ?? ctx.realmIndex,
+  };
+
+  if (isMapLike(input)) {
+    out.push(normalizeMap(input, nextCtx, out.length));
+  }
+
+  for (const key of ['maps', 'zones', 'areas', 'children', 'items', 'realms', 'worlds']) {
+    if (input[key]) flattenMaps(input[key], nextCtx, out);
+  }
+
+  // Hỗ trợ object dạng { ap_suong_mu: {...}, rung_go_khoc: {...} }
+  for (const [key, value] of Object.entries(input)) {
+    if (['maps', 'zones', 'areas', 'children', 'items', 'realms', 'worlds'].includes(key)) continue;
+    if (value && typeof value === 'object') {
+      flattenMaps({ id: value.id || key, ...value }, nextCtx, out);
     }
   }
 
-  return { ok: true, map: enrichMap(map) };
+  return out;
 }
 
-function normalizeOldZone(zoneId) {
-  const legacy = {
-    rung_thap: 'ap_suong_mu',
-    rung_trung: 'rung_go_khoc',
-    dong_ma: 'dong_ngan_ha',
-    'rừng_thấp': 'ap_suong_mu',
-    'rừng_trung': 'rung_go_khoc',
-    'động_ma': 'dong_ngan_ha',
+function normalizeMonster(monster, index, map) {
+  if (typeof monster === 'string') {
+    return { id: `${map.id}_mob_${index + 1}`, name: monster, description: '' };
+  }
+  return {
+    id: monster.id || `${map.id}_mob_${index + 1}`,
+    name: monster.name || monster.title || `Quái ${index + 1}`,
+    description: monster.description || monster.desc || '',
+  };
+}
+
+function normalizeBoss(boss) {
+  if (!boss) return null;
+  if (typeof boss === 'string') return { name: boss, skills: [] };
+  return {
+    id: boss.id || slug(boss.name || boss.title || 'boss'),
+    name: boss.name || boss.title || 'Boss',
+    skills: boss.skills || boss.skill || [],
+  };
+}
+
+function normalizeMap(raw, ctx, index) {
+  const world = raw.world || raw.worldId || ctx.world || 'nhan_gioi';
+  const realmIndex = Number(raw.realmIndex ?? raw.realmOrder ?? ctx.realmIndex ?? 0);
+  const name = raw.name || raw.mapName || raw.title || `Map ${index + 1}`;
+  const id = raw.id || raw.mapId || slug(`${world}_${realmIndex}_${name}`);
+
+  const map = {
+    id,
+    name,
+    world,
+    worldName: raw.worldName || ctx.worldName || getWorldName(world),
+    realm: raw.realm || raw.realmId || ctx.realm || null,
+    realmIndex,
+    realmName: raw.realmName || ctx.realmName || getRealmName(world, realmIndex),
+    description: raw.description || raw.desc || '',
+    rewards: raw.rewards || raw.reward || [],
+    boss: normalizeBoss(raw.boss),
   };
 
-  return legacy[zoneId] || zoneId;
+  const monsters = raw.monsters || raw.monsterList || raw.mobs || [];
+  map.monsters = Array.isArray(monsters)
+    ? monsters.map((mob, i) => normalizeMonster(mob, i, map))
+    : [normalizeMonster(monsters, 0, map)];
+
+  return map;
 }
 
-function ensureValidCurrentMap(player) {
-  player.currentZone = normalizeOldZone(player.currentZone);
+function getAllMaps() {
+  const maps = flattenMaps(MAP_CONFIG);
+  return maps.length ? maps : FALLBACK_MAPS.map((m, i) => normalizeMap(m, {}, i));
+}
 
-  const current = getMapById(player.currentZone);
-  if (!current) {
-    const fallback = getDefaultMapForPlayer(player);
-    player.currentZone = fallback.id;
-    return fallback;
+function getMapById(mapId) {
+  return getAllMaps().find(m => m.id === mapId) || null;
+}
+
+function getDefaultMapId() {
+  return getAllMaps()[0]?.id || 'ap_suong_mu';
+}
+
+function isMapUnlocked(player, map) {
+  const c = player.cultivation || {};
+  const pWorld = c.world || 'nhan_gioi';
+  const pRealmIndex = Number(c.realmIndex || 0);
+
+  const wDiff = worldOrder(pWorld) - worldOrder(map.world);
+  if (wDiff > 0) return true;
+  if (wDiff < 0) return false;
+  return pRealmIndex >= Number(map.realmIndex || 0);
+}
+
+function getUnlockedMaps(player) {
+  return getAllMaps().filter(map => isMapUnlocked(player, map));
+}
+
+function ensureCurrentMap(player) {
+  const unlocked = getUnlockedMaps(player);
+  const fallback = unlocked[0] || getAllMaps()[0];
+  if (!player.currentZone || !getMapById(player.currentZone) || !isMapUnlocked(player, getMapById(player.currentZone))) {
+    player.currentZone = fallback?.id || getDefaultMapId();
   }
-
-  const unlock = isMapUnlocked(player, current.id);
-  if (!unlock.ok) {
-    const fallback = getDefaultMapForPlayer(player);
-    player.currentZone = fallback.id;
-    return fallback;
-  }
-
-  return unlock.map;
+  return getMapById(player.currentZone) || fallback;
 }
 
 function getRandomMonster(map) {
-  if (!map || !map.monsters || map.monsters.length === 0) return null;
-  return map.monsters[Math.floor(Math.random() * map.monsters.length)];
+  const list = map?.monsters || [];
+  if (!list.length) return { name: 'Không rõ' };
+  return list[Math.floor(Math.random() * list.length)];
 }
 
-function getCombatZone(player) {
-  const map = ensureValidCurrentMap(player);
-  const monster = getRandomMonster(map);
+function getScale(map) {
+  const w = Math.max(1, worldOrder(map.world) || 1);
+  const r = Number(map.realmIndex || 0) + 1;
+  return Math.max(1, Math.floor(Math.pow(2.2, w - 1) * r));
+}
 
+function buildMonsterStats(player, map, monster) {
+  const scale = getScale(map);
   return {
-    id: map.id,
-    name: map.name,
-    world: map.world,
-    realm: map.realm,
-    monster: monster?.name || 'Yêu Thú',
-    monsterInfo: monster,
-    boss: map.boss,
-    hp: map.monsterStats.hp,
-    atk: map.monsterStats.atk,
-    def: map.monsterStats.def,
-    tuViReward: map.monsterStats.tuViReward,
-    map,
+    id: monster.id,
+    name: monster.name,
+    hp: 40 * scale,
+    atk: 5 * scale,
+    def: 2 * scale,
+    tuViReward: 10 * scale,
+    stoneReward: Math.max(1, scale),
+  };
+}
+
+function fightMonster(player) {
+  const map = ensureCurrentMap(player);
+  const monster = getRandomMonster(map);
+  const mob = buildMonsterStats(player, map, monster);
+
+  const atk = (player.combat?.atk || 1) + (player.permanentBonuses?.atk || 0);
+  const def = (player.combat?.def || 0) + (player.permanentBonuses?.def || 0);
+  const damage = Math.max(1, atk - mob.def / 2);
+  const killChance = Math.min(0.95, damage / (mob.hp + def));
+
+  const killed = Math.random() < killChance || damage >= mob.hp;
+  if (killed) {
+    player.stats.totalKills += 1;
+    player.cultivation.tuVi += mob.tuViReward;
+    player.stats.totalTuVi += mob.tuViReward;
+    return { killed: true, map, monster: mob };
+  }
+
+  return { killed: false, map, monster: mob };
+}
+
+function getZonesForMeta() {
+  const obj = {};
+  for (const map of getAllMaps()) {
+    obj[map.id] = {
+      id: map.id,
+      name: map.name,
+      world: map.world,
+      worldName: map.worldName,
+      realmIndex: map.realmIndex,
+      realmName: map.realmName,
+      description: map.description,
+      monster: map.monsters?.[0]?.name || 'Không rõ',
+      monsters: map.monsters || [],
+      boss: map.boss,
+      rewards: map.rewards,
+    };
+  }
+  return obj;
+}
+
+function getPlayerMapState(player) {
+  const currentMap = ensureCurrentMap(player);
+  return {
+    currentMap,
+    unlockedMaps: getUnlockedMaps(player).map(map => ({
+      id: map.id,
+      name: map.name,
+      world: map.world,
+      worldName: map.worldName,
+      realmIndex: map.realmIndex,
+      realmName: map.realmName,
+      description: map.description,
+      monster: map.monsters?.[0]?.name || 'Không rõ',
+      boss: map.boss,
+      rewards: map.rewards,
+    })),
   };
 }
 
 module.exports = {
   getAllMaps,
   getMapById,
-  getMapsByRealm,
-  getCurrentRealmMaps,
-  getDefaultMapForPlayer,
-  isMapUnlocked,
-  ensureValidCurrentMap,
-  normalizeOldZone,
-  getCombatZone,
+  getDefaultMapId,
+  getUnlockedMaps,
+  ensureCurrentMap,
+  fightMonster,
+  getZonesForMeta,
+  getPlayerMapState,
 };

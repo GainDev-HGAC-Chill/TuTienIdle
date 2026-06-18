@@ -11,7 +11,7 @@ const skillService = require('./core/skillService');
 const spiritRootService = require('./core/spiritRootService');
 const pillService = require('./core/pillService');
 const alchemyService = require('./core/alchemyService');
-const caveService = require('./core/caveService'); const mapService = require('./core/mapService');
+const caveService = require('./core/caveService');
 const herbGardenService = require('./core/herbGardenService');
 
 const REALM_CONFIG = require('./config/realms');
@@ -90,7 +90,7 @@ function ensurePlayerShape(player) {
     }
     if (!player.inventory) player.inventory = [];
     if (!player.stats) player.stats = { totalKills: 0, totalTuVi: 0, playTime: 0 };
-    if (!player.currentZone) player.currentZone = mapService.getDefaultMapId(); mapService.ensureCurrentMap(player);
+    if (!player.currentZone) player.currentZone = 'rung_thap';
     if (player.autoFight === undefined) player.autoFight = true;
     if (!player.lastTick) player.lastTick = Date.now();
     if (!player.createdAt) player.createdAt = Date.now();
@@ -116,7 +116,7 @@ function createNewPlayer(username) {
         spiritRoots: [],
         combat: { hp: 100, maxHp: 100, atk: 10, def: 5, speed: 5, critRate: 0.05, critDmg: 1.5 },
         inventory: [],
-        currentZone: mapService.getDefaultMapId(),
+        currentZone: 'rung_thap',
         autoFight: true,
         stats: { totalKills: 0, totalTuVi: 0, playTime: 0 },
         permanentBonuses: { atk: 0, def: 0, tuViBonus: 0 },
@@ -170,12 +170,25 @@ function updateCultivation(player) {
     }
 }
 
+const ZONES = {
+    rung_thap: { name: 'Rừng Thấp', monster: 'Yêu Lang', hp: 50, atk: 5, def: 2, tuViReward: 10 },
+    rung_trung: { name: 'Rừng Trung', monster: 'Hắc Hổ', hp: 200, atk: 15, def: 8, tuViReward: 40 },
+    dong_ma: { name: 'Động Ma', monster: 'Ma Nhân', hp: 500, atk: 30, def: 15, tuViReward: 100 },
+};
+
 function fightMonster(player) {
-  const result = mapService.fightMonster(player);
-  if (result.killed) {
-    currencyService.addCurrency(player, 'so_linh_thach', Math.max(1, result.monster.stoneReward || Math.floor((result.monster.tuViReward || 10) / 10)));
-  }
-  return result;
+    const zone = ZONES[player.currentZone] || ZONES.rung_thap;
+    const atk = player.combat.atk + (player.permanentBonuses.atk || 0);
+    const def = player.combat.def + (player.permanentBonuses.def || 0);
+    const damage = Math.max(1, atk - zone.def / 2);
+    const killChance = Math.min(0.95, damage / (zone.hp + def));
+
+    if (Math.random() < killChance || damage >= zone.hp) {
+        player.stats.totalKills += 1;
+        player.cultivation.tuVi += zone.tuViReward;
+        player.stats.totalTuVi += zone.tuViReward;
+        currencyService.addCurrency(player, 'so_linh_thach', Math.max(1, Math.floor(zone.tuViReward / 10)));
+    }
 }
 
 function getTuViGainPerSecond(player) {
@@ -267,7 +280,7 @@ function sanitizePlayer(player) {
         gold: Math.round(player.currencies?.so_linh_thach || 0),
         inventory: player.inventory,
         currentZone: player.currentZone,
-        zoneName: mapService.ensureCurrentMap(player)?.name || 'Unknown', currentMap: mapService.getPlayerMapState(player).currentMap, unlockedMaps: mapService.getPlayerMapState(player).unlockedMaps,
+        zoneName: ZONES[player.currentZone]?.name || 'Unknown',
         autoFight: player.autoFight,
         stats: player.stats,
         permanentBonuses: player.permanentBonuses,
@@ -291,7 +304,8 @@ app.get('/api/meta', (req, res) => {
             herbs: HERBS.length,
             recipes: RECIPES.length,
         },
-        zones: mapService.getZonesForMeta(), maps: mapService.getAllMaps(), skillRules: SKILL_RULES,
+        zones: ZONES,
+        skillRules: SKILL_RULES,
     });
 });
 
@@ -312,16 +326,13 @@ app.post('/api/player/:username', (req, res) => {
 });
 
 app.post('/api/player/:username/zone', (req, res) => {
-  const players = loadPlayers();
-  const player = getPlayerOrCreate(players, req.params.username);
-  const zone = req.body.zone || req.body.mapId;
-  const map = mapService.getMapById(zone);
-  if (!map) return res.status(400).json({ success: false, error: 'Invalid map' });
-  if (!mapService.getUnlockedMaps(player).some(item => item.id === map.id)) {
-    return res.status(400).json({ success: false, error: 'Map chưa mở khóa theo cảnh giới hiện tại.' });
-  }
-  player.currentZone = map.id;
-  sendPlayer(res, players, player, { message: `Đã chuyển đến ${map.name}` });
+    const players = loadPlayers();
+    const player = getPlayerOrCreate(players, req.params.username);
+    const zone = req.body.zone;
+    const normalized = zone === 'rừng_thấp' ? 'rung_thap' : zone === 'rừng_trung' ? 'rung_trung' : zone === 'động_ma' ? 'dong_ma' : zone;
+    if (!ZONES[normalized]) return res.status(400).json({ success: false, error: 'Invalid zone' });
+    player.currentZone = normalized;
+    sendPlayer(res, players, player, { message: `Đã chuyển đến ${ZONES[normalized].name}` });
 });
 
 app.get('/api/skills', (req, res) => {
