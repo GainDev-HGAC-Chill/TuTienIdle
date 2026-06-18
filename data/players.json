@@ -2,36 +2,36 @@
   "demo": {
     "username": "demo",
     "createdAt": 1781782784844,
-    "lastSave": 1781803777623,
-    "lastTick": 1781803777623,
+    "lastSave": 1781804305291,
+    "lastTick": 1781804305291,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 2,
-      "tuVi": 0,
-      "maxTuVi": 200,
+      "stage": 3,
+      "tuVi": 102,
+      "maxTuVi": 300,
       "daoEntry": null
     },
     "combat": {
-      "hp": 110,
-      "maxHp": 110,
-      "atk": 12,
-      "def": 6,
+      "hp": 120,
+      "maxHp": 120,
+      "atk": 14,
+      "def": 7,
       "critRate": 0.05,
       "critDmg": 1.5
     },
     "gold": 0,
     "inventory": [],
     "currentZone": "rừng_thấp",
-    "autoFight": true,
+    "autoFight": false,
     "buffs": [],
     "fortunesEncountered": [],
     "stats": {
-      "totalKills": 18,
+      "totalKills": 48,
       "totalExp": 0,
       "totalGold": 0,
-      "playTime": 3600,
-      "totalTuVi": null
+      "playTime": 4111,
+      "totalTuVi": 811
     },
     "permanentBonuses": {
       "atk": 0,
@@ -69,7 +69,7 @@
     },
     "spiritRoots": [],
     "currencies": {
-      "so_linh_thach": 18,
+      "so_linh_thach": 48,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -88,7 +88,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 0,
+        "aura": 511,
         "herbEssence": 0,
         "alchemyFire": 0
       },
@@ -110,7 +110,7 @@
         }
       },
       "herbPlots": [],
-      "lastProcessAt": 1781803777623
+      "lastProcessAt": 1781804305291
     },
     "activePillBuffs": [],
     "breakthroughPillLock": null
@@ -118,21 +118,21 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781782813936,
-    "lastSave": 1781804071295,
-    "lastTick": 1781804071291,
+    "lastSave": 1781804193712,
+    "lastTick": 1781804193712,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 6,
-      "tuVi": 0,
-      "maxTuVi": 600,
+      "stage": 7,
+      "tuVi": 2,
+      "maxTuVi": 700,
       "daoEntry": null
     },
     "combat": {
-      "hp": 190,
-      "maxHp": 190,
-      "atk": 32,
-      "def": 14,
+      "hp": 200,
+      "maxHp": 200,
+      "atk": 34,
+      "def": 15,
       "critRate": 0.05,
       "critDmg": 1.5
     },
@@ -153,11 +153,11 @@
       "cuu_huynh_de"
     ],
     "stats": {
-      "totalKills": 303,
+      "totalKills": 382,
       "totalExp": 70,
       "totalGold": 355,
-      "playTime": 4039,
-      "totalTuVi": 2259
+      "playTime": 4160,
+      "totalTuVi": 3170
     },
     "permanentBonuses": {
       "atk": 10,
@@ -200,7 +200,7 @@
     },
     "spiritRoots": [],
     "currencies": {
-      "so_linh_thach": 259,
+      "so_linh_thach": 338,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -219,7 +219,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 299,
+        "aura": 420,
         "herbEssence": 0,
         "alchemyFire": 0
       },
@@ -241,7 +241,7 @@
         }
       },
       "herbPlots": [],
-      "lastProcessAt": 1781804071291
+      "lastProcessAt": 1781804193712
     },
     "activePillBuffs": [],
     "breakthroughPillLock": null
