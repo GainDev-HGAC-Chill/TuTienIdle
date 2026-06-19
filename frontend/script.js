@@ -178,25 +178,86 @@ function progressData(type) {
   return { title: s.info?.name || 'Luyện Hồn', cur: s.exp || 0, max: s.maxExp || 100, sub: 'Thần thức dưỡng hồn' };
 }
 
+function focusStatusText(state) {
+  const selected = state?.selected || ['main'];
+  return selected.map(systemName).join(' + ');
+}
+
 function renderCultivation() {
   const c = playerData.cultivation || {};
+  const state = playerData.cultivationFocusState || { selected: ['main'], limit: 1, options: ['main', 'body', 'soul'] };
+  const options = state.options || ['main', 'body', 'soul'];
+  const selected = state.selected || ['main'];
+
   setText('cultivation-title', `${c.realmName || '-'} · ${fmt(c.exp ?? c.tuVi)} / ${fmt(c.maxExp ?? c.maxTuVi)}`);
   setText('cult-world', c.info?.worldName || '-');
   setText('cult-type', c.info?.name || '-');
   setText('tuvi-rate', `${fmt(playerData.pillEffects?.tuViGainPerSecond || 1)}/s`);
-  const state = playerData.cultivationFocusState || { selected: ['main'], limit: 1, options: ['main', 'body', 'soul'] };
-  setText('focus-limit', `Đang tu ${state.selected.length}/${state.limit} loại`);
-  setText('focus-note', state.limit === 1 ? 'Nhấn thanh nào thì thanh đó chạy. Chưa đủ cảnh giới chỉ được chọn 1 loại.' : `Có thể đồng tu ${state.limit} loại.`);
-  if ($('cultivation-progress-panels')) {
-    $('cultivation-progress-panels').innerHTML = state.options.map(type => {
-      const d = progressData(type), w = pct(d.cur, d.max), active = state.selected.includes(type);
-      return `<button class="progress-card ${active ? 'active' : ''}" data-focus="${type}"><div class="row"><b>${systemName(type)}</b><span>${Math.round(w)}%</span></div><h4>${escapeHtml(d.title)}</h4><p>${escapeHtml(d.sub)}</p><div class="bar"><i style="width:${w}%"></i></div><small>${fmt(d.cur)} / ${fmt(d.max)}</small></button>`;
-    }).join('');
-  }
-  if ($('focus-buttons')) $('focus-buttons').innerHTML = state.options.map(type => `<button class="mini-btn ${state.selected.includes(type) ? 'active' : ''}" data-focus="${type}">${systemName(type)}</button>`).join('');
+  setText('focus-limit', `Đang tu ${selected.length}/${state.limit} loại`);
+  setText('focus-note', state.limit === 1
+    ? 'Chưa đủ cảnh giới chỉ chọn được 1 mạch tu. Ô sáng xanh là mạch đang chạy.'
+    : `Hiện có thể đồng tu ${state.limit} mạch. Ô sáng xanh là mạch đang chạy.`);
+
+  const summaryHtml = `
+    <div class="cultivation-summary">
+      <div class="cult-summary-card active-now">
+        <small>Đang hấp nạp</small>
+        <b>${escapeHtml(focusStatusText(state))}</b>
+        <em>${selected.length}/${state.limit} mạch</em>
+      </div>
+      <div class="cult-summary-card">
+        <small>Cảnh giới chính</small>
+        <b>${escapeHtml(c.realmName || '-')}</b>
+        <em>${fmt(c.exp ?? c.tuVi)} / ${fmt(c.maxExp ?? c.maxTuVi)}</em>
+      </div>
+      <div class="cult-summary-card">
+        <small>Luyện thể</small>
+        <b>${escapeHtml(playerData.bodyCultivation?.info?.name || 'Luyện Thể')}</b>
+        <em>${fmt(playerData.bodyCultivation?.exp || 0)} / ${fmt(playerData.bodyCultivation?.maxExp || 100)}</em>
+      </div>
+      <div class="cult-summary-card">
+        <small>Luyện hồn</small>
+        <b>${escapeHtml(playerData.soulCultivation?.info?.name || 'Luyện Hồn')}</b>
+        <em>${fmt(playerData.soulCultivation?.exp || 0)} / ${fmt(playerData.soulCultivation?.maxExp || 100)}</em>
+      </div>
+    </div>
+    <div class="focus-guide">
+      <span><b>Trạng thái:</b> ${escapeHtml(focusStatusText(state))}</span>
+      <span>Nhấn vào thẻ hoặc nút bên dưới để đổi mạch tu.</span>
+    </div>
+  `;
+
+  const panels = options.map(type => {
+    const d = progressData(type);
+    const w = pct(d.cur, d.max);
+    const active = selected.includes(type);
+    return `
+      <button class="progress-panel ${active ? 'active' : ''}" data-focus="${type}">
+        <div class="progress-head">
+          <span>${systemName(type)}</span>
+          <b>${Math.round(w)}%</b>
+        </div>
+        <h4>${escapeHtml(d.title)}</h4>
+        <p>${escapeHtml(d.sub)}</p>
+        <div class="bar"><i style="width:${w}%"></i></div>
+        <small>${fmt(d.cur)} / ${fmt(d.max)}</small>
+      </button>
+    `;
+  }).join('');
+
+  $('cultivation-progress-panels').innerHTML = summaryHtml + `<div class="progress-panels">${panels}</div>`;
+
+  $('focus-buttons').innerHTML = options.map(type => {
+    const active = selected.includes(type);
+    return `<button class="chip ${active ? 'active' : ''}" data-focus="${type}">${active ? 'Đang tu: ' : 'Chọn: '}${systemName(type)}</button>`;
+  }).join('');
+
   document.querySelectorAll('[data-focus]').forEach(btn => btn.addEventListener('click', () => toggleFocus(btn.dataset.focus)));
+
   const buffs = playerData.activePillBuffs || [];
-  if ($('pill-buffs')) $('pill-buffs').innerHTML = buffs.length ? buffs.map(buff => smallCard(buff.name || buff.id, 'Đang hiệu lực')).join('') : '<p class="muted">Chưa có buff đan.</p>';
+  $('pill-buffs').innerHTML = buffs.length
+    ? buffs.map(buff => smallCard(buff.name || buff.id, 'Đang hiệu lực')).join('')
+    : '<p class="empty">Chưa có buff đan.</p>';
 }
 
 async function toggleFocus(type) {
@@ -213,35 +274,103 @@ async function toggleAutoFight() {
 
 function mapGroupKey(map) { return `${map.worldName || '-'}|${map.realmName || 'Cảnh giới'}`; }
 function renderMapGroups(maps) {
-  if (!maps.length) return '<p class="muted">Chưa mở map.</p>';
+  if (!maps.length) return '<p class="empty">Chưa mở map.</p>';
   const groups = new Map();
-  maps.forEach(map => { const key = mapGroupKey(map); if (!groups.has(key)) groups.set(key, []); groups.get(key).push(map); });
+  maps.forEach(map => {
+    const key = mapGroupKey(map);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(map);
+  });
+
   return [...groups.entries()].map(([key, items]) => {
     const [world, realm] = key.split('|');
     const collapsed = collapsedMapGroups.has(key);
-    const body = collapsed ? '' : `<div class="map-group-body">${items.map(item => `<button class="map-card ${playerData.currentZone === item.id ? 'active' : ''}" data-map="${item.id}"><b>${escapeHtml(item.name)}</b><span>${escapeHtml(item.worldName || world)} · ${escapeHtml(item.realmName || realm)}</span>${item.description ? `<small>${escapeHtml(item.description)}</small>` : ''}</button>`).join('')}</div>`;
-    return `<section class="map-group"><button class="map-group-title" data-map-group="${escapeHtml(key)}"><span>${escapeHtml(world)} · ${escapeHtml(realm)}</span><b>${collapsed ? 'Mở' : 'Thu gọn'} (${items.length})</b></button>${body}</section>`;
+    const body = collapsed ? '' : `
+      <div class="map-group-body">
+        ${items.map(item => `
+          <button class="map-card ${playerData.currentZone === item.id ? 'active' : ''}" data-map="${item.id}">
+            <b>${escapeHtml(item.name)}</b>
+            <span>${escapeHtml(item.worldName || world)} · ${escapeHtml(item.realmName || realm)}</span>
+            ${item.description ? `<p>${escapeHtml(item.description)}</p>` : ''}
+          </button>
+        `).join('')}
+      </div>
+    `;
+    return `
+      <div class="map-group">
+        <button class="map-group-head" data-map-group="${escapeHtml(key)}">
+          <b>${escapeHtml(world)} · ${escapeHtml(realm)}</b>
+          <span>${collapsed ? 'Mở' : 'Thu gọn'} (${items.length})</span>
+        </button>
+        ${body}
+      </div>
+    `;
   }).join('');
 }
 
 function renderCombat() {
-  const map = playerData.currentMap || {}, state = playerData.combatState || {}, combat = playerData.combat || {}, monster = state.currentMonster || {};
+  const map = playerData.currentMap || {};
+  const state = playerData.combatState || {};
+  const combat = playerData.combat || {};
+  const monster = state.currentMonster || {};
+  const progress = pct(state.fightProgress || 0, state.fightDuration || 3000);
+  const playerHp = pct(combat.hp, combat.maxHp);
+  const monsterHp = pct(state.monsterHp, state.monsterMaxHp);
+
   setText('combat-zone', map.name || '-');
   setText('monster-name', monster.name || 'Không rõ');
   setText('combat-status', state.status || '-');
   setText('combat-player-hp', `${fmt(combat.hp)} / ${fmt(combat.maxHp)}`);
   setText('combat-monster-hp', `${fmt(state.monsterHp)} / ${fmt(state.monsterMaxHp)}`);
-  setWidth('fight-progress-bar', pct(state.fightProgress || 0, state.fightDuration || 3000));
-  setWidth('player-hp-bar', pct(combat.hp, combat.maxHp));
-  setWidth('monster-hp-bar', pct(state.monsterHp, state.monsterMaxHp));
+  setWidth('fight-progress-bar', progress);
+  setWidth('player-hp-bar', playerHp);
+  setWidth('monster-hp-bar', monsterHp);
   setText('auto-fight-status', playerData.autoFight ? 'Đang bật' : 'Đang tắt');
   setText('kill-count', fmt(playerData.stats?.totalKills || 0));
-  setText('death-penalty', `${fmt(state.deathPenaltyPercent || 0)}%${playerData.temporaryPenaltyPercent ? ` + Kỳ ngộ ${fmt(playerData.temporaryPenaltyPercent)}%` : ''}`);
-  if ($('map-list')) $('map-list').innerHTML = renderMapGroups(playerData.unlockedMaps || []);
-  document.querySelectorAll('[data-map-group]').forEach(btn => btn.addEventListener('click', () => { const key = btn.dataset.mapGroup; if (collapsedMapGroups.has(key)) collapsedMapGroups.delete(key); else collapsedMapGroups.add(key); renderCombat(); }));
+  setText('death-penalty', `${fmt(state.deathPenaltyPercent || 0)}%`);
+
+  const card = document.querySelector('.combat-card');
+  if (card) {
+    card.innerHTML = `
+      <div class="panel-head">
+        <h3>Khu Vực Combat</h3>
+        <span>${escapeHtml(map.name || '-')}</span>
+      </div>
+      <div class="combat-hero">
+        <div class="monster-icon">獸</div>
+        <div>
+          <div class="combat-title-row">
+            <h2>${escapeHtml(monster.name || 'Không rõ')}</h2>
+            <span class="combat-badge">${playerData.autoFight ? 'Tự đánh đang bật' : 'Tự đánh đang tắt'}</span>
+          </div>
+          <div class="combat-sub">Trạng thái: <b>${escapeHtml(state.status || '-')}</b></div>
+          <div class="combat-sub">Đang đánh tại: <b>${escapeHtml(map.name || '-')}</b></div>
+        </div>
+      </div>
+      <div class="combat-stat-grid">
+        <div class="combat-stat"><small>Công</small><b>${fmt(combat.atk || 0)}</b></div>
+        <div class="combat-stat"><small>Thủ</small><b>${fmt(combat.def || 0)}</b></div>
+        <div class="combat-stat"><small>Tốc</small><b>${fmt(combat.speed || 0)}</b></div>
+      </div>
+      <div class="bar-line"><span>Tiến độ ra chiêu</span><b>${Math.round(progress)}%</b><div class="bar"><i style="width:${progress}%"></i></div></div>
+      <div class="bar-line"><span>HP Người chơi</span><b>${fmt(combat.hp)} / ${fmt(combat.maxHp)}</b><div class="bar hp"><i style="width:${playerHp}%"></i></div></div>
+      <div class="bar-line"><span>HP Quái</span><b>${fmt(state.monsterHp)} / ${fmt(state.monsterMaxHp)}</b><div class="bar enemy"><i style="width:${monsterHp}%"></i></div></div>
+    `;
+  }
+
+  $('map-list').innerHTML = renderMapGroups(playerData.unlockedMaps || []);
+  document.querySelectorAll('[data-map-group]').forEach(btn => btn.addEventListener('click', () => {
+    const key = btn.dataset.mapGroup;
+    if (collapsedMapGroups.has(key)) collapsedMapGroups.delete(key);
+    else collapsedMapGroups.add(key);
+    renderCombat();
+  }));
   document.querySelectorAll('[data-map]').forEach(btn => btn.addEventListener('click', () => changeMap(btn.dataset.map)));
+
   const logs = state.logs || [];
-  if ($('combat-logs')) $('combat-logs').innerHTML = logs.length ? logs.map(line => `<p>${escapeHtml(line)}</p>`).join('') : '<p class="muted">Chưa có nhật ký.</p>';
+  $('combat-logs').innerHTML = logs.length
+    ? logs.map(line => `<p>${escapeHtml(line)}</p>`).join('')
+    : '<p class="empty">Chưa có nhật ký.</p>';
 }
 
 async function changeMap(mapId) {
