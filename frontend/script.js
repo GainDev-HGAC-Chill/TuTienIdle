@@ -6,6 +6,7 @@ const pct = (cur, max) => max > 0 && Number.isFinite(Number(max)) ? Math.max(0, 
 let username = localStorage.getItem('tuTienUsername') || '';
 let playerData = null;
 let metaData = null;
+let currentTab = localStorage.getItem('tuTienActiveTab') || 'overview';
 let refreshTimer = null;
 const collapsedMapGroups = new Set();
 
@@ -94,6 +95,7 @@ async function login() {
   showApp();
   await loadMeta();
   await loadPlayer();
+  setTab(currentTab, true);
   startTimer();
 }
 
@@ -110,13 +112,44 @@ function startTimer() {
   refreshTimer = setInterval(loadPlayer, 3000);
 }
 
-function setTab(tab) {
+function setTab(tab, shouldSync = true) {
+  currentTab = tab;
+  localStorage.setItem('tuTienActiveTab', tab);
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
   document.querySelectorAll('.tab-page').forEach(page => page.classList.toggle('active', page.id === `tab-${tab}`));
   const info = pageInfo[tab] || pageInfo.overview;
   setText('page-title', info[0]);
   setText('page-subtitle', info[1]);
+
+  if (playerData) {
+    playerData.activeTab = tab;
+    renderActivityHint();
+  }
+  if (shouldSync && username) syncActiveTab(tab);
 }
+
+async function syncActiveTab(tab) {
+  try {
+    const data = await api(`/api/player/${encodeURIComponent(username)}`, {
+      method: 'POST',
+      body: JSON.stringify({ activeTab: tab })
+    });
+    playerData = data.player;
+    renderAll();
+  } catch (err) {
+    console.warn('Không thể đổi mục hoạt động:', err.message);
+  }
+}
+
+function renderActivityHint() {
+  const active = playerData?.activeTab || currentTab || 'overview';
+  document.querySelectorAll('[data-activity-mode]').forEach(el => {
+    const mode = el.dataset.activityMode;
+    el.classList.toggle('activity-active', mode === active);
+    el.classList.toggle('activity-paused', mode !== active);
+  });
+}
+
 
 function renderAll() {
   if (!playerData) return;
@@ -129,6 +162,7 @@ function renderAll() {
   renderAlchemy();
   renderCave();
   renderInventory();
+  renderActivityHint();
 }
 
 function renderHeader() {
@@ -225,7 +259,10 @@ function renderCultivation() {
   const selected = Array.isArray(state.selected) ? state.selected : ['main'];
   const options = Array.isArray(state.options) ? state.options : ['main', 'body', 'soul'];
   setText('focus-limit', `Đang tu ${selected.length}/${state.limit || 1} mạch`);
-  setText('focus-note', (state.limit || 1) === 1 ? 'Chỉ được khai mở 1 mạch. Thẻ sáng vàng là mạch đang vận chuyển.' : `Có thể đồng tu ${state.limit} mạch.`);
+  const activeMode = playerData.activeTab || currentTab;
+  setText('focus-note', activeMode === 'cultivation'
+    ? ((state.limit || 1) === 1 ? 'Đang vận chuyển tu luyện. Rời tab này thì tu luyện tạm dừng.' : `Có thể đồng tu ${state.limit} mạch. Rời tab này thì tu luyện tạm dừng.`)
+    : 'Tu luyện đang tạm dừng vì đang ở mục khác. Chọn tab Tu Luyện để vận chuyển.');
 
   $('cultivation-progress-panels').innerHTML = options.map(type => {
     const d = progressData(type);
@@ -300,7 +337,7 @@ function renderCombat() {
   const monster = state.currentMonster || {};
   setText('combat-zone', map.name || playerData.zoneName || '-');
   setText('monster-name', monster.name || 'Không rõ');
-  setText('combat-status', state.status || (playerData.autoFight ? 'Đang tự đánh' : 'Tự đánh đang tắt'));
+  setText('combat-status', (playerData.activeTab || currentTab) === 'combat' ? (state.status || (playerData.autoFight ? 'Đang tự đánh' : 'Tự đánh đang tắt')) : 'Combat tạm dừng vì đang ở mục khác.');
   setText('combat-player-hp', `${fmt(combat.hp)} / ${fmt(combat.maxHp)}`);
   setText('combat-monster-hp', `${fmt(state.monsterHp)} / ${fmt(state.monsterMaxHp)}`);
   setText('fight-progress-text', `${Math.round(pct(state.fightProgress || 0, state.fightDuration || 3000))}%`);
@@ -440,6 +477,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     showApp();
     await loadMeta();
     await loadPlayer();
+    setTab(currentTab, true);
     startTimer();
   }
 });
@@ -573,7 +611,7 @@ function renderAlchemy() {
       <div class="recipe-head"><h4>${escapeHtml(recipe.name || recipe.id)}</h4><span>${recipe.durationMs ? secondsText(recipe.durationMs) : 'Tức thời'}</span></div>
       <p><b>Công hiệu:</b> ${escapeHtml(pillEffectText(pill))}</p>
       <p><b>Công thức:</b> ${escapeHtml(formulaText(recipe))}</p>
-      <button type="button" data-craft="${escapeHtml(recipe.id)}">Luyện</button>
+      <button type="button" ${(playerData.activeTab || currentTab) === 'alchemy' ? '' : 'disabled'} data-craft="${escapeHtml(recipe.id)}">${(playerData.activeTab || currentTab) === 'alchemy' ? 'Luyện' : 'Chuyển sang Đan Dược để luyện'}</button>
     </div>`;
   }).join('') : '<p class="empty">Chưa có công thức luyện đan.</p>';
   document.querySelectorAll('[data-craft]').forEach(btn => btn.addEventListener('click', () => craftPill(btn.dataset.craft)));
@@ -612,14 +650,14 @@ function renderCave() {
         <b>Ô Dược Viên ${idx + 1}</b>
         <h4>${escapeHtml(plot.herbName || herb.name || plot.herbId)}</h4>
         <p>${ready ? 'Đã chín, có thể thu hoạch.' : `Đang sinh trưởng · còn ${secondsText(plot.remainMs || 0)}`}</p>
-        <button type="button" ${ready ? '' : 'disabled'} data-harvest="${idx}">Thu hoạch</button>
+        <button type="button" ${ready && (playerData.activeTab || currentTab) === 'cave' ? '' : 'disabled'} data-harvest="${idx}">${(playerData.activeTab || currentTab) === 'cave' ? 'Thu hoạch' : 'Chuyển sang Động Phủ'}</button>
       </div>`;
     }
     return `<div class="garden-plot empty-plot">
       <b>Ô Dược Viên ${idx + 1}</b>
       <p>Chọn dược liệu để gieo trồng. Mỗi lần cần hạt giống, linh thủy, linh nhưỡng và linh thạch.</p>
       <select data-plant-select="${idx}">${herbs.map(h => `<option value="${escapeHtml(h.id)}">${escapeHtml(h.name)} · ${escapeHtml(formulaText({ ingredients: [{ id: h.seedId, amount: 1 }, { id: h.waterId, amount: 1 }, { id: h.soilId, amount: 1 }], cost: h.cost, durationMs: h.growSeconds * 1000 }))}</option>`).join('')}</select>
-      <button type="button" data-plant="${idx}">Gieo trồng</button>
+      <button type="button" ${(playerData.activeTab || currentTab) === 'cave' ? '' : 'disabled'} data-plant="${idx}">${(playerData.activeTab || currentTab) === 'cave' ? 'Gieo trồng' : 'Chuyển sang Động Phủ để trồng'}</button>
     </div>`;
   }).join('') : '<p class="empty">Dược viên chưa khai mở.</p>';
   document.querySelectorAll('[data-plant]').forEach(btn => btn.addEventListener('click', () => {

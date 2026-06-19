@@ -441,6 +441,7 @@ function createNewPlayer(username) {
     currencies: { so_linh_thach: 0, trung_linh_thach: 0, cao_linh_thach: 0, cuc_pham_linh_thach: 0, tien_ngoc: 0 },
     currentZone: getDefaultMapId(),
     autoFight: true,
+    activeTab: 'overview',
     stats: { totalKills: 0, totalTuVi: 0, playTime: 0 },
     permanentBonuses: { atk: 0, def: 0, tuViBonus: 0 },
     cave: { level: 1, resources: { aura: 0 }, buildings: {}, auraPerSecond: 1, alchemyBonus: 0 },
@@ -460,7 +461,7 @@ function normalizePracticeState(player) {
   if (!player.techniques.equipped || typeof player.techniques.equipped !== 'object') player.techniques.equipped = {};
   for (const item of TECHNIQUES) {
     if (!player.techniques.learned[item.id]) player.techniques.learned[item.id] = createProgress(item.id);
-    if (!player.techniques.equipped[item.system]) player.techniques.equipped[item.system] = item.id;
+    if (player.techniques.equipped[item.system] === undefined) player.techniques.equipped[item.system] = item.id;
   }
   const defaultMartial = createDefaultMartialSkills();
   if (!player.martialSkills || typeof player.martialSkills !== 'object') player.martialSkills = defaultMartial;
@@ -469,7 +470,7 @@ function normalizePracticeState(player) {
   for (const item of MARTIAL_SKILLS) {
     if (!player.martialSkills.learned[item.id]) player.martialSkills.learned[item.id] = createProgress(item.id);
   }
-  if (!player.martialSkills.equipped.active) player.martialSkills.equipped.active = 'co_ban_kiem_quyet';
+  if (player.martialSkills.equipped.active === undefined) player.martialSkills.equipped.active = 'co_ban_kiem_quyet';
 }
 
 function ensurePlayerShape(player) {
@@ -482,6 +483,7 @@ function ensurePlayerShape(player) {
   if (!player.currencies) player.currencies = { so_linh_thach: 0, trung_linh_thach: 0, cao_linh_thach: 0, cuc_pham_linh_thach: 0, tien_ngoc: 0 };
   for (const id of ['so_linh_thach', 'trung_linh_thach', 'cao_linh_thach', 'cuc_pham_linh_thach', 'tien_ngoc']) if (player.currencies[id] === undefined) player.currencies[id] = 0;
   if (!player.stats) player.stats = { totalKills: 0, totalTuVi: 0, playTime: 0 };
+  if (!['overview', 'cultivation', 'combat', 'skills', 'alchemy', 'cave', 'inventory'].includes(player.activeTab)) player.activeTab = 'overview';
   if (!player.permanentBonuses) player.permanentBonuses = { atk: 0, def: 0, tuViBonus: 0 };
   if (!player.cave) player.cave = { level: 1, resources: { aura: 0 }, buildings: {}, auraPerSecond: 1, alchemyBonus: 0 };
   if (!player.cave.resources) player.cave.resources = { aura: 0 };
@@ -574,19 +576,37 @@ function processGameTick(player) {
 
   if (isInteractionLocked(player)) return;
 
-  const gain = getTuViGainPerSecond(player) * ticks;
-  const focus = normalizeCultivationFocus(player);
-  if (focus.includes('main')) {
-    player.cultivation.tuVi += gain;
-    player.stats.totalTuVi += gain;
-  }
-  if (focus.includes('body')) addSubCultivationExp(player.bodyCultivation, gain);
-  if (focus.includes('soul')) addSubCultivationExp(player.soulCultivation, gain);
-  player.stats.playTime += ticks;
-  player.cave.resources.aura += ticks * (player.cave.auraPerSecond || 1);
+  const activeTab = player.activeTab || 'overview';
+
+  // Thọ nguyên là dòng thời gian chung của nhân vật.
   player.lifespan.ageYears += ticks / (60 * 60 * 24);
-  updateCultivation(player);
-  processCombat(player, Math.min(deltaMs, 5 * 60 * 1000));
+
+  // Chỉ tab Tu Luyện mới sinh tu vi/luyện thể/luyện hồn.
+  if (activeTab === 'cultivation') {
+    const gain = getTuViGainPerSecond(player) * ticks;
+    const focus = normalizeCultivationFocus(player);
+    if (focus.includes('main')) {
+      player.cultivation.tuVi += gain;
+      player.stats.totalTuVi += gain;
+    }
+    if (focus.includes('body')) addSubCultivationExp(player.bodyCultivation, gain);
+    if (focus.includes('soul')) addSubCultivationExp(player.soulCultivation, gain);
+    player.stats.playTime += ticks;
+    updateCultivation(player);
+    return;
+  }
+
+  // Chỉ tab Combat mới đánh quái. Tu vi ở đây là thưởng hạ quái, không phải tu luyện nền.
+  if (activeTab === 'combat') {
+    processCombat(player, Math.min(deltaMs, 5 * 60 * 1000));
+    return;
+  }
+
+  // Chỉ tab Động Phủ mới tích linh khí động phủ.
+  if (activeTab === 'cave') {
+    player.cave.resources.aura += ticks * (player.cave.auraPerSecond || 1);
+    return;
+  }
 }
 
 function getPlayerOrCreate(players, username) {
@@ -656,6 +676,7 @@ function sanitizePlayer(player) {
     unlockedMaps: getUnlockedMaps(player),
     combatState: { ...combatState, monsterHp: Math.round(combatState.monsterHp || 0), monsterMaxHp: Math.round(combatState.monsterMaxHp || 0) },
     autoFight: player.autoFight,
+    activeTab: player.activeTab || 'overview',
     stats: player.stats,
     permanentBonuses: player.permanentBonuses,
     lifespan: { ...player.lifespan, ageYears: Math.floor(player.lifespan.ageYears), remainYears: Math.max(0, Math.floor(player.lifespan.maxYears - player.lifespan.ageYears)) },
@@ -791,6 +812,40 @@ function useLifespanPill(player, itemId) {
   return { success: true, message: `Dùng ${pill.name}, tăng ${pill.addYears} năm thọ nguyên.` };
 }
 
+function setActiveTab(player, tab) {
+  const valid = ['overview', 'cultivation', 'combat', 'skills', 'alchemy', 'cave', 'inventory'];
+  if (!valid.includes(tab)) return false;
+  player.activeTab = tab;
+  if (tab !== 'combat' && player.combatState) {
+    player.combatState.status = 'Combat tạm dừng do đang ở mục khác.';
+  }
+  return true;
+}
+
+function tabName(tab) {
+  return {
+    overview: 'Tổng Quan',
+    cultivation: 'Tu Luyện',
+    combat: 'Combat',
+    skills: 'Công Pháp',
+    alchemy: 'Đan Dược',
+    cave: 'Động Phủ',
+    inventory: 'Túi Đồ',
+  }[tab] || tab;
+}
+
+function guardActiveTab(res, player, requiredTab, label) {
+  const activeTab = player.activeTab || 'overview';
+  if (activeTab !== requiredTab) {
+    res.status(409).json({
+      success: false,
+      error: `Đang ở mục ${tabName(activeTab)}. Muốn ${label}, hãy chuyển sang mục ${tabName(requiredTab)} trước.`
+    });
+    return false;
+  }
+  return true;
+}
+
 app.get('/api/meta', (req, res) => {
   res.json({ success: true, maps: MAPS, realms: REALMS, techniques: TECHNIQUES, martialSkills: MARTIAL_SKILLS, materials: MATERIALS, herbs: HERBS, recipes: RECIPES, lifespanPills: LIFESPAN_PILLS, encounters: ENCOUNTERS });
 });
@@ -806,6 +861,7 @@ app.post('/api/player/:username', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  if (req.body.activeTab) setActiveTab(player, req.body.activeTab);
   if (req.body.autoFight !== undefined) player.autoFight = !!req.body.autoFight;
   if (req.body.currentZone) player.currentZone = req.body.currentZone;
   processGameTick(player);
@@ -816,6 +872,7 @@ app.post('/api/player/:username/zone', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  if (!guardActiveTab(res, player, 'combat', 'đổi map đánh quái')) return;
   const mapId = req.body.mapId || req.body.zone;
   const map = getMapById(mapId);
   if (!map) return res.status(400).json({ success: false, error: 'Map không tồn tại.' });
@@ -830,6 +887,7 @@ app.post('/api/player/:username/cultivation/focus', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  if (!guardActiveTab(res, player, 'cultivation', 'đổi mạch tu luyện')) return;
   const type = req.body.type;
   if (!['main', 'body', 'soul'].includes(type)) return res.status(400).json({ success: false, error: 'Loại tu luyện không hợp lệ.' });
   const limit = getCultivationFocusLimit(player);
@@ -905,6 +963,7 @@ app.post('/api/player/:username/herb/plant', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  if (!guardActiveTab(res, player, 'cave', 'gieo trồng dược liệu')) return;
   const result = plantHerb(player, Number(req.body.plotIndex || 0), req.body.herbId);
   if (!result.success) return res.status(400).json(result);
   lockInteraction(player, 'garden', 'gieo trồng dược liệu', 800);
@@ -915,6 +974,7 @@ app.post('/api/player/:username/herb/harvest', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  if (!guardActiveTab(res, player, 'cave', 'thu hoạch dược liệu')) return;
   const result = harvestHerb(player, Number(req.body.plotIndex || 0));
   if (!result.success) return res.status(400).json(result);
   lockInteraction(player, 'garden', 'thu hoạch dược liệu', 800);
@@ -925,6 +985,7 @@ app.post('/api/player/:username/alchemy/craft', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  if (!guardActiveTab(res, player, 'alchemy', 'luyện đan')) return;
   const result = craftRecipe(player, req.body.recipeId);
   if (!result.success) return res.status(400).json(result);
   sendPlayer(res, players, player, result);
