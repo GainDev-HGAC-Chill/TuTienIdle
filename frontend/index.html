@@ -1,43 +1,38 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tu Tiên Idle</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="login-screen" class="login-screen">
-    <div class="login-card">
-      <div class="seal">道</div>
+  <main id="login-screen" class="login-screen">
+    <section class="login-card">
+      <div class="sigil">道</div>
       <h1>Tu Tiên Idle</h1>
       <p>Nhập đạo hiệu để bắt đầu tu tiên.</p>
       <div class="login-row">
-        <input id="username-input" placeholder="Đạo hiệu" maxlength="24" />
+        <input id="username-input" type="text" placeholder="Đạo hiệu" autocomplete="off" />
         <button id="login-btn">Nhập Đạo</button>
       </div>
       <small>Máy chủ: localhost:3000</small>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <div id="app" class="app hidden">
+  <main id="app" class="app hidden">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-seal">仙</div>
+        <div class="brand-icon">仙</div>
         <div>
           <h2>Tu Tiên Idle</h2>
           <p id="connection-status">Đang kết nối...</p>
         </div>
       </div>
-
-      <div class="profile-card">
+      <div class="profile">
         <div class="avatar">☯</div>
-        <div>
-          <strong id="profile-name">-</strong>
-          <span id="profile-realm">-</span>
-        </div>
+        <div><b id="profile-name">-</b><span id="profile-realm">-</span></div>
       </div>
-
       <nav class="nav">
         <button class="nav-btn active" data-tab="overview">Tổng Quan</button>
         <button class="nav-btn" data-tab="cultivation">Tu Luyện</button>
@@ -47,176 +42,51 @@
         <button class="nav-btn" data-tab="cave">Động Phủ</button>
         <button class="nav-btn" data-tab="inventory">Túi Đồ</button>
       </nav>
-
       <button id="logout-btn" class="ghost-btn">Thoát</button>
     </aside>
 
-    <main class="main">
+    <section class="content">
       <header class="topbar">
-        <div>
-          <h1 id="page-title">Tổng Quan</h1>
-          <p id="page-subtitle">Theo dõi cảnh giới, chiến lực và tài nguyên.</p>
-        </div>
-        <div class="top-actions">
-          <button id="refresh-btn">Làm mới</button>
-          <button id="toggle-auto-btn">Tạm dừng tự đánh</button>
-        </div>
+        <div><h1 id="page-title">Tổng Quan</h1><p id="page-subtitle">Theo dõi cảnh giới, chiến lực và tài nguyên.</p></div>
+        <div class="top-actions"><button id="refresh-btn">Làm mới</button><button id="toggle-auto-btn">Tạm dừng tự đánh</button></div>
       </header>
 
       <section id="tab-overview" class="tab-page active">
-        <div class="grid cols-3">
-          <article class="panel">
-            <div class="panel-head"><h3>Cảnh Giới Chính</h3><span id="world-name">-</span></div>
-            <h2 id="realm-name">-</h2>
-            <div class="realm-summary"><span>Hiện cảnh giới tổng hợp</span><strong id="tuvi-text">-</strong></div>
-          </article>
-
-          <article class="panel">
-            <div class="panel-head"><h3>Chiến Lực</h3><span>Nhân Giới</span></div>
-            <div class="stat-list">
-              <div><span>HP</span><strong id="hp-text">0 / 0</strong></div>
-              <div><span>Công</span><strong id="atk-text">0</strong></div>
-              <div><span>Thủ</span><strong id="def-text">0</strong></div>
-            </div>
-          </article>
-
-          <article class="panel">
-            <div class="panel-head"><h3>Linh Căn</h3><span>Mở khóa skill</span></div>
-            <h2 id="spirit-root-name">Chưa ngộ linh căn</h2>
-            <p id="spirit-root-desc" class="muted">-</p>
-          </article>
-        </div>
-
-        <div class="grid cols-2">
-          <article class="panel">
-            <div class="panel-head"><h3>Phụ Tu</h3><span>Thể / Hồn</span></div>
-            <div class="stat-list">
-              <div><span>Luyện Thể</span><strong id="body-rank">-</strong></div>
-              <div><span>Luyện Hồn</span><strong id="soul-rank">-</strong></div>
-            </div>
-          </article>
-          <article class="panel">
-            <div class="panel-head"><h3>Tài Nguyên</h3><span>Tiền tệ</span></div>
-            <div id="currency-list" class="chip-list"></div>
-          </article>
+        <div class="grid two">
+          <article class="panel"><h3>Cảnh Giới Chính</h3><p id="world-name">-</p><h2 id="realm-name">-</h2><span id="tuvi-text" class="muted">Tổng quan chỉ hiển thị cảnh giới</span></article>
+          <article class="panel"><h3>Chiến Lực</h3><div class="stat-row"><span>HP</span><b id="hp-text">0 / 0</b></div><div class="stat-row"><span>Công</span><b id="atk-text">0</b></div><div class="stat-row"><span>Thủ</span><b id="def-text">0</b></div></article>
+          <article class="panel"><h3>Linh Căn</h3><h2 id="spirit-root-name">Chưa ngộ linh căn</h2><p id="spirit-root-desc">-</p></article>
+          <article class="panel"><h3>Phụ Tu</h3><div class="stat-row"><span>Luyện Thể</span><b id="body-rank">-</b></div><div class="stat-row"><span>Luyện Hồn</span><b id="soul-rank">-</b></div></article>
+          <article class="panel wide"><h3>Tài Nguyên</h3><div id="currency-list" class="card-list"></div></article>
         </div>
       </section>
 
       <section id="tab-cultivation" class="tab-page">
-        <div class="grid cols-2">
-          <article class="panel">
-            <div class="panel-head"><h3>Tu Luyện</h3><span>Idle</span></div>
-            <h2 id="cultivation-title">-</h2>
-            <div id="cultivation-progress-panels" class="cult-progress-grid"></div>
-            <div class="stat-list">
-              <div><span>Thế giới</span><strong id="cult-world">-</strong></div>
-              <div><span>Loại tầng</span><strong id="cult-type">-</strong></div>
-              <div><span>Tu vi mỗi giây</span><strong id="tuvi-rate">-</strong></div>
-            </div>
-          </article>
-          <article class="panel">
-            <div class="panel-head"><h3>Trạng thái tu luyện</h3><span id="focus-limit">-</span></div>
-            <div id="focus-buttons" class="focus-buttons"></div>
-            <p id="focus-note" class="muted">Chưa đủ cảnh giới, chỉ được chọn 1 loại.</p>
-          </article>
+        <div class="grid two">
+          <article class="panel wide"><h3>Tu Luyện</h3><h2 id="cultivation-title">-</h2><div class="stat-row"><span>Thế giới</span><b id="cult-world">-</b></div><div class="stat-row"><span>Loại tầng</span><b id="cult-type">-</b></div><div class="stat-row"><span>Tu vi mỗi giây</span><b id="tuvi-rate">-</b></div></article>
+          <article class="panel wide"><h3>Trạng thái tu luyện</h3><p><b id="focus-limit">-</b></p><p id="focus-note" class="muted">-</p><div id="cultivation-progress-panels" class="progress-panels"></div><div id="focus-buttons" class="button-row"></div></article>
+          <article class="panel wide"><h3>Buff Đan Đang Có</h3><div id="pill-buffs" class="card-list"></div></article>
         </div>
-        <article class="panel">
-          <div class="panel-head"><h3>Buff Đan Đang Có</h3><span>Tự hết hạn</span></div>
-          <div id="pill-buffs" class="card-list"></div>
-        </article>
       </section>
 
       <section id="tab-combat" class="tab-page">
-        <div class="grid cols-2">
-          <article class="panel combat-panel">
-            <div class="panel-head"><h3>Khu Vực Combat</h3><span id="combat-zone">-</span></div>
-            <div class="monster-icon">獸</div>
-            <h2 id="monster-name">Không rõ</h2>
-            <p id="combat-status" class="muted">Chọn map để bắt đầu tự đánh.</p>
-            <div class="progress hp"><div id="player-hp-bar" class="progress-fill"></div></div>
-            <div class="split"><span>HP Người chơi</span><strong id="combat-player-hp">0 / 0</strong></div>
-            <div class="progress danger"><div id="monster-hp-bar" class="progress-fill"></div></div>
-            <div class="split"><span>HP Quái</span><strong id="combat-monster-hp">0 / 0</strong></div>
-          </article>
-
-          <article class="panel">
-            <div class="panel-head"><h3>Map Đã Mở</h3><span>Theo cảnh giới</span></div>
-            <div id="map-list" class="map-list"></div>
-          </article>
-        </div>
-
-        <div class="grid cols-2">
-          <article class="panel">
-            <div class="panel-head"><h3>Trạng thái</h3><span id="auto-fight-status">-</span></div>
-            <div class="stat-list">
-              <div><span>Quái đã hạ</span><strong id="kill-count">0</strong></div>
-              <div><span>Phạt trọng thương</span><strong id="death-penalty">0%</strong></div>
-            </div>
-          </article>
-          <article class="panel">
-            <div class="panel-head"><h3>Nhật Ký Combat</h3><span>Tối đa 8 dòng</span></div>
-            <div id="combat-logs" class="log-list"></div>
-          </article>
+        <div class="grid two combat-layout">
+          <article class="panel combat-card"><div class="panel-head"><h3>Khu Vực Combat</h3><span id="combat-zone">-</span></div><div class="monster-icon">獸</div><h2 id="monster-name">Không rõ</h2><p id="combat-status">Chọn map để bắt đầu tự đánh.</p><div class="bar-line"><span>Tiến độ</span><div class="bar"><i id="fight-progress-bar"></i></div></div><div class="bar-line"><span>HP Người chơi</span><b id="combat-player-hp">0 / 0</b><div class="bar hp"><i id="player-hp-bar"></i></div></div><div class="bar-line"><span>HP Quái</span><b id="combat-monster-hp">0 / 0</b><div class="bar enemy"><i id="monster-hp-bar"></i></div></div></article>
+          <article class="panel"><div class="panel-head"><h3>Map Đã Mở</h3><span>Theo cảnh giới</span></div><div id="map-list" class="map-list"></div></article>
+          <article class="panel"><h3>Trạng thái</h3><div class="stat-row"><span>Tự đánh</span><b id="auto-fight-status">-</b></div><div class="stat-row"><span>Quái đã hạ</span><b id="kill-count">0</b></div><div class="stat-row"><span>Phạt trọng thương</span><b id="death-penalty">0%</b></div></article>
+          <article class="panel"><h3>Nhật Ký Combat</h3><div id="combat-logs" class="log-list"></div></article>
         </div>
       </section>
 
       <section id="tab-skills" class="tab-page">
-        <div class="grid cols-2">
-          <article class="panel">
-            <div class="panel-head"><h3>Công Pháp Cơ Bản</h3><span>3 hệ</span></div>
-            <div id="technique-list" class="card-list"></div>
-          </article>
-          <article class="panel">
-            <div class="panel-head"><h3>Vũ Kỹ Cơ Bản</h3><span>3 hệ</span></div>
-            <div id="martial-list" class="card-list"></div>
-          </article>
-        </div>
-        <article class="panel">
-          <div class="panel-head"><h3>Danh Sách Skill Theo Linh Căn</h3><span>Cần linh căn tương ứng</span></div>
-          <div id="skill-list" class="card-list"></div>
-        </article>
+        <div class="grid two"><article class="panel"><h3>Công Pháp Cơ Bản</h3><div id="technique-list" class="card-list"></div></article><article class="panel"><h3>Vũ Kỹ Cơ Bản</h3><div id="martial-list" class="card-list"></div></article><article class="panel wide"><h3>Danh Sách Skill Theo Linh Căn</h3><div id="skill-list" class="card-list"></div></article></div>
       </section>
 
-      <section id="tab-alchemy" class="tab-page">
-        <div class="grid cols-2">
-          <article class="panel">
-            <div class="panel-head"><h3>Luyện Đan</h3><span id="alchemy-bonus">+0%</span></div>
-            <div id="recipe-list" class="card-list"></div>
-          </article>
-          <article class="panel">
-            <div class="panel-head"><h3>Đan Dược</h3><span>Dùng / Buff</span></div>
-            <div id="pill-list" class="card-list"></div>
-          </article>
-        </div>
-      </section>
-
-      <section id="tab-cave" class="tab-page">
-        <div class="grid cols-2">
-          <article class="panel">
-            <div class="panel-head"><h3>Động Phủ</h3><span id="cave-level">Cấp 1</span></div>
-            <div class="stat-list">
-              <div><span>Linh khí tích lũy</span><strong id="cave-aura">0</strong></div>
-              <div><span>Sinh linh khí</span><strong id="cave-rate">0/s</strong></div>
-              <div><span>Bonus luyện đan</span><strong id="cave-alchemy">0%</strong></div>
-            </div>
-            <div id="cave-buildings" class="card-list"></div>
-          </article>
-          <article class="panel">
-            <div class="panel-head"><h3>Dược Viên</h3><span>Trồng / Thu hoạch</span></div>
-            <div id="herb-plots" class="plot-list"></div>
-            <div id="herb-list" class="card-list compact"></div>
-          </article>
-        </div>
-      </section>
-
-      <section id="tab-inventory" class="tab-page">
-        <article class="panel">
-          <div class="panel-head"><h3>Túi Đồ</h3><span id="inventory-count">0 item</span></div>
-          <div id="inventory-list" class="card-list inventory-list"></div>
-        </article>
-      </section>
-    </main>
-  </div>
+      <section id="tab-alchemy" class="tab-page"><div class="grid two"><article class="panel"><h3>Luyện Đan</h3><h2 id="alchemy-bonus">+0%</h2><div id="recipe-list" class="card-list"></div></article><article class="panel"><h3>Đan Dược</h3><div id="pill-list" class="card-list"></div></article></div></section>
+      <section id="tab-cave" class="tab-page"><div class="grid two"><article class="panel"><h3>Động Phủ</h3><h2 id="cave-level">Cấp 1</h2><div class="stat-row"><span>Linh khí tích lũy</span><b id="cave-aura">0</b></div><div class="stat-row"><span>Sinh linh khí</span><b id="cave-rate">0/s</b></div><div class="stat-row"><span>Bonus luyện đan</span><b id="cave-alchemy">0%</b></div><div id="cave-buildings" class="card-list"></div></article><article class="panel"><h3>Dược Viên</h3><div id="herb-plots" class="card-list"></div></article></div></section>
+      <section id="tab-inventory" class="tab-page"><article class="panel"><div class="panel-head"><h3>Túi Đồ</h3><span id="inventory-count">0 item</span></div><div id="inventory-list" class="card-list"></div></article></section>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>

@@ -1,201 +1,112 @@
 {
   "GainGain": {
     "username": "GainGain",
-    "createdAt": 1781869987562,
-    "lastSave": 1781870031363,
-    "lastTick": 1781870031356,
+    "createdAt": 1781870440029,
+    "lastSave": 1781872343175,
+    "lastTick": 1781872343175,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 1,
-      "tuVi": 65.8,
-      "maxTuVi": 100,
-      "daoEntry": null
+      "stage": 6,
+      "tuVi": 188,
+      "maxTuVi": 600
     },
     "bodyCultivation": {
-      "rank": 1,
-      "phase": 1,
-      "exp": 0,
-      "maxExp": 100
+      "rank": 4,
+      "name": "Phàm Thể",
+      "exp": 248,
+      "maxExp": 453
     },
     "soulCultivation": {
       "rank": 1,
-      "phase": 1,
-      "exp": 0,
+      "name": "Tĩnh Hồn",
+      "exp": 61,
       "maxExp": 100
     },
-    "skills": {
-      "learned": {},
-      "equippedMartial": [],
-      "equippedDivine": []
-    },
+    "cultivationFocus": [
+      "main"
+    ],
     "techniques": {
       "equipped": {
         "cultivation": "tho_nap_quyet",
         "body": "man_nguu_luyen_the_quyet",
         "soul": "duong_than_quyet"
       },
-      "learned": [
-        {
+      "learned": {
+        "tho_nap_quyet": {
           "id": "tho_nap_quyet",
-          "name": "Thổ Nạp Quyết",
-          "grade": "basic",
-          "system": "cultivation",
-          "type": "cultivation",
-          "maxRankMode": "follow_realm",
-          "startRank": 1,
-          "startPhase": 1,
-          "effects": {
-            "cultivationSpeedBonus": 0.05,
-            "auraBonus": 0.05,
-            "tuViBonus": 0.05
-          },
-          "description": "Công pháp tu luyện nhập môn, dẫn linh khí nhập thể, tăng nhẹ tốc độ tu vi.",
           "rank": 1,
           "phase": 1,
           "exp": 0,
           "maxExp": 100
         },
-        {
+        "man_nguu_luyen_the_quyet": {
           "id": "man_nguu_luyen_the_quyet",
-          "name": "Man Ngưu Luyện Thể Quyết",
-          "grade": "basic",
-          "system": "body",
-          "type": "body",
-          "maxRankMode": "follow_realm",
-          "startRank": 1,
-          "startPhase": 1,
-          "effects": {
-            "hpBonus": 0.08,
-            "defBonus": 0.04,
-            "bodyExpBonus": 0.05
-          },
-          "description": "Công pháp luyện thể nhập môn, rèn da thịt gân cốt, tăng sinh mệnh và phòng ngự.",
           "rank": 1,
           "phase": 1,
           "exp": 0,
           "maxExp": 100
         },
-        {
+        "duong_than_quyet": {
           "id": "duong_than_quyet",
-          "name": "Dưỡng Thần Quyết",
-          "grade": "basic",
-          "system": "soul",
-          "type": "soul",
-          "maxRankMode": "follow_realm",
-          "startRank": 1,
-          "startPhase": 1,
-          "effects": {
-            "soulPowerBonus": 0.06,
-            "soulExpBonus": 0.05,
-            "critBonus": 0.02
-          },
-          "description": "Công pháp luyện hồn nhập môn, dưỡng thần thức, tăng hồn lực và một chút bạo kích.",
           "rank": 1,
           "phase": 1,
           "exp": 0,
           "maxExp": 100
         }
-      ]
+      }
     },
     "martialSkills": {
       "equipped": {
-        "active": "co_ban_kiem_quyet"
+        "active": "man_nguu_quyen"
       },
-      "learned": [
-        {
+      "learned": {
+        "co_ban_kiem_quyet": {
           "id": "co_ban_kiem_quyet",
-          "name": "Cơ Bản Kiếm Quyết",
-          "grade": "basic",
-          "system": "cultivation",
-          "slot": "active",
-          "type": "attack",
-          "maxRankMode": "follow_realm",
-          "startRank": 1,
-          "startPhase": 1,
-          "effects": {
-            "atkBonus": 0.03,
-            "damageMultiplier": 1.15
-          },
-          "description": "Vũ kỹ tu luyện nhập môn, lấy linh khí ngự kiếm gây sát thương ổn định.",
           "rank": 1,
           "phase": 1,
           "exp": 0,
           "maxExp": 100
         },
-        {
+        "man_nguu_quyen": {
           "id": "man_nguu_quyen",
-          "name": "Man Ngưu Quyền",
-          "grade": "basic",
-          "system": "body",
-          "slot": "active",
-          "type": "attack",
-          "maxRankMode": "follow_realm",
-          "startRank": 1,
-          "startPhase": 1,
-          "effects": {
-            "damageMultiplier": 1.1,
-            "defDamageRatio": 0.2
-          },
-          "description": "Vũ kỹ luyện thể nhập môn, lấy khí huyết và thân thể cường công.",
           "rank": 1,
           "phase": 1,
           "exp": 0,
           "maxExp": 100
         },
-        {
+        "kinh_than_thu": {
           "id": "kinh_than_thu",
-          "name": "Kinh Thần Thứ",
-          "grade": "basic",
-          "system": "soul",
-          "slot": "active",
-          "type": "soul_attack",
-          "maxRankMode": "follow_realm",
-          "startRank": 1,
-          "startPhase": 1,
-          "effects": {
-            "damageMultiplier": 1.05,
-            "critBonus": 0.03
-          },
-          "description": "Vũ kỹ luyện hồn nhập môn, ngưng thần thức thành mũi nhọn công kích thức hải.",
           "rank": 1,
           "phase": 1,
           "exp": 0,
           "maxExp": 100
         }
-      ]
+      }
     },
-    "alchemy": {
-      "rank": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "spiritRoot": {
-      "element": null,
-      "evolution": null,
-      "awakenedAt": null,
-      "history": []
-    },
-    "spiritRoots": [],
     "combat": {
-      "hp": 64,
-      "maxHp": 100,
-      "atk": 10,
-      "def": 5,
+      "hp": 150,
+      "maxHp": 150,
+      "atk": 20,
+      "def": 10,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
     },
     "inventory": [],
-    "currentZone": "ap_suong_mu",
-    "autoFight": true,
-    "cultivationFocus": [
-      "main"
-    ],
+    "currencies": {
+      "so_linh_thach": 89,
+      "trung_linh_thach": 0,
+      "cao_linh_thach": 0,
+      "cuc_pham_linh_thach": 0,
+      "tien_ngoc": 0
+    },
+    "currentZone": "moc_than_khoc",
+    "autoFight": false,
     "stats": {
-      "totalKills": 3,
-      "totalTuVi": 65.8,
-      "playTime": 38
+      "totalKills": 22,
+      "totalTuVi": 1718,
+      "playTime": 1642
     },
     "permanentBonuses": {
       "atk": 0,
@@ -205,79 +116,33 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 38,
-        "herbEssence": 0,
-        "alchemyFire": 0
+        "aura": 1642
       },
-      "buildings": {
-        "cave_core": {
-          "level": 1
-        },
-        "spirit_array": {
-          "level": 1
-        },
-        "herb_garden": {
-          "level": 1
-        },
-        "alchemy_room": {
-          "level": 1
-        },
-        "storage_room": {
-          "level": 1
-        }
-      },
-      "herbPlots": [],
-      "lastProcessAt": 1781870031356
-    },
-    "currencies": {
-      "so_linh_thach": 6,
-      "trung_linh_thach": 0,
-      "thuong_linh_thach": 0,
-      "so_tien_thach": 0,
-      "trung_tien_thach": 0,
-      "thuong_tien_thach": 0,
-      "so_nguyen_thach": 0,
-      "trung_nguyen_thach": 0,
-      "thuong_nguyen_thach": 0,
-      "so_dao_thach": 0,
-      "trung_dao_thach": 0,
-      "thuong_dao_thach": 0,
-      "so_chung_cuc_thach": 0,
-      "trung_chung_cuc_thach": 0,
-      "thuong_chung_cuc_thach": 0
+      "buildings": {},
+      "auraPerSecond": 1,
+      "alchemyBonus": 0
     },
     "activePillBuffs": [],
-    "breakthroughPillLock": null,
     "combatState": {
-      "fightProgress": 8,
+      "fightProgress": 0,
       "fightDuration": 3000,
-      "currentMonster": {
-        "id": "doi_bach_tang",
-        "name": "Dơi Bạch Tạng",
-        "description": "Dơi trắng bệch",
-        "hp": 35,
-        "atk": 6,
-        "def": 2,
-        "tuViReward": 8,
-        "stoneReward": 2,
-        "mapId": "ap_suong_mu"
-      },
-      "monsterHp": 2,
-      "monsterMaxHp": 35,
-      "status": "Đang đánh Dơi Bạch Tạng",
+      "currentMonster": null,
+      "monsterHp": 0,
+      "monsterMaxHp": 0,
+      "status": "Tự đánh đang tắt.",
       "logs": [
-        "[18:53:42] Bạn thi triển Cơ Bản Kiếm Quyết đánh Xác Ướp Đồng -10 HP.",
-        "[18:53:42] Hạ Xác Ướp Đồng, nhận 8 tu vi và 2 linh thạch.",
-        "[18:53:45] Bạn thi triển Cơ Bản Kiếm Quyết đánh Dơi Bạch Tạng -10 HP.",
-        "[18:53:45] Dơi Bạch Tạng đánh lại -4 HP.",
-        "[18:53:51] Bạn thi triển Cơ Bản Kiếm Quyết đánh Dơi Bạch Tạng -11 HP.",
-        "[18:53:51] Dơi Bạch Tạng đánh lại -3 HP.",
-        "[18:53:51] Bạn thi triển Cơ Bản Kiếm Quyết đánh Dơi Bạch Tạng -12 HP.",
-        "[18:53:51] Dơi Bạch Tạng đánh lại -3 HP."
+        "[19:11:17] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -14 HP.",
+        "[19:11:17] Hạ Thân Mộc Ám, nhận 18 tu vi và 5 linh thạch.",
+        "[19:11:23] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -15 HP.",
+        "[19:11:23] Thân Mộc Ám phản kích -6 HP.",
+        "[19:11:26] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -12 HP.",
+        "[19:11:26] Thân Mộc Ám phản kích -5 HP.",
+        "[19:11:29] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -17 HP.",
+        "[19:11:29] Sương Ảnh Yêu phản kích -4 HP."
       ],
-      "deathCount": 0,
-      "deathPenaltyPercent": 0,
-      "lastPenaltyRecoverAt": 1781870031363
+      "deathCount": 2,
+      "deathPenaltyPercent": 3,
+      "lastPenaltyRecoverAt": 1781870440031
     }
   }
 }
