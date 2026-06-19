@@ -1,6 +1,6 @@
 // ============================================
 // CORE - COMBAT SERVICE
-// Combat có HP quái, HP người chơi, phạt chết và log.
+// Combat có HP quái, HP người chơi, phạt chết và áp dụng vũ kỹ đang trang bị.
 // ============================================
 const mapService = require('./mapService');
 const currencyService = require('./currencyService');
@@ -99,18 +99,23 @@ function applyDeathPenalty(player) {
   return state.deathPenaltyPercent;
 }
 
+function clearMonster(player) {
+  ensureCombatState(player);
+  player.combatState.currentMonster = null;
+  player.combatState.monsterHp = 0;
+  player.combatState.monsterMaxHp = 0;
+  player.combatState.fightProgress = 0;
+}
+
 function spawnMonster(player) {
   ensureCombatState(player);
   recoverDeathPenalty(player);
   if (isCombatLocked(player)) {
     player.autoFight = false;
-    player.combatState.currentMonster = null;
-    player.combatState.monsterHp = 0;
-    player.combatState.monsterMaxHp = 0;
+    clearMonster(player);
     player.combatState.status = 'Phạt chỉ số đạt 90%, tạm cấm combat. Chờ hồi phục.';
     return null;
   }
-
   const map = mapService.ensureCurrentMap(player);
   const baseMonster = mapService.getRandomMonster(map);
   const monster = mapService.buildMonsterStats(player, map, baseMonster);
@@ -125,7 +130,8 @@ function spawnMonster(player) {
 function getPlayerAtk(player) {
   const base = Number(player.combat?.atk || 1);
   const bonus = Number(player.permanentBonuses?.atk || 0);
-  return Math.max(1, getEffectiveStat(base + bonus, player, 1));
+  const martialEffects = martialSkillService.getEquippedMartialEffects(player.martialSkills);
+  return Math.max(1, getEffectiveStat((base + bonus) * (1 + Number(martialEffects.atkBonus || 0)), player, 1));
 }
 
 function getPlayerDef(player) {
@@ -175,12 +181,13 @@ function doCombatRound(player) {
   const playerDef = getPlayerDef(player);
   const playerDamage = rollDamage(getPlayerAtk(player), monster.def || 0, {
     damageMultiplier: martialEffects.damageMultiplier,
-    extraDamage: playerDef * martialEffects.defDamageRatio,
-    critRate: Number(player.combat?.critRate || 0) + martialEffects.critBonus,
+    extraDamage: Number(martialEffects.extraDamage || 0) + playerDef * Number(martialEffects.defDamageRatio || 0),
+    critRate: Number(player.combat?.critRate || 0) + Number(martialEffects.critBonus || 0),
     critDmg: Number(player.combat?.critDmg || 1.5),
   });
+
   player.combatState.monsterHp = Math.max(0, player.combatState.monsterHp - playerDamage);
-  addLog(player, `Bạn thi triển vũ kỹ đánh ${monster.name} -${playerDamage} HP.`);
+  addLog(player, `Bạn thi triển ${martialEffects.name} đánh ${monster.name} -${playerDamage} HP.`);
 
   if (player.combatState.monsterHp <= 0) {
     grantKillReward(player, monster);
@@ -195,9 +202,7 @@ function doCombatRound(player) {
   if (player.combat.hp <= 0) {
     const penalty = applyDeathPenalty(player);
     player.autoFight = false;
-    player.combatState.currentMonster = null;
-    player.combatState.monsterHp = 0;
-    player.combatState.monsterMaxHp = 0;
+    clearMonster(player);
     player.combatState.status = penalty >= MAX_DEATH_PENALTY_PERCENT
       ? 'Phạt chỉ số đạt 90%, tạm cấm combat. Chờ hồi phục.'
       : `Trọng thương, bị phạt ${penalty}% chỉ số.`;
@@ -256,6 +261,7 @@ function getPublicCombatState(player) {
 
 module.exports = {
   ensureCombatState,
+  clearMonster,
   spawnMonster,
   processCombat,
   getPublicCombatState,

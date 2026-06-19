@@ -1,6 +1,6 @@
 // ============================================
 // CONFIG - MARTIAL SKILLS
-// Vũ kỹ cơ bản theo 3 hệ: Tu Luyện / Luyện Thể / Luyện Hồn
+// Vũ kỹ cơ bản theo 3 hệ. Combat chỉ dùng 1 vũ kỹ đang trang bị.
 // ============================================
 const phases = require('./progressionPhases');
 
@@ -18,6 +18,7 @@ const MARTIAL_SKILL_CONFIG = {
       name: 'Cơ Bản Kiếm Quyết',
       grade: 'basic',
       system: 'cultivation',
+      slot: 'active',
       type: 'attack',
       maxRankMode: 'follow_realm',
       startRank: 1,
@@ -33,6 +34,7 @@ const MARTIAL_SKILL_CONFIG = {
       name: 'Man Ngưu Quyền',
       grade: 'basic',
       system: 'body',
+      slot: 'active',
       type: 'attack',
       maxRankMode: 'follow_realm',
       startRank: 1,
@@ -48,6 +50,7 @@ const MARTIAL_SKILL_CONFIG = {
       name: 'Kinh Thần Thứ',
       grade: 'basic',
       system: 'soul',
+      slot: 'active',
       type: 'soul_attack',
       maxRankMode: 'follow_realm',
       startRank: 1,

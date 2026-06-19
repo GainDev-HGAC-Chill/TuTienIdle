@@ -1,162 +1,107 @@
 // ============================================
 // CORE - MARTIAL SKILL SERVICE
-// Logic đọc/nâng Vũ Kỹ
+// Học nhiều vũ kỹ, nhưng combat chỉ dùng 1 vũ kỹ active.
 // ============================================
-const MARTIAL_SKILL_CONFIG = require('../config/martialSkills');
-const BODY_REALMS = require('../config/bodyRealms');
-const progression = require('./progressionService');
+const CONFIG = require('../config/martialSkills');
 
-function getMartialSkill(skillId) {
-  return MARTIAL_SKILL_CONFIG.list.find(item => item.id === skillId) || null;
+function getAllMartialSkills() {
+  return CONFIG.list || [];
 }
 
-function createProgress(id) {
-  return { id, rank: 1, phase: 1, exp: 0, maxExp: 100 };
+function getMartialSkillById(id) {
+  return getAllMartialSkills().find(item => item.id === id) || null;
+}
+
+function makeLearnedItem(config) {
+  return {
+    ...config,
+    rank: config.startRank || 1,
+    phase: config.startPhase || 1,
+    exp: 0,
+    maxExp: 100,
+  };
 }
 
 function createDefaultMartialSkills() {
+  const learned = getAllMartialSkills().map(makeLearnedItem);
   return {
     equipped: {
-      cultivation: 'co_ban_kiem_quyet',
-      body: 'man_nguu_quyen',
-      soul: 'kinh_than_thu',
+      active: 'co_ban_kiem_quyet',
     },
-    learned: {
-      co_ban_kiem_quyet: createProgress('co_ban_kiem_quyet'),
-      man_nguu_quyen: createProgress('man_nguu_quyen'),
-      kinh_than_thu: createProgress('kinh_than_thu'),
-    },
+    learned,
   };
 }
 
-function normalizeMartialSkillState(state) {
+function normalizeMartialSkills(state) {
   const defaults = createDefaultMartialSkills();
   if (!state || typeof state !== 'object') return defaults;
-  if (!state.learned) state.learned = {};
 
-  // Chuyển dữ liệu cũ: equipped là array.
-  if (Array.isArray(state.equipped)) {
-    state.equipped = { cultivation: state.equipped[0] };
+  let learned = [];
+  if (Array.isArray(state.learned)) {
+    learned = state.learned.map(item => {
+      const config = getMartialSkillById(item.id) || item;
+      return { ...config, ...item };
+    });
+  } else if (state.learned && typeof state.learned === 'object') {
+    learned = Object.values(state.learned).map(item => {
+      const config = getMartialSkillById(item.id) || item;
+      return { ...config, ...item };
+    });
   }
-  if (!state.equipped || typeof state.equipped !== 'object') state.equipped = {};
 
-  for (const [system, id] of Object.entries(defaults.equipped)) {
-    if (!state.equipped[system]) state.equipped[system] = id;
-    if (!state.learned[id]) state.learned[id] = createProgress(id);
+  for (const item of defaults.learned) {
+    if (!learned.some(x => x.id === item.id)) learned.push(item);
   }
-  return state;
+
+  const equipped = { ...(state.equipped || {}) };
+  if (!equipped.active && learned.length) equipped.active = defaults.equipped.active;
+
+  return { equipped, learned };
 }
 
-function getLearnedMartialSkill(playerSkills, skillId) {
-  const state = normalizeMartialSkillState(playerSkills);
-  return state.learned[skillId] || null;
+function equipMartialSkill(state, martialSkillId) {
+  const normalized = normalizeMartialSkills(state);
+  const item = normalized.learned.find(x => x.id === martialSkillId);
+  if (!item) return { success: false, error: 'Chưa học vũ kỹ này.' };
+  normalized.equipped.active = item.id;
+  return { success: true, martialSkills: normalized, message: `Đã trang bị ${item.name}.` };
 }
 
-function getMartialSkillInfo(playerSkills, skillId) {
-  const state = normalizeMartialSkillState(playerSkills);
-  const skill = getMartialSkill(skillId);
-  const learned = getLearnedMartialSkill(state, skillId);
-  if (!skill || !learned) return null;
+function unequipMartialSkill(state, martialSkillId) {
+  const normalized = normalizeMartialSkills(state);
+  if (normalized.equipped.active === martialSkillId) {
+    normalized.equipped.active = null;
+  }
+  return { success: true, martialSkills: normalized, message: 'Đã tháo vũ kỹ.' };
+}
 
-  const progressInfo = progression.getDisplayInfo(
-    {
-      id: MARTIAL_SKILL_CONFIG.id,
-      name: MARTIAL_SKILL_CONFIG.name,
-      phases: MARTIAL_SKILL_CONFIG.phases,
-      ranks: BODY_REALMS.ranks.map(rank => ({
-        ...rank,
-        name: `${skill.name} - ${rank.name.replace('Thể', '').trim()}`,
-      })),
-    },
-    learned
-  );
+function getEquippedMartialSkill(state) {
+  const normalized = normalizeMartialSkills(state);
+  const id = normalized.equipped?.active;
+  if (!id) return null;
+  return normalized.learned.find(x => x.id === id) || getMartialSkillById(id) || null;
+}
 
+function getEquippedMartialEffects(state) {
+  const item = getEquippedMartialSkill(state);
+  const effects = item?.effects || {};
   return {
-    ...progressInfo,
-    id: skill.id,
-    name: skill.name,
-    grade: skill.grade,
-    system: skill.system,
-    type: skill.type,
-    effects: skill.effects,
-    description: skill.description,
+    name: item?.name || 'Đòn đánh thường',
+    damageMultiplier: Math.max(1, Number(effects.damageMultiplier || 1)),
+    extraDamage: Math.max(0, Number(effects.extraDamage || 0)),
+    defDamageRatio: Math.max(0, Number(effects.defDamageRatio || 0)),
+    critBonus: Math.max(0, Number(effects.critBonus || 0)),
+    atkBonus: Math.max(0, Number(effects.atkBonus || 0)),
   };
-}
-
-function getPublicMartialSkills(playerSkills) {
-  const state = normalizeMartialSkillState(playerSkills);
-  const learned = Object.keys(state.learned)
-    .map(id => getMartialSkillInfo(state, id))
-    .filter(Boolean);
-  return { equipped: state.equipped, learned };
-}
-
-function equipMartialSkill(playerSkills, skillId, system) {
-  const state = normalizeMartialSkillState(playerSkills);
-  const skill = getMartialSkill(skillId);
-  if (!skill) return { success: false, reason: 'Vũ kỹ không tồn tại.' };
-  if (!state.learned[skillId]) return { success: false, reason: 'Chưa học vũ kỹ này.' };
-  const slot = system || skill.system || 'cultivation';
-  if (!['cultivation', 'body', 'soul'].includes(slot)) return { success: false, reason: 'Hệ vũ kỹ không hợp lệ.' };
-  if (skill.system && skill.system !== slot) return { success: false, reason: 'Vũ kỹ không phù hợp hệ này.' };
-  state.equipped[slot] = skillId;
-  return { success: true, equipped: state.equipped };
-}
-
-function getEquippedMartialEffects(playerSkills) {
-  const state = normalizeMartialSkillState(playerSkills);
-  const effects = { damageMultiplier: 1, defDamageRatio: 0, critBonus: 0 };
-  const used = new Set();
-  for (const id of Object.values(state.equipped || {})) {
-    if (!id || used.has(id) || !state.learned[id]) continue;
-    used.add(id);
-    const cfg = getMartialSkill(id);
-    if (!cfg) continue;
-    const rank = Math.max(1, Number(state.learned[id].rank || 1));
-    const rankMul = 1 + (rank - 1) * 0.03;
-    const e = cfg.effects || {};
-    if (e.damageMultiplier) effects.damageMultiplier += (Number(e.damageMultiplier) - 1) * rankMul;
-    if (e.defDamageRatio) effects.defDamageRatio += Number(e.defDamageRatio) * rankMul;
-    if (e.critBonus) effects.critBonus += Number(e.critBonus) * rankMul;
-  }
-  effects.damageMultiplier = Math.max(1, effects.damageMultiplier);
-  return effects;
-}
-
-function canUpgradeMartialSkill(playerSkills, skillId, mainCultivation) {
-  const state = normalizeMartialSkillState(playerSkills);
-  const learned = getLearnedMartialSkill(state, skillId);
-  if (!learned) return { ok: false, reason: 'Chưa học vũ kỹ này.' };
-  return progression.canUpgrade(
-    { id: MARTIAL_SKILL_CONFIG.id, name: MARTIAL_SKILL_CONFIG.name, phases: MARTIAL_SKILL_CONFIG.phases, ranks: BODY_REALMS.ranks },
-    learned,
-    mainCultivation
-  );
-}
-
-function upgradeMartialSkill(playerSkills, skillId, mainCultivation) {
-  const state = normalizeMartialSkillState(playerSkills);
-  const learned = getLearnedMartialSkill(state, skillId);
-  if (!learned) return { success: false, reason: 'Chưa học vũ kỹ này.' };
-  const result = progression.applyUpgrade(
-    { id: MARTIAL_SKILL_CONFIG.id, name: MARTIAL_SKILL_CONFIG.name, phases: MARTIAL_SKILL_CONFIG.phases, ranks: BODY_REALMS.ranks },
-    learned,
-    mainCultivation
-  );
-  if (!result.success) return result;
-  state.learned[skillId] = { ...learned, ...result.progress };
-  return { success: true, skill: state.learned[skillId] };
 }
 
 module.exports = {
-  getMartialSkill,
+  getAllMartialSkills,
+  getMartialSkillById,
   createDefaultMartialSkills,
-  normalizeMartialSkillState,
-  getLearnedMartialSkill,
-  getMartialSkillInfo,
-  getPublicMartialSkills,
+  normalizeMartialSkills,
   equipMartialSkill,
+  unequipMartialSkill,
+  getEquippedMartialSkill,
   getEquippedMartialEffects,
-  canUpgradeMartialSkill,
-  upgradeMartialSkill,
 };

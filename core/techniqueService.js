@@ -1,141 +1,96 @@
 // ============================================
 // CORE - TECHNIQUE SERVICE
-// Logic đọc/nâng Công Pháp
+// Công pháp: mặc định 3 hệ, mỗi hệ trang bị 1 cuốn.
 // ============================================
-const TECHNIQUE_CONFIG = require('../config/techniques');
-const BODY_REALMS = require('../config/bodyRealms');
-const progression = require('./progressionService');
+const CONFIG = require('../config/techniques');
 
-function getTechnique(techniqueId) {
-  return TECHNIQUE_CONFIG.list.find(item => item.id === techniqueId) || null;
+function getAllTechniques() {
+  return CONFIG.list || [];
 }
 
-function createProgress(id) {
-  return { id, rank: 1, phase: 1, exp: 0, maxExp: 100 };
+function getTechniqueById(id) {
+  return getAllTechniques().find(item => item.id === id) || null;
+}
+
+function makeLearnedItem(config) {
+  return {
+    ...config,
+    rank: config.startRank || 1,
+    phase: config.startPhase || 1,
+    exp: 0,
+    maxExp: 100,
+  };
 }
 
 function createDefaultTechniques() {
+  const learned = getAllTechniques().map(makeLearnedItem);
   return {
     equipped: {
       cultivation: 'tho_nap_quyet',
       body: 'man_nguu_luyen_the_quyet',
       soul: 'duong_than_quyet',
     },
-    learned: {
-      tho_nap_quyet: createProgress('tho_nap_quyet'),
-      man_nguu_luyen_the_quyet: createProgress('man_nguu_luyen_the_quyet'),
-      duong_than_quyet: createProgress('duong_than_quyet'),
-    },
+    learned,
   };
 }
 
-function normalizeTechniqueState(state) {
+function normalizeTechniques(state) {
   const defaults = createDefaultTechniques();
   if (!state || typeof state !== 'object') return defaults;
-  if (!state.learned) state.learned = {};
 
-  // Chuyển dữ liệu cũ: equipped là string.
-  if (typeof state.equipped === 'string') {
-    state.equipped = { cultivation: state.equipped };
+  let learned = [];
+  if (Array.isArray(state.learned)) {
+    learned = state.learned.map(item => {
+      const config = getTechniqueById(item.id) || item;
+      return { ...config, ...item };
+    });
+  } else if (state.learned && typeof state.learned === 'object') {
+    learned = Object.values(state.learned).map(item => {
+      const config = getTechniqueById(item.id) || item;
+      return { ...config, ...item };
+    });
   }
-  if (!state.equipped || typeof state.equipped !== 'object') state.equipped = {};
 
-  for (const [system, id] of Object.entries(defaults.equipped)) {
-    if (!state.equipped[system]) state.equipped[system] = id;
-    if (!state.learned[id]) state.learned[id] = createProgress(id);
+  for (const item of defaults.learned) {
+    if (!learned.some(x => x.id === item.id)) learned.push(item);
   }
-  return state;
+
+  const equipped = { ...(state.equipped || {}) };
+  for (const item of learned) {
+    const system = item.system || item.type || 'cultivation';
+    if (!equipped[system]) equipped[system] = item.id;
+  }
+
+  return { equipped, learned };
 }
 
-function getLearnedTechnique(playerTechniques, techniqueId) {
-  const state = normalizeTechniqueState(playerTechniques);
-  return state.learned[techniqueId] || null;
+function equipTechnique(state, techniqueId, system) {
+  const normalized = normalizeTechniques(state);
+  const item = normalized.learned.find(x => x.id === techniqueId);
+  if (!item) return { success: false, error: 'Chưa học công pháp này.' };
+  const slot = system || item.system || item.type || 'cultivation';
+  normalized.equipped[slot] = item.id;
+  return { success: true, techniques: normalized, message: `Đã vận chuyển ${item.name}.` };
 }
 
-function getTechniqueInfo(playerTechniques, techniqueId) {
-  const state = normalizeTechniqueState(playerTechniques);
-  const technique = getTechnique(techniqueId);
-  const learned = getLearnedTechnique(state, techniqueId);
-  if (!technique || !learned) return null;
-
-  const progressInfo = progression.getDisplayInfo(
-    {
-      id: TECHNIQUE_CONFIG.id,
-      name: TECHNIQUE_CONFIG.name,
-      phases: TECHNIQUE_CONFIG.phases,
-      ranks: BODY_REALMS.ranks.map(rank => ({
-        ...rank,
-        name: `${technique.name} - ${rank.name.replace('Thể', '').trim()}`,
-      })),
-    },
-    learned
-  );
-
-  return {
-    ...progressInfo,
-    id: technique.id,
-    name: technique.name,
-    grade: technique.grade,
-    system: technique.system,
-    type: technique.type,
-    effects: technique.effects,
-    description: technique.description,
-  };
-}
-
-function getPublicTechniques(playerTechniques) {
-  const state = normalizeTechniqueState(playerTechniques);
-  const learned = Object.keys(state.learned)
-    .map(id => getTechniqueInfo(state, id))
-    .filter(Boolean);
-  return { equipped: state.equipped, learned };
-}
-
-function equipTechnique(playerTechniques, techniqueId, system) {
-  const state = normalizeTechniqueState(playerTechniques);
-  const technique = getTechnique(techniqueId);
-  if (!technique) return { success: false, reason: 'Công pháp không tồn tại.' };
-  if (!state.learned[techniqueId]) return { success: false, reason: 'Chưa học công pháp này.' };
-  const slot = system || technique.system || 'cultivation';
-  if (!['cultivation', 'body', 'soul'].includes(slot)) return { success: false, reason: 'Hệ công pháp không hợp lệ.' };
-  if (technique.system && technique.system !== slot) return { success: false, reason: 'Công pháp không phù hợp hệ này.' };
-  state.equipped[slot] = techniqueId;
-  return { success: true, equipped: state.equipped };
-}
-
-function canUpgradeTechnique(playerTechniques, techniqueId, mainCultivation) {
-  const state = normalizeTechniqueState(playerTechniques);
-  const learned = getLearnedTechnique(state, techniqueId);
-  if (!learned) return { ok: false, reason: 'Chưa học công pháp này.' };
-  return progression.canUpgrade(
-    { id: TECHNIQUE_CONFIG.id, name: TECHNIQUE_CONFIG.name, phases: TECHNIQUE_CONFIG.phases, ranks: BODY_REALMS.ranks },
-    learned,
-    mainCultivation
-  );
-}
-
-function upgradeTechnique(playerTechniques, techniqueId, mainCultivation) {
-  const state = normalizeTechniqueState(playerTechniques);
-  const learned = getLearnedTechnique(state, techniqueId);
-  if (!learned) return { success: false, reason: 'Chưa học công pháp này.' };
-  const result = progression.applyUpgrade(
-    { id: TECHNIQUE_CONFIG.id, name: TECHNIQUE_CONFIG.name, phases: TECHNIQUE_CONFIG.phases, ranks: BODY_REALMS.ranks },
-    learned,
-    mainCultivation
-  );
-  if (!result.success) return result;
-  state.learned[techniqueId] = { ...learned, ...result.progress };
-  return { success: true, technique: state.learned[techniqueId] };
+function getEquippedTechniqueEffects(state) {
+  const normalized = normalizeTechniques(state);
+  const effects = {};
+  for (const id of Object.values(normalized.equipped || {})) {
+    const item = normalized.learned.find(x => x.id === id) || getTechniqueById(id);
+    if (!item || !item.effects) continue;
+    for (const [key, value] of Object.entries(item.effects)) {
+      effects[key] = (effects[key] || 0) + Number(value || 0);
+    }
+  }
+  return effects;
 }
 
 module.exports = {
-  getTechnique,
+  getAllTechniques,
+  getTechniqueById,
   createDefaultTechniques,
-  normalizeTechniqueState,
-  getLearnedTechnique,
-  getTechniqueInfo,
-  getPublicTechniques,
+  normalizeTechniques,
   equipTechnique,
-  canUpgradeTechnique,
-  upgradeTechnique,
+  getEquippedTechniqueEffects,
 };
