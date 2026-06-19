@@ -2,8 +2,8 @@
   "demo": {
     "username": "demo",
     "createdAt": 1781834007999,
-    "lastSave": 1781856763343,
-    "lastTick": 1781856763343,
+    "lastSave": 1781856814334,
+    "lastTick": 1781856814334,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 4,
@@ -21,7 +21,7 @@
     "soulCultivation": {
       "rank": 2,
       "phase": 3,
-      "exp": 6,
+      "exp": 92,
       "maxExp": 100
     },
     "skills": {
@@ -111,7 +111,7 @@
     },
     "spiritRoots": [],
     "combat": {
-      "hp": 391,
+      "hp": 206,
       "maxHp": 520,
       "atk": 94,
       "def": 47,
@@ -123,9 +123,9 @@
     "currentZone": "ap_suong_mu",
     "autoFight": true,
     "stats": {
-      "totalKills": 699,
+      "totalKills": 704,
       "totalTuVi": 50740,
-      "playTime": 22392
+      "playTime": 22435
     },
     "permanentBonuses": {
       "atk": 0,
@@ -162,10 +162,10 @@
           "plantedAt": 1781853805111
         }
       ],
-      "lastProcessAt": 1781856763343
+      "lastProcessAt": 1781856814334
     },
     "currencies": {
-      "so_linh_thach": 2441,
+      "so_linh_thach": 2461,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -184,35 +184,35 @@
     "activePillBuffs": [],
     "breakthroughPillLock": null,
     "combatState": {
-      "fightProgress": 0,
+      "fightProgress": 2987,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "ret_bay_mau",
-        "name": "Rết Bảy Màu",
-        "description": "Rết sặc sỡ độc",
-        "hp": 197,
-        "atk": 43,
-        "def": 10,
-        "tuViReward": 44,
-        "stoneReward": 4,
+        "id": "lang_mo_coi",
+        "name": "Lang Mồ Côi",
+        "description": "Sói ma côi bị bỏ rơi",
+        "hp": 133,
+        "atk": 27,
+        "def": 6,
+        "tuViReward": 28,
+        "stoneReward": 2,
         "drop": []
       },
-      "monsterHp": 197,
-      "monsterMaxHp": 197,
-      "status": "Đang đánh Rết Bảy Màu",
+      "monsterHp": 32,
+      "monsterMaxHp": 133,
+      "status": "Đang đánh Lang Mồ Côi",
       "logs": [
-        "[15:12:33] Bạn đánh Mắt Độc -98 HP.",
-        "[15:12:33] Hạ Mắt Độc, nhận 3 linh thạch.",
-        "[15:12:37] Bạn đánh Chuột Đá -97 HP.",
-        "[15:12:37] Chuột Đá đánh lại -17 HP.",
-        "[15:12:40] Bạn đánh Chuột Đá -91 HP.",
-        "[15:12:40] Chuột Đá đánh lại -21 HP.",
-        "[15:12:43] Bạn đánh Chuột Đá -83 HP.",
-        "[15:12:43] Hạ Chuột Đá, nhận 4 linh thạch."
+        "[15:13:22] Bạn đánh Bùn Sống -102 HP.",
+        "[15:13:22] Bùn Sống đánh lại -26 HP.",
+        "[15:13:25] Bạn đánh Bùn Sống -77 HP.",
+        "[15:13:25] Bùn Sống đánh lại -26 HP.",
+        "[15:13:28] Bạn đánh Bùn Sống -88 HP.",
+        "[15:13:28] Hạ Bùn Sống, nhận 5 linh thạch.",
+        "[15:13:34] Bạn đánh Lang Mồ Côi -101 HP.",
+        "[15:13:34] Lang Mồ Côi đánh lại -6 HP."
       ],
       "deathCount": 0,
       "deathPenaltyPercent": 0,
-      "lastPenaltyRecoverAt": 1781856763343
+      "lastPenaltyRecoverAt": 1781856814334
     },
     "cultivationFocus": [
       "soul"
