@@ -1,15 +1,15 @@
 {
   "demo": {
     "username": "demo",
-    "createdAt": 1781864231481,
-    "lastSave": 1781864448337,
-    "lastTick": 1781864448337,
+    "createdAt": 1781865423275,
+    "lastSave": 1781865457296,
+    "lastTick": 1781865457296,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 2,
-      "tuVi": 93,
-      "maxTuVi": 200,
+      "stage": 1,
+      "tuVi": 29,
+      "maxTuVi": 100,
       "daoEntry": null
     },
     "bodyCultivation": {
@@ -29,6 +29,66 @@
       "equippedMartial": [],
       "equippedDivine": []
     },
+    "techniques": {
+      "equipped": {
+        "cultivation": "tho_nap_quyet",
+        "body": "man_nguu_luyen_the_quyet",
+        "soul": "duong_than_quyet"
+      },
+      "learned": {
+        "tho_nap_quyet": {
+          "id": "tho_nap_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "man_nguu_luyen_the_quyet": {
+          "id": "man_nguu_luyen_the_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "duong_than_quyet": {
+          "id": "duong_than_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        }
+      }
+    },
+    "martialSkills": {
+      "equipped": {
+        "cultivation": "co_ban_kiem_quyet",
+        "body": "man_nguu_quyen",
+        "soul": "kinh_than_thu"
+      },
+      "learned": {
+        "co_ban_kiem_quyet": {
+          "id": "co_ban_kiem_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "man_nguu_quyen": {
+          "id": "man_nguu_quyen",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "kinh_than_thu": {
+          "id": "kinh_than_thu",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        }
+      }
+    },
     "alchemy": {
       "rank": 1,
       "exp": 0,
@@ -42,21 +102,21 @@
     },
     "spiritRoots": [],
     "combat": {
-      "hp": 110,
-      "maxHp": 110,
-      "atk": 12,
-      "def": 6,
+      "hp": 10,
+      "maxHp": 100,
+      "atk": 10,
+      "def": 5,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
     },
     "inventory": [],
     "currentZone": "ap_suong_mu",
-    "autoFight": false,
+    "autoFight": true,
     "stats": {
       "totalKills": 0,
-      "totalTuVi": 193,
-      "playTime": 193
+      "totalTuVi": 29,
+      "playTime": 29
     },
     "permanentBonuses": {
       "atk": 0,
@@ -66,7 +126,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 193,
+        "aura": 29,
         "herbEssence": 0,
         "alchemyFire": 0
       },
@@ -88,7 +148,7 @@
         }
       },
       "herbPlots": [],
-      "lastProcessAt": 1781864448337
+      "lastProcessAt": 1781865457296
     },
     "currencies": {
       "so_linh_thach": 0,
@@ -110,35 +170,35 @@
     "activePillBuffs": [],
     "breakthroughPillLock": null,
     "combatState": {
-      "fightProgress": 2543,
+      "fightProgress": 1021,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "hon_ma_den",
-        "name": "Hồn Ma Đèn",
-        "description": "Bóng ma ôm đèn lồng",
-        "hp": 149,
-        "atk": 31,
-        "def": 7,
-        "tuViReward": 32,
+        "id": "xac_uop_dong",
+        "name": "Xác Ướp Đồng",
+        "description": "Xác chết bọc đồng",
+        "hp": 157,
+        "atk": 33,
+        "def": 8,
+        "tuViReward": 34,
         "stoneReward": 3,
         "drop": []
       },
-      "monsterHp": 32,
-      "monsterMaxHp": 149,
-      "status": "Tự đánh đang tắt.",
+      "monsterHp": 95,
+      "monsterMaxHp": 157,
+      "status": "Đang đánh Xác Ướp Đồng",
       "logs": [
-        "[17:18:02] Bạn đánh Hồn Ma Đèn -6 HP.",
-        "[17:18:02] Hồn Ma Đèn đánh lại -31 HP.",
-        "[17:18:05] Bạn đánh Hồn Ma Đèn -6 HP.",
-        "[17:18:05] Hồn Ma Đèn đánh lại -25 HP.",
-        "[17:18:08] Bạn đánh Hồn Ma Đèn -7 HP.",
-        "[17:18:08] Hồn Ma Đèn đánh lại -26 HP.",
-        "[17:18:11] Bạn đánh Hồn Ma Đèn -6 HP.",
-        "[17:18:11] Hồn Ma Đèn đánh lại -27 HP."
+        "[17:37:28] Bạn đánh Xác Ướp Đồng -5 HP.",
+        "[17:37:28] Xác Ướp Đồng đánh lại -34 HP.",
+        "[17:37:31] Bạn đánh Xác Ướp Đồng -6 HP.",
+        "[17:37:31] Xác Ướp Đồng đánh lại -30 HP.",
+        "[17:37:34] Bạn đánh Xác Ướp Đồng -5 HP.",
+        "[17:37:34] Xác Ướp Đồng đánh lại -29 HP.",
+        "[17:37:37] Bạn đánh Xác Ướp Đồng -5 HP.",
+        "[17:37:37] Xác Ướp Đồng đánh lại -31 HP."
       ],
       "deathCount": 0,
       "deathPenaltyPercent": 0,
-      "lastPenaltyRecoverAt": 1781864448337
+      "lastPenaltyRecoverAt": 1781865457296
     },
     "cultivationFocus": [
       "main"

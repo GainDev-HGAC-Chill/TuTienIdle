@@ -22,7 +22,6 @@ const pageInfo = {
     alchemy: ['Đan Dược', 'Luyện đan, xem công thức, dùng đan dược trong túi.'],
     cave: ['Động Phủ', 'Tụ linh trận, luyện đan phòng và dược viên.'],
     inventory: ['Túi Đồ', 'Xem vật phẩm, linh dược và đan dược đang có.'],
-    dev: ['Test Dev', 'Cấp dữ liệu nhanh để kiểm thử tính năng.'],
 };
 
 const elementNames = {
@@ -56,8 +55,6 @@ function bindEvents() {
     $('reload-herbs').addEventListener('click', loadHerbs);
     $('recipe-filter').addEventListener('change', renderRecipes);
     $('skill-filter').addEventListener('change', renderSkills);
-    $('dev-grant').addEventListener('click', devGrant);
-    $('dev-set-cultivation').addEventListener('click', devSetCultivation);
 
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', () => setTab(btn.dataset.tab));
@@ -612,32 +609,6 @@ function itemCard(item, allowUse) {
         <p>${item.id}</p>
         ${allowUse ? `<div class="actions"><button class="small-btn" onclick="usePill('${item.id}')">Dùng</button></div>` : ''}
     </div>`;
-}
-
-async function devGrant() {
-    try {
-        const element = $('dev-element').value;
-        const data = await api(`/dev/${currentUser}/grant`, { method: 'POST', body: JSON.stringify({ element, herbAmount: 50, herbCount: 40 }) });
-        playerData = data.player;
-        await loadSkills();
-        renderAll();
-        addLog(`Đã cấp dữ liệu test hệ ${elementNames[element] || element}.`, 'ok');
-    } catch (err) { addLog(`Dev grant lỗi: ${err.message}`, 'err'); }
-}
-
-async function devSetCultivation() {
-    try {
-        const body = {
-            world: $('dev-world').value,
-            realmIndex: Number($('dev-realm-index').value || 0),
-            stage: Number($('dev-stage').value || 1),
-            tuVi: 0,
-        };
-        const data = await api(`/dev/${currentUser}/set-cultivation`, { method: 'POST', body: JSON.stringify(body) });
-        playerData = data.player;
-        renderAll();
-        addLog('Đã set cảnh giới test.', 'ok');
-    } catch (err) { addLog(`Set cảnh giới lỗi: ${err.message}`, 'err'); }
 }
 
 function addLog(message, type = 'info') {

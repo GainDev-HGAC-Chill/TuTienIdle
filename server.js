@@ -13,6 +13,8 @@ const pillService = require('./core/pillService');
 const alchemyService = require('./core/alchemyService');
 const caveService = require('./core/caveService'); const mapService = require('./core/mapService'); const combatService = require('./core/combatService');
 const herbGardenService = require('./core/herbGardenService');
+const techniqueService = require('./core/techniqueService');
+const martialSkillService = require('./core/martialSkillService');
 
 const REALM_CONFIG = require('./config/realms');
 const PILLS = require('./config/pills');
@@ -81,8 +83,10 @@ function ensurePlayerShape(player) {
     }
     if (!player.bodyCultivation) player.bodyCultivation = bodyService.createDefaultBodyCultivation();
     if (!player.soulCultivation) player.soulCultivation = soulService.createDefaultSoulCultivation();
-    if (!player.skills) player.skills = skillService.createDefaultSkillState();
-    if (!player.alchemy) player.alchemy = alchemyService.createDefaultAlchemy();
+	if (!player.skills) player.skills = skillService.createDefaultSkillState();
+	if (!player.techniques) player.techniques = techniqueService.createDefaultTechniques();
+	if (!player.martialSkills) player.martialSkills = martialSkillService.createDefaultMartialSkills();    
+	if (!player.alchemy) player.alchemy = alchemyService.createDefaultAlchemy();
     if (!player.spiritRoot) player.spiritRoot = spiritRootService.createDefaultSpiritRoot();
     if (!player.spiritRoots) player.spiritRoots = [];
     if (!player.combat) {
@@ -112,9 +116,11 @@ function createNewPlayer(username) {
         cultivation: realmService.createDefaultCultivation(),
         bodyCultivation: bodyService.createDefaultBodyCultivation(),
         soulCultivation: soulService.createDefaultSoulCultivation(),
-        skills: skillService.createDefaultSkillState(),
-        alchemy: alchemyService.createDefaultAlchemy(),
-        spiritRoot: spiritRootService.createDefaultSpiritRoot(),
+		skills: skillService.createDefaultSkillState(),
+		techniques: techniqueService.createDefaultTechniques(),
+		martialSkills: martialSkillService.createDefaultMartialSkills(),
+		alchemy: alchemyService.createDefaultAlchemy(),        
+		spiritRoot: spiritRootService.createDefaultSpiritRoot(),
         spiritRoots: [],
         combat: { hp: 100, maxHp: 100, atk: 10, def: 5, speed: 5, critRate: 0.05, critDmg: 1.5 },
         inventory: [],
@@ -320,7 +326,6 @@ function sanitizePlayer(player) {
         maxExp: player.cultivation.maxTuVi || getRealmNeed(player.cultivation),
         info: realmInfo,
     };
-
     return {
         username: player.username,
         cultivation: cultivationCompat,
@@ -331,6 +336,8 @@ function sanitizePlayer(player) {
         spiritRootDisplay,
         spiritRoots: player.spiritRoots,
         skills: player.skills,
+		techniques: player.techniques,
+		martialSkills: player.martialSkills,
         alchemy: player.alchemy,
         cave: {
             ...player.cave,
@@ -579,45 +586,9 @@ app.post('/api/player/:username/herb/harvest', (req, res) => {
     sendPlayer(res, players, player, { result });
 });
 
-app.post('/api/dev/:username/grant', (req, res) => {
-    const players = loadPlayers();
-    const player = getPlayerOrCreate(players, req.params.username);
-    const element = req.body.element || 'kim';
-    if (!player.spiritRoots.includes(element)) player.spiritRoots.push(element);
-    player.spiritRoot = { element, evolution: 'normal', awakenedAt: Date.now(), history: ['dev_grant'] };
-
-    for (const herb of HERBS.slice(0, Number(req.body.herbCount || 20))) {
-        addInventoryItem(player, herb.id, herb.name, Number(req.body.herbAmount || 50));
-    }
-
-    const sampleRecipes = RECIPES.slice(0, 8);
-    for (const recipe of sampleRecipes) {
-        const pill = PILLS.find(p => p.id === recipe.pillId);
-        if (pill) addInventoryItem(player, pill.id, pill.name, 3);
-    }
-
-    sendPlayer(res, players, player, { message: 'Đã cấp dữ liệu test.', sampleRecipes });
-});
-
-app.post('/api/dev/:username/set-cultivation', (req, res) => {
-    const players = loadPlayers();
-    const player = getPlayerOrCreate(players, req.params.username);
-    player.cultivation.world = req.body.world || player.cultivation.world;
-    player.cultivation.realmIndex = Number(req.body.realmIndex ?? player.cultivation.realmIndex);
-    player.cultivation.stage = Number(req.body.stage ?? player.cultivation.stage);
-    player.cultivation.tuVi = Number(req.body.tuVi ?? player.cultivation.tuVi);
-    player.cultivation.maxTuVi = getRealmNeed(player.cultivation);
-    sendPlayer(res, players, player);
-});
-
 app.listen(PORT, () => {
-    console.log(`Tu Tien Idle test server: http://localhost:${PORT}`);
+	console.log(`Tu Tien Idle server: http://localhost:${PORT}`);
     console.log(`Data file: ${DATA_FILE}`);
     console.log(`Meta: http://localhost:${PORT}/api/meta`);
 });
 
-const players = loadPlayers();
-if (!players.demo) {
-    players.demo = createNewPlayer('demo');
-    savePlayers(players);
-}
