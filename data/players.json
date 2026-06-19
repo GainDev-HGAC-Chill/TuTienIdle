@@ -2,20 +2,20 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781872343175,
-    "lastTick": 1781872343175,
+    "lastSave": 1781879116344,
+    "lastTick": 1781879116344,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 6,
-      "tuVi": 188,
-      "maxTuVi": 600
+      "stage": 9,
+      "tuVi": 442,
+      "maxTuVi": 900
     },
     "bodyCultivation": {
-      "rank": 4,
+      "rank": 7,
       "name": "Phàm Thể",
-      "exp": 248,
-      "maxExp": 453
+      "exp": 352,
+      "maxExp": 1321
     },
     "soulCultivation": {
       "rank": 1,
@@ -24,7 +24,7 @@
       "maxExp": 100
     },
     "cultivationFocus": [
-      "main"
+      "body"
     ],
     "techniques": {
       "equipped": {
@@ -58,7 +58,7 @@
     },
     "martialSkills": {
       "equipped": {
-        "active": "man_nguu_quyen"
+        "active": "co_ban_kiem_quyet"
       },
       "learned": {
         "co_ban_kiem_quyet": {
@@ -85,28 +85,39 @@
       }
     },
     "combat": {
-      "hp": 150,
-      "maxHp": 150,
-      "atk": 20,
-      "def": 10,
+      "hp": 147,
+      "maxHp": 180,
+      "atk": 26,
+      "def": 13,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
     },
-    "inventory": [],
+    "inventory": [
+      {
+        "id": "linh_thuy_so_cap",
+        "name": "Linh Thủy Sơ Cấp",
+        "amount": 4
+      },
+      {
+        "id": "linh_nhuong_so_cap",
+        "name": "Linh Nhưỡng Sơ Cấp",
+        "amount": 2
+      }
+    ],
     "currencies": {
-      "so_linh_thach": 89,
+      "so_linh_thach": 167,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
       "tien_ngoc": 0
     },
-    "currentZone": "moc_than_khoc",
-    "autoFight": false,
+    "currentZone": "ap_suong_mu",
+    "autoFight": true,
     "stats": {
-      "totalKills": 22,
-      "totalTuVi": 1718,
-      "playTime": 1642
+      "totalKills": 57,
+      "totalTuVi": 11508,
+      "playTime": 5981
     },
     "permanentBonuses": {
       "atk": 0,
@@ -116,7 +127,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 1642
+        "aura": 5981
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -124,25 +135,80 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 0,
+      "fightProgress": 2998,
       "fightDuration": 3000,
-      "currentMonster": null,
-      "monsterHp": 0,
-      "monsterMaxHp": 0,
-      "status": "Tự đánh đang tắt.",
+      "currentMonster": {
+        "id": "yeu_tho_suong",
+        "name": "Yêu Thỏ Sương",
+        "hp": 42,
+        "atk": 6,
+        "def": 1,
+        "tuViReward": 8,
+        "stoneReward": 2,
+        "mapId": "ap_suong_mu"
+      },
+      "monsterHp": 42,
+      "monsterMaxHp": 42,
+      "status": "Đang đánh Yêu Thỏ Sương",
       "logs": [
-        "[19:11:17] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -14 HP.",
-        "[19:11:17] Hạ Thân Mộc Ám, nhận 18 tu vi và 5 linh thạch.",
-        "[19:11:23] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -15 HP.",
-        "[19:11:23] Thân Mộc Ám phản kích -6 HP.",
-        "[19:11:26] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -12 HP.",
-        "[19:11:26] Thân Mộc Ám phản kích -5 HP.",
-        "[19:11:29] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -17 HP.",
-        "[19:11:29] Sương Ảnh Yêu phản kích -4 HP."
+        "[21:25:07] Yêu Thỏ Sương phản kích -1 HP.",
+        "[21:25:07] Thi triển Cơ Bản Kiếm Quyết, đánh Yêu Thỏ Sương -31 HP.",
+        "[21:25:07] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
+        "[21:25:13] Thi triển Cơ Bản Kiếm Quyết, đánh Yêu Thỏ Sương -31 HP.",
+        "[21:25:13] Yêu Thỏ Sương phản kích -1 HP.",
+        "[21:25:13] Thi triển Cơ Bản Kiếm Quyết, đánh Yêu Thỏ Sương -32 HP.",
+        "[21:25:13] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
+        "[21:25:13] Nhặt được Linh Nhưỡng Sơ Cấp."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
       "lastPenaltyRecoverAt": 1781870440031
-    }
+    },
+    "herbPlots": [
+      {
+        "index": 0,
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781878833697,
+        "readyAt": 1781878893697
+      },
+      {
+        "index": 1,
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
+      },
+      {
+        "index": 2,
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
+      },
+      {
+        "index": 3,
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
+      }
+    ],
+    "lifespan": {
+      "ageYears": 16.005312499999956,
+      "maxYears": 120,
+      "usedPills": {}
+    },
+    "interaction": {
+      "type": "garden",
+      "label": "gieo trồng dược liệu",
+      "until": 1781878834497,
+      "startedAt": 1781878833697
+    },
+    "encounter": {
+      "active": null,
+      "history": []
+    },
+    "temporaryPenalties": []
   }
 }
