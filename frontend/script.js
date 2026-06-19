@@ -443,3 +443,203 @@ window.addEventListener('DOMContentLoaded', async () => {
     startTimer();
   }
 });
+
+// ===============================
+// UI FEATURE OVERRIDE - Thọ Nguyên / Đan Dược / Dược Viên / Tháo Công Pháp
+// ===============================
+function findMetaList(name) {
+  return Array.isArray(metaData?.[name]) ? metaData[name] : [];
+}
+function getMetaItem(id) {
+  return [...findMetaList('materials'), ...findMetaList('herbs'), ...findMetaList('lifespanPills'), ...findMetaList('pills')]
+    .find(item => item && item.id === id) || null;
+}
+function getItemName(id) {
+  return getMetaItem(id)?.name || currencyName(id) || id;
+}
+function secondsText(msOrSec) {
+  const sec = Number(msOrSec || 0) > 1000 ? Math.ceil(Number(msOrSec || 0) / 1000) : Math.ceil(Number(msOrSec || 0));
+  if (sec <= 0) return 'Hoàn tất';
+  if (sec < 60) return `${sec} giây`;
+  const m = Math.floor(sec / 60), s = sec % 60;
+  return s ? `${m} phút ${s} giây` : `${m} phút`;
+}
+function pillEffectText(pill) {
+  if (!pill) return 'Chưa rõ công hiệu.';
+  const parts = [];
+  if (pill.addYears) parts.push(`Tăng ${fmt(pill.addYears)} năm thọ nguyên`);
+  if (pill.maxUses) parts.push(`giới hạn ${fmt(pill.maxUses)} lần dùng`);
+  if (pill.realmMinOrder) parts.push(`yêu cầu cảnh giới bậc ${fmt(pill.realmMinOrder)} trở lên`);
+  if (pill.durationMs) parts.push(`hiệu lực ${secondsText(pill.durationMs)}`);
+  if (pill.effects) parts.push(effectPlainText(pill.effects));
+  if (pill.description) parts.push(pill.description);
+  return [...new Set(parts.filter(Boolean))].join(' · ') || 'Công hiệu chưa được khai mở.';
+}
+function effectPlainText(effects = {}) {
+  const labels = {
+    cultivationSpeedBonus: 'Tốc độ tu luyện', auraBonus: 'Linh khí', tuViBonus: 'Tu vi', hpBonus: 'Sinh mệnh', defBonus: 'Phòng ngự', bodyExpBonus: 'Kinh nghiệm luyện thể', soulPowerBonus: 'Hồn lực', soulExpBonus: 'Kinh nghiệm luyện hồn', critBonus: 'Bạo kích', damageMultiplier: 'Hệ số sát thương', atkBonus: 'Công kích', defDamageRatio: 'Lấy thủ hóa công', extraDamage: 'Sát thương thêm'
+  };
+  const entries = Object.entries(effects || {});
+  if (!entries.length) return '';
+  return entries.map(([key, value]) => {
+    let shown = value;
+    if (typeof value === 'number') shown = Math.abs(value) < 1 ? `${Math.round(value * 100)}%` : value;
+    return `${labels[key] || key}: ${shown}`;
+  }).join(' · ');
+}
+function formulaText(recipe) {
+  const ingredients = recipe?.ingredients || [];
+  const ing = ingredients.length
+    ? ingredients.map(item => `${getItemName(item.id)} x${fmt(item.amount || 1)}`).join(', ')
+    : 'Chưa cần nguyên liệu';
+  const cost = recipe?.cost ? `Linh thạch: ${fmt(recipe.cost)}` : 'Không tốn linh thạch';
+  const time = recipe?.durationMs ? `Thời gian: ${secondsText(recipe.durationMs)}` : 'Dùng ngay';
+  return `${ing} · ${cost} · ${time}`;
+}
+function renderOverview() {
+  const c = playerData.cultivation || {};
+  const combat = playerData.combat || {};
+  const root = playerData.spiritRootDisplay || {};
+  setText('world-name', c.info?.worldName || c.info?.world || c.worldName || '-');
+  setText('realm-name', c.realmName || '-');
+  setText('tuvi-text', `${fmt(c.exp ?? c.tuVi)} / ${fmt(c.maxExp ?? c.maxTuVi)}`);
+  setText('hp-text', `${fmt(combat.hp)} / ${fmt(combat.maxHp)}`);
+  setText('atk-text', fmt(combat.atk));
+  setText('def-text', fmt(combat.def));
+  setText('spirit-root-name', root.name || 'Chưa ngộ linh căn');
+  setText('spirit-root-desc', root.description || 'Tính năng linh căn sẽ mở ở bước sau.');
+  setText('body-rank', playerData.bodyCultivation?.info?.name || playerData.bodyCultivation?.name || '-');
+  setText('soul-rank', playerData.soulCultivation?.info?.name || playerData.soulCultivation?.name || '-');
+  const life = playerData.lifespan || {};
+  const age = life.ageYears ?? life.age ?? 0;
+  const max = life.maxYears ?? life.max ?? 0;
+  const remain = life.remainYears ?? Math.max(0, max - age);
+  setText('lifespan-text', `${fmt(age)} / ${fmt(max)} năm`);
+  setText('lifespan-desc', `Còn khoảng ${fmt(remain)} năm thọ nguyên. Đan dược thọ nguyên có giới hạn số lần dùng.`);
+  const currencies = playerData.currencies || {};
+  $('currency-list').innerHTML = Object.entries(currencies)
+    .filter(([, amount]) => Number(amount) > 0)
+    .map(([id, amount]) => smallCard(currencyName(id), fmt(amount), 'Tiền tệ'))
+    .join('') || '<p class="empty">Chưa có tài nguyên.</p>';
+}
+function practiceCard(item, equipped, kind) {
+  const system = item.system || item.type || 'cultivation';
+  const status = equipped ? (kind === 'technique' ? 'Đang vận chuyển' : 'Đang xuất chiến') : 'Chưa trang bị';
+  return `<div class="practice-card ${equipped ? 'equipped' : ''}">
+    <div class="practice-top"><h4>${escapeHtml(item.name || item.id)}</h4><span>Bậc ${fmt(item.rank || 1)}</span></div>
+    <b class="practice-system">${systemName(system)}</b>
+    <p>${escapeHtml(item.description || '')}</p>
+    <div class="chip-row">${effectChips(item.effects)}</div>
+    <div class="practice-bottom">
+      <strong>${status}</strong>
+      <div class="button-row mini-actions">
+        ${equipped ? `<button type="button" class="ghost" data-unequip-kind="${kind}" data-unequip-id="${escapeHtml(item.id)}" data-unequip-system="${escapeHtml(system)}">Tháo</button>` : `<button type="button" data-equip-kind="${kind}" data-equip-id="${escapeHtml(item.id)}">Trang bị</button>`}
+      </div>
+    </div>
+  </div>`;
+}
+function renderSkills() {
+  const techState = playerData.techniques || { equipped: {}, learned: [] };
+  const martialState = playerData.martialSkills || { equipped: {}, learned: [] };
+  const techniques = Array.isArray(techState.learned) ? techState.learned : Object.values(techState.learned || {});
+  const martial = Array.isArray(martialState.learned) ? martialState.learned : Object.values(martialState.learned || {});
+  $('technique-list').innerHTML = techniques.length ? techniques.map(item => {
+    const slot = item.system || item.type || 'cultivation';
+    const equipped = techState.equipped?.[slot] === item.id;
+    return practiceCard(item, equipped, 'technique');
+  }).join('') : '<p class="empty">Chưa học công pháp.</p>';
+  $('martial-list').innerHTML = martial.length ? martial.map(item => {
+    const equipped = martialState.equipped?.active === item.id;
+    return practiceCard(item, equipped, 'martial-skill');
+  }).join('') : '<p class="empty">Chưa học vũ kỹ.</p>';
+  document.querySelectorAll('[data-equip-kind]').forEach(btn => btn.addEventListener('click', () => equipPracticeItem(btn.dataset.equipKind, btn.dataset.equipId)));
+  document.querySelectorAll('[data-unequip-kind]').forEach(btn => btn.addEventListener('click', () => unequipPracticeItem(btn.dataset.unequipKind, btn.dataset.unequipId, btn.dataset.unequipSystem)));
+  $('skill-list').innerHTML = '<p class="empty">Skill theo linh căn sẽ mở sau khi hoàn thiện linh căn.</p>';
+}
+async function unequipPracticeItem(kind, id, system) {
+  try {
+    const data = await api(`/api/player/${encodeURIComponent(username)}/${kind}/unequip`, { method: 'POST', body: JSON.stringify({ id, system }) });
+    playerData = data.player;
+    renderAll();
+  } catch (err) { alert(err.message); }
+}
+function renderAlchemy() {
+  setText('alchemy-bonus', `+${fmt(playerData.cave?.alchemyBonus || 0)}%`);
+  const recipes = findMetaList('recipes');
+  const pillsMeta = [...findMetaList('lifespanPills'), ...findMetaList('pills')];
+  $('recipe-list').innerHTML = recipes.length ? recipes.map(recipe => {
+    const pill = pillsMeta.find(p => p.id === recipe.pillId) || getMetaItem(recipe.pillId);
+    return `<div class="recipe-card">
+      <div class="recipe-head"><h4>${escapeHtml(recipe.name || recipe.id)}</h4><span>${recipe.durationMs ? secondsText(recipe.durationMs) : 'Tức thời'}</span></div>
+      <p><b>Công hiệu:</b> ${escapeHtml(pillEffectText(pill))}</p>
+      <p><b>Công thức:</b> ${escapeHtml(formulaText(recipe))}</p>
+      <button type="button" data-craft="${escapeHtml(recipe.id)}">Luyện</button>
+    </div>`;
+  }).join('') : '<p class="empty">Chưa có công thức luyện đan.</p>';
+  document.querySelectorAll('[data-craft]').forEach(btn => btn.addEventListener('click', () => craftPill(btn.dataset.craft)));
+  const pills = (playerData.inventory || []).filter(item => item.basePillId || String(item.id || '').includes('dan'));
+  $('pill-list').innerHTML = pills.length ? pills.map(item => {
+    const pill = pillsMeta.find(p => p.id === (item.basePillId || item.id)) || item;
+    return `<div class="pill-card">
+      <div><h4>${escapeHtml(item.name || pill.name || item.id)}</h4><p>Số lượng: ${fmt(item.amount)}</p><p><b>Công hiệu:</b> ${escapeHtml(pillEffectText(pill))}</p></div>
+      <button type="button" data-use-pill="${escapeHtml(item.id)}">Dùng</button>
+    </div>`;
+  }).join('') : '<p class="empty">Chưa có đan dược.</p>';
+  document.querySelectorAll('[data-use-pill]').forEach(btn => btn.addEventListener('click', () => usePill(btn.dataset.usePill)));
+}
+async function usePill(itemId) {
+  try {
+    const data = await api(`/api/player/${encodeURIComponent(username)}/pill/use`, { method: 'POST', body: JSON.stringify({ itemId }) });
+    playerData = data.player;
+    renderAll();
+  } catch (err) { alert(err.message); }
+}
+function renderCave() {
+  const cave = playerData.cave || {};
+  setText('cave-level', `Cấp ${cave.level || 1}`);
+  setText('cave-aura', fmt(cave.resources?.aura || 0));
+  setText('cave-rate', `${fmt(cave.auraPerSecond || 0)}/s`);
+  setText('cave-alchemy', `${fmt(cave.alchemyBonus || 0)}%`);
+  $('cave-buildings').innerHTML = '<p class="empty">Kiến trúc động phủ sẽ mở ở bước sau.</p>';
+  const plots = playerData.herbPlots || playerData.cave?.herbPlots || [];
+  const herbs = findMetaList('herbs');
+  $('herb-plots').innerHTML = plots.length ? plots.map((plot, idx) => {
+    const state = plot.state || (plot.herbId ? 'growing' : 'empty');
+    const ready = state === 'ready' || Number(plot.remainMs || 0) <= 0 && plot.herbId;
+    if (plot.herbId) {
+      const herb = herbs.find(h => h.id === plot.herbId) || getMetaItem(plot.herbId) || plot;
+      return `<div class="garden-plot ${ready ? 'ready' : 'growing'}">
+        <b>Ô Dược Viên ${idx + 1}</b>
+        <h4>${escapeHtml(plot.herbName || herb.name || plot.herbId)}</h4>
+        <p>${ready ? 'Đã chín, có thể thu hoạch.' : `Đang sinh trưởng · còn ${secondsText(plot.remainMs || 0)}`}</p>
+        <button type="button" ${ready ? '' : 'disabled'} data-harvest="${idx}">Thu hoạch</button>
+      </div>`;
+    }
+    return `<div class="garden-plot empty-plot">
+      <b>Ô Dược Viên ${idx + 1}</b>
+      <p>Chọn dược liệu để gieo trồng. Mỗi lần cần hạt giống, linh thủy, linh nhưỡng và linh thạch.</p>
+      <select data-plant-select="${idx}">${herbs.map(h => `<option value="${escapeHtml(h.id)}">${escapeHtml(h.name)} · ${escapeHtml(formulaText({ ingredients: [{ id: h.seedId, amount: 1 }, { id: h.waterId, amount: 1 }, { id: h.soilId, amount: 1 }], cost: h.cost, durationMs: h.growSeconds * 1000 }))}</option>`).join('')}</select>
+      <button type="button" data-plant="${idx}">Gieo trồng</button>
+    </div>`;
+  }).join('') : '<p class="empty">Dược viên chưa khai mở.</p>';
+  document.querySelectorAll('[data-plant]').forEach(btn => btn.addEventListener('click', () => {
+    const idx = Number(btn.dataset.plant || 0);
+    const select = document.querySelector(`[data-plant-select="${idx}"]`);
+    plantHerb(idx, select?.value);
+  }));
+  document.querySelectorAll('[data-harvest]').forEach(btn => btn.addEventListener('click', () => harvestHerb(Number(btn.dataset.harvest || 0))));
+}
+async function plantHerb(plotIndex, herbId) {
+  try {
+    const data = await api(`/api/player/${encodeURIComponent(username)}/herb/plant`, { method: 'POST', body: JSON.stringify({ plotIndex, herbId }) });
+    playerData = data.player;
+    renderAll();
+  } catch (err) { alert(err.message); }
+}
+async function harvestHerb(plotIndex) {
+  try {
+    const data = await api(`/api/player/${encodeURIComponent(username)}/herb/harvest`, { method: 'POST', body: JSON.stringify({ plotIndex }) });
+    playerData = data.player;
+    renderAll();
+  } catch (err) { alert(err.message); }
+}

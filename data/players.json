@@ -2,29 +2,29 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781880591346,
-    "lastTick": 1781880591346,
+    "lastSave": 1781881368346,
+    "lastTick": 1781881368346,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
-      "stage": 8,
-      "tuVi": 408,
-      "maxTuVi": 1160
+      "stage": 9,
+      "tuVi": 180,
+      "maxTuVi": 1305
     },
     "bodyCultivation": {
-      "rank": 9,
+      "rank": 10,
       "name": "Phàm Thể",
-      "exp": 1236,
-      "maxExp": 2524
+      "exp": 2456,
+      "maxExp": 3457
     },
     "soulCultivation": {
-      "rank": 1,
+      "rank": 5,
       "name": "Tĩnh Hồn",
-      "exp": 61,
-      "maxExp": 100
+      "exp": 312,
+      "maxExp": 661
     },
     "cultivationFocus": [
-      "body"
+      "soul"
     ],
     "techniques": {
       "equipped": {
@@ -58,7 +58,7 @@
     },
     "martialSkills": {
       "equipped": {
-        "active": "kinh_than_thu"
+        "active": "co_ban_kiem_quyet"
       },
       "learned": {
         "co_ban_kiem_quyet": {
@@ -85,10 +85,10 @@
       }
     },
     "combat": {
-      "hp": 238,
-      "maxHp": 260,
-      "atk": 42,
-      "def": 21,
+      "hp": 263,
+      "maxHp": 270,
+      "atk": 44,
+      "def": 22,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
@@ -97,21 +97,38 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 25
+        "amount": 27
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 15
+        "amount": 23
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 18
+        "amount": 22
+      },
+      {
+        "id": "linh_thao",
+        "name": "Linh Thảo",
+        "amount": 2
+      },
+      {
+        "id": "tho_nguyen_dan",
+        "name": "Thọ Nguyên Đan",
+        "amount": 1,
+        "quality": "Thường"
+      },
+      {
+        "id": "tho_nguyen_dan",
+        "name": "Thọ Nguyên Đan",
+        "amount": 1,
+        "quality": "Tốt"
       }
     ],
     "currencies": {
-      "so_linh_thach": 494,
+      "so_linh_thach": 532,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -120,9 +137,9 @@
     "currentZone": "ap_suong_mu",
     "autoFight": true,
     "stats": {
-      "totalKills": 178,
-      "totalTuVi": 18028,
-      "playTime": 7309
+      "totalKills": 250,
+      "totalTuVi": 18962,
+      "playTime": 7938
     },
     "permanentBonuses": {
       "atk": 0,
@@ -132,7 +149,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 7309
+        "aura": 7938
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -140,30 +157,30 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 11,
+      "fightProgress": 2997,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "mao_quy",
-        "name": "Mao Quỷ",
-        "hp": 48,
-        "atk": 7,
-        "def": 2,
-        "tuViReward": 10,
-        "stoneReward": 3,
+        "id": "yeu_tho_suong",
+        "name": "Yêu Thỏ Sương",
+        "hp": 42,
+        "atk": 6,
+        "def": 1,
+        "tuViReward": 8,
+        "stoneReward": 2,
         "mapId": "ap_suong_mu"
       },
-      "monsterHp": 6,
-      "monsterMaxHp": 48,
-      "status": "Đang đánh Mao Quỷ",
+      "monsterHp": 0,
+      "monsterMaxHp": 42,
+      "status": "Đang đánh Yêu Thỏ Sương",
       "logs": [
-        "[21:49:42] Thi triển Kinh Thần Thứ, đánh Yêu Thỏ Sương -36 HP.",
-        "[21:49:42] Yêu Thỏ Sương phản kích -1 HP.",
-        "[21:49:42] Thi triển Kinh Thần Thứ, đánh Yêu Thỏ Sương -41 HP.",
-        "[21:49:42] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
-        "[21:49:48] Thi triển Kinh Thần Thứ, đánh Yêu Thỏ Sương -43 HP.",
-        "[21:49:48] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
-        "[21:49:51] Thi triển Kinh Thần Thứ, đánh Mao Quỷ -42 HP.",
-        "[21:49:51] Mao Quỷ phản kích -1 HP."
+        "[22:01:20] Thi triển Cơ Bản Kiếm Quyết, đánh Mao Quỷ -44 HP.",
+        "[22:01:20] Hạ Mao Quỷ, nhận 10 tu vi và 3 linh thạch.",
+        "[22:01:20] Nhặt được Hạt Giống Linh Thảo.",
+        "[22:01:25] Thi triển Cơ Bản Kiếm Quyết, đánh Yêu Thỏ Sương -47 HP.",
+        "[22:01:25] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
+        "[22:01:31] Thi triển Cơ Bản Kiếm Quyết, đánh Yêu Thỏ Sương -44 HP.",
+        "[22:01:31] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
+        "[22:01:31] Kỳ ngộ xuất hiện: Cổ Mộ Dược Viên."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -172,10 +189,10 @@
     "herbPlots": [
       {
         "index": 0,
-        "state": "growing",
-        "herbId": "linh_thao",
-        "plantedAt": 1781878833697,
-        "readyAt": 1781878893697
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
       },
       {
         "index": 1,
@@ -200,18 +217,37 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.02068287037021,
+      "ageYears": 16.02796296296274,
       "maxYears": 160,
       "usedPills": {}
     },
     "interaction": {
-      "type": null,
-      "label": "",
+      "type": "encounter",
+      "label": "ứng đối kỳ ngộ",
       "until": 0,
-      "startedAt": 1781880069811
+      "startedAt": 1781881291343
     },
     "encounter": {
-      "active": null,
+      "active": {
+        "id": "co_mo_duoc_vien",
+        "name": "Cổ Mộ Dược Viên",
+        "text": "Sau trận chiến, một khe đá phát sáng hé mở. Bên trong như có dược viên cổ bị phong ấn.",
+        "choices": [
+          {
+            "id": "hai_duoc",
+            "label": "Hái linh dược"
+          },
+          {
+            "id": "tham_ngo",
+            "label": "Ngồi tham ngộ"
+          },
+          {
+            "id": "rut_lui",
+            "label": "Không mạo hiểm"
+          }
+        ],
+        "appearedAt": 1781881291343
+      },
       "history": [
         {
           "name": "Cổ Mộ Dược Viên",
@@ -222,9 +258,20 @@
           "name": "Cổ Mộ Dược Viên",
           "choice": "Hái linh dược",
           "at": 1781880069811
+        },
+        {
+          "name": "Cổ Mộ Dược Viên",
+          "choice": "Ngồi tham ngộ",
+          "at": 1781881149401
         }
       ]
     },
-    "temporaryPenalties": []
+    "temporaryPenalties": [
+      {
+        "percent": 2,
+        "until": 1781882949401,
+        "reason": "Kỳ ngộ phản phệ"
+      }
+    ]
   }
 }

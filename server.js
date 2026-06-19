@@ -857,6 +857,25 @@ app.post('/api/player/:username/technique/equip', (req, res) => {
   sendPlayer(res, players, player, { message: `Đã vận chuyển ${cfg.name}.` });
 });
 
+
+app.post('/api/player/:username/technique/unequip', (req, res) => {
+  const players = loadPlayers();
+  const player = getPlayerOrCreate(players, req.params.username);
+  if (!guardNormalAction(res, player)) return;
+  const system = req.body.system || req.body.slot;
+  const id = req.body.id || req.body.techniqueId;
+  let slot = system;
+  if (!slot && id) {
+    const cfg = TECHNIQUES.find(item => item.id === id);
+    slot = cfg?.system;
+  }
+  if (!slot || !['cultivation', 'body', 'soul'].includes(slot)) {
+    return res.status(400).json({ success: false, error: 'Vị trí công pháp không hợp lệ.' });
+  }
+  player.techniques.equipped[slot] = null;
+  sendPlayer(res, players, player, { message: `Đã tháo công pháp ${slot === 'cultivation' ? 'tu luyện' : slot === 'body' ? 'luyện thể' : 'luyện hồn'}.` });
+});
+
 app.post('/api/player/:username/martial-skill/equip', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);

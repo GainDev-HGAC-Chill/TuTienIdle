@@ -252,3 +252,64 @@ button.danger { background: linear-gradient(180deg, #7a2f2f, #371111); border-co
   .topbar { flex-direction: column; }
   .login-row { flex-direction: column; }
 }
+
+/* =============================== */
+/* Feature polish: Thọ Nguyên / Đan / Dược Viên */
+/* =============================== */
+.lifespan-panel h2 { color: #ffd76a; }
+.recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.recipe-card, .pill-card, .garden-plot {
+  background: linear-gradient(145deg, rgba(23,34,52,.96), rgba(14,23,36,.96));
+  border: 1px solid rgba(103,133,174,.34);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+.recipe-card:hover, .pill-card:hover, .garden-plot:hover { border-color: rgba(247,190,76,.65); }
+.recipe-head, .pill-card { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.recipe-head h4, .pill-card h4, .garden-plot h4 { margin: 0 0 8px; color: #fff6d8; }
+.recipe-head span { color: #ffd76a; font-weight: 800; white-space: nowrap; }
+.recipe-card p, .pill-card p, .garden-plot p { margin: 8px 0; color: #cfe2ff; line-height: 1.45; }
+.recipe-card b, .pill-card b { color: #ffd76a; }
+.pill-card button, .recipe-card button, .garden-plot button, .garden-plot select {
+  border-radius: 12px;
+}
+.pill-card button { min-width: 78px; }
+.garden-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.garden-plot.ready { border-color: rgba(116,235,154,.75); }
+.garden-plot.growing { border-color: rgba(247,190,76,.55); }
+.garden-plot select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: rgba(8,14,24,.92);
+  color: #eaf3ff;
+  border: 1px solid rgba(103,133,174,.45);
+}
+.garden-plot button:disabled { opacity: .55; cursor: not-allowed; }
+.mini-actions { justify-content: flex-end; margin: 0; }
+button.ghost, .ghost {
+  background: rgba(20,31,48,.95) !important;
+  border-color: rgba(103,133,174,.55) !important;
+  color: #dceaff !important;
+}
+.practice-bottom { gap: 10px; }
+.practice-bottom strong { color: #74eb9a; }
+.chip-row { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { display:inline-flex; gap:5px; align-items:center; padding:6px 9px; border-radius:999px; background:rgba(255,255,255,.08); color:#dceaff; font-size:13px; }
+.chip b { color:#ffd76a; }
+.top-actions button, button {
+  background: linear-gradient(180deg, #6b4813, #3d290c);
+  border: 1px solid #9b741d;
+  color: #fff6d8;
+  font-weight: 800;
+  padding: 10px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.top-actions button:hover, button:hover { filter: brightness(1.12); }
+button.success, .success { background: linear-gradient(180deg, #75eaa0, #3ba86b) !important; border-color:#92f4b3 !important; color:#07140d !important; }
+@media (max-width: 1100px) {
+  .recipe-grid, .garden-grid { grid-template-columns: 1fr; }
+  .pill-card, .recipe-head { flex-direction: column; }
+}
