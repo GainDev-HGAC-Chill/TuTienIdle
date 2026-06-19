@@ -92,8 +92,6 @@ function ensurePlayerShape(player) {
     if (!player.stats) player.stats = { totalKills: 0, totalTuVi: 0, playTime: 0 };
     if (!player.currentZone) player.currentZone = mapService.getDefaultMapId(); mapService.ensureCurrentMap(player); combatService.ensureCombatState(player);
     if (player.autoFight === undefined) player.autoFight = true;
-    if (!Array.isArray(player.cultivationFocus)) player.cultivationFocus = ['main'];
-    normalizeCultivationFocus(player);
     if (!player.lastTick) player.lastTick = Date.now();
     if (!player.createdAt) player.createdAt = Date.now();
     if (!player.lastSave) player.lastSave = Date.now();
@@ -262,39 +260,29 @@ function processGameTick(player) {
     const deltaSecondsRaw = Math.floor(deltaMsRaw / 1000);
     if (deltaSecondsRaw <= 0) return;
 
-    const ticks = Math.min(deltaSecondsRaw, 60 * 60);
+    const ticks = Math.min(deltaSecondsRaw, 60 * 60); // test: tối đa 1 giờ offline cho vòng tu luyện chính
     const combatDeltaMs = Math.min(deltaMsRaw, 5 * 60 * 1000);
     player.lastTick = now;
 
-    const gain = getTuViGainPerSecond(player) * ticks;
+    const tuViGain = getTuViGainPerSecond(player) * ticks;
     const focus = normalizeCultivationFocus(player);
 
     if (focus.includes('main')) {
-        player.cultivation.tuVi += gain;
-        player.stats.totalTuVi += gain;
+        player.cultivation.tuVi += tuViGain;
+        player.stats.totalTuVi += tuViGain;
     }
-
-    if (focus.includes('body')) {
-        addSubCultivationExp(player, 'body', gain);
-    }
-
-    if (focus.includes('soul')) {
-        addSubCultivationExp(player, 'soul', gain);
-    }
+    if (focus.includes('body')) addSubCultivationExp(player, 'body', tuViGain);
+    if (focus.includes('soul')) addSubCultivationExp(player, 'soul', tuViGain);
 
     player.stats.playTime += ticks;
 
     updateCultivation(player);
 
-    if (typeof combatService !== 'undefined' && combatService.processCombat) {
-        mapService.ensureCurrentMap(player);
-        combatService.processCombat(player, combatDeltaMs);
-    } else if (player.autoFight) {
-        const fightTicks = Math.min(ticks, 120);
-        for (let i = 0; i < fightTicks; i++) fightMonster(player);
-    }
+    // Combat riêng: có HP quái, HP người chơi, quái đánh trả.
+    // Không dùng fightMonster cũ nữa.
+    mapService.ensureCurrentMap(player);
+    combatService.processCombat(player, combatDeltaMs);
 }
-
 
 function getPlayerOrCreate(players, username) {
     if (!players[username]) players[username] = createNewPlayer(username);

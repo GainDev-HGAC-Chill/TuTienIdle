@@ -1,28 +1,20 @@
-# Patch 3 vấn đề mới
+# Fix map thu nhỏ + luyện thể/hồn tự luyện
 
 Chạy:
 
 ```bash
-node tools/apply-system-todo-patch.js
+node tools/apply-fix-collapse-subcultivation.js
 node server.js
 ```
 
 Sau đó Ctrl + F5.
 
-## Đã thêm
+## Sửa
 
-1. Map đã mở trong Combat:
-- Chia theo Nhân Giới / Tiên Giới / ...
-- Nhấp vào tên giới để thu nhỏ/phóng to.
+1. Map đã thu nhỏ không tự bật ra khi combat refresh.
+- Trạng thái đóng/mở từng giới được giữ trong `mapWorldOpenState`.
 
-2. Tu luyện 3 loại:
-- Mặc định chỉ chọn 1: Tu Luyện / Luyện Thể / Luyện Hồn.
-- Khi cả 3 đạt Bán Tiên: được chọn 2 loại cùng lúc.
-- Khi cả 3 đạt Nhập Thánh: được chọn 3 loại cùng lúc.
-
-3. Trồng dược liệu:
-- Mỗi lần trồng tiêu tốn linh thạch.
-- Chi phí tính theo giới + thời gian sinh trưởng.
-- Không đủ linh thạch thì không trồng được.
-
-Patch này cũng sửa lỗi `\nfunction renderMapButtons` trong `frontend/script.js`.
+2. Luyện Thể / Luyện Hồn có tự chạy.
+- Khi chọn Luyện Thể, tu vi/s chuyển sang EXP luyện thể.
+- Khi chọn Luyện Hồn, tu vi/s chuyển sang EXP luyện hồn.
+- Phụ Tu trên Tổng Quan hiện thêm EXP để thấy đang tăng.

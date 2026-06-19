@@ -7,7 +7,6 @@ let allSkills = [];
 let allRecipes = [];
 let allHerbs = [];
 let refreshTimer = null;
-let mapWorldOpenState = {};
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => Number(n || 0).toLocaleString('vi-VN', { maximumFractionDigits: 0 });
@@ -185,14 +184,8 @@ function renderOverview() {
         : 'Chưa ngộ linh căn';
     $('spirit-root-list').innerHTML = (playerData.spiritRoots || []).map(id => `<span class="chip">${elementNames[id] || id}</span>`).join('') || '<span class="chip">Chưa có</span>';
 
-    const body = playerData.bodyCultivation || {};
-    const soul = playerData.soulCultivation || {};
-    $('body-info').textContent = body.info?.displayName
-        ? `${body.info.displayName} · ${fmt(body.exp || 0)} / ${fmt(body.maxExp || 0)}`
-        : '-';
-    $('soul-info').textContent = soul.info?.displayName
-        ? `${soul.info.displayName} · ${fmt(soul.exp || 0)} / ${fmt(soul.maxExp || 0)}`
-        : '-';
+    $('body-info').textContent = playerData.bodyCultivation?.info?.displayName || '-';
+    $('soul-info').textContent = playerData.soulCultivation?.info?.displayName || '-';
 
     $('currency-list').innerHTML = Object.entries(playerData.currencies || {})
         .filter(([, value]) => value > 0)
@@ -273,18 +266,6 @@ function estimateTuViRate() {
 
 
 
-
-function syncMapWorldOpenState() {
-    document.querySelectorAll('.map-world-group[data-world-id]').forEach(el => {
-        mapWorldOpenState[el.dataset.worldId] = el.open;
-    });
-}
-
-function getCurrentMapWorldId() {
-    const map = playerData?.currentMap || {};
-    return map.required?.world || map.world || playerData?.cultivation?.world || 'nhan_gioi';
-}
-
 function ensureMapButtonsContainer() {
     return document.getElementById('combat-map-buttons') ||
         document.getElementById('map-buttons') ||
@@ -295,51 +276,35 @@ function renderMapButtons() {
     const el = ensureMapButtonsContainer();
     if (!el) return;
 
-    syncMapWorldOpenState();
-
     const maps = playerData?.unlockedMaps || [];
     if (!maps.length) {
         el.innerHTML = '<span class="muted">Chưa mở map.</span>';
         return;
     }
 
-    const currentWorldId = getCurrentMapWorldId();
     const worlds = groupMapsByWorldRealm(maps);
-
-    el.innerHTML = worlds.map(world => {
-        const hasState = Object.prototype.hasOwnProperty.call(mapWorldOpenState, world.id);
-        const isOpen = hasState ? mapWorldOpenState[world.id] : world.id === currentWorldId;
-
-        return `
-            <details class="map-world-group" data-world-id="${world.id}" ${isOpen ? 'open' : ''}>
-                <summary class="map-world-title">${world.name}</summary>
-                ${world.realms.map(realm => `
-                    <div class="map-realm-group">
-                        <div class="map-realm-title">${realm.name}</div>
-                        <div class="map-button-row">
-                            ${realm.maps.map(map => `
-                                <button class="small-btn map-btn ${map.id === playerData.currentZone ? 'active' : ''}" data-map-id="${map.id}">
-                                    ${map.name}
-                                </button>
-                            `).join('')}
-                        </div>
+    el.innerHTML = worlds.map(world => `
+        <details class="map-world-group" open>
+            <summary class="map-world-title">${world.name}</summary>
+            ${world.realms.map(realm => `
+                <div class="map-realm-group">
+                    <div class="map-realm-title">${realm.name}</div>
+                    <div class="map-button-row">
+                        ${realm.maps.map(map => `
+                            <button class="small-btn map-btn ${map.id === playerData.currentZone ? 'active' : ''}" data-map-id="${map.id}">
+                                ${map.name}
+                            </button>
+                        `).join('')}
                     </div>
-                `).join('')}
-            </details>
-        `;
-    }).join('');
-
-    el.querySelectorAll('.map-world-group[data-world-id]').forEach(detail => {
-        detail.addEventListener('toggle', () => {
-            mapWorldOpenState[detail.dataset.worldId] = detail.open;
-        });
-    });
+                </div>
+            `).join('')}
+        </details>
+    `).join('');
 
     el.querySelectorAll('.map-btn').forEach(btn => {
         btn.onclick = () => changeZone(btn.dataset.mapId);
     });
 }
-
 
 
 

@@ -2,8 +2,8 @@
   "demo": {
     "username": "demo",
     "createdAt": 1781834007999,
-    "lastSave": 1781853824057,
-    "lastTick": 1781853824057,
+    "lastSave": 1781856763343,
+    "lastTick": 1781856763343,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 4,
@@ -19,9 +19,9 @@
       "maxExp": 100
     },
     "soulCultivation": {
-      "rank": 1,
-      "phase": 1,
-      "exp": 14,
+      "rank": 2,
+      "phase": 3,
+      "exp": 6,
       "maxExp": 100
     },
     "skills": {
@@ -111,7 +111,7 @@
     },
     "spiritRoots": [],
     "combat": {
-      "hp": 213,
+      "hp": 391,
       "maxHp": 520,
       "atk": 94,
       "def": 47,
@@ -121,11 +121,11 @@
     },
     "inventory": [],
     "currentZone": "ap_suong_mu",
-    "autoFight": false,
+    "autoFight": true,
     "stats": {
-      "totalKills": 682,
+      "totalKills": 699,
       "totalTuVi": 50740,
-      "playTime": 19474
+      "playTime": 22392
     },
     "permanentBonuses": {
       "atk": 0,
@@ -162,10 +162,10 @@
           "plantedAt": 1781853805111
         }
       ],
-      "lastProcessAt": 1781853824057
+      "lastProcessAt": 1781856763343
     },
     "currencies": {
-      "so_linh_thach": 2380,
+      "so_linh_thach": 2441,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -184,35 +184,35 @@
     "activePillBuffs": [],
     "breakthroughPillLock": null,
     "combatState": {
-      "fightProgress": 4,
+      "fightProgress": 0,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "doi_bach_tang",
-        "name": "Dơi Bạch Tạng",
-        "description": "Dơi trắng bệch",
-        "hp": 173,
-        "atk": 37,
-        "def": 9,
-        "tuViReward": 38,
+        "id": "ret_bay_mau",
+        "name": "Rết Bảy Màu",
+        "description": "Rết sặc sỡ độc",
+        "hp": 197,
+        "atk": 43,
+        "def": 10,
+        "tuViReward": 44,
         "stoneReward": 4,
         "drop": []
       },
-      "monsterHp": 3,
-      "monsterMaxHp": 173,
-      "status": "Tự đánh đang tắt.",
+      "monsterHp": 197,
+      "monsterMaxHp": 197,
+      "status": "Đang đánh Rết Bảy Màu",
       "logs": [
-        "[14:22:59] Bạn đánh Rồng Mây -83 HP.",
-        "[14:22:59] Rồng Mây đánh lại -26 HP.",
-        "[14:22:59] Bạn đánh Rồng Mây -99 HP.",
-        "[14:22:59] Rồng Mây đánh lại -21 HP.",
-        "[14:23:05] Bạn đánh Dơi Bạch Tạng -89 HP.",
-        "[14:23:05] Dơi Bạch Tạng đánh lại -16 HP.",
-        "[14:23:05] Bạn đánh Dơi Bạch Tạng -81 HP.",
-        "[14:23:05] Dơi Bạch Tạng đánh lại -17 HP."
+        "[15:12:33] Bạn đánh Mắt Độc -98 HP.",
+        "[15:12:33] Hạ Mắt Độc, nhận 3 linh thạch.",
+        "[15:12:37] Bạn đánh Chuột Đá -97 HP.",
+        "[15:12:37] Chuột Đá đánh lại -17 HP.",
+        "[15:12:40] Bạn đánh Chuột Đá -91 HP.",
+        "[15:12:40] Chuột Đá đánh lại -21 HP.",
+        "[15:12:43] Bạn đánh Chuột Đá -83 HP.",
+        "[15:12:43] Hạ Chuột Đá, nhận 4 linh thạch."
       ],
       "deathCount": 0,
       "deathPenaltyPercent": 0,
-      "lastPenaltyRecoverAt": 1781853824057
+      "lastPenaltyRecoverAt": 1781856763343
     },
     "cultivationFocus": [
       "soul"
