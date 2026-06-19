@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 
-const app = express(); const { ensureActivityLog, addActivityLog, addResultActivityLog } = require('./core/activityLog');
+const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'players.json');
@@ -1010,7 +1010,7 @@ app.post('/api/player/:username/use', (req, res) => {
     if (!result.success) return res.status(400).json(result);
     return sendPlayer(res, players, player, result);
   }
-  addActivityLog(player, 'item', `Thử sử dụng vật phẩm: ${itemId || 'không rõ'} nhưng chưa có logic.`); addActivityLog(player, 'item', `Thử sử dụng vật phẩm: ${itemId || 'không rõ'} nhưng chưa có logic.`); sendPlayer(res, players, player, { message: 'Vật phẩm này chưa có logic sử dụng.' });
+  sendPlayer(res, players, player, { message: 'Vật phẩm này chưa có logic sử dụng.' });
 });
 
 app.post('/api/player/:username/encounter/choose', (req, res) => {

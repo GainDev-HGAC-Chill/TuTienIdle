@@ -2,20 +2,20 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781883014340,
-    "lastTick": 1781883014340,
+    "lastSave": 1781894989335,
+    "lastTick": 1781894989335,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
       "stage": 9,
-      "tuVi": 542,
+      "tuVi": 1097,
       "maxTuVi": 1305
     },
     "bodyCultivation": {
-      "rank": 10,
+      "rank": 11,
       "name": "Phàm Thể",
-      "exp": 3088,
-      "maxExp": 3457
+      "exp": 944,
+      "maxExp": 4716
     },
     "soulCultivation": {
       "rank": 6,
@@ -30,7 +30,7 @@
       "equipped": {
         "cultivation": "tho_nap_quyet",
         "body": "man_nguu_luyen_the_quyet",
-        "soul": "duong_than_quyet"
+        "soul": null
       },
       "learned": {
         "tho_nap_quyet": {
@@ -85,7 +85,7 @@
       }
     },
     "combat": {
-      "hp": 261,
+      "hp": 137,
       "maxHp": 270,
       "atk": 44,
       "def": 22,
@@ -97,37 +97,37 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 25
+        "amount": 30
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 22
+        "amount": 31
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 20
+        "amount": 26
       },
       {
         "id": "linh_thao",
         "name": "Linh Thảo",
-        "amount": 6
+        "amount": 3
       }
     ],
     "currencies": {
-      "so_linh_thach": 522,
+      "so_linh_thach": 618,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
       "tien_ngoc": 0
     },
-    "currentZone": "ap_suong_mu",
-    "autoFight": false,
+    "currentZone": "moc_than_khoc",
+    "autoFight": true,
     "stats": {
-      "totalKills": 254,
-      "totalTuVi": 19324,
-      "playTime": 8061
+      "totalKills": 295,
+      "totalTuVi": 19879,
+      "playTime": 8207
     },
     "permanentBonuses": {
       "atk": 0,
@@ -137,7 +137,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 7999
+        "aura": 8002
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -145,30 +145,30 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 2014,
+      "fightProgress": 2122,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "mao_quy",
-        "name": "Mao Quỷ",
-        "hp": 50,
-        "atk": 7,
-        "def": 2,
-        "tuViReward": 10,
-        "stoneReward": 3,
-        "mapId": "ap_suong_mu"
+        "id": "moc_yeu_non",
+        "name": "Mộc Yêu Non",
+        "hp": 68,
+        "atk": 10,
+        "def": 5,
+        "tuViReward": 16,
+        "stoneReward": 4,
+        "mapId": "moc_than_khoc"
       },
-      "monsterHp": 3,
-      "monsterMaxHp": 50,
+      "monsterHp": 68,
+      "monsterMaxHp": 68,
       "status": "Combat tạm dừng do đang ở mục khác.",
       "logs": [
-        "[22:07:10] Yêu Thỏ Sương phản kích -1 HP.",
-        "[22:07:16] Thi triển Cơ Bản Kiếm Quyết, đánh Yêu Thỏ Sương -48 HP.",
-        "[22:07:16] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
-        "[22:07:16] Nhặt được Linh Nhưỡng Sơ Cấp.",
-        "[22:07:19] Thi triển Cơ Bản Kiếm Quyết, đánh Mao Quỷ -51 HP.",
-        "[22:07:19] Hạ Mao Quỷ, nhận 10 tu vi và 3 linh thạch.",
-        "[22:07:24] Thi triển Cơ Bản Kiếm Quyết, đánh Mao Quỷ -47 HP.",
-        "[22:07:24] Mao Quỷ phản kích -1 HP."
+        "[22:37:48] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
+        "[22:39:48] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -50 HP.",
+        "[22:39:48] Mộc Yêu Non phản kích -1 HP.",
+        "[22:39:48] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -43 HP.",
+        "[22:39:48] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
+        "[22:40:43] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -69 HP.",
+        "[22:40:43] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
+        "[22:40:43] Nhặt được Hạt Giống Linh Thảo."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -205,17 +205,17 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.04331018518486,
-      "maxYears": 220,
+      "ageYears": 16.15995370370168,
+      "maxYears": 250,
       "usedPills": {
-        "tho_nguyen_dan": 2
+        "tho_nguyen_dan": 3
       }
     },
     "interaction": {
-      "type": "garden",
-      "label": "thu hoạch dược liệu",
-      "until": 1781881775592,
-      "startedAt": 1781881774792
+      "type": "alchemy",
+      "label": "luyện đan",
+      "until": 1781894936311,
+      "startedAt": 1781894935111
     },
     "encounter": {
       "active": null,
@@ -239,16 +239,15 @@
           "name": "Cổ Mộ Dược Viên",
           "choice": "Ngồi tham ngộ",
           "at": 1781881622963
+        },
+        {
+          "name": "Cổ Mộ Dược Viên",
+          "choice": "Hái linh dược",
+          "at": 1781883177141
         }
       ]
     },
-    "temporaryPenalties": [
-      {
-        "percent": 2,
-        "until": 1781883422963,
-        "reason": "Kỳ ngộ phản phệ"
-      }
-    ],
-    "activeTab": "alchemy"
+    "temporaryPenalties": [],
+    "activeTab": "overview"
   }
 }

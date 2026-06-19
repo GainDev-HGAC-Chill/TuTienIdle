@@ -156,8 +156,6 @@ function renderAll() {
   renderHeader();
   renderEncounter();
   renderOverview();
-
- renderActivityLog();
   renderCultivation();
   renderCombat();
   renderSkills();
@@ -249,75 +247,6 @@ function progressData(type) {
   return { type, title: s.info?.name || s.name || 'Luyện Hồn', cur: s.exp || 0, max: s.maxExp || 100, sub: 'Thần thức dưỡng hồn' };
 }
 
-function formatActivityTime(at) {
-
- const time = Number(at || 0);
-
- if (!time) return '';
-
- return new Date(time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-}
-
-function renderActivityLog() {
-
- const box = $('activity-log-list');
-
- if (!box) return;
-
- const logs = Array.isArray(playerData.activityLog) ? playerData.activityLog : [];
-
- if (!logs.length) {
-  box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-  return;
- }
-
- box.innerHTML = logs.map(item => {
-  const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-  const text = escapeHtml(item.text || 'Hoạt động không rõ');
-  const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-  const time = escapeHtml(formatActivityTime(item.at));
-  return '<div class="activity-log-item activity-' + escapeHtml(item.category || 'system') + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
- }).join('');
-
-}
-
-
-// ===============================
-// Nhật Ký Đạo Hành - Tổng Quan
-// ===============================
-function formatActivityTime(at) {
- const time = Number(at || 0);
- if (!time) return '';
- return new Date(time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-}
-function ensureActivityPanel() {
- let box = $('activity-log-list');
- if (box) return box;
- const overview = $('tab-overview');
- if (!overview) return null;
- const panel = document.createElement('div');
- panel.className = 'panel wide activity-panel';
- panel.innerHTML = '<div class="panel-head"><h3>Nhật Ký Đạo Hành</h3><span>Không gồm combat</span></div><div id="activity-log-list" class="activity-log-list"></div>';
- overview.appendChild(panel);
- return $('activity-log-list');
-}
-function renderActivityLog() {
- const box = ensureActivityPanel();
- if (!box) return;
- const logs = Array.isArray(playerData?.activityLog) ? playerData.activityLog : [];
- if (!logs.length) {
-  box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-  return;
- }
- box.innerHTML = logs.map(item => {
-  const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-  const text = escapeHtml(item.text || 'Hoạt động không rõ');
-  const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-  const time = escapeHtml(formatActivityTime(item.at));
-  return '<div class="activity-log-item activity-' + escapeHtml(item.category || 'system') + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
- }).join('');
-}
 function renderCultivation() {
   const c = playerData.cultivation || {};
   const tuviGain = playerData.pillEffects?.tuViGainPerSecond || playerData.tuViGainPerSecond || 1;
