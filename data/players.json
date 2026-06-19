@@ -2,20 +2,20 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781879853338,
-    "lastTick": 1781879853338,
+    "lastSave": 1781880591346,
+    "lastTick": 1781880591346,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
-      "stage": 5,
-      "tuVi": 495,
-      "maxTuVi": 725
+      "stage": 8,
+      "tuVi": 408,
+      "maxTuVi": 1160
     },
     "bodyCultivation": {
-      "rank": 8,
+      "rank": 9,
       "name": "Phàm Thể",
-      "exp": 1677,
-      "maxExp": 1833
+      "exp": 1236,
+      "maxExp": 2524
     },
     "soulCultivation": {
       "rank": 1,
@@ -24,7 +24,7 @@
       "maxExp": 100
     },
     "cultivationFocus": [
-      "main"
+      "body"
     ],
     "techniques": {
       "equipped": {
@@ -58,7 +58,7 @@
     },
     "martialSkills": {
       "equipped": {
-        "active": "co_ban_kiem_quyet"
+        "active": "kinh_than_thu"
       },
       "learned": {
         "co_ban_kiem_quyet": {
@@ -85,10 +85,10 @@
       }
     },
     "combat": {
-      "hp": 224,
-      "maxHp": 230,
-      "atk": 36,
-      "def": 18,
+      "hp": 238,
+      "maxHp": 260,
+      "atk": 42,
+      "def": 21,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
@@ -97,21 +97,21 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 12
+        "amount": 25
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 7
+        "amount": 15
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 8
+        "amount": 18
       }
     ],
     "currencies": {
-      "so_linh_thach": 335,
+      "so_linh_thach": 494,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -120,9 +120,9 @@
     "currentZone": "ap_suong_mu",
     "autoFight": true,
     "stats": {
-      "totalKills": 114,
-      "totalTuVi": 13957,
-      "playTime": 6637
+      "totalKills": 178,
+      "totalTuVi": 18028,
+      "playTime": 7309
     },
     "permanentBonuses": {
       "atk": 0,
@@ -132,7 +132,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 6637
+        "aura": 7309
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -140,30 +140,30 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 1,
+      "fightProgress": 11,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "mao_quy",
         "name": "Mao Quỷ",
-        "hp": 44,
-        "atk": 6,
+        "hp": 48,
+        "atk": 7,
         "def": 2,
         "tuViReward": 10,
         "stoneReward": 3,
         "mapId": "ap_suong_mu"
       },
-      "monsterHp": 8,
-      "monsterMaxHp": 44,
+      "monsterHp": 6,
+      "monsterMaxHp": 48,
       "status": "Đang đánh Mao Quỷ",
       "logs": [
-        "[21:37:24] Nhặt được Linh Thủy Sơ Cấp.",
-        "[21:37:27] Thi triển Cơ Bản Kiếm Quyết, đánh Mao Quỷ -38 HP.",
-        "[21:37:27] Mao Quỷ phản kích -1 HP.",
-        "[21:37:30] Thi triển Cơ Bản Kiếm Quyết, đánh Mao Quỷ -38 HP.",
-        "[21:37:30] Hạ Mao Quỷ, nhận 10 tu vi và 3 linh thạch.",
-        "[21:37:30] Nhặt được Linh Thủy Sơ Cấp.",
-        "[21:37:33] Thi triển Cơ Bản Kiếm Quyết, đánh Mao Quỷ -36 HP.",
-        "[21:37:33] Mao Quỷ phản kích -1 HP."
+        "[21:49:42] Thi triển Kinh Thần Thứ, đánh Yêu Thỏ Sương -36 HP.",
+        "[21:49:42] Yêu Thỏ Sương phản kích -1 HP.",
+        "[21:49:42] Thi triển Kinh Thần Thứ, đánh Yêu Thỏ Sương -41 HP.",
+        "[21:49:42] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
+        "[21:49:48] Thi triển Kinh Thần Thứ, đánh Yêu Thỏ Sương -43 HP.",
+        "[21:49:48] Hạ Yêu Thỏ Sương, nhận 8 tu vi và 2 linh thạch.",
+        "[21:49:51] Thi triển Kinh Thần Thứ, đánh Mao Quỷ -42 HP.",
+        "[21:49:51] Mao Quỷ phản kích -1 HP."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -200,7 +200,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.012905092592487,
+      "ageYears": 16.02068287037021,
       "maxYears": 160,
       "usedPills": {}
     },
@@ -208,7 +208,7 @@
       "type": null,
       "label": "",
       "until": 0,
-      "startedAt": 1781879529279
+      "startedAt": 1781880069811
     },
     "encounter": {
       "active": null,
@@ -217,6 +217,11 @@
           "name": "Cổ Mộ Dược Viên",
           "choice": "Không mạo hiểm",
           "at": 1781879529279
+        },
+        {
+          "name": "Cổ Mộ Dược Viên",
+          "choice": "Hái linh dược",
+          "at": 1781880069811
         }
       ]
     },
