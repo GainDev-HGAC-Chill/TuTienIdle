@@ -399,6 +399,25 @@ app.post('/api/player/:username/cultivation/focus', (req, res) => {
   sendPlayer(res, players, player, { message: 'Đã đổi trạng thái tu luyện.' });
 });
 
+
+app.post('/api/player/:username/technique/equip', (req, res) => {
+  const players = loadPlayers();
+  const player = getPlayerOrCreate(players, req.params.username);
+  const result = techniqueService.equipTechnique(player.techniques, req.body.id || req.body.techniqueId, req.body.system);
+  if (!result.success) return res.status(400).json({ success: false, error: result.reason });
+  player.techniques = techniqueService.normalizeTechniqueState(player.techniques);
+  sendPlayer(res, players, player, { result, message: 'Đã trang bị công pháp.' });
+});
+
+app.post('/api/player/:username/martial-skill/equip', (req, res) => {
+  const players = loadPlayers();
+  const player = getPlayerOrCreate(players, req.params.username);
+  const result = martialSkillService.equipMartialSkill(player.martialSkills, req.body.id || req.body.skillId, req.body.system);
+  if (!result.success) return res.status(400).json({ success: false, error: result.reason });
+  player.martialSkills = martialSkillService.normalizeMartialSkillState(player.martialSkills);
+  sendPlayer(res, players, player, { result, message: 'Đã trang bị vũ kỹ.' });
+});
+
 app.get('/api/skills', (req, res) => res.json({ success: true, skills: skillService.getAllSkills(), rules: SKILL_RULES }));
 
 app.post('/api/player/:username/skill/learn', (req, res) => {

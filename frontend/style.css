@@ -275,3 +275,117 @@ h2 { margin: 0 0 12px; }
   .topbar, .login-row { grid-template-columns: 1fr; display: grid; }
   .focus-buttons { grid-template-columns: 1fr; }
 }
+
+.realm-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 218, 150, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+}
+
+.realm-summary strong { color: var(--text); }
+
+.cult-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.cult-progress-card {
+  text-align: left;
+  border: 1px solid rgba(255, 218, 150, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--text);
+  padding: 13px;
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.cult-progress-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 218, 150, 0.36);
+}
+
+.cult-progress-card.active {
+  background: rgba(190, 132, 56, 0.18);
+  border-color: rgba(255, 218, 150, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 218, 150, 0.08) inset;
+}
+
+.cult-progress-card h4 {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.map-group {
+  border: 1px solid rgba(255, 218, 150, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.map-group-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 218, 150, 0.1);
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.map-group-title span { color: var(--muted); font-size: 12px; }
+.map-group-body { padding: 10px; display: grid; gap: 8px; }
+.map-group-body.collapsed { display: none; }
+
+.card-side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.small-btn {
+  border: 1px solid rgba(255, 218, 150, 0.25);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(190, 132, 56, 0.16);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.equipped-pill {
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(91, 189, 138, 0.16);
+  color: #b7f5d0;
+  white-space: nowrap;
+}
+
+.equipped-text { color: #f4d28a; }
+
+.inventory-section {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.inventory-section h4 {
+  margin: 0;
+  color: #f4d28a;
+}
+
+@media (max-width: 900px) {
+  .cult-progress-grid { grid-template-columns: 1fr; }
+}

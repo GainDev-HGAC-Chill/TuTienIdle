@@ -91,6 +91,38 @@ function getPublicMartialSkills(playerSkills) {
   return { equipped: state.equipped, learned };
 }
 
+function equipMartialSkill(playerSkills, skillId, system) {
+  const state = normalizeMartialSkillState(playerSkills);
+  const skill = getMartialSkill(skillId);
+  if (!skill) return { success: false, reason: 'Vũ kỹ không tồn tại.' };
+  if (!state.learned[skillId]) return { success: false, reason: 'Chưa học vũ kỹ này.' };
+  const slot = system || skill.system || 'cultivation';
+  if (!['cultivation', 'body', 'soul'].includes(slot)) return { success: false, reason: 'Hệ vũ kỹ không hợp lệ.' };
+  if (skill.system && skill.system !== slot) return { success: false, reason: 'Vũ kỹ không phù hợp hệ này.' };
+  state.equipped[slot] = skillId;
+  return { success: true, equipped: state.equipped };
+}
+
+function getEquippedMartialEffects(playerSkills) {
+  const state = normalizeMartialSkillState(playerSkills);
+  const effects = { damageMultiplier: 1, defDamageRatio: 0, critBonus: 0 };
+  const used = new Set();
+  for (const id of Object.values(state.equipped || {})) {
+    if (!id || used.has(id) || !state.learned[id]) continue;
+    used.add(id);
+    const cfg = getMartialSkill(id);
+    if (!cfg) continue;
+    const rank = Math.max(1, Number(state.learned[id].rank || 1));
+    const rankMul = 1 + (rank - 1) * 0.03;
+    const e = cfg.effects || {};
+    if (e.damageMultiplier) effects.damageMultiplier += (Number(e.damageMultiplier) - 1) * rankMul;
+    if (e.defDamageRatio) effects.defDamageRatio += Number(e.defDamageRatio) * rankMul;
+    if (e.critBonus) effects.critBonus += Number(e.critBonus) * rankMul;
+  }
+  effects.damageMultiplier = Math.max(1, effects.damageMultiplier);
+  return effects;
+}
+
 function canUpgradeMartialSkill(playerSkills, skillId, mainCultivation) {
   const state = normalizeMartialSkillState(playerSkills);
   const learned = getLearnedMartialSkill(state, skillId);
@@ -123,6 +155,8 @@ module.exports = {
   getLearnedMartialSkill,
   getMartialSkillInfo,
   getPublicMartialSkills,
+  equipMartialSkill,
+  getEquippedMartialEffects,
   canUpgradeMartialSkill,
   upgradeMartialSkill,
 };

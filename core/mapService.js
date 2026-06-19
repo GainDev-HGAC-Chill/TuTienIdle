@@ -56,6 +56,17 @@ function getRealmName(worldId, realmIndex) {
   return realm?.name || realm?.displayName || realm?.id || '-';
 }
 
+function inferRealmIndex(worldId, raw = {}, ctx = {}) {
+  const direct = raw.realmIndex ?? raw.realmOrder ?? raw.required?.realmIndex ?? ctx.realmIndex;
+  if (direct !== undefined && direct !== null && direct !== '') return Number(direct);
+  const name = raw.realmName || raw.realmTitle || raw.realm || raw.realmId || ctx.realmName || ctx.realm;
+  if (!name) return 0;
+  const world = REALM_CONFIG.worlds?.find(w => w.id === worldId);
+  const normalized = slug(name);
+  const idx = world?.realms?.findIndex(realm => [realm.id, realm.name, realm.displayName].some(v => slug(v) === normalized));
+  return idx >= 0 ? idx : 0;
+}
+
 function worldOrder(worldId) {
   const world = REALM_CONFIG.worlds?.find(w => w.id === worldId);
   return world?.order || 1;
@@ -95,7 +106,7 @@ function normalizeBoss(boss) {
 
 function normalizeMap(raw, ctx = {}, index = 0) {
   const world = raw.world || raw.worldId || ctx.world || 'nhan_gioi';
-  const realmIndex = Number(raw.realmIndex ?? raw.realmOrder ?? ctx.realmIndex ?? 0);
+  const realmIndex = inferRealmIndex(world, raw, ctx);
   const name = raw.name || raw.mapName || raw.title || `Map ${index + 1}`;
   const id = raw.id || raw.mapId || slug(`${world}_${realmIndex}_${name}`);
   const map = {
@@ -132,7 +143,7 @@ function flattenMaps(input, ctx = {}, out = []) {
     worldName: input.worldName || ctx.worldName,
     realm: input.realm || input.realmId || ctx.realm,
     realmName: input.realmName || input.realmTitle || ctx.realmName,
-    realmIndex: input.realmIndex ?? input.realmOrder ?? ctx.realmIndex,
+    realmIndex: inferRealmIndex(input.world || input.worldId || ctx.world || 'nhan_gioi', input, ctx),
   };
 
   if (isMapLike(input)) out.push(normalizeMap(input, nextCtx, out.length));

@@ -4,6 +4,7 @@
 // ============================================
 const mapService = require('./mapService');
 const currencyService = require('./currencyService');
+const martialSkillService = require('./martialSkillService');
 
 const DEFAULT_FIGHT_DURATION = 3000;
 const MAX_OFFLINE_COMBAT_MS = 5 * 60 * 1000;
@@ -133,10 +134,15 @@ function getPlayerDef(player) {
   return Math.max(0, getEffectiveStat(base + bonus, player, 0));
 }
 
-function rollDamage(atk, def) {
-  const raw = Number(atk || 1) - Number(def || 0) * 0.45;
+function rollDamage(atk, def, options = {}) {
+  const multiplier = Math.max(1, Number(options.damageMultiplier || 1));
+  const extraDamage = Math.max(0, Number(options.extraDamage || 0));
+  const critRate = Math.max(0, Math.min(0.95, Number(options.critRate || 0)));
+  const critDmg = Math.max(1, Number(options.critDmg || 1.5));
+  const raw = (Number(atk || 1) * multiplier + extraDamage) - Number(def || 0) * 0.45;
   const variance = 0.85 + Math.random() * 0.3;
-  return Math.max(1, Math.floor(raw * variance));
+  const crit = Math.random() < critRate;
+  return Math.max(1, Math.floor(raw * variance * (crit ? critDmg : 1)));
 }
 
 function grantKillReward(player, monster) {
@@ -165,9 +171,16 @@ function doCombatRound(player) {
   if (!monster || player.combatState.monsterHp <= 0) monster = spawnMonster(player);
   if (!monster) return;
 
-  const playerDamage = rollDamage(getPlayerAtk(player), monster.def || 0);
+  const martialEffects = martialSkillService.getEquippedMartialEffects(player.martialSkills);
+  const playerDef = getPlayerDef(player);
+  const playerDamage = rollDamage(getPlayerAtk(player), monster.def || 0, {
+    damageMultiplier: martialEffects.damageMultiplier,
+    extraDamage: playerDef * martialEffects.defDamageRatio,
+    critRate: Number(player.combat?.critRate || 0) + martialEffects.critBonus,
+    critDmg: Number(player.combat?.critDmg || 1.5),
+  });
   player.combatState.monsterHp = Math.max(0, player.combatState.monsterHp - playerDamage);
-  addLog(player, `Bạn đánh ${monster.name} -${playerDamage} HP.`);
+  addLog(player, `Bạn thi triển vũ kỹ đánh ${monster.name} -${playerDamage} HP.`);
 
   if (player.combatState.monsterHp <= 0) {
     grantKillReward(player, monster);
@@ -175,7 +188,7 @@ function doCombatRound(player) {
     return;
   }
 
-  const monsterDamage = rollDamage(monster.atk || 1, getPlayerDef(player));
+  const monsterDamage = rollDamage(monster.atk || 1, playerDef);
   player.combat.hp = Math.max(0, player.combat.hp - monsterDamage);
   addLog(player, `${monster.name} đánh lại -${monsterDamage} HP.`);
 

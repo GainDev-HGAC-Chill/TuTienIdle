@@ -196,25 +196,25 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781865964514,
-    "lastSave": 1781866027136,
-    "lastTick": 1781866027133,
+    "lastSave": 1781866908362,
+    "lastTick": 1781866908355,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
-      "stage": 1,
-      "tuVi": 38,
-      "maxTuVi": 100,
+      "stage": 2,
+      "tuVi": 40,
+      "maxTuVi": 200,
       "daoEntry": null
     },
     "bodyCultivation": {
       "rank": 1,
-      "phase": 1,
-      "exp": 48,
+      "phase": 4,
+      "exp": 10,
       "maxExp": 100
     },
     "soulCultivation": {
       "rank": 1,
-      "phase": 1,
+      "phase": 4,
       "exp": 0,
       "maxExp": 100
     },
@@ -296,24 +296,24 @@
     },
     "spiritRoots": [],
     "combat": {
-      "hp": 64,
-      "maxHp": 100,
-      "atk": 10,
-      "def": 5,
+      "hp": 87,
+      "maxHp": 110,
+      "atk": 12,
+      "def": 6,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
     },
     "inventory": [],
-    "currentZone": "ap_suong_mu",
+    "currentZone": "vuong_lao_ba_suong",
     "autoFight": true,
     "cultivationFocus": [
-      "body"
+      "soul"
     ],
     "stats": {
-      "totalKills": 3,
-      "totalTuVi": 38,
-      "playTime": 56
+      "totalKills": 13,
+      "totalTuVi": 145,
+      "playTime": 874
     },
     "permanentBonuses": {
       "atk": 0,
@@ -323,7 +323,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 56,
+        "aura": 874,
         "herbEssence": 0,
         "alchemyFire": 0
       },
@@ -345,10 +345,10 @@
         }
       },
       "herbPlots": [],
-      "lastProcessAt": 1781866027133
+      "lastProcessAt": 1781866908355
     },
     "currencies": {
-      "so_linh_thach": 3,
+      "so_linh_thach": 13,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -367,33 +367,33 @@
     "activePillBuffs": [],
     "breakthroughPillLock": null,
     "combatState": {
-      "fightProgress": 2582,
+      "fightProgress": 0,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "xac_uop_dong",
-        "name": "Xác Ướp Đồng",
+        "id": "unknown",
+        "name": "Không rõ",
         "hp": 40,
         "atk": 5,
         "def": 2,
         "tuViReward": 10,
         "stoneReward": 1
       },
-      "monsterHp": 5,
+      "monsterHp": 40,
       "monsterMaxHp": 40,
-      "status": "Đang đánh Xác Ướp Đồng",
+      "status": "Đang đánh Không rõ",
       "logs": [
-        "[17:46:58] Bạn đánh Xác Ướp Đồng -10 HP.",
-        "[17:46:58] Xác Ướp Đồng đánh lại -2 HP.",
-        "[17:47:01] Bạn đánh Xác Ướp Đồng -7 HP.",
-        "[17:47:01] Xác Ướp Đồng đánh lại -3 HP.",
-        "[17:47:04] Bạn đánh Xác Ướp Đồng -10 HP.",
-        "[17:47:04] Xác Ướp Đồng đánh lại -2 HP.",
-        "[17:47:07] Bạn đánh Xác Ướp Đồng -8 HP.",
-        "[17:47:07] Xác Ướp Đồng đánh lại -2 HP."
+        "[18:01:48] Bạn đánh Không rõ -10 HP.",
+        "[18:01:48] Không rõ đánh lại -2 HP.",
+        "[18:01:48] Bạn đánh Không rõ -12 HP.",
+        "[18:01:48] Không rõ đánh lại -2 HP.",
+        "[18:01:48] Bạn đánh Không rõ -10 HP.",
+        "[18:01:48] Không rõ đánh lại -2 HP.",
+        "[18:01:48] Bạn đánh Không rõ -12 HP.",
+        "[18:01:48] Hạ Không rõ, nhận 10 tu vi và 1 linh thạch."
       ],
       "deathCount": 0,
       "deathPenaltyPercent": 0,
-      "lastPenaltyRecoverAt": 1781866027136
+      "lastPenaltyRecoverAt": 1781866908359
     }
   }
 }

@@ -91,6 +91,18 @@ function getPublicTechniques(playerTechniques) {
   return { equipped: state.equipped, learned };
 }
 
+function equipTechnique(playerTechniques, techniqueId, system) {
+  const state = normalizeTechniqueState(playerTechniques);
+  const technique = getTechnique(techniqueId);
+  if (!technique) return { success: false, reason: 'Công pháp không tồn tại.' };
+  if (!state.learned[techniqueId]) return { success: false, reason: 'Chưa học công pháp này.' };
+  const slot = system || technique.system || 'cultivation';
+  if (!['cultivation', 'body', 'soul'].includes(slot)) return { success: false, reason: 'Hệ công pháp không hợp lệ.' };
+  if (technique.system && technique.system !== slot) return { success: false, reason: 'Công pháp không phù hợp hệ này.' };
+  state.equipped[slot] = techniqueId;
+  return { success: true, equipped: state.equipped };
+}
+
 function canUpgradeTechnique(playerTechniques, techniqueId, mainCultivation) {
   const state = normalizeTechniqueState(playerTechniques);
   const learned = getLearnedTechnique(state, techniqueId);
@@ -123,6 +135,7 @@ module.exports = {
   getLearnedTechnique,
   getTechniqueInfo,
   getPublicTechniques,
+  equipTechnique,
   canUpgradeTechnique,
   upgradeTechnique,
 };

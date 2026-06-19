@@ -9,6 +9,7 @@ let playerData = null;
 let metaData = null;
 let refreshTimer = null;
 let selectedHerbId = null;
+const collapsedMapGroups = new Set();
 
 const pageInfo = {
   overview: ['Tổng Quan', 'Theo dõi cảnh giới, chiến lực và tài nguyên.'],
@@ -145,6 +146,7 @@ function renderHeader() {
   setText('toggle-auto-btn', playerData.autoFight ? 'Tạm dừng tự đánh' : 'Bật tự đánh');
 }
 
+
 function renderOverview() {
   const c = playerData.cultivation || {};
   const combat = playerData.combat || {};
@@ -152,8 +154,7 @@ function renderOverview() {
 
   setText('world-name', c.info?.worldName || c.world || '-');
   setText('realm-name', c.realmName || '-');
-  setText('tuvi-text', `${fmt(c.exp ?? c.tuVi)} / ${fmt(c.maxExp ?? c.maxTuVi)}`);
-  setWidth('cultivation-progress', pct(c.exp ?? c.tuVi, c.maxExp ?? c.maxTuVi));
+  setText('tuvi-text', 'Tổng quan chỉ hiển thị cảnh giới');
 
   setText('hp-text', `${fmt(combat.hp)} / ${fmt(combat.maxHp)}`);
   setText('atk-text', fmt(combat.atk));
@@ -168,21 +169,64 @@ function renderOverview() {
   const currencies = playerData.currencies || {};
   $('currency-list').innerHTML = Object.entries(currencies)
     .filter(([, amount]) => Number(amount) > 0)
-    .map(([id, amount]) => `<span class="chip">${id}: <b>${fmt(amount)}</b></span>`)
+    .map(([id, amount]) => `<span class="chip">${currencyName(id)}: <b>${fmt(amount)}</b></span>`)
     .join('') || '<span class="muted">Chưa có tài nguyên.</span>';
+}
+
+
+function progressData(type) {
+  if (type === 'main') {
+    const c = playerData.cultivation || {};
+    return {
+      title: c.realmName || '-',
+      cur: c.exp ?? c.tuVi ?? 0,
+      max: c.maxExp ?? c.maxTuVi ?? 100,
+      sub: c.info?.worldName || c.world || '-',
+    };
+  }
+  if (type === 'body') {
+    const b = playerData.bodyCultivation || {};
+    return {
+      title: b.info?.name || b.name || 'Luyện Thể',
+      cur: b.exp || 0,
+      max: b.maxExp || 100,
+      sub: 'Khí huyết rèn thân',
+    };
+  }
+  const so = playerData.soulCultivation || {};
+  return {
+    title: so.info?.name || so.name || 'Luyện Hồn',
+    cur: so.exp || 0,
+    max: so.maxExp || 100,
+    sub: 'Thần thức dưỡng hồn',
+  };
 }
 
 function renderCultivation() {
   const c = playerData.cultivation || {};
-  setText('cultivation-title', `${c.realmName || '-'} ${Math.round(pct(c.exp ?? c.tuVi, c.maxExp ?? c.maxTuVi))}%`);
-  setWidth('cultivation-progress-2', pct(c.exp ?? c.tuVi, c.maxExp ?? c.maxTuVi));
+  setText('cultivation-title', `${c.realmName || '-'} · ${fmt(c.exp ?? c.tuVi)} / ${fmt(c.maxExp ?? c.maxTuVi)}`);
   setText('cult-world', c.info?.worldName || c.world || '-');
   setText('cult-type', c.info?.progressType || '-');
   setText('tuvi-rate', `${fmt(playerData.pillEffects?.tuViGainPerSecond || 1)}/s`);
 
   const state = playerData.cultivationFocusState || { selected: ['main'], limit: 1, options: ['main', 'body', 'soul'] };
   setText('focus-limit', `Đang tu ${state.selected.length}/${state.limit} loại`);
-  setText('focus-note', state.limit === 1 ? 'Chưa đủ cảnh giới, chỉ được chọn 1 loại.' : `Có thể đồng tu ${state.limit} loại.`);
+  setText('focus-note', state.limit === 1 ? 'Nhấn thanh nào thì thanh đó chạy. Chưa đủ cảnh giới chỉ được chọn 1 loại.' : `Có thể đồng tu ${state.limit} loại.`);
+
+  const progressWrap = $('cultivation-progress-panels');
+  if (progressWrap) {
+    progressWrap.innerHTML = state.options.map(type => {
+      const data = progressData(type);
+      const active = state.selected.includes(type) ? 'active' : '';
+      const width = pct(data.cur, data.max);
+      return `<button class="cult-progress-card ${active}" data-focus="${type}">
+        <div class="split"><strong>${systemName(type)}</strong><span>${Math.round(width)}%</span></div>
+        <h4>${data.title}</h4>
+        <div class="progress"><div class="progress-fill" style="width:${width}%"></div></div>
+        <div class="split muted"><span>${data.sub}</span><span>${fmt(data.cur)} / ${fmt(data.max)}</span></div>
+      </button>`;
+    }).join('');
+  }
 
   $('focus-buttons').innerHTML = state.options.map(type => {
     const active = state.selected.includes(type) ? 'active' : '';
@@ -217,6 +261,39 @@ async function toggleAutoFight() {
   }
 }
 
+
+function mapGroupKey(map) {
+  return `${map.worldName || map.world || '-'}|${map.realmName || 'Cảnh giới'}`;
+}
+
+function renderMapGroups(maps) {
+  if (!maps.length) return '<p class="muted">Chưa mở map.</p>';
+  const groups = new Map();
+  for (const map of maps) {
+    const key = mapGroupKey(map);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(map);
+  }
+  return [...groups.entries()].map(([key, items]) => {
+    const [world, realm] = key.split('|');
+    const collapsed = collapsedMapGroups.has(key);
+    const body = collapsed ? '' : items.map(item => {
+      const active = item.id === playerData.currentZone ? 'active' : '';
+      return `<button class="map-item ${active}" data-map="${item.id}">
+        <strong>${item.name}</strong>
+        <span>${item.worldName || world} · ${item.realmName || realm}</span>
+        <small>${item.description || ''}</small>
+      </button>`;
+    }).join('');
+    return `<div class="map-group">
+      <button class="map-group-title" data-map-group="${key}">
+        <strong>${world} · ${realm}</strong><span>${collapsed ? 'Mở' : 'Thu gọn'} (${items.length})</span>
+      </button>
+      <div class="map-group-body ${collapsed ? 'collapsed' : ''}">${body}</div>
+    </div>`;
+  }).join('');
+}
+
 function renderCombat() {
   const map = playerData.currentMap || {};
   const state = playerData.combatState || {};
@@ -234,14 +311,16 @@ function renderCombat() {
   setText('kill-count', fmt(playerData.stats?.totalKills || 0));
   setText('death-penalty', `${fmt(state.deathPenaltyPercent || 0)}%`);
 
-  $('map-list').innerHTML = (playerData.unlockedMaps || []).map(item => {
-    const active = item.id === playerData.currentZone ? 'active' : '';
-    return `<button class="map-item ${active}" data-map="${item.id}">
-      <strong>${item.name}</strong>
-      <span>${item.worldName || '-'} · ${item.realmName || '-'}</span>
-      <small>${item.description || ''}</small>
-    </button>`;
-  }).join('') || '<p class="muted">Chưa mở map.</p>';
+  const maps = playerData.unlockedMaps || [];
+  $('map-list').innerHTML = renderMapGroups(maps);
+  document.querySelectorAll('[data-map-group]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.mapGroup;
+      if (collapsedMapGroups.has(key)) collapsedMapGroups.delete(key);
+      else collapsedMapGroups.add(key);
+      renderCombat();
+    });
+  });
   document.querySelectorAll('[data-map]').forEach(btn => btn.addEventListener('click', () => changeMap(btn.dataset.map)));
 
   const logs = state.logs || [];
@@ -265,30 +344,81 @@ function card(title, body = '', meta = '') {
   return `<div class="mini-card"><div><strong>${title}</strong>${body ? `<p>${body}</p>` : ''}</div>${meta ? `<span>${meta}</span>` : ''}</div>`;
 }
 
+function actionCard(title, body = '', meta = '', action = '') {
+  return `<div class="mini-card"><div><strong>${title}</strong>${body ? `<p>${body}</p>` : ''}</div><div class="card-side">${meta ? `<span>${meta}</span>` : ''}${action}</div></div>`;
+}
+
+function currencyName(id) {
+  return {
+    so_linh_thach: 'Sơ Linh Thạch',
+    trung_linh_thach: 'Trung Linh Thạch',
+    cao_linh_thach: 'Cao Linh Thạch',
+    cuc_pham_linh_thach: 'Cực Phẩm Linh Thạch',
+    tien_ngoc: 'Tiên Ngọc',
+  }[id] || id;
+}
+
 function effectText(effects = {}) {
   const entries = Object.entries(effects);
   if (!entries.length) return 'Chưa có chỉ số.';
   return entries.map(([k, v]) => `${k}: ${typeof v === 'number' ? (Math.abs(v) < 1 ? `${Math.round(v * 100)}%` : v) : v}`).join(' · ');
 }
 
+
+function isEquipped(equipped, system, id) {
+  return equipped && equipped[system] === id;
+}
+
+function equipButton(kind, item) {
+  const endpoint = kind === 'technique' ? 'technique' : 'martial-skill';
+  return `<button class="small-btn" data-equip-kind="${endpoint}" data-equip-id="${item.id}" data-equip-system="${item.system}">Trang bị</button>`;
+}
+
 function renderSkills() {
-  const techniques = playerData.techniques?.learned || [];
-  const martial = playerData.martialSkills?.learned || [];
+  const techState = playerData.techniques || { equipped: {}, learned: [] };
+  const martialState = playerData.martialSkills || { equipped: {}, learned: [] };
+  const techniques = Array.isArray(techState.learned) ? techState.learned : [];
+  const martial = Array.isArray(martialState.learned) ? martialState.learned : [];
 
-  $('technique-list').innerHTML = techniques.length ? techniques.map(item => card(
-    `${item.name} <em>${systemName(item.system)}</em>`,
-    `${item.description || ''}<br><small>${effectText(item.effects)}</small>`,
-    `Bậc ${item.rank || 1}`
-  )).join('') : '<p class="muted">Chưa học công pháp.</p>';
+  $('technique-list').innerHTML = techniques.length ? techniques.map(item => {
+    const equipped = isEquipped(techState.equipped, item.system, item.id);
+    return actionCard(
+      `${item.name} <em>${systemName(item.system)}</em>`,
+      `${equipped ? '<b class="equipped-text">Đang vận chuyển</b><br>' : ''}${item.description || ''}<br><small>${effectText(item.effects)}</small>`,
+      `Bậc ${item.rank || 1}`,
+      equipped ? '<span class="equipped-pill">Đã trang bị</span>' : equipButton('technique', item)
+    );
+  }).join('') : '<p class="muted">Chưa học công pháp.</p>';
 
-  $('martial-list').innerHTML = martial.length ? martial.map(item => card(
-    `${item.name} <em>${systemName(item.system)}</em>`,
-    `${item.description || ''}<br><small>${effectText(item.effects)}</small>`,
-    `Bậc ${item.rank || 1}`
-  )).join('') : '<p class="muted">Chưa học vũ kỹ.</p>';
+  $('martial-list').innerHTML = martial.length ? martial.map(item => {
+    const equipped = isEquipped(martialState.equipped, item.system, item.id);
+    return actionCard(
+      `${item.name} <em>${systemName(item.system)}</em>`,
+      `${equipped ? '<b class="equipped-text">Đang dùng khi chiến đấu</b><br>' : ''}${item.description || ''}<br><small>${effectText(item.effects)}</small>`,
+      `Bậc ${item.rank || 1}`,
+      equipped ? '<span class="equipped-pill">Đã trang bị</span>' : equipButton('martial', item)
+    );
+  }).join('') : '<p class="muted">Chưa học vũ kỹ.</p>';
+
+  document.querySelectorAll('[data-equip-kind]').forEach(btn => {
+    btn.addEventListener('click', () => equipPracticeItem(btn.dataset.equipKind, btn.dataset.equipId, btn.dataset.equipSystem));
+  });
 
   const skills = Array.isArray(playerData.skills?.learned) ? playerData.skills.learned : [];
   $('skill-list').innerHTML = skills.length ? skills.map(item => card(item.name || item.id, item.description || '', item.level ? `Lv.${item.level}` : '')).join('') : '<p class="muted">Chưa có skill linh căn.</p>';
+}
+
+async function equipPracticeItem(kind, id, system) {
+  try {
+    const data = await api(`/api/player/${encodeURIComponent(username)}/${kind}/equip`, {
+      method: 'POST',
+      body: JSON.stringify({ id, system }),
+    });
+    playerData = data.player;
+    renderAll();
+  } catch (err) {
+    alert(err.message);
+  }
 }
 
 function renderAlchemy() {
@@ -315,10 +445,15 @@ function renderCave() {
   }).join('') : '<p class="muted">Chưa mở dược viên.</p>';
 }
 
+
 function renderInventory() {
   const inv = playerData.inventory || [];
-  setText('inventory-count', `${inv.length} item`);
-  $('inventory-list').innerHTML = inv.length ? inv.map(item => card(item.name || item.id, `Số lượng: ${fmt(item.amount)}`, item.quality || '')).join('') : '<p class="muted">Túi đồ trống.</p>';
+  const currencies = Object.entries(playerData.currencies || {}).filter(([, amount]) => Number(amount) > 0);
+  setText('inventory-count', `${inv.length} vật phẩm · ${currencies.length} tiền tệ`);
+
+  const currencyHtml = currencies.length ? `<div class="inventory-section"><h4>Tiền tệ</h4>${currencies.map(([id, amount]) => card(currencyName(id), `Số lượng: ${fmt(amount)}`, 'Tiền tệ')).join('')}</div>` : '';
+  const itemHtml = inv.length ? `<div class="inventory-section"><h4>Vật phẩm</h4>${inv.map(item => card(item.name || item.id, `Số lượng: ${fmt(item.amount)}`, item.quality || '')).join('')}</div>` : '<p class="muted">Chưa có vật phẩm rơi vào túi.</p>';
+  $('inventory-list').innerHTML = currencyHtml + itemHtml;
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
