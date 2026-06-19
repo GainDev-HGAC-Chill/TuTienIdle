@@ -5,7 +5,7 @@
 
 const HERBS = require('../config/herbs');
 const HERB_GARDEN_RULES = require('../config/herbGardenRules');
-const caveService = require('./caveService'); const currencyService = require('./currencyService');
+const caveService = require('./caveService');
 
 function now() {
     return Date.now();
@@ -30,23 +30,6 @@ function getGrowSpeedBonus(player) {
     const building = caveService.getBuildingConfig('herb_garden');
     const gardenLevel = caveService.getBuildingLevel(player.cave, 'herb_garden') || 1;
     return gardenLevel * (building.effectsPerLevel.growSpeedPercent || 0);
-}
-
-
-function getPlantCost(herb) {
-  const worldCost = {
-    nhan_gioi: 10,
-    tien_gioi: 100,
-    nguyen_gioi: 1000,
-    dao_gioi: 10000,
-    chung_cuc_gioi: 100000,
-  };
-
-  if (herb.plantCost) return herb.plantCost;
-
-  const base = worldCost[herb.world] || 10;
-  const growMul = Math.max(1, Math.ceil(Number(herb.growSeconds || 60) / 60));
-  return { so_linh_thach: base * growMul };
 }
 
 function getEffectiveGrowSeconds(player, herb) {
@@ -151,7 +134,7 @@ function harvestHerb(player, plotIndex, currentTime = now()) {
     };
 }
 
-module.exports = { getPlantCost,
+module.exports = {
     getHerb,
     getPlotCount,
     getGrowSpeedBonus,

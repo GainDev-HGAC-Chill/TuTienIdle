@@ -122,12 +122,6 @@
                             <div><span>Loại tầng</span><b id="cult-type">-</b></div>
                             <div><span>Tu vi mỗi giây</span><b id="tuvi-rate">-</b></div>
                         </div>
-                        <div class="slot-block">
-                            <label>Trạng thái tu luyện</label>
-                            <div id="cultivation-focus-list" class="button-row"></div>
-                            <p id="cultivation-focus-limit" class="muted">Đang tu 1/1 loại</p>
-                            <p id="cultivation-focus-note" class="muted">Chưa đủ cảnh giới, chỉ được chọn 1 loại.</p>
-                        </div>
                     </section>
 
                     <section class="panel glass wide">
@@ -156,6 +150,10 @@
                         <div class="progress-wrap">
                             <div class="progress-label"><span>HP Quái</span><span id="combat-monster-hp-text">0 / 0</span></div>
                             <div class="progress-bar"><div id="combat-monster-hp-bar"></div></div>
+                        </div>
+                        <div class="progress-wrap">
+                            <div class="progress-label"><span>Tiến trình lượt đánh</span><span id="combat-action-progress-text">0%</span></div>
+                            <div class="progress-bar"><div id="combat-action-progress-bar"></div></div>
                         </div>
                     </section>
 

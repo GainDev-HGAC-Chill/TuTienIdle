@@ -1,316 +1,101 @@
 {
   "demo": {
     "username": "demo",
-    "createdAt": 1781782784844,
-    "lastSave": 1781816792342,
-    "lastTick": 1781816792318,
+    "createdAt": 1781834007999,
+    "lastSave": 1781853824057,
+    "lastTick": 1781853824057,
     "cultivation": {
       "world": "nhan_gioi",
-      "realmIndex": 1,
-      "stage": 3,
-      "tuVi": 152,
-      "maxTuVi": 600,
+      "realmIndex": 4,
+      "stage": 7,
+      "tuVi": 606,
+      "maxTuVi": 3500,
       "daoEntry": null
-    },
-    "combat": {
-      "hp": 240,
-      "maxHp": 240,
-      "atk": 38,
-      "def": 19,
-      "critRate": 0.05,
-      "critDmg": 1.5
-    },
-    "gold": 0,
-    "inventory": [
-      {
-        "id": "luyen_khi_linh_thao",
-        "name": "Luyện Khí Linh Thảo",
-        "amount": 49
-      },
-      {
-        "id": "nhan_gioi_linh_tuy",
-        "name": "Nhân Giới Linh Tủy",
-        "amount": 49
-      },
-      {
-        "id": "luyen_khi_phu_duoc",
-        "name": "Huyết Nguyên Luyện Khí Phụ Dược",
-        "amount": 49
-      },
-      {
-        "id": "luyen_khi_pha_canh_qua",
-        "name": "Luyện Khí Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "luyen_khi_sat_phat_hoa",
-        "name": "Luyện Khí Sát Phạt Hoa",
-        "amount": 50
-      },
-      {
-        "id": "luyen_khi_ho_the_diepla",
-        "name": "Luyện Khí Hộ Thể Diệp",
-        "amount": 50
-      },
-      {
-        "id": "luyen_khi_nguyen_luc_chi",
-        "name": "Luyện Khí Nguyên Lực Chi",
-        "amount": 50
-      },
-      {
-        "id": "truc_co_pha_canh_qua",
-        "name": "Trúc Cơ Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "truc_co_phu_duoc",
-        "name": "Huyết Nguyên Trúc Cơ Phụ Dược",
-        "amount": 50
-      },
-      {
-        "id": "truc_co_linh_thao",
-        "name": "Trúc Cơ Linh Thảo",
-        "amount": 50
-      },
-      {
-        "id": "truc_co_sat_phat_hoa",
-        "name": "Trúc Cơ Sát Phạt Hoa",
-        "amount": 50
-      },
-      {
-        "id": "truc_co_ho_the_diepla",
-        "name": "Trúc Cơ Hộ Thể Diệp",
-        "amount": 50
-      },
-      {
-        "id": "truc_co_nguyen_luc_chi",
-        "name": "Trúc Cơ Nguyên Lực Chi",
-        "amount": 50
-      },
-      {
-        "id": "kim_dan_pha_canh_qua",
-        "name": "Kim Đan Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "kim_dan_phu_duoc",
-        "name": "Huyết Nguyên Kim Đan Phụ Dược",
-        "amount": 50
-      },
-      {
-        "id": "kim_dan_linh_thao",
-        "name": "Kim Đan Linh Thảo",
-        "amount": 50
-      },
-      {
-        "id": "kim_dan_sat_phat_hoa",
-        "name": "Kim Đan Sát Phạt Hoa",
-        "amount": 50
-      },
-      {
-        "id": "kim_dan_ho_the_diepla",
-        "name": "Kim Đan Hộ Thể Diệp",
-        "amount": 50
-      },
-      {
-        "id": "kim_dan_nguyen_luc_chi",
-        "name": "Kim Đan Nguyên Lực Chi",
-        "amount": 50
-      },
-      {
-        "id": "nguyen_anh_pha_canh_qua",
-        "name": "Nguyên Anh Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "nguyen_anh_phu_duoc",
-        "name": "Huyết Nguyên Nguyên Anh Phụ Dược",
-        "amount": 50
-      },
-      {
-        "id": "nguyen_anh_linh_thao",
-        "name": "Nguyên Anh Linh Thảo",
-        "amount": 50
-      },
-      {
-        "id": "nguyen_anh_sat_phat_hoa",
-        "name": "Nguyên Anh Sát Phạt Hoa",
-        "amount": 50
-      },
-      {
-        "id": "nguyen_anh_ho_the_diepla",
-        "name": "Nguyên Anh Hộ Thể Diệp",
-        "amount": 50
-      },
-      {
-        "id": "nguyen_anh_nguyen_luc_chi",
-        "name": "Nguyên Anh Nguyên Lực Chi",
-        "amount": 50
-      },
-      {
-        "id": "hoa_than_pha_canh_qua",
-        "name": "Hóa Thần Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "hoa_than_phu_duoc",
-        "name": "Huyết Nguyên Hóa Thần Phụ Dược",
-        "amount": 50
-      },
-      {
-        "id": "hoa_than_linh_thao",
-        "name": "Hóa Thần Linh Thảo",
-        "amount": 50
-      },
-      {
-        "id": "hoa_than_sat_phat_hoa",
-        "name": "Hóa Thần Sát Phạt Hoa",
-        "amount": 50
-      },
-      {
-        "id": "hoa_than_ho_the_diepla",
-        "name": "Hóa Thần Hộ Thể Diệp",
-        "amount": 50
-      },
-      {
-        "id": "hoa_than_nguyen_luc_chi",
-        "name": "Hóa Thần Nguyên Lực Chi",
-        "amount": 50
-      },
-      {
-        "id": "luyen_hu_pha_canh_qua",
-        "name": "Luyện Hư Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "luyen_hu_phu_duoc",
-        "name": "Huyết Nguyên Luyện Hư Phụ Dược",
-        "amount": 50
-      },
-      {
-        "id": "luyen_hu_linh_thao",
-        "name": "Luyện Hư Linh Thảo",
-        "amount": 50
-      },
-      {
-        "id": "luyen_hu_sat_phat_hoa",
-        "name": "Luyện Hư Sát Phạt Hoa",
-        "amount": 50
-      },
-      {
-        "id": "luyen_hu_ho_the_diepla",
-        "name": "Luyện Hư Hộ Thể Diệp",
-        "amount": 50
-      },
-      {
-        "id": "luyen_hu_nguyen_luc_chi",
-        "name": "Luyện Hư Nguyên Lực Chi",
-        "amount": 50
-      },
-      {
-        "id": "hop_the_pha_canh_qua",
-        "name": "Hợp Thể Phá Cảnh Quả",
-        "amount": 50
-      },
-      {
-        "id": "hop_the_phu_duoc",
-        "name": "Huyết Nguyên Hợp Thể Phụ Dược",
-        "amount": 50
-      },
-      {
-        "id": "hop_the_linh_thao",
-        "name": "Hợp Thể Linh Thảo",
-        "amount": 50
-      },
-      {
-        "id": "tu_linh_tan",
-        "name": "Tụ Linh Tán",
-        "amount": 3
-      },
-      {
-        "id": "boi_nguyen_dan",
-        "name": "Bồi Nguyên Đan",
-        "amount": 3
-      },
-      {
-        "id": "thong_khieu_dan",
-        "name": "Thông Khiếu Đan",
-        "amount": 3
-      },
-      {
-        "id": "liet_diem_phan",
-        "name": "Liệt Diệm Phấn",
-        "amount": 3
-      },
-      {
-        "id": "han_bang_cham",
-        "name": "Hàn Băng Châm",
-        "amount": 3
-      },
-      {
-        "id": "thach_giap_tan",
-        "name": "Thạch Giáp Tán",
-        "amount": 3
-      },
-      {
-        "id": "thanh_phong_chu",
-        "name": "Thanh Phong Chú",
-        "amount": 3
-      },
-      {
-        "id": "nhat_duong_dan",
-        "name": "Nhất Dương Đan",
-        "amount": 3
-      },
-      {
-        "id": "tu_linh_tan_thuong",
-        "name": "Tụ Linh Tán [Thường]",
-        "amount": 1,
-        "basePillId": "tu_linh_tan",
-        "quality": "thuong",
-        "qualityName": "Thường",
-        "effectMultiplier": 0.5,
-        "category": "cultivation"
-      }
-    ],
-    "currentZone": "ap_suong_mu",
-    "autoFight": true,
-    "buffs": [],
-    "fortunesEncountered": [],
-    "stats": {
-      "totalKills": 475,
-      "totalExp": 0,
-      "totalGold": 0,
-      "playTime": 9447,
-      "totalTuVi": 15636
-    },
-    "permanentBonuses": {
-      "atk": 0,
-      "def": 0,
-      "expBonus": 0,
-      "goldBonus": 0
     },
     "bodyCultivation": {
       "rank": 1,
       "phase": 1,
-      "exp": 0,
+      "exp": 98,
       "maxExp": 100
     },
     "soulCultivation": {
       "rank": 1,
       "phase": 1,
-      "exp": 0,
+      "exp": 14,
       "maxExp": 100
     },
     "skills": {
       "learned": {
-        "thien_tinh_bat_huu_kinh": {
-          "id": "thien_tinh_bat_huu_kinh",
+        "than_hon_thu": {
+          "id": "than_hon_thu",
+          "level": 1,
+          "exp": 0
+        },
+        "toi_nguyen_thuat": {
+          "id": "toi_nguyen_thuat",
+          "level": 1,
+          "exp": 0
+        },
+        "ma_nhan_khiep_phach": {
+          "id": "ma_nhan_khiep_phach",
+          "level": 1,
+          "exp": 0
+        },
+        "cuu_u_ma_dong_chan_kinh": {
+          "id": "cuu_u_ma_dong_chan_kinh",
+          "level": 1,
+          "exp": 0
+        },
+        "tam_hon_thuat": {
+          "id": "tam_hon_thuat",
+          "level": 1,
+          "exp": 0
+        },
+        "huyen_anh_thien_trong": {
+          "id": "huyen_anh_thien_trong",
+          "level": 1,
+          "exp": 0
+        },
+        "nhat_niem_thoi_dong": {
+          "id": "nhat_niem_thoi_dong",
+          "level": 1,
+          "exp": 0
+        },
+        "thai_hu_than_giac_kinh": {
+          "id": "thai_hu_than_giac_kinh",
+          "level": 1,
+          "exp": 0
+        },
+        "van_niem_quy_son": {
+          "id": "van_niem_quy_son",
+          "level": 1,
+          "exp": 0
+        },
+        "tram_thiet_dao": {
+          "id": "tram_thiet_dao",
+          "level": 1,
+          "exp": 0
+        },
+        "bat_son_cu_dinh": {
+          "id": "bat_son_cu_dinh",
+          "level": 1,
+          "exp": 0
+        },
+        "thiet_son_khao": {
+          "id": "thiet_son_khao",
+          "level": 1,
+          "exp": 0
+        },
+        "kim_chung_trao": {
+          "id": "kim_chung_trao",
           "level": 1,
           "exp": 0
         }
       },
-      "equippedMartial": [],
+      "equippedMartial": [
+        "thiet_son_khao",
+        "kim_chung_trao"
+      ],
       "equippedDivine": []
     },
     "alchemy": {
@@ -319,32 +104,33 @@
       "maxExp": 100
     },
     "spiritRoot": {
-      "element": "kim",
-      "evolution": "normal",
-      "awakenedAt": 1781815139376,
-      "history": [
-        "dev_grant"
-      ]
+      "element": null,
+      "evolution": null,
+      "awakenedAt": null,
+      "history": []
     },
-    "spiritRoots": [
-      "kim"
-    ],
-    "currencies": {
-      "so_linh_thach": 475,
-      "trung_linh_thach": 0,
-      "thuong_linh_thach": 0,
-      "so_tien_thach": 0,
-      "trung_tien_thach": 0,
-      "thuong_tien_thach": 0,
-      "so_nguyen_thach": 0,
-      "trung_nguyen_thach": 0,
-      "thuong_nguyen_thach": 0,
-      "so_dao_thach": 0,
-      "trung_dao_thach": 0,
-      "thuong_dao_thach": 0,
-      "so_chung_cuc_thach": 0,
-      "trung_chung_cuc_thach": 0,
-      "thuong_chung_cuc_thach": 0
+    "spiritRoots": [],
+    "combat": {
+      "hp": 213,
+      "maxHp": 520,
+      "atk": 94,
+      "def": 47,
+      "speed": 5,
+      "critRate": 0.05,
+      "critDmg": 1.5
+    },
+    "inventory": [],
+    "currentZone": "ap_suong_mu",
+    "autoFight": false,
+    "stats": {
+      "totalKills": 682,
+      "totalTuVi": 50740,
+      "playTime": 19474
+    },
+    "permanentBonuses": {
+      "atk": 0,
+      "def": 0,
+      "tuViBonus": 0
     },
     "cave": {
       "level": 1,
@@ -373,246 +159,13 @@
       "herbPlots": [
         {
           "herbId": "luyen_khi_linh_thao",
-          "plantedAt": 1781815180236
-        },
-        {
-          "herbId": "luyen_khi_linh_thao",
-          "plantedAt": 1781815181261
-        },
-        {
-          "herbId": "luyen_khi_linh_thao",
-          "plantedAt": 1781815181959
+          "plantedAt": 1781853805111
         }
       ],
-      "lastProcessAt": 1781816792318
-    },
-    "activePillBuffs": [],
-    "breakthroughPillLock": null
-  },
-  "GainGain": {
-    "username": "GainGain",
-    "createdAt": 1781782813936,
-    "lastSave": 1781804193712,
-    "lastTick": 1781804193712,
-    "cultivation": {
-      "world": "nhan_gioi",
-      "realmIndex": 0,
-      "stage": 7,
-      "tuVi": 2,
-      "maxTuVi": 700,
-      "daoEntry": null
-    },
-    "combat": {
-      "hp": 200,
-      "maxHp": 200,
-      "atk": 34,
-      "def": 15,
-      "critRate": 0.05,
-      "critDmg": 1.5
-    },
-    "gold": 473,
-    "inventory": [
-      {
-        "id": "linh_thach",
-        "name": "Linh Thạch",
-        "amount": 5
-      }
-    ],
-    "currentZone": "động_ma",
-    "autoFight": true,
-    "buffs": [],
-    "fortunesEncountered": [
-      "lien_hoa",
-      "tuyet_son",
-      "cuu_huynh_de"
-    ],
-    "stats": {
-      "totalKills": 382,
-      "totalExp": 70,
-      "totalGold": 355,
-      "playTime": 4160,
-      "totalTuVi": 3170
-    },
-    "permanentBonuses": {
-      "atk": 10,
-      "def": 0,
-      "expBonus": 0,
-      "goldBonus": 0
-    },
-    "lastFortune": {
-      "name": "🤝 Cứu Huynh Đệ",
-      "message": "🤝 Huynh đệ cảm kích tặng 118 linh thạch!",
-      "time": 1781782847962
-    },
-    "bodyCultivation": {
-      "rank": 1,
-      "phase": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "soulCultivation": {
-      "rank": 1,
-      "phase": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "skills": {
-      "learned": {},
-      "equippedMartial": [],
-      "equippedDivine": []
-    },
-    "alchemy": {
-      "rank": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "spiritRoot": {
-      "element": null,
-      "evolution": null,
-      "awakenedAt": null,
-      "history": []
-    },
-    "spiritRoots": [],
-    "currencies": {
-      "so_linh_thach": 338,
-      "trung_linh_thach": 0,
-      "thuong_linh_thach": 0,
-      "so_tien_thach": 0,
-      "trung_tien_thach": 0,
-      "thuong_tien_thach": 0,
-      "so_nguyen_thach": 0,
-      "trung_nguyen_thach": 0,
-      "thuong_nguyen_thach": 0,
-      "so_dao_thach": 0,
-      "trung_dao_thach": 0,
-      "thuong_dao_thach": 0,
-      "so_chung_cuc_thach": 0,
-      "trung_chung_cuc_thach": 0,
-      "thuong_chung_cuc_thach": 0
-    },
-    "cave": {
-      "level": 1,
-      "resources": {
-        "aura": 420,
-        "herbEssence": 0,
-        "alchemyFire": 0
-      },
-      "buildings": {
-        "cave_core": {
-          "level": 1
-        },
-        "spirit_array": {
-          "level": 1
-        },
-        "herb_garden": {
-          "level": 1
-        },
-        "alchemy_room": {
-          "level": 1
-        },
-        "storage_room": {
-          "level": 1
-        }
-      },
-      "herbPlots": [],
-      "lastProcessAt": 1781804193712
-    },
-    "activePillBuffs": [],
-    "breakthroughPillLock": null
-  },
-  "demo1": {
-    "username": "demo1",
-    "createdAt": 1781816614329,
-    "lastSave": 1781816626436,
-    "lastTick": 1781816625522,
-    "cultivation": {
-      "world": "nhan_gioi",
-      "realmIndex": 0,
-      "stage": 1,
-      "tuVi": 40,
-      "maxTuVi": 100,
-      "daoEntry": null
-    },
-    "bodyCultivation": {
-      "rank": 1,
-      "phase": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "soulCultivation": {
-      "rank": 1,
-      "phase": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "skills": {
-      "learned": {},
-      "equippedMartial": [],
-      "equippedDivine": []
-    },
-    "alchemy": {
-      "rank": 1,
-      "exp": 0,
-      "maxExp": 100
-    },
-    "spiritRoot": {
-      "element": null,
-      "evolution": null,
-      "awakenedAt": null,
-      "history": []
-    },
-    "spiritRoots": [],
-    "combat": {
-      "hp": 100,
-      "maxHp": 100,
-      "atk": 10,
-      "def": 5,
-      "speed": 5,
-      "critRate": 0.05,
-      "critDmg": 1.5
-    },
-    "inventory": [],
-    "currentZone": "ap_suong_mu",
-    "autoFight": true,
-    "stats": {
-      "totalKills": 3,
-      "totalTuVi": 40,
-      "playTime": 10
-    },
-    "permanentBonuses": {
-      "atk": 0,
-      "def": 0,
-      "tuViBonus": 0
-    },
-    "cave": {
-      "level": 1,
-      "resources": {
-        "aura": 10,
-        "herbEssence": 0,
-        "alchemyFire": 0
-      },
-      "buildings": {
-        "cave_core": {
-          "level": 1
-        },
-        "spirit_array": {
-          "level": 1
-        },
-        "herb_garden": {
-          "level": 1
-        },
-        "alchemy_room": {
-          "level": 1
-        },
-        "storage_room": {
-          "level": 1
-        }
-      },
-      "herbPlots": [],
-      "lastProcessAt": 1781816625521
+      "lastProcessAt": 1781853824057
     },
     "currencies": {
-      "so_linh_thach": 3,
+      "so_linh_thach": 2380,
       "trung_linh_thach": 0,
       "thuong_linh_thach": 0,
       "so_tien_thach": 0,
@@ -629,6 +182,40 @@
       "thuong_chung_cuc_thach": 0
     },
     "activePillBuffs": [],
-    "breakthroughPillLock": null
+    "breakthroughPillLock": null,
+    "combatState": {
+      "fightProgress": 4,
+      "fightDuration": 3000,
+      "currentMonster": {
+        "id": "doi_bach_tang",
+        "name": "Dơi Bạch Tạng",
+        "description": "Dơi trắng bệch",
+        "hp": 173,
+        "atk": 37,
+        "def": 9,
+        "tuViReward": 38,
+        "stoneReward": 4,
+        "drop": []
+      },
+      "monsterHp": 3,
+      "monsterMaxHp": 173,
+      "status": "Tự đánh đang tắt.",
+      "logs": [
+        "[14:22:59] Bạn đánh Rồng Mây -83 HP.",
+        "[14:22:59] Rồng Mây đánh lại -26 HP.",
+        "[14:22:59] Bạn đánh Rồng Mây -99 HP.",
+        "[14:22:59] Rồng Mây đánh lại -21 HP.",
+        "[14:23:05] Bạn đánh Dơi Bạch Tạng -89 HP.",
+        "[14:23:05] Dơi Bạch Tạng đánh lại -16 HP.",
+        "[14:23:05] Bạn đánh Dơi Bạch Tạng -81 HP.",
+        "[14:23:05] Dơi Bạch Tạng đánh lại -17 HP."
+      ],
+      "deathCount": 0,
+      "deathPenaltyPercent": 0,
+      "lastPenaltyRecoverAt": 1781853824057
+    },
+    "cultivationFocus": [
+      "soul"
+    ]
   }
 }

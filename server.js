@@ -11,7 +11,7 @@ const skillService = require('./core/skillService');
 const spiritRootService = require('./core/spiritRootService');
 const pillService = require('./core/pillService');
 const alchemyService = require('./core/alchemyService');
-const caveService = require('./core/caveService'); const mapService = require('./core/mapService');
+const caveService = require('./core/caveService'); const mapService = require('./core/mapService'); const combatService = require('./core/combatService');
 const herbGardenService = require('./core/herbGardenService');
 
 const REALM_CONFIG = require('./config/realms');
@@ -90,7 +90,7 @@ function ensurePlayerShape(player) {
     }
     if (!player.inventory) player.inventory = [];
     if (!player.stats) player.stats = { totalKills: 0, totalTuVi: 0, playTime: 0 };
-    if (!player.currentZone) player.currentZone = mapService.getDefaultMapId(); mapService.ensureCurrentMap(player);
+    if (!player.currentZone) player.currentZone = mapService.getDefaultMapId(); mapService.ensureCurrentMap(player); combatService.ensureCombatState(player);
     if (player.autoFight === undefined) player.autoFight = true;
     if (!player.lastTick) player.lastTick = Date.now();
     if (!player.createdAt) player.createdAt = Date.now();
@@ -178,6 +178,70 @@ function fightMonster(player) {
   return result;
 }
 
+
+function getMainCultivationRank(cultivation) {
+    const worldOffsets = {
+        nhan_gioi: 0,
+        tien_gioi: 8,
+        nguyen_gioi: 16,
+        dao_gioi: 26,
+        chung_cuc_gioi: 30,
+    };
+    return (worldOffsets[cultivation?.world || 'nhan_gioi'] || 0) + Number(cultivation?.realmIndex || 0) + 1;
+}
+
+function getCultivationFocusLimit(player) {
+    const mainRank = getMainCultivationRank(player.cultivation);
+    const bodyRank = Number(player.bodyCultivation?.rank || 1);
+    const soulRank = Number(player.soulCultivation?.rank || 1);
+
+    if (mainRank >= 17 && bodyRank >= 17 && soulRank >= 17) return 3;
+    if (mainRank >= 9 && bodyRank >= 9 && soulRank >= 9) return 2;
+    return 1;
+}
+
+function normalizeCultivationFocus(player) {
+    const valid = ['main', 'body', 'soul'];
+    const limit = getCultivationFocusLimit(player);
+    let selected = Array.isArray(player.cultivationFocus) ? player.cultivationFocus : ['main'];
+    selected = [...new Set(selected.filter(id => valid.includes(id)))];
+    if (!selected.length) selected = ['main'];
+    player.cultivationFocus = selected.slice(0, limit);
+    return player.cultivationFocus;
+}
+
+function addSubCultivationExp(player, type, amount) {
+    const isBody = type === 'body';
+    const progress = isBody ? player.bodyCultivation : player.soulCultivation;
+    progress.exp = Number(progress.exp || 0) + amount;
+
+    let guard = 0;
+    while (progress.exp >= progress.maxExp && guard < 20) {
+        progress.exp -= progress.maxExp;
+        const result = isBody
+            ? bodyService.upgradeBody(progress, player.cultivation)
+            : soulService.upgradeSoul(progress, player.cultivation);
+
+        if (!result.success) {
+            progress.exp = progress.maxExp;
+            break;
+        }
+
+        if (isBody) player.bodyCultivation = result.progress;
+        else player.soulCultivation = result.progress;
+        guard++;
+    }
+}
+
+function getCultivationFocusState(player) {
+    const selected = normalizeCultivationFocus(player);
+    return {
+        selected,
+        limit: getCultivationFocusLimit(player),
+        options: ['main', 'body', 'soul'],
+    };
+}
+
 function getTuViGainPerSecond(player) {
     const pillEffects = pillService.getActivePillEffects(player);
     const caveAura = Math.floor((player.cave?.resources?.aura || 0) / 1000);
@@ -192,23 +256,32 @@ function processGameTick(player) {
     pillService.clearExpiredPillBuffs(player);
 
     const now = Date.now();
-    const deltaSecondsRaw = Math.floor((now - player.lastTick) / 1000);
+    const deltaMsRaw = now - player.lastTick;
+    const deltaSecondsRaw = Math.floor(deltaMsRaw / 1000);
     if (deltaSecondsRaw <= 0) return;
 
     const ticks = Math.min(deltaSecondsRaw, 60 * 60); // test: tối đa 1 giờ offline cho vòng tu luyện chính
+    const combatDeltaMs = Math.min(deltaMsRaw, 5 * 60 * 1000);
     player.lastTick = now;
 
     const tuViGain = getTuViGainPerSecond(player) * ticks;
-    player.cultivation.tuVi += tuViGain;
-    player.stats.totalTuVi += tuViGain;
+    const focus = normalizeCultivationFocus(player);
+
+    if (focus.includes('main')) {
+        player.cultivation.tuVi += tuViGain;
+        player.stats.totalTuVi += tuViGain;
+    }
+    if (focus.includes('body')) addSubCultivationExp(player, 'body', tuViGain);
+    if (focus.includes('soul')) addSubCultivationExp(player, 'soul', tuViGain);
+
     player.stats.playTime += ticks;
 
-    if (player.autoFight) {
-        const fightTicks = Math.min(ticks, 120);
-        for (let i = 0; i < fightTicks; i++) fightMonster(player);
-    }
-
     updateCultivation(player);
+
+    // Combat riêng: có HP quái, HP người chơi, quái đánh trả.
+    // Không dùng fightMonster cũ nữa.
+    mapService.ensureCurrentMap(player);
+    combatService.processCombat(player, combatDeltaMs);
 }
 
 function getPlayerOrCreate(players, username) {
@@ -224,7 +297,9 @@ function sanitizePlayer(player) {
     const soulInfo = soulService.getSoulInfo(player.soulCultivation);
     const spiritRootDisplay = spiritRootService.getSpiritRootDisplay(player.spiritRoot);
     const pillEffects = pillService.getActivePillEffects(player);
-
+    const combatState = combatService.getPublicCombatState(player);
+    const deathPenaltyPercent = combatState?.deathPenaltyPercent || 0;
+    const deathPenaltyMul = Math.max(0, 1 - deathPenaltyPercent / 100);
     const cultivationCompat = {
         ...player.cultivation,
         realmName: realmInfo?.displayName || 'Không rõ',
@@ -237,6 +312,7 @@ function sanitizePlayer(player) {
     return {
         username: player.username,
         cultivation: cultivationCompat,
+        cultivationFocusState: getCultivationFocusState(player),
         bodyCultivation: { ...player.bodyCultivation, info: bodyInfo },
         soulCultivation: { ...player.soulCultivation, info: soulInfo },
         spiritRoot: player.spiritRoot,
@@ -257,8 +333,8 @@ function sanitizePlayer(player) {
         combat: {
             hp: Math.round(player.combat.hp),
             maxHp: player.combat.maxHp,
-            atk: Math.round(player.combat.atk + (player.permanentBonuses.atk || 0) + (pillEffects.atkPercent || 0)),
-            def: Math.round(player.combat.def + (player.permanentBonuses.def || 0) + (pillEffects.defPercent || 0)),
+            atk: Math.round((player.combat.atk + (player.permanentBonuses.atk || 0) + (pillEffects.atkPercent || 0)) * deathPenaltyMul),
+            def: Math.round((player.combat.def + (player.permanentBonuses.def || 0) + (pillEffects.defPercent || 0)) * deathPenaltyMul),
             speed: Math.round(player.combat.speed + (pillEffects.speedPercent || 0)),
             critRate: player.combat.critRate,
             critDmg: player.combat.critDmg,
@@ -267,7 +343,7 @@ function sanitizePlayer(player) {
         gold: Math.round(player.currencies?.so_linh_thach || 0),
         inventory: player.inventory,
         currentZone: player.currentZone,
-        zoneName: mapService.ensureCurrentMap(player)?.name || 'Unknown', currentMap: mapService.getPlayerMapState(player).currentMap, unlockedMaps: mapService.getPlayerMapState(player).unlockedMaps,
+        zoneName: mapService.ensureCurrentMap(player)?.name || 'Unknown', currentMap: mapService.getPlayerMapState(player).currentMap, unlockedMaps: mapService.getPlayerMapState(player).unlockedMaps, combatState,
         autoFight: player.autoFight,
         stats: player.stats,
         permanentBonuses: player.permanentBonuses,
@@ -306,7 +382,12 @@ app.post('/api/player/:username', (req, res) => {
     const players = loadPlayers();
     const player = getPlayerOrCreate(players, req.params.username);
     if (req.body.currentZone) player.currentZone = req.body.currentZone;
-    if (req.body.autoFight !== undefined) player.autoFight = !!req.body.autoFight;
+    if (req.body.autoFight !== undefined) {
+        if (req.body.autoFight && combatService.isCombatLocked(player)) {
+            return res.status(400).json({ success: false, error: 'Phạt chỉ số đạt 90%, tạm cấm combat. Chờ hồi phục.' });
+        }
+        player.autoFight = !!req.body.autoFight;
+    }
     processGameTick(player);
     sendPlayer(res, players, player);
 });
@@ -321,8 +402,47 @@ app.post('/api/player/:username/zone', (req, res) => {
     return res.status(400).json({ success: false, error: 'Map chưa mở khóa theo cảnh giới hiện tại.' });
   }
   player.currentZone = map.id;
+  if (player.combatState) {
+    player.combatState.currentMonster = null;
+    player.combatState.monsterHp = 0;
+    player.combatState.monsterMaxHp = 0;
+    player.combatState.fightProgress = 0;
+  }
+  if (!combatService.isCombatLocked(player)) {
+    combatService.spawnMonster(player);
+  }
   sendPlayer(res, players, player, { message: `Đã chuyển đến ${map.name}` });
 });
+
+
+app.post('/api/player/:username/cultivation/focus', (req, res) => {
+    const players = loadPlayers();
+    const player = getPlayerOrCreate(players, req.params.username);
+    const type = req.body.type;
+    const valid = ['main', 'body', 'soul'];
+    if (!valid.includes(type)) {
+        return res.status(400).json({ success: false, error: 'Loại tu luyện không hợp lệ.' });
+    }
+
+    const limit = getCultivationFocusLimit(player);
+    let selected = normalizeCultivationFocus(player);
+
+    if (selected.includes(type)) {
+        if (selected.length <= 1) {
+            return res.status(400).json({ success: false, error: 'Ít nhất phải chọn 1 loại tu luyện.' });
+        }
+        selected = selected.filter(id => id !== type);
+    } else {
+        if (selected.length >= limit) {
+            selected.shift();
+        }
+        selected.push(type);
+    }
+
+    player.cultivationFocus = selected.slice(0, limit);
+    sendPlayer(res, players, player, { message: 'Đã đổi trạng thái tu luyện.' });
+});
+
 
 app.get('/api/skills', (req, res) => {
     res.json({ success: true, skills: skillService.getAllSkills(), rules: SKILL_RULES });

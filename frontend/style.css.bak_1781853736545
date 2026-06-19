@@ -303,31 +303,3 @@ b { color: var(--text); }
     color: #f3d681;
     background: rgba(243, 214, 129, 0.12);
 }
-
-
-.map-world-group > summary {
-    cursor: pointer;
-    user-select: none;
-    list-style: none;
-}
-
-.map-world-group > summary::-webkit-details-marker {
-    display: none;
-}
-
-.map-world-group > summary::before {
-    content: '▾';
-    display: inline-block;
-    width: 18px;
-    color: #f3d681;
-}
-
-.map-world-group:not([open]) > summary::before {
-    content: '▸';
-}
-
-.small-btn.active {
-    border-color: #f3d681;
-    color: #f3d681;
-    background: rgba(243, 214, 129, 0.12);
-}

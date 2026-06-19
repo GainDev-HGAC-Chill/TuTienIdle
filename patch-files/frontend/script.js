@@ -7,6 +7,7 @@ let allSkills = [];
 let allRecipes = [];
 let allHerbs = [];
 let refreshTimer = null;
+let fightTimer = null;
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => Number(n || 0).toLocaleString('vi-VN', { maximumFractionDigits: 0 });
@@ -15,8 +16,7 @@ const nowText = () => new Date().toLocaleTimeString('vi-VN');
 
 const pageInfo = {
     overview: ['Tổng Quan', 'Theo dõi cảnh giới, chiến lực và tài nguyên.'],
-    cultivation: ['Tu Luyện', 'Cảnh giới chính, tu vi và buff đang hoạt động.'],
-    combat: ['Combat', 'Chọn map, đánh quái, nhận tu vi, linh thạch và vật phẩm.'],
+    cultivation: ['Tu Luyện', 'Cảnh giới chính, khu vực đánh quái và buff đang hoạt động.'],
     skills: ['Công Pháp', 'Học công pháp, trang bị vũ kỹ và thần thông theo linh căn.'],
     alchemy: ['Đan Dược', 'Luyện đan, xem công thức, dùng đan dược trong túi.'],
     cave: ['Động Phủ', 'Tụ linh trận, luyện đan phòng và dược viên.'],
@@ -61,11 +61,8 @@ function bindEvents() {
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', () => setTab(btn.dataset.tab));
     });
-
-    document.addEventListener('click', async (e) => {
-        const btn = e.target.closest('[data-cultivation-focus]');
-        if (!btn) return;
-        await toggleCultivationFocus(btn.dataset.cultivationFocus);
+    document.querySelectorAll('[data-zone]').forEach(btn => {
+        btn.addEventListener('click', () => changeZone(btn.dataset.zone));
     });
 }
 
@@ -113,6 +110,8 @@ async function login(username) {
         addLog('Đăng nhập thành công.', 'ok');
         clearInterval(refreshTimer);
         refreshTimer = setInterval(() => fetchPlayer(false), 3000);
+        clearInterval(fightTimer);
+        fightTimer = setInterval(renderFightProgress, 200);
     } catch (err) {
         alert(`Không thể đăng nhập: ${err.message}`);
         $('server-status').textContent = 'Mất kết nối';
@@ -121,6 +120,7 @@ async function login(username) {
 
 function logout() {
     clearInterval(refreshTimer);
+    clearInterval(fightTimer);
     currentUser = null;
     playerData = null;
     $('game-screen').style.display = 'none';
@@ -157,7 +157,6 @@ function renderAll() {
     if (!playerData) return;
     renderOverview();
     renderCultivation();
-    renderCombat();
     renderSkills();
     renderAlchemy();
     renderCave();
@@ -200,10 +199,18 @@ function renderCultivation() {
     $('cultivation-progress').textContent = `${percent.toFixed(1)}%`;
     $('cultivation-bar').style.width = `${percent}%`;
     $('cult-world').textContent = info.worldName || cult.world || '-';
-    $('cult-type').textContent = `${cult.realmName || info.displayName || ''} ${cult.stage || cult.level || ''}/9`;
+    $('cult-type').textContent = info.progressType || '-';
     $('tuvi-rate').textContent = estimateTuViRate();
-    renderCultivationModes();
 
+    const currentMap = playerData.currentMap || metaData?.zones?.[playerData.currentZone] || {};
+    $('zone-name').textContent = currentMap.name || playerData.zoneName || '-';
+    $('zone-monster').textContent =
+        currentMap.monster ||
+        currentMap.monsters?.[0]?.name ||
+        playerData.combatState?.currentMonster?.name ||
+        'Không rõ';
+    renderMapButtons();
+    renderFightProgress();
     $('toggle-fight').textContent = playerData.autoFight ? 'Tạm dừng tự đánh' : 'Tiếp tục tự đánh';
 
     const buffs = playerData.activePillBuffs || [];
@@ -211,48 +218,6 @@ function renderCultivation() {
         const left = Math.max(0, Math.floor(((buff.expiresAt || 0) - Date.now()) / 1000));
         return `<div class="data-card"><h4>${buff.name || buff.pillId}</h4><p>Còn ${left}s</p><div class="meta"><span class="chip">${categoryNames[buff.category] || buff.category || 'buff'}</span></div></div>`;
     }).join('') : '<div class="empty-state">Không có buff đan đang hoạt động.</div>';
-}
-
-
-function renderCultivationModes() {
-    const state = playerData.cultivationFocusState || {};
-    const selected = state.selected || ['main'];
-    const limit = state.limit || 1;
-    const names = { main: 'Tu Luyện', body: 'Luyện Thể', soul: 'Luyện Hồn' };
-
-    const box = $('cultivation-focus-list');
-    if (box) {
-        box.innerHTML = ['main', 'body', 'soul'].map(id => `
-            <button class="small-btn ${selected.includes(id) ? 'active' : ''}" data-cultivation-focus="${id}">
-                ${names[id]}
-            </button>
-        `).join('');
-    }
-
-    if ($('cultivation-focus-limit')) {
-        $('cultivation-focus-limit').textContent = `Đang tu ${selected.length}/${limit} loại`;
-    }
-
-    if ($('cultivation-focus-note')) {
-        $('cultivation-focus-note').textContent =
-            limit === 1 ? 'Chưa đủ cảnh giới, chỉ được chọn 1 loại.' :
-            limit === 2 ? 'Tam tu đạt Bán Tiên, được chọn 2 loại cùng lúc.' :
-            'Tam tu đạt Nhập Thánh, được chọn 3 loại cùng lúc.';
-    }
-}
-
-async function toggleCultivationFocus(type) {
-    try {
-        const data = await api(`/player/${currentUser}/cultivation/focus`, {
-            method: 'POST',
-            body: JSON.stringify({ type })
-        });
-        playerData = data.player;
-        renderAll();
-        addLog(data.message || 'Đã đổi trạng thái tu luyện.', 'ok');
-    } catch (err) {
-        addLog(`Không đổi được trạng thái tu luyện: ${err.message}`, 'err');
-    }
 }
 
 function estimateTuViRate() {
@@ -264,83 +229,44 @@ function estimateTuViRate() {
 }
 
 
-
-
 function ensureMapButtonsContainer() {
-    return document.getElementById('combat-map-buttons') ||
-        document.getElementById('map-buttons') ||
-        document.getElementById('zone-buttons') ||
-        document.getElementById('zone-list');
+    return $('map-buttons');
 }
+
 function renderMapButtons() {
     const el = ensureMapButtonsContainer();
     if (!el) return;
 
     const maps = playerData?.unlockedMaps || [];
-    if (!maps.length) {
-        el.innerHTML = '<span class="muted">Chưa mở map.</span>';
-        return;
-    }
-
-    const worlds = groupMapsByWorldRealm(maps);
-    el.innerHTML = worlds.map(world => `
-        <details class="map-world-group" open>
-            <summary class="map-world-title">${world.name}</summary>
-            ${world.realms.map(realm => `
-                <div class="map-realm-group">
-                    <div class="map-realm-title">${realm.name}</div>
-                    <div class="map-button-row">
-                        ${realm.maps.map(map => `
-                            <button class="small-btn map-btn ${map.id === playerData.currentZone ? 'active' : ''}" data-map-id="${map.id}">
-                                ${map.name}
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('')}
-        </details>
-    `).join('');
+    el.innerHTML = maps.length
+        ? maps.map(map => `
+            <button class="small-btn map-btn ${map.id === playerData.currentZone ? 'active' : ''}" data-map-id="${map.id}">
+                ${map.name}
+            </button>
+        `).join('')
+        : '<span class="muted">Chưa mở map.</span>';
 
     el.querySelectorAll('.map-btn').forEach(btn => {
-        btn.onclick = () => changeZone(btn.dataset.mapId);
+        btn.addEventListener('click', () => changeZone(btn.dataset.mapId));
     });
 }
 
+function renderFightProgress() {
+    if (!$('fight-bar') || !$('fight-progress-text')) return;
 
-
-function renderCombat() {
-    if (!playerData) return;
-    renderMapButtons();
-
-    const state = playerData.combatState || {};
-    const currentMap = playerData.currentMap || {};
-    const monster = state.currentMonster || {};
-    const combat = playerData.combat || {};
-
-    if ($('combat-map-name')) $('combat-map-name').textContent = currentMap.name || playerData.zoneName || 'Unknown';
-    if ($('combat-monster-name')) $('combat-monster-name').textContent = monster.name || 'Không rõ';
-    if ($('combat-monster-desc')) $('combat-monster-desc').textContent = monster.description || 'Quái có thể đánh trả. Hết HP sẽ dừng tự đánh.';
-
-    const playerHp = Number(combat.hp || 0);
-    const playerMaxHp = Number(combat.maxHp || 0);
-    const monsterHp = Number(state.monsterHp || 0);
-    const monsterMaxHp = Number(state.monsterMaxHp || 0);
-    
-    if ($('combat-player-hp-text')) $('combat-player-hp-text').textContent = `${fmt(playerHp)} / ${fmt(playerMaxHp)}`;
-    if ($('combat-player-hp-bar')) $('combat-player-hp-bar').style.width = `${pct(playerHp, playerMaxHp)}%`;
-    if ($('combat-monster-hp-text')) $('combat-monster-hp-text').textContent = `${fmt(monsterHp)} / ${fmt(monsterMaxHp)}`;
-    if ($('combat-monster-hp-bar')) $('combat-monster-hp-bar').style.width = `${pct(monsterHp, monsterMaxHp)}%`;
-
-    if ($('combat-status')) $('combat-status').textContent = state.status || '-';
-    if ($('combat-kills')) $('combat-kills').textContent = fmt(playerData.stats?.totalKills || 0);
-    if ($('combat-auto')) $('combat-auto').textContent = playerData.autoFight ? 'Đang bật' : 'Đang tắt';
-
-    const logs = state.logs || [];
-    if ($('combat-log')) {
-        $('combat-log').innerHTML = logs.length
-            ? logs.slice(-8).map(line => `<div class="log-entry info">${line}</div>`).join('')
-            : '<div class="empty-state">Chưa có combat log.</div>';
+    if (!playerData?.autoFight) {
+        $('fight-bar').style.width = '0%';
+        $('fight-progress-text').textContent = 'Tạm dừng';
+        return;
     }
+
+    const duration = 5000;
+    const percent = ((Date.now() % duration) / duration) * 100;
+    $('fight-bar').style.width = `${percent.toFixed(1)}%`;
+    $('fight-progress-text').textContent = `${percent.toFixed(0)}%`;
+
+    const monsterName = $('zone-monster')?.textContent || 'Đánh quái';
+    if ($('fight-target')) $('fight-target').textContent = `Đang đánh: ${monsterName}`;
 }
 
 async function toggleFight() {
@@ -354,7 +280,7 @@ async function toggleFight() {
 
 async function changeZone(zone) {
     try {
-        const data = await api(`/player/${currentUser}/zone`, { method: 'POST', body: JSON.stringify({ mapId: zone }) });
+        const data = await api(`/player/${currentUser}/zone`, { method: 'POST', body: JSON.stringify({ zone }) });
         playerData = data.player;
         renderAll();
         addLog(data.message || 'Đã đổi khu vực.', 'ok');
@@ -614,41 +540,4 @@ function addLog(message, type = 'info') {
     box.appendChild(div);
     while (box.children.length > 80) box.removeChild(box.firstChild);
     box.scrollTop = box.scrollHeight;
-}
-
-
-function getWorldDisplayName(worldId) {
-    return ({
-        nhan_gioi: 'Nhân Giới',
-        tien_gioi: 'Tiên Giới',
-        nguyen_gioi: 'Nguyên Giới',
-        dao_gioi: 'Đạo Giới',
-        chung_cuc_gioi: 'Chung Cực Giới'
-    })[worldId] || worldId || 'Không rõ';
-}
-
-function getRealmDisplayName(map) {
-    return map.realmName || map.required?.realmName || map.realm || `Cảnh giới ${Number(map.required?.realmIndex ?? map.realmIndex ?? 0) + 1}`;
-}
-
-function groupMapsByWorldRealm(maps) {
-    const groups = {};
-    (maps || []).forEach(map => {
-        const worldId = map.required?.world || map.world || 'nhan_gioi';
-        const realmIndex = Number(map.required?.realmIndex ?? map.realmIndex ?? 0);
-        const realmName = getRealmDisplayName(map);
-        const worldName = map.worldName || getWorldDisplayName(worldId);
-        const key = `${worldId}_${realmIndex}`;
-
-        if (!groups[worldId]) groups[worldId] = { id: worldId, name: worldName, realms: {} };
-        if (!groups[worldId].realms[key]) {
-            groups[worldId].realms[key] = { key, realmIndex, name: realmName, maps: [] };
-        }
-        groups[worldId].realms[key].maps.push(map);
-    });
-
-    return Object.values(groups).map(world => ({
-        ...world,
-        realms: Object.values(world.realms).sort((a, b) => a.realmIndex - b.realmIndex)
-    }));
 }

@@ -41,7 +41,6 @@
             <nav class="nav-tabs">
                 <button class="nav-btn active" data-tab="overview">Tổng Quan</button>
                 <button class="nav-btn" data-tab="cultivation">Tu Luyện</button>
-                <button class="nav-btn" data-tab="combat">Combat</button>
                 <button class="nav-btn" data-tab="skills">Công Pháp</button>
                 <button class="nav-btn" data-tab="alchemy">Đan Dược</button>
                 <button class="nav-btn" data-tab="cave">Động Phủ</button>
@@ -122,56 +121,27 @@
                             <div><span>Loại tầng</span><b id="cult-type">-</b></div>
                             <div><span>Tu vi mỗi giây</span><b id="tuvi-rate">-</b></div>
                         </div>
-                        <div class="slot-block">
-                            <label>Trạng thái tu luyện</label>
-                            <div id="cultivation-focus-list" class="button-row"></div>
-                            <p id="cultivation-focus-limit" class="muted">Đang tu 1/1 loại</p>
-                            <p id="cultivation-focus-note" class="muted">Chưa đủ cảnh giới, chỉ được chọn 1 loại.</p>
+                    </section>
+
+                    <section class="panel glass">
+                        <div class="panel-head"><h3>Khu Vực</h3><span id="zone-name" class="badge">Rừng Thấp</span></div>
+                        <div class="zone-card">
+                            <div class="monster-icon">獸</div>
+                            <div><b id="zone-monster">Yêu Lang</b><p>Auto fight sẽ cộng tu vi và linh thạch.</p></div>
                         </div>
+                        <div class="fight-progress">
+                            <div class="progress-label">
+                                <span id="fight-target">Đánh quái</span>
+                                <span id="fight-progress-text">0%</span>
+                            </div>
+                            <div class="progress-bar"><div id="fight-bar"></div></div>
+                        </div>
+                        <div id="map-buttons" class="button-row"></div>
                     </section>
 
                     <section class="panel glass wide">
                         <div class="panel-head"><h3>Buff Đan Đang Có</h3><span class="badge soft">Tự hết hạn</span></div>
                         <div id="active-buffs" class="card-list"></div>
-                    </section>
-                </div>
-            </section>
-
-
-            <section id="tab-combat" class="tab-page">
-                <div class="grid two-col">
-                    <section class="panel glass">
-                        <div class="panel-head"><h3>Khu Vực Combat</h3><span id="combat-map-name" class="badge">-</span></div>
-                        <div class="zone-card">
-                            <div class="monster-icon">獸</div>
-                            <div>
-                                <b id="combat-monster-name">Không rõ</b>
-                                <p id="combat-monster-desc">Chọn map để bắt đầu tự đánh.</p>
-                            </div>
-                        </div>
-                        <div class="progress-wrap">
-                            <div class="progress-label"><span>HP Người chơi</span><span id="combat-player-hp-text">0 / 0</span></div>
-                            <div class="progress-bar"><div id="combat-player-hp-bar"></div></div>
-                        </div>
-                        <div class="progress-wrap">
-                            <div class="progress-label"><span>HP Quái</span><span id="combat-monster-hp-text">0 / 0</span></div>
-                            <div class="progress-bar"><div id="combat-monster-hp-bar"></div></div>
-                        </div>
-                    </section>
-
-                    <section class="panel glass">
-                        <div class="panel-head"><h3>Map Đã Mở</h3><span class="badge soft">Theo cảnh giới</span></div>
-                        <div id="combat-map-buttons" class="button-row"></div>
-                        <div class="info-table">
-                            <div><span>Trạng thái</span><b id="combat-status">-</b></div>
-                            <div><span>Quái đã hạ</span><b id="combat-kills">0</b></div>
-                            <div><span>Tự đánh</span><b id="combat-auto">-</b></div>
-                        </div>
-                    </section>
-
-                    <section class="panel glass wide">
-                        <div class="panel-head"><h3>Nhật Ký Combat</h3><span class="badge soft">Tối đa 8 dòng</span></div>
-                        <div id="combat-log" class="log-container"></div>
                     </section>
                 </div>
             </section>
