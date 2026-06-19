@@ -1,15 +1,17 @@
+// ============================================
+// CONFIG - TECHNIQUES
+// Công pháp cơ bản theo 3 hệ: Tu Luyện / Luyện Thể / Luyện Hồn
+// ============================================
 const phases = require('./progressionPhases');
 
 const TECHNIQUE_CONFIG = {
   id: 'technique',
   name: 'Công Pháp',
   phases,
-
   upgradeMode: {
     FOLLOW_REALM: 'follow_realm',
     FIXED_MAX_RANK: 'fixed_max_rank',
   },
-
   list: [
     {
       id: 'tho_nap_quyet',

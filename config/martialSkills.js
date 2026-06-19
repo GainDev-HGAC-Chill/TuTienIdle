@@ -1,20 +1,17 @@
 // ============================================
-//  CONFIG - MARTIAL SKILLS
-//  Vũ kỹ: có thể thăng cấp theo cảnh giới
+// CONFIG - MARTIAL SKILLS
+// Vũ kỹ cơ bản theo 3 hệ: Tu Luyện / Luyện Thể / Luyện Hồn
 // ============================================
-
 const phases = require('./progressionPhases');
 
 const MARTIAL_SKILL_CONFIG = {
   id: 'martial_skill',
   name: 'Vũ Kỹ',
   phases,
-
   upgradeMode: {
     FOLLOW_REALM: 'follow_realm',
     FIXED_MAX_RANK: 'fixed_max_rank',
   },
-
   list: [
     {
       id: 'co_ban_kiem_quyet',

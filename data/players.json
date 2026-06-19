@@ -1,14 +1,14 @@
 {
   "demo": {
     "username": "demo",
-    "createdAt": 1781865423275,
-    "lastSave": 1781865457296,
-    "lastTick": 1781865457296,
+    "createdAt": 1781865957038,
+    "lastSave": 1781865958311,
+    "lastTick": 1781865958301,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 0,
       "stage": 1,
-      "tuVi": 29,
+      "tuVi": 1,
       "maxTuVi": 100,
       "daoEntry": null
     },
@@ -102,7 +102,7 @@
     },
     "spiritRoots": [],
     "combat": {
-      "hp": 10,
+      "hp": 100,
       "maxHp": 100,
       "atk": 10,
       "def": 5,
@@ -113,10 +113,13 @@
     "inventory": [],
     "currentZone": "ap_suong_mu",
     "autoFight": true,
+    "cultivationFocus": [
+      "main"
+    ],
     "stats": {
       "totalKills": 0,
-      "totalTuVi": 29,
-      "playTime": 29
+      "totalTuVi": 1,
+      "playTime": 1
     },
     "permanentBonuses": {
       "atk": 0,
@@ -126,7 +129,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 29,
+        "aura": 1,
         "herbEssence": 0,
         "alchemyFire": 0
       },
@@ -148,7 +151,7 @@
         }
       },
       "herbPlots": [],
-      "lastProcessAt": 1781865457296
+      "lastProcessAt": 1781865958301
     },
     "currencies": {
       "so_linh_thach": 0,
@@ -170,38 +173,227 @@
     "activePillBuffs": [],
     "breakthroughPillLock": null,
     "combatState": {
-      "fightProgress": 1021,
+      "fightProgress": 1262,
+      "fightDuration": 3000,
+      "currentMonster": {
+        "id": "mat_doc",
+        "name": "Mắt Độc",
+        "hp": 40,
+        "atk": 5,
+        "def": 2,
+        "tuViReward": 10,
+        "stoneReward": 1
+      },
+      "monsterHp": 40,
+      "monsterMaxHp": 40,
+      "status": "Đang đánh Mắt Độc",
+      "logs": [],
+      "deathCount": 0,
+      "deathPenaltyPercent": 0,
+      "lastPenaltyRecoverAt": 1781865958306
+    }
+  },
+  "GainGain": {
+    "username": "GainGain",
+    "createdAt": 1781865964514,
+    "lastSave": 1781866027136,
+    "lastTick": 1781866027133,
+    "cultivation": {
+      "world": "nhan_gioi",
+      "realmIndex": 0,
+      "stage": 1,
+      "tuVi": 38,
+      "maxTuVi": 100,
+      "daoEntry": null
+    },
+    "bodyCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 48,
+      "maxExp": 100
+    },
+    "soulCultivation": {
+      "rank": 1,
+      "phase": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "skills": {
+      "learned": {},
+      "equippedMartial": [],
+      "equippedDivine": []
+    },
+    "techniques": {
+      "equipped": {
+        "cultivation": "tho_nap_quyet",
+        "body": "man_nguu_luyen_the_quyet",
+        "soul": "duong_than_quyet"
+      },
+      "learned": {
+        "tho_nap_quyet": {
+          "id": "tho_nap_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "man_nguu_luyen_the_quyet": {
+          "id": "man_nguu_luyen_the_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "duong_than_quyet": {
+          "id": "duong_than_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        }
+      }
+    },
+    "martialSkills": {
+      "equipped": {
+        "cultivation": "co_ban_kiem_quyet",
+        "body": "man_nguu_quyen",
+        "soul": "kinh_than_thu"
+      },
+      "learned": {
+        "co_ban_kiem_quyet": {
+          "id": "co_ban_kiem_quyet",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "man_nguu_quyen": {
+          "id": "man_nguu_quyen",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        },
+        "kinh_than_thu": {
+          "id": "kinh_than_thu",
+          "rank": 1,
+          "phase": 1,
+          "exp": 0,
+          "maxExp": 100
+        }
+      }
+    },
+    "alchemy": {
+      "rank": 1,
+      "exp": 0,
+      "maxExp": 100
+    },
+    "spiritRoot": {
+      "element": null,
+      "evolution": null,
+      "awakenedAt": null,
+      "history": []
+    },
+    "spiritRoots": [],
+    "combat": {
+      "hp": 64,
+      "maxHp": 100,
+      "atk": 10,
+      "def": 5,
+      "speed": 5,
+      "critRate": 0.05,
+      "critDmg": 1.5
+    },
+    "inventory": [],
+    "currentZone": "ap_suong_mu",
+    "autoFight": true,
+    "cultivationFocus": [
+      "body"
+    ],
+    "stats": {
+      "totalKills": 3,
+      "totalTuVi": 38,
+      "playTime": 56
+    },
+    "permanentBonuses": {
+      "atk": 0,
+      "def": 0,
+      "tuViBonus": 0
+    },
+    "cave": {
+      "level": 1,
+      "resources": {
+        "aura": 56,
+        "herbEssence": 0,
+        "alchemyFire": 0
+      },
+      "buildings": {
+        "cave_core": {
+          "level": 1
+        },
+        "spirit_array": {
+          "level": 1
+        },
+        "herb_garden": {
+          "level": 1
+        },
+        "alchemy_room": {
+          "level": 1
+        },
+        "storage_room": {
+          "level": 1
+        }
+      },
+      "herbPlots": [],
+      "lastProcessAt": 1781866027133
+    },
+    "currencies": {
+      "so_linh_thach": 3,
+      "trung_linh_thach": 0,
+      "thuong_linh_thach": 0,
+      "so_tien_thach": 0,
+      "trung_tien_thach": 0,
+      "thuong_tien_thach": 0,
+      "so_nguyen_thach": 0,
+      "trung_nguyen_thach": 0,
+      "thuong_nguyen_thach": 0,
+      "so_dao_thach": 0,
+      "trung_dao_thach": 0,
+      "thuong_dao_thach": 0,
+      "so_chung_cuc_thach": 0,
+      "trung_chung_cuc_thach": 0,
+      "thuong_chung_cuc_thach": 0
+    },
+    "activePillBuffs": [],
+    "breakthroughPillLock": null,
+    "combatState": {
+      "fightProgress": 2582,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "xac_uop_dong",
         "name": "Xác Ướp Đồng",
-        "description": "Xác chết bọc đồng",
-        "hp": 157,
-        "atk": 33,
-        "def": 8,
-        "tuViReward": 34,
-        "stoneReward": 3,
-        "drop": []
+        "hp": 40,
+        "atk": 5,
+        "def": 2,
+        "tuViReward": 10,
+        "stoneReward": 1
       },
-      "monsterHp": 95,
-      "monsterMaxHp": 157,
+      "monsterHp": 5,
+      "monsterMaxHp": 40,
       "status": "Đang đánh Xác Ướp Đồng",
       "logs": [
-        "[17:37:28] Bạn đánh Xác Ướp Đồng -5 HP.",
-        "[17:37:28] Xác Ướp Đồng đánh lại -34 HP.",
-        "[17:37:31] Bạn đánh Xác Ướp Đồng -6 HP.",
-        "[17:37:31] Xác Ướp Đồng đánh lại -30 HP.",
-        "[17:37:34] Bạn đánh Xác Ướp Đồng -5 HP.",
-        "[17:37:34] Xác Ướp Đồng đánh lại -29 HP.",
-        "[17:37:37] Bạn đánh Xác Ướp Đồng -5 HP.",
-        "[17:37:37] Xác Ướp Đồng đánh lại -31 HP."
+        "[17:46:58] Bạn đánh Xác Ướp Đồng -10 HP.",
+        "[17:46:58] Xác Ướp Đồng đánh lại -2 HP.",
+        "[17:47:01] Bạn đánh Xác Ướp Đồng -7 HP.",
+        "[17:47:01] Xác Ướp Đồng đánh lại -3 HP.",
+        "[17:47:04] Bạn đánh Xác Ướp Đồng -10 HP.",
+        "[17:47:04] Xác Ướp Đồng đánh lại -2 HP.",
+        "[17:47:07] Bạn đánh Xác Ướp Đồng -8 HP.",
+        "[17:47:07] Xác Ướp Đồng đánh lại -2 HP."
       ],
       "deathCount": 0,
       "deathPenaltyPercent": 0,
-      "lastPenaltyRecoverAt": 1781865457296
-    },
-    "cultivationFocus": [
-      "main"
-    ]
+      "lastPenaltyRecoverAt": 1781866027136
+    }
   }
 }
