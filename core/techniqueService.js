@@ -12,18 +12,36 @@ function getTechnique(techniqueId) {
 }
 
 function createDefaultTechniques() {
-    return {
-        equipped: 'tho_nap_quyet',
-        learned: {
-            tho_nap_quyet: {
-                id: 'tho_nap_quyet',
-                rank: 1,
-                phase: 1,
-                exp: 0,
-                maxExp: 100,
-            },
-        },
-    };
+  return {
+    equipped: {
+      cultivation: 'tho_nap_quyet',
+      body: 'man_nguu_luyen_the_quyet',
+      soul: 'duong_than_quyet',
+    },
+    learned: {
+      tho_nap_quyet: {
+        id: 'tho_nap_quyet',
+        rank: 1,
+        phase: 1,
+        exp: 0,
+        maxExp: 100,
+      },
+      man_nguu_luyen_the_quyet: {
+        id: 'man_nguu_luyen_the_quyet',
+        rank: 1,
+        phase: 1,
+        exp: 0,
+        maxExp: 100,
+      },
+      duong_than_quyet: {
+        id: 'duong_than_quyet',
+        rank: 1,
+        phase: 1,
+        exp: 0,
+        maxExp: 100,
+      },
+    },
+  };
 }
 
 function getLearnedTechnique(playerTechniques, techniqueId) {

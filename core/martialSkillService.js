@@ -12,18 +12,36 @@ function getMartialSkill(skillId) {
 }
 
 function createDefaultMartialSkills() {
-    return {
-        equipped: ['co_ban_kiem_quyet'],
-        learned: {
-            co_ban_kiem_quyet: {
-                id: 'co_ban_kiem_quyet',
-                rank: 1,
-                phase: 1,
-                exp: 0,
-                maxExp: 100,
-            },
-        },
-    };
+  return {
+    equipped: {
+      cultivation: 'co_ban_kiem_quyet',
+      body: 'man_nguu_quyen',
+      soul: 'kinh_than_thu',
+    },
+    learned: {
+      co_ban_kiem_quyet: {
+        id: 'co_ban_kiem_quyet',
+        rank: 1,
+        phase: 1,
+        exp: 0,
+        maxExp: 100,
+      },
+      man_nguu_quyen: {
+        id: 'man_nguu_quyen',
+        rank: 1,
+        phase: 1,
+        exp: 0,
+        maxExp: 100,
+      },
+      kinh_than_thu: {
+        id: 'kinh_than_thu',
+        rank: 1,
+        phase: 1,
+        exp: 0,
+        maxExp: 100,
+      },
+    },
+  };
 }
 
 function getLearnedMartialSkill(playerSkills, skillId) {
