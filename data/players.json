@@ -2,19 +2,19 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781919025091,
-    "lastTick": 1781919025091,
+    "lastSave": 1781919620090,
+    "lastTick": 1781919620090,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
       "stage": 9,
-      "tuVi": 1097,
+      "tuVi": 1147,
       "maxTuVi": 1305
     },
     "bodyCultivation": {
       "rank": 11,
       "name": "Phàm Thể",
-      "exp": 962,
+      "exp": 1115,
       "maxExp": 4716
     },
     "soulCultivation": {
@@ -85,7 +85,7 @@
       }
     },
     "combat": {
-      "hp": 137,
+      "hp": 107,
       "maxHp": 270,
       "atk": 44,
       "def": 22,
@@ -97,21 +97,26 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 26
+        "amount": 27
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 27
+        "amount": 29
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 22
+        "amount": 24
+      },
+      {
+        "id": "linh_thao",
+        "name": "Linh Thảo",
+        "amount": 3
       }
     ],
     "currencies": {
-      "so_linh_thach": 528,
+      "so_linh_thach": 481,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -120,9 +125,9 @@
     "currentZone": "moc_than_khoc",
     "autoFight": true,
     "stats": {
-      "totalKills": 295,
-      "totalTuVi": 19879,
-      "playTime": 8209
+      "totalKills": 298,
+      "totalTuVi": 19929,
+      "playTime": 8226
     },
     "permanentBonuses": {
       "atk": 0,
@@ -132,7 +137,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8007
+        "aura": 8023
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -140,30 +145,30 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 2122,
+      "fightProgress": 0,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "moc_yeu_non",
-        "name": "Mộc Yêu Non",
-        "hp": 68,
-        "atk": 10,
+        "id": "than_moc_am",
+        "name": "Thân Mộc Ám",
+        "hp": 76,
+        "atk": 11,
         "def": 5,
-        "tuViReward": 16,
-        "stoneReward": 4,
+        "tuViReward": 18,
+        "stoneReward": 5,
         "mapId": "moc_than_khoc"
       },
-      "monsterHp": 68,
-      "monsterMaxHp": 68,
+      "monsterHp": 76,
+      "monsterMaxHp": 76,
       "status": "Combat tạm dừng do đang ở mục khác.",
       "logs": [
-        "[22:37:48] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
-        "[22:39:48] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -50 HP.",
-        "[22:39:48] Mộc Yêu Non phản kích -1 HP.",
-        "[22:39:48] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -43 HP.",
-        "[22:39:48] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
-        "[22:40:43] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -69 HP.",
-        "[22:40:43] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
-        "[22:40:43] Nhặt được Hạt Giống Linh Thảo."
+        "[08:36:33] Thi triển Man Ngưu Quyền, đánh Thân Mộc Ám -52 HP.",
+        "[08:36:33] Hạ Thân Mộc Ám, nhận 18 tu vi và 5 linh thạch.",
+        "[08:36:33] Nhặt được Linh Nhưỡng Sơ Cấp.",
+        "[08:36:36] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -54 HP.",
+        "[08:36:36] Mộc Yêu Non phản kích -1 HP.",
+        "[08:36:39] Thi triển Man Ngưu Quyền, đánh Mộc Yêu Non -43 HP.",
+        "[08:36:39] Hạ Mộc Yêu Non, nhận 16 tu vi và 4 linh thạch.",
+        "[08:36:39] Nhặt được Hạt Giống Linh Thảo."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -174,43 +179,43 @@
         "index": 0,
         "state": "growing",
         "herbId": "linh_thao",
-        "plantedAt": 1781918986191,
-        "readyAt": 1781919046191
+        "plantedAt": 1781919551818,
+        "readyAt": 1781919611818
       },
       {
         "index": 1,
-        "state": "growing",
-        "herbId": "linh_thao",
-        "plantedAt": 1781918987015,
-        "readyAt": 1781919047015
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
       },
       {
         "index": 2,
-        "state": "growing",
-        "herbId": "linh_thao",
-        "plantedAt": 1781918989444,
-        "readyAt": 1781919049444
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
       },
       {
         "index": 3,
-        "state": "growing",
-        "herbId": "linh_thao",
-        "plantedAt": 1781918991057,
-        "readyAt": 1781919051057
+        "state": "empty",
+        "herbId": null,
+        "plantedAt": 0,
+        "readyAt": 0
       }
     ],
     "lifespan": {
-      "ageYears": 16.43560185184964,
-      "maxYears": 280,
+      "ageYears": 16.441851851849542,
+      "maxYears": 310,
       "usedPills": {
-        "tho_nguyen_dan": 4
+        "tho_nguyen_dan": 5
       }
     },
     "interaction": {
       "type": "garden",
       "label": "gieo trồng dược liệu",
-      "until": 1781918991857,
-      "startedAt": 1781918991057
+      "until": 1781919552618,
+      "startedAt": 1781919551818
     },
     "encounter": {
       "active": null,
@@ -239,6 +244,11 @@
           "name": "Cổ Mộ Dược Viên",
           "choice": "Hái linh dược",
           "at": 1781883177141
+        },
+        {
+          "name": "Cổ Mộ Dược Viên",
+          "choice": "Hái linh dược",
+          "at": 1781919388274
         }
       ]
     },

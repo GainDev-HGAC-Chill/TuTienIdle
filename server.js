@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 
+const serverActionLog = require('./core/serverActionLog');
 const app = express(); const { ensureActivityLog, addActivityLog, addResultActivityLog } = require('./core/activityLog');
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -683,7 +684,7 @@ function sanitizePlayer(player) {
     interaction: player.interaction,
     encounter: { active: player.encounter.active, history: player.encounter.history.slice(-8) },
     temporaryPenaltyPercent,
-    pillEffects: { tuViGainPerSecond: getTuViGainPerSecond(player) },
+    activityLog: serverActionLog.readPlayerLogs(DATA_FILE, player.username, 80), pillEffects: { tuViGainPerSecond: getTuViGainPerSecond(player) },
   };
 }
 
@@ -1029,6 +1030,7 @@ app.post('/api/player/:username/encounter/decline', (req, res) => {
   sendPlayer(res, players, player, result);
 });
 
+app.get('/api/player/:username/action-log', (req, res) => { const limit = Math.max(1, Math.min(300, Number(req.query.limit || 80))); res.json({ success: true, logs: serverActionLog.readPlayerLogs(DATA_FILE, req.params.username, limit) }); });
 app.listen(PORT, () => {
   console.log(`Tu Tien Idle server: http://localhost:${PORT}`);
   console.log(`Data file: ${DATA_FILE}`);
