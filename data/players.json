@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781938365085,
-    "lastTick": 1781938365085,
+    "lastSave": 1781956912078,
+    "lastTick": 1781956912078,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
@@ -97,27 +97,27 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 23
+        "amount": 22
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 25
+        "amount": 24
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 21
+        "amount": 20
       },
       {
         "id": "linh_thao",
         "name": "Linh Thảo",
-        "amount": 6
+        "amount": 5
       },
       {
         "id": "tho_nguyen_dan",
         "name": "Thọ Nguyên Đan",
-        "amount": 1,
+        "amount": 2,
         "quality": "Thường"
       },
       {
@@ -128,7 +128,7 @@
       }
     ],
     "currencies": {
-      "so_linh_thach": 328,
+      "so_linh_thach": 268,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -149,7 +149,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8055
+        "aura": 8057
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -191,8 +191,8 @@
         "index": 0,
         "state": "growing",
         "herbId": "linh_thao",
-        "plantedAt": 1781938191694,
-        "readyAt": 1781938251694
+        "plantedAt": 1781943122841,
+        "readyAt": 1781943182841
       },
       {
         "index": 1,
@@ -217,7 +217,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.52640046296043,
+      "ageYears": 16.71635416666182,
       "maxYears": 310,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -226,8 +226,8 @@
     "interaction": {
       "type": "garden",
       "label": "gieo trồng dược liệu",
-      "until": 1781938192494,
-      "startedAt": 1781938191694
+      "until": 1781943123642,
+      "startedAt": 1781943122842
     },
     "encounter": {
       "active": null,

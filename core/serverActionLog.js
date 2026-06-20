@@ -20,6 +20,8 @@ const CATEGORY_LABELS = {
   cultivation: 'Tu Luyện',
   alchemy: 'Luyện Đan',
   item: 'Vật Phẩm',
+  pill: 'Đan Dược',
+  martial: 'Vũ Kỹ',
   garden: 'Dược Viên',
   cave: 'Động Phủ',
   encounter: 'Kỳ Ngộ',
@@ -88,7 +90,7 @@ function chooseCategory(before, after) {
   if (changed(before, after, 'cave')) return 'garden';
   if (changed(before, after, 'encounter') || changed(before, after, 'lastFortune') || changed(before, after, 'fortunesEncountered')) return 'encounter';
   if (changed(before, after, 'techniques') || changed(before, after, 'martialSkills')) return 'technique';
-  if (changed(before, after, 'lifespan') || changed(before, after, 'lifespanUsed')) return 'lifespan';
+  // Không log thọ nguyên theo diff save vì tuổi nhân vật tăng theo tick, gây spam.
   if (changed(before, after, 'cultivation') || changed(before, after, 'body') || changed(before, after, 'soul')) return 'cultivation';
   if (changed(before, after, 'spiritStones') || changed(before, after, 'stones') || changed(before, after, 'gold') || changed(before, after, 'resources')) return 'resource';
   return 'save';
@@ -205,15 +207,23 @@ function readJsonl(file, limit = 50) {
   }
 }
 
+function isNoisyGenericLog(row) {
+  if (!row) return true;
+  // Ẩn log thọ nguyên tự tăng theo tick cũ, chỉ giữ log tăng thọ có nội dung rõ.
+  if (row.category === 'lifespan' && row.text === 'Thọ nguyên vừa thay đổi.') return true;
+  return false;
+}
+
 function readPlayerLogs(username, limit = 50) {
   const safeName = String(username || '').trim();
+  const nLimit = Math.max(1, Number(limit) || 50);
   if (!safeName) return [];
   const direct = path.join(LOG_DIR, `player_${safeName}.jsonl`);
-  let logs = readJsonl(direct, limit);
+  let logs = readJsonl(direct, Math.max(300, nLimit * 6));
   if (!logs.length) {
-    logs = readJsonl(ALL_LOG, Math.max(200, limit * 4)).filter(row => row.username === safeName);
+    logs = readJsonl(ALL_LOG, Math.max(300, nLimit * 6)).filter(row => row.username === safeName);
   }
-  return logs.slice(-Math.max(1, Number(limit) || 50)).reverse();
+  return logs.filter(row => !isNoisyGenericLog(row)).slice(-nLimit).reverse();
 }
 
 module.exports = {

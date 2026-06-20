@@ -4,7 +4,6 @@ const path = require('path');
 const cors = require('cors');
 
 const serverActionLog = require('./core/serverActionLog');
-const recordPlayerSaveDiff = serverActionLog.recordPlayerSaveDiff;
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -124,7 +123,9 @@ function loadPlayers() {
   return {};
 }
 
-function savePlayers(players) { try { recordPlayerSaveDiff(players); } catch (err) { console.warn('[ActionLog] Không thể ghi log save:', err.message); } fs.writeFileSync(DATA_FILE, JSON.stringify(players, null, 2)); }
+function savePlayers(players) {
+  fs.writeFileSync(DATA_FILE, JSON.stringify(players, null, 2));
+}
 
 function createProgress(id) {
   return { id, rank: 1, phase: 1, exp: 0, maxExp: 100 };
@@ -198,6 +199,61 @@ function removeInventoryItem(player, id, amount = 1) {
 
 function countItem(player, id) {
   return Number((player.inventory || []).find(x => x.id === id)?.amount || 0);
+}
+
+
+function itemDisplayName(id) {
+  const item = [...MATERIALS, ...HERBS, ...LIFESPAN_PILLS].find(x => x.id === id);
+  return item?.name || id || 'không rõ';
+}
+
+function actionLog(player, category, text, detail = '', meta = {}) {
+  try {
+    serverActionLog.writeActionLog({
+      username: player.username,
+      category,
+      text,
+      detail,
+      meta,
+    });
+  } catch (err) {
+    console.warn('[ActionLog] Không thể ghi Nhật Ký Đạo Hành:', err.message);
+  }
+}
+
+function describeIngredients(ingredients = []) {
+  if (!Array.isArray(ingredients) || !ingredients.length) return 'Không tiêu hao nguyên liệu.';
+  return ingredients.map(item => `${itemDisplayName(item.id)} x${Number(item.amount || 1)}`).join(', ');
+}
+
+function describeReward(reward = {}) {
+  if (!reward || typeof reward !== 'object') return 'Không nhận được gì.';
+  const parts = [];
+  if (reward.stones) parts.push(`+${Number(reward.stones)} Sơ Linh Thạch`);
+  if (reward.tuVi) parts.push(`+${Number(reward.tuVi)} tu vi`);
+  if (reward.tuViPercent) parts.push(`+${Math.round(Number(reward.tuViPercent || 0) * 100)}% tu vi cảnh giới hiện tại`);
+  if (reward.lifespanYears) parts.push(`+${Number(reward.lifespanYears)} năm thọ nguyên`);
+  if (Array.isArray(reward.items)) {
+    reward.items.forEach(item => parts.push(`${itemDisplayName(item.id)} x${Number(item.amount || 1)}`));
+  }
+  return parts.length ? parts.join(', ') : 'Không nhận được gì.';
+}
+
+function describePenalty(penalty = {}) {
+  if (!penalty || typeof penalty !== 'object') return 'Không có phản phệ.';
+  const parts = [];
+  if (penalty.stones) parts.push(`-${Number(penalty.stones)} Sơ Linh Thạch`);
+  if (penalty.hpPercent) parts.push(`Mất ${Number(penalty.hpPercent)}% HP tối đa`);
+  if (penalty.statPercent) parts.push(`Giảm ${Number(penalty.statPercent)}% thuộc tính trong ${Number(penalty.minutes || 60)} phút`);
+  return parts.length ? parts.join(', ') : 'Không có phản phệ.';
+}
+
+function focusText(list = []) {
+  return (Array.isArray(list) ? list : []).map(item => ({
+    main: 'Tu Luyện',
+    body: 'Luyện Thể',
+    soul: 'Luyện Hồn',
+  }[item] || item)).join(', ') || 'Không rõ';
 }
 
 function addLog(player, text) {
@@ -727,25 +783,30 @@ function resolveEncounter(player, choiceId) {
   if (!cfg) return { success: false, error: 'Không có kỳ ngộ đang chờ.' };
   const choice = cfg.choices.find(x => x.id === choiceId);
   if (!choice) return { success: false, error: 'Lựa chọn kỳ ngộ không hợp lệ.' };
+
+  const rewardText = describeReward(choice.reward);
+  const penaltyText = describePenalty(choice.penalty);
+
   applyReward(player, choice.reward);
   applyPenalty(player, choice.penalty);
-  player.encounter.history.push({ name: cfg.name, choice: choice.label, at: Date.now() });
+  player.encounter.history.push({ name: cfg.name, choice: choice.label, reward: rewardText, penalty: penaltyText, at: Date.now() });
   player.encounter.active = null;
   clearInteraction(player);
   resetMonster(player);
   updateCultivation(player);
-  return { success: true, message: `Đã chọn: ${choice.label}` };
+  return { success: true, message: `Đã chọn: ${choice.label}`, encounterName: cfg.name, choiceLabel: choice.label, rewardText, penaltyText };
 }
 
 function declineEncounter(player) {
   if (!player.encounter?.active) return { success: false, error: 'Không có kỳ ngộ để từ chối.' };
   const name = player.encounter.active.name;
+  const penaltyText = 'Giảm 5% tổng thuộc tính trong 60 phút';
   player.temporaryPenalties.push({ percent: 5, until: Date.now() + 60 * 60 * 1000, reason: 'Từ chối kỳ ngộ' });
-  player.encounter.history.push({ name, choice: 'Từ chối', at: Date.now(), penalty: 'Giảm 5% tổng thuộc tính trong 60 phút' });
+  player.encounter.history.push({ name, choice: 'Từ chối', at: Date.now(), penalty: penaltyText });
   player.encounter.active = null;
   clearInteraction(player);
   resetMonster(player);
-  return { success: true, message: 'Đã từ chối kỳ ngộ. Bị thiên cơ phản phệ: -5% tổng thuộc tính trong 60 phút.' };
+  return { success: true, message: 'Đã từ chối kỳ ngộ. Bị thiên cơ phản phệ: -5% tổng thuộc tính trong 60 phút.', encounterName: name, choiceLabel: 'Từ chối', penaltyText };
 }
 
 function plantHerb(player, plotIndex, herbId) {
@@ -900,7 +961,7 @@ app.post('/api/player/:username/cultivation/focus', (req, res) => {
     selected.push(type);
   }
   player.cultivationFocus = selected.slice(0, limit);
-  serverActionLog.writeActionLog({ username: player.username, category: 'cultivation', text: 'Đã đổi trạng thái tu luyện.' });
+  actionLog(player, 'cultivation', `Đổi mạch tu luyện: ${focusText(player.cultivationFocus)}.`);
   sendPlayer(res, players, player, { message: 'Đã đổi trạng thái tu luyện.' });
 });
 
@@ -913,7 +974,7 @@ app.post('/api/player/:username/technique/equip', (req, res) => {
   if (!cfg) return res.status(400).json({ success: false, error: 'Công pháp không tồn tại.' });
   if (!player.techniques.learned[id]) return res.status(400).json({ success: false, error: 'Chưa học công pháp này.' });
   player.techniques.equipped[cfg.system] = id;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: `Đã vận chuyển ${cfg.name}.` });
+  actionLog(player, 'technique', `Vận chuyển công pháp: ${cfg.name}.`, `Hệ: ${systemName(cfg.system)} · Phẩm cấp: ${cfg.grade || 'Không rõ'}.`);
   sendPlayer(res, players, player, { message: `Đã vận chuyển ${cfg.name}.` });
 });
 
@@ -932,8 +993,10 @@ app.post('/api/player/:username/technique/unequip', (req, res) => {
   if (!slot || !['cultivation', 'body', 'soul'].includes(slot)) {
     return res.status(400).json({ success: false, error: 'Vị trí công pháp không hợp lệ.' });
   }
+  const oldId = player.techniques.equipped[slot];
+  const oldCfg = TECHNIQUES.find(item => item.id === oldId);
   player.techniques.equipped[slot] = null;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: `Đã tháo công pháp ${slot === 'cultivation' ? 'tu luyện' : slot === 'body' ? 'luyện thể' : 'luyện hồn'}.` });
+  actionLog(player, 'technique', `Tháo công pháp ${oldCfg ? oldCfg.name : systemName(slot)}.`, `Vị trí: ${systemName(slot)}.`);
   sendPlayer(res, players, player, { message: `Đã tháo công pháp ${slot === 'cultivation' ? 'tu luyện' : slot === 'body' ? 'luyện thể' : 'luyện hồn'}.` });
 });
 
@@ -946,7 +1009,7 @@ app.post('/api/player/:username/martial-skill/equip', (req, res) => {
   if (!cfg) return res.status(400).json({ success: false, error: 'Vũ kỹ không tồn tại.' });
   if (!player.martialSkills.learned[id]) return res.status(400).json({ success: false, error: 'Chưa học vũ kỹ này.' });
   player.martialSkills.equipped.active = id;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: `Đã trang bị ${cfg.name}.` });
+  actionLog(player, 'martial', `Trang bị vũ kỹ: ${cfg.name}.`, `Hệ: ${systemName(cfg.system)} · Phẩm cấp: ${cfg.grade || 'Không rõ'}.`);
   sendPlayer(res, players, player, { message: `Đã trang bị ${cfg.name}.` });
 });
 
@@ -954,8 +1017,10 @@ app.post('/api/player/:username/martial-skill/unequip', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
+  const oldId = player.martialSkills.equipped.active;
+  const oldCfg = MARTIAL_SKILLS.find(item => item.id === oldId);
   player.martialSkills.equipped.active = null;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: 'Đã tháo vũ kỹ chiến đấu.' });
+  actionLog(player, 'martial', `Tháo vũ kỹ${oldCfg ? `: ${oldCfg.name}` : ' chiến đấu'}.`);
   sendPlayer(res, players, player, { message: 'Đã tháo vũ kỹ chiến đấu.' });
 });
 
@@ -969,10 +1034,13 @@ app.post('/api/player/:username/herb/plant', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
   if (!guardActiveTab(res, player, 'cave', 'gieo trồng dược liệu')) return;
-  const result = plantHerb(player, Number(req.body.plotIndex || 0), req.body.herbId);
+  const plotIndex = Number(req.body.plotIndex || 0);
+  const herbId = req.body.herbId;
+  const herb = HERBS.find(x => x.id === herbId);
+  const result = plantHerb(player, plotIndex, herbId);
   if (!result.success) return res.status(400).json(result);
   lockInteraction(player, 'garden', 'gieo trồng dược liệu', 800);
-  serverActionLog.writeActionLog({ username: player.username, category: 'garden', text: result.message || 'Đã gieo trồng dược liệu.' });
+  actionLog(player, 'garden', `Gieo trồng ${herb?.name || herbId} tại ô dược viên ${plotIndex + 1}.`, herb ? `Tiêu hao: ${itemDisplayName(herb.seedId)} x1, ${itemDisplayName(herb.waterId)} x1, ${itemDisplayName(herb.soilId)} x1, ${herb.cost} Sơ Linh Thạch. Thời gian: ${herb.growSeconds} giây.` : '');
   sendPlayer(res, players, player, result);
 });
 
@@ -981,10 +1049,15 @@ app.post('/api/player/:username/herb/harvest', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
   if (!guardActiveTab(res, player, 'cave', 'thu hoạch dược liệu')) return;
-  const result = harvestHerb(player, Number(req.body.plotIndex || 0));
+  const plotIndex = Number(req.body.plotIndex || 0);
+  const beforePlot = player.herbPlots[plotIndex];
+  const herb = HERBS.find(x => x.id === beforePlot?.herbId);
+  const beforeCount = herb ? countItem(player, herb.id) : 0;
+  const result = harvestHerb(player, plotIndex);
   if (!result.success) return res.status(400).json(result);
+  const gained = herb ? Math.max(0, countItem(player, herb.id) - beforeCount) : 0;
   lockInteraction(player, 'garden', 'thu hoạch dược liệu', 800);
-  serverActionLog.writeActionLog({ username: player.username, category: 'garden', text: result.message || 'Đã thu hoạch dược liệu.' });
+  actionLog(player, 'garden', `Thu hoạch ${herb?.name || 'dược liệu'} tại ô dược viên ${plotIndex + 1}.`, gained ? `Nhận: ${herb.name} x${gained}.` : '');
   sendPlayer(res, players, player, result);
 });
 
@@ -993,9 +1066,12 @@ app.post('/api/player/:username/alchemy/craft', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
   if (!guardActiveTab(res, player, 'alchemy', 'luyện đan')) return;
-  const result = craftRecipe(player, req.body.recipeId);
+  const recipeId = req.body.recipeId;
+  const recipe = RECIPES.find(x => x.id === recipeId);
+  const pill = recipe ? LIFESPAN_PILLS.find(x => x.id === recipe.pillId) : null;
+  const result = craftRecipe(player, recipeId);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'alchemy', text: result.message || 'Luyện đan hoàn tất.' });
+  actionLog(player, 'alchemy', result.message || `Luyện thành ${pill?.name || recipe?.pillId || 'đan dược'}.`, recipe ? `Công thức: ${recipe.name}. Tiêu hao: ${describeIngredients(recipe.ingredients)}. Lệ phí: ${recipe.cost || 0} Sơ Linh Thạch.` : '');
   sendPlayer(res, players, player, result);
 });
 
@@ -1003,9 +1079,13 @@ app.post('/api/player/:username/pill/use', (req, res) => {
   const players = loadPlayers();
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
-  const result = useLifespanPill(player, req.body.itemId || req.body.pillId);
+  const itemId = req.body.itemId || req.body.pillId;
+  const pill = LIFESPAN_PILLS.find(x => x.id === itemId);
+  const beforeMaxYears = Number(player.lifespan?.maxYears || 0);
+  const result = useLifespanPill(player, itemId);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'item', text: result.message || 'Đã sử dụng đan dược.' });
+  const added = Math.max(0, Number(player.lifespan?.maxYears || 0) - beforeMaxYears);
+  actionLog(player, 'pill', `Sử dụng ${pill?.name || itemId}.`, added ? `Tăng ${added} năm thọ nguyên. Đã dùng ${Number(player.lifespan.usedPills[itemId] || 0)}/${pill?.maxUses || '?'} lần.` : result.message);
   sendPlayer(res, players, player, result);
 });
 
@@ -1015,12 +1095,15 @@ app.post('/api/player/:username/use', (req, res) => {
   if (!guardNormalAction(res, player)) return;
   const itemId = req.body.itemId;
   if (LIFESPAN_PILLS.some(x => x.id === itemId)) {
+    const pill = LIFESPAN_PILLS.find(x => x.id === itemId);
+    const beforeMaxYears = Number(player.lifespan?.maxYears || 0);
     const result = useLifespanPill(player, itemId);
     if (!result.success) return res.status(400).json(result);
-    serverActionLog.writeActionLog({ username: player.username, category: 'item', text: result.message || 'Đã sử dụng vật phẩm.' });
+    const added = Math.max(0, Number(player.lifespan?.maxYears || 0) - beforeMaxYears);
+    actionLog(player, 'pill', `Sử dụng ${pill?.name || itemId}.`, added ? `Tăng ${added} năm thọ nguyên.` : result.message);
     return sendPlayer(res, players, player, result);
   }
-  serverActionLog.writeActionLog({ username: player.username, category: 'item', text: `Thử sử dụng vật phẩm: ${itemId || 'không rõ'} nhưng chưa có logic.` });
+  actionLog(player, 'item', `Thử sử dụng vật phẩm: ${itemDisplayName(itemId) || 'không rõ'} nhưng chưa có logic.`);
   sendPlayer(res, players, player, { message: 'Vật phẩm này chưa có logic sử dụng.' });
 });
 
@@ -1029,7 +1112,7 @@ app.post('/api/player/:username/encounter/choose', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   const result = resolveEncounter(player, req.body.choiceId);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'encounter', text: result.message || 'Đã lựa chọn kỳ ngộ.' });
+  actionLog(player, 'encounter', `Kỳ ngộ ${result.encounterName || 'Thiên Cơ'}: chọn "${result.choiceLabel || req.body.choiceId}".`, `Nhận: ${result.rewardText || 'Không rõ'}. Phản phệ: ${result.penaltyText || 'Không có'}.`);
   sendPlayer(res, players, player, result);
 });
 
@@ -1038,15 +1121,15 @@ app.post('/api/player/:username/encounter/decline', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   const result = declineEncounter(player);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'encounter', text: result.message || 'Đã từ chối kỳ ngộ.' });
+  actionLog(player, 'encounter', `Từ chối kỳ ngộ ${result.encounterName || 'Thiên Cơ'}.`, result.penaltyText || 'Không rõ phản phệ.');
   sendPlayer(res, players, player, result);
 });
 
 app.get('/api/player/:username/action-log', (req, res) => {
   const limit = Math.max(1, Math.min(300, Number(req.query.limit || 80)));
-  const logs = serverActionLog.readPlayerLogs(req.params.username, limit);
-  res.json({ success: true, logs });
+  res.json({ success: true, logs: serverActionLog.readPlayerLogs(req.params.username, limit) });
 });
+
 app.listen(PORT, () => {
   console.log(`Tu Tien Idle server: http://localhost:${PORT}`);
   console.log(`Data file: ${DATA_FILE}`);

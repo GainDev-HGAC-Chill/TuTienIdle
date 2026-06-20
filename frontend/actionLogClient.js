@@ -17,59 +17,48 @@
     });
   }
 
-  function getUsername() {
-    const fromWindow = window.playerData && window.playerData.username;
-    const fromStorage = localStorage.getItem('tuTienUsername');
-    return String(fromWindow || fromStorage || '').trim();
-  }
-
   function cleanupDuplicatedPanels() {
     const overview = byId('tab-overview');
     if (!overview) return;
-
-    const keep = overview.querySelector('[data-dao-action-log-panel="1"]');
-    const panels = Array.from(overview.querySelectorAll('.activity-panel, .dao-action-log-panel, .server-action-log-panel'));
-
-    panels.forEach(function (panel) {
-      if (keep && panel === keep) return;
-      panel.remove();
-    });
+    const panels = Array.from(overview.querySelectorAll('.activity-panel, .dao-action-log-panel, [data-dao-action-log-panel]'));
+    panels.forEach(panel => panel.remove());
   }
 
   function ensurePanel() {
     const overview = byId('tab-overview');
     if (!overview) return null;
 
+    let box = byId('dao-action-log-list');
+    if (box) return box;
+
     cleanupDuplicatedPanels();
 
-    let panel = overview.querySelector('[data-dao-action-log-panel="1"]');
-    if (!panel) {
-      panel = document.createElement('div');
-      panel.className = 'panel wide activity-panel dao-action-log-panel';
-      panel.setAttribute('data-dao-action-log-panel', '1');
-      panel.innerHTML = [
-        '<div class="panel-head">',
-        '<h3>Nhật Ký Đạo Hành</h3>',
-        '<span>Không gồm combat</span>',
-        '</div>',
-        '<div id="activity-log-list" class="activity-log-list"></div>',
-      ].join('');
-      overview.appendChild(panel);
-    }
+    const panel = document.createElement('div');
+    panel.className = 'panel wide activity-panel dao-action-log-panel';
+    panel.setAttribute('data-dao-action-log-panel', '1');
+    panel.innerHTML = [
+      '<div class="dao-action-log-head">',
+      '<div>',
+      '<h3>Nhật Ký Đạo Hành</h3>',
+      '<p>Ghi lại luyện đan, dùng đan, dược viên, kỳ ngộ, công pháp. Không gồm combat.</p>',
+      '</div>',
+      '</div>',
+      '<div id="dao-action-log-list" class="dao-action-log-list"></div>',
+    ].join('');
 
-    let box = byId('activity-log-list');
-    if (!box) {
-      box = document.createElement('div');
-      box.id = 'activity-log-list';
-      box.className = 'activity-log-list';
-      panel.appendChild(box);
-    }
-
-    return box;
+    overview.appendChild(panel);
+    return byId('dao-action-log-list');
   }
 
-  function renderLogs(box, logs) {
-    if (!Array.isArray(logs) || !logs.length) {
+  window.renderActivityLog = function renderActivityLogSafe() {
+    const box = ensurePanel();
+    if (!box) return;
+
+    const logs = Array.isArray(window.playerData && window.playerData.activityLog)
+      ? window.playerData.activityLog
+      : [];
+
+    if (!logs.length) {
       box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
       return;
     }
@@ -80,43 +69,11 @@
       const detail = item.detail ? '<p>' + esc(item.detail) + '</p>' : '';
       const time = esc(fmtTime(item.at || item.time));
       const cls = esc(item.category || item.type || 'system');
-      return '<div class="activity-log-item activity-' + cls + '">' +
-        '<div><b>' + category + '</b><span>' + time + '</span></div>' +
+      return '<div class="dao-action-log-item dao-log-' + cls + '">' +
+        '<div class="dao-action-log-meta"><b>' + category + '</b><span>' + time + '</span></div>' +
         '<strong>' + text + '</strong>' + detail +
         '</div>';
     }).join('');
-  }
-
-  async function fetchServerLogs() {
-    const username = getUsername();
-    if (!username) return [];
-
-    const res = await fetch('/api/player/' + encodeURIComponent(username) + '/action-log?limit=80', {
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await res.json().catch(function () { return {}; });
-    if (!res.ok || data.success === false) return [];
-    return Array.isArray(data.logs) ? data.logs : [];
-  }
-
-  window.renderActivityLog = function renderActivityLogSafe() {
-    const box = ensurePanel();
-    if (!box) return;
-
-    const data = window.playerData || null;
-    const localLogs = Array.isArray(data && data.activityLog) ? data.activityLog : [];
-
-    if (localLogs.length) {
-      renderLogs(box, localLogs);
-      return;
-    }
-
-    box.innerHTML = '<p class="empty">Đang soi nhật ký đạo hành...</p>';
-    fetchServerLogs()
-      .then(function (logs) { renderLogs(box, logs); })
-      .catch(function () {
-        box.innerHTML = '<p class="empty">Chưa đọc được nhật ký đạo hành.</p>';
-      });
   };
 
   window.renderServerActionLog = function renderServerActionLogDisabled() {};
