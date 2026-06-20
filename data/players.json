@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781895004338,
-    "lastTick": 1781895004338,
+    "lastSave": 1781919025091,
+    "lastTick": 1781919025091,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
@@ -14,7 +14,7 @@
     "bodyCultivation": {
       "rank": 11,
       "name": "Phàm Thể",
-      "exp": 944,
+      "exp": 962,
       "maxExp": 4716
     },
     "soulCultivation": {
@@ -97,26 +97,21 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 30
+        "amount": 26
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 31
+        "amount": 27
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 26
-      },
-      {
-        "id": "linh_thao",
-        "name": "Linh Thảo",
-        "amount": 3
+        "amount": 22
       }
     ],
     "currencies": {
-      "so_linh_thach": 618,
+      "so_linh_thach": 528,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -127,7 +122,7 @@
     "stats": {
       "totalKills": 295,
       "totalTuVi": 19879,
-      "playTime": 8207
+      "playTime": 8209
     },
     "permanentBonuses": {
       "atk": 0,
@@ -137,7 +132,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8002
+        "aura": 8007
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -177,45 +172,45 @@
     "herbPlots": [
       {
         "index": 0,
-        "state": "empty",
-        "herbId": null,
-        "plantedAt": 0,
-        "readyAt": 0
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781918986191,
+        "readyAt": 1781919046191
       },
       {
         "index": 1,
-        "state": "empty",
-        "herbId": null,
-        "plantedAt": 0,
-        "readyAt": 0
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781918987015,
+        "readyAt": 1781919047015
       },
       {
         "index": 2,
-        "state": "empty",
-        "herbId": null,
-        "plantedAt": 0,
-        "readyAt": 0
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781918989444,
+        "readyAt": 1781919049444
       },
       {
         "index": 3,
-        "state": "empty",
-        "herbId": null,
-        "plantedAt": 0,
-        "readyAt": 0
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781918991057,
+        "readyAt": 1781919051057
       }
     ],
     "lifespan": {
-      "ageYears": 16.16010416666464,
-      "maxYears": 250,
+      "ageYears": 16.43560185184964,
+      "maxYears": 280,
       "usedPills": {
-        "tho_nguyen_dan": 3
+        "tho_nguyen_dan": 4
       }
     },
     "interaction": {
-      "type": "alchemy",
-      "label": "luyện đan",
-      "until": 1781894936311,
-      "startedAt": 1781894935111
+      "type": "garden",
+      "label": "gieo trồng dược liệu",
+      "until": 1781918991857,
+      "startedAt": 1781918991057
     },
     "encounter": {
       "active": null,
