@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781919620090,
-    "lastTick": 1781919620090,
+    "lastSave": 1781920215079,
+    "lastTick": 1781920215079,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
@@ -20,17 +20,17 @@
     "soulCultivation": {
       "rank": 6,
       "name": "Tĩnh Hồn",
-      "exp": 3,
+      "exp": 21,
       "maxExp": 942
     },
     "cultivationFocus": [
-      "body"
+      "soul"
     ],
     "techniques": {
       "equipped": {
         "cultivation": "tho_nap_quyet",
         "body": "man_nguu_luyen_the_quyet",
-        "soul": null
+        "soul": "duong_than_quyet"
       },
       "learned": {
         "tho_nap_quyet": {
@@ -97,26 +97,32 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 27
+        "amount": 25
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 29
+        "amount": 27
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 24
+        "amount": 22
       },
       {
         "id": "linh_thao",
         "name": "Linh Thảo",
-        "amount": 3
+        "amount": 4
+      },
+      {
+        "id": "tho_nguyen_dan",
+        "name": "Thọ Nguyên Đan",
+        "amount": 1,
+        "quality": "Thường"
       }
     ],
     "currencies": {
-      "so_linh_thach": 481,
+      "so_linh_thach": 411,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -127,7 +133,7 @@
     "stats": {
       "totalKills": 298,
       "totalTuVi": 19929,
-      "playTime": 8226
+      "playTime": 8228
     },
     "permanentBonuses": {
       "atk": 0,
@@ -137,7 +143,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8023
+        "aura": 8034
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -145,7 +151,7 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 0,
+      "fightProgress": 2994,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "than_moc_am",
@@ -177,17 +183,17 @@
     "herbPlots": [
       {
         "index": 0,
-        "state": "growing",
-        "herbId": "linh_thao",
-        "plantedAt": 1781919551818,
-        "readyAt": 1781919611818
-      },
-      {
-        "index": 1,
         "state": "empty",
         "herbId": null,
         "plantedAt": 0,
         "readyAt": 0
+      },
+      {
+        "index": 1,
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781920123972,
+        "readyAt": 1781920183972
       },
       {
         "index": 2,
@@ -205,7 +211,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.441851851849542,
+      "ageYears": 16.44793981481242,
       "maxYears": 310,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -214,8 +220,8 @@
     "interaction": {
       "type": "garden",
       "label": "gieo trồng dược liệu",
-      "until": 1781919552618,
-      "startedAt": 1781919551818
+      "until": 1781920124772,
+      "startedAt": 1781920123972
     },
     "encounter": {
       "active": null,

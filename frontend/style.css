@@ -356,3 +356,13 @@ button.success, .success { background: linear-gradient(180deg, #75eaa0, #3ba86b)
 .activity-cave { border-color: rgba(93,214,255,.55); }
 .activity-cultivation { border-color: rgba(255,180,92,.55); }
 .activity-skill { border-color: rgba(255,120,120,.55); }
+
+
+/* Nhật Ký Đạo Hành - Server Action Log */
+.server-action-log-panel { margin-top: 16px; }
+.panel-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.server-action-log-list { display: grid; gap: 8px; max-height: 360px; overflow: auto; padding-right: 4px; }
+.server-action-log-item { border: 1px solid rgba(255,255,255,.10); background: rgba(10,18,32,.56); border-radius: 12px; padding: 10px 12px; }
+.server-action-log-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; color: rgba(235,245,255,.72); font-size: 12px; }
+.server-action-log-item strong { display: block; color: #f7edd0; font-size: 14px; }
+.server-action-log-item p { margin: 4px 0 0; color: rgba(235,245,255,.72); font-size: 12px; }

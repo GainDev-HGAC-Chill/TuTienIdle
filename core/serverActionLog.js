@@ -1,266 +1,224 @@
+// ============================================
+// CORE - SERVER ACTION LOG
+// Nhật Ký Đạo Hành ghi ở server, lưu file JSONL.
+// Không ghi log combat.
+// ============================================
+
 const fs = require('fs');
 const path = require('path');
 
+const DATA_DIR = path.join(__dirname, '..', 'data');
+const LOG_DIR = path.join(DATA_DIR, 'action_logs');
+const ALL_LOG = path.join(LOG_DIR, 'all.jsonl');
+const PLAYER_DATA_FILE = path.join(DATA_DIR, 'players.json');
+
+let lastSnapshot = null;
+const lastWriteKey = new Map();
+
 const CATEGORY_LABELS = {
-  system: 'Thiên Cơ',
-  combat: 'Chiến Đấu',
+  save: 'Lưu Dữ Liệu',
+  cultivation: 'Tu Luyện',
   alchemy: 'Luyện Đan',
   item: 'Vật Phẩm',
-  inventory: 'Túi Đồ',
-  cultivation: 'Tu Luyện',
-  body: 'Luyện Thể',
-  soul: 'Luyện Hồn',
   garden: 'Dược Viên',
+  cave: 'Động Phủ',
   encounter: 'Kỳ Ngộ',
-  currency: 'Tài Nguyên',
+  resource: 'Tài Nguyên',
   lifespan: 'Thọ Nguyên',
-  skill: 'Công Pháp',
+  technique: 'Công Pháp',
+  system: 'Thiên Cơ',
 };
 
-const DEFAULT_LIMIT = 80;
-
-function ensureDir(dir) {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+function ensureDir() {
+  if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR, { recursive: true });
 }
 
-function safeReadJson(file, fallback) {
+function safeClone(value) {
   try {
-    if (!fs.existsSync(file)) return fallback;
-    return JSON.parse(fs.readFileSync(file, 'utf8'));
-  } catch (err) {
-    return fallback;
+    return JSON.parse(JSON.stringify(value || {}));
+  } catch {
+    return {};
   }
 }
 
-function cloneSimple(value) {
-  return JSON.parse(JSON.stringify(value || {}));
+function loadPlayersSnapshot() {
+  try {
+    if (!fs.existsSync(PLAYER_DATA_FILE)) return {};
+    return JSON.parse(fs.readFileSync(PLAYER_DATA_FILE, 'utf8'));
+  } catch {
+    return {};
+  }
 }
 
-function num(value) {
-  const n = Number(value || 0);
-  return Number.isFinite(n) ? n : 0;
+function toComparablePlayer(player) {
+  const clone = safeClone(player);
+
+  // Combat không ghi log tổng, chỉ bỏ phần chiến đấu ra khỏi diff.
+  delete clone.combatState;
+  delete clone.combat;
+  delete clone.currentMonster;
+  delete clone.autoFight;
+  delete clone.currentZone;
+
+  // Các field thời gian/tạm thời dễ thay đổi liên tục.
+  delete clone.lastTick;
+  delete clone.lastSave;
+  delete clone.updatedAt;
+
+  return clone;
 }
 
-function getLogDir(dataFile) {
-  return path.join(path.dirname(dataFile), 'action_logs');
+function getUsername(player, fallback) {
+  return String(player?.username || player?.name || fallback || '').trim();
 }
 
-function cleanCategory(category) {
-  const raw = String(category || 'system').replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase();
-  return raw || 'system';
+function stableJson(value) {
+  if (value === null || typeof value !== 'object') return JSON.stringify(value);
+  if (Array.isArray(value)) return '[' + value.map(stableJson).join(',') + ']';
+  return '{' + Object.keys(value).sort().map(k => JSON.stringify(k) + ':' + stableJson(value[k])).join(',') + '}';
 }
 
-function appendLine(file, entry) {
-  fs.appendFileSync(file, JSON.stringify(entry) + '\n', 'utf8');
+function changed(a, b, key) {
+  return stableJson(a?.[key]) !== stableJson(b?.[key]);
 }
 
-function writeEntry(dataFile, entry) {
-  const logDir = getLogDir(dataFile);
-  ensureDir(logDir);
+function chooseCategory(before, after) {
+  if (changed(before, after, 'alchemy')) return 'alchemy';
+  if (changed(before, after, 'inventory')) return 'item';
+  if (changed(before, after, 'cave')) return 'garden';
+  if (changed(before, after, 'encounter') || changed(before, after, 'lastFortune') || changed(before, after, 'fortunesEncountered')) return 'encounter';
+  if (changed(before, after, 'techniques') || changed(before, after, 'martialSkills')) return 'technique';
+  if (changed(before, after, 'lifespan') || changed(before, after, 'lifespanUsed')) return 'lifespan';
+  if (changed(before, after, 'cultivation') || changed(before, after, 'body') || changed(before, after, 'soul')) return 'cultivation';
+  if (changed(before, after, 'spiritStones') || changed(before, after, 'stones') || changed(before, after, 'gold') || changed(before, after, 'resources')) return 'resource';
+  return 'save';
+}
 
-  const full = {
-    id: entry.id || `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
-    at: entry.at || Date.now(),
-    username: String(entry.username || '').trim(),
-    category: cleanCategory(entry.category),
-    categoryLabel: entry.categoryLabel || CATEGORY_LABELS[cleanCategory(entry.category)] || 'Thiên Cơ',
-    text: entry.text || 'Đạo hành biến động.',
-    detail: entry.detail || '',
-    changes: entry.changes || {},
+function makeText(category) {
+  switch (category) {
+    case 'alchemy': return 'Đan lô biến động, luyện đan hoặc đan đạo vừa thay đổi.';
+    case 'item': return 'Túi trữ vật biến động, vật phẩm vừa thay đổi.';
+    case 'garden': return 'Dược viên/động phủ vừa có biến động.';
+    case 'encounter': return 'Thiên cơ kỳ ngộ vừa có biến động.';
+    case 'technique': return 'Công pháp hoặc vũ kỹ vừa thay đổi.';
+    case 'lifespan': return 'Thọ nguyên vừa thay đổi.';
+    case 'cultivation': return 'Đạo hạnh tu luyện vừa tăng tiến.';
+    case 'resource': return 'Tài nguyên vừa thay đổi.';
+    default: return 'Dữ liệu nhân vật vừa thay đổi.';
+  }
+}
+
+function shouldThrottle(username, category) {
+  const key = `${username}:${category}`;
+  const now = Date.now();
+  const last = lastWriteKey.get(key) || 0;
+  const cooldown = category === 'cultivation' ? 10000 : 1200;
+  if (now - last < cooldown) return true;
+  lastWriteKey.set(key, now);
+  return false;
+}
+
+function appendJsonl(file, record) {
+  ensureDir();
+  fs.appendFileSync(file, JSON.stringify(record) + '\n', 'utf8');
+}
+
+function writeActionLog(record) {
+  const username = String(record.username || '').trim();
+  if (!username) return null;
+
+  const category = String(record.category || 'system');
+  const row = {
+    id: `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    at: Date.now(),
+    username,
+    category,
+    categoryLabel: record.categoryLabel || CATEGORY_LABELS[category] || CATEGORY_LABELS.system,
+    text: record.text || makeText(category),
+    detail: record.detail || '',
+    meta: record.meta || {},
   };
 
-  if (!full.username) return;
-  appendLine(path.join(logDir, 'all.jsonl'), full);
-  appendLine(path.join(logDir, `${full.category}.jsonl`), full);
+  appendJsonl(ALL_LOG, row);
+  appendJsonl(path.join(LOG_DIR, `${category}.jsonl`), row);
+  appendJsonl(path.join(LOG_DIR, `player_${username}.jsonl`), row);
+
+  return row;
 }
 
-function inventoryMap(player) {
-  const map = new Map();
-  const list = Array.isArray(player?.inventory) ? player.inventory : [];
-  for (const item of list) {
-    const id = String(item?.id || 'unknown');
-    const quality = String(item?.quality || '');
-    const key = `${id}::${quality}`;
-    const old = map.get(key) || { id, quality, name: item?.name || id, amount: 0, basePillId: item?.basePillId || '' };
-    old.amount += num(item?.amount);
-    if (item?.name) old.name = item.name;
-    if (item?.basePillId) old.basePillId = item.basePillId;
-    map.set(key, old);
-  }
-  return map;
-}
+function recordPlayerSaveDiff(players) {
+  if (!players || typeof players !== 'object') return [];
 
-function diffInventory(before, after) {
-  const a = inventoryMap(before);
-  const b = inventoryMap(after);
-  const keys = new Set([...a.keys(), ...b.keys()]);
-  const gains = [];
-  const losses = [];
-  for (const key of keys) {
-    const oldItem = a.get(key) || { id: key.split('::')[0], name: key.split('::')[0], amount: 0 };
-    const newItem = b.get(key) || { id: oldItem.id, name: oldItem.name, amount: 0 };
-    const delta = num(newItem.amount) - num(oldItem.amount);
-    if (delta > 0) gains.push({ ...newItem, amount: delta });
-    if (delta < 0) losses.push({ ...oldItem, amount: Math.abs(delta) });
-  }
-  return { gains, losses };
-}
-
-function isPill(item) {
-  const id = String(item?.id || '').toLowerCase();
-  const name = String(item?.name || '').toLowerCase();
-  return !!item?.basePillId || id.includes('dan') || id.includes('pill') || name.includes('đan') || name.includes('dan');
-}
-
-function itemText(items, prefix) {
-  if (!items.length) return '';
-  return `${prefix} ${items.map(item => `${item.name || item.id} x${item.amount}`).join(', ')}`;
-}
-
-function currencyDiff(before, after) {
-  const oldCur = before?.currencies || {};
-  const newCur = after?.currencies || {};
-  const keys = new Set([...Object.keys(oldCur), ...Object.keys(newCur)]);
-  const diffs = [];
-  for (const key of keys) {
-    const delta = num(newCur[key]) - num(oldCur[key]);
-    if (delta) diffs.push({ id: key, amount: delta });
-  }
-  return diffs;
-}
-
-function push(entries, username, category, text, detail, changes) {
-  entries.push({ username, category, text, detail: detail || '', changes: changes || {} });
-}
-
-function buildPlayerEntries(username, before = {}, after = {}) {
-  const entries = [];
-
-  if (!before || !before.username) {
-    push(entries, username, 'system', 'Đạo hữu nhập thế, hồ sơ được tạo mới.', '', {});
-    return entries;
+  if (!lastSnapshot) {
+    lastSnapshot = loadPlayersSnapshot();
   }
 
-  const oldKills = num(before?.stats?.totalKills);
-  const newKills = num(after?.stats?.totalKills);
-  const killDelta = newKills - oldKills;
-  if (killDelta > 0) {
-    push(entries, username, 'combat', `Đã trảm sát ${killDelta} yêu thú.`, `Tổng hạ gục: ${newKills}.`, { totalKills: killDelta });
-  }
+  const written = [];
+  const nextSnapshot = safeClone(players);
 
-  const oldEncounterLen = Array.isArray(before?.encounter?.history) ? before.encounter.history.length : 0;
-  const newEncounterHistory = Array.isArray(after?.encounter?.history) ? after.encounter.history : [];
-  if (newEncounterHistory.length > oldEncounterLen) {
-    for (const item of newEncounterHistory.slice(oldEncounterLen)) {
-      push(entries, username, 'encounter', `Kỳ ngộ: ${item.name || 'Thiên Cơ Vô Danh'}.`, `Lựa chọn: ${item.choice || 'không rõ'}${item.penalty ? `. ${item.penalty}` : ''}`, { encounter: item });
+  for (const [key, afterRaw] of Object.entries(players)) {
+    const username = getUsername(afterRaw, key);
+    if (!username) continue;
+
+    const beforeRaw = lastSnapshot?.[key] || lastSnapshot?.[username] || null;
+    const before = toComparablePlayer(beforeRaw || {});
+    const after = toComparablePlayer(afterRaw || {});
+
+    if (!beforeRaw) {
+      // Nhân vật mới.
+      if (!shouldThrottle(username, 'system')) {
+        written.push(writeActionLog({
+          username,
+          category: 'system',
+          text: 'Đạo hữu nhập thế, hồ sơ tu tiên được tạo.',
+        }));
+      }
+      continue;
     }
+
+    if (stableJson(before) === stableJson(after)) continue;
+
+    const category = chooseCategory(before, after);
+    if (category === 'save') continue;
+    if (shouldThrottle(username, category)) continue;
+
+    written.push(writeActionLog({
+      username,
+      category,
+      text: makeText(category),
+    }));
   }
 
-  const inv = diffInventory(before, after);
-  const pillGain = inv.gains.filter(isPill);
-  const normalGain = inv.gains.filter(item => !isPill(item));
-  const pillLoss = inv.losses.filter(isPill);
-  const normalLoss = inv.losses.filter(item => !isPill(item));
-
-  if (pillGain.length) push(entries, username, 'alchemy', 'Luyện chế đan dược thành công.', itemText(pillGain, 'Nhận'), { gains: pillGain });
-  if (normalGain.length) push(entries, username, killDelta > 0 ? 'combat' : 'item', killDelta > 0 ? 'Chiến lợi phẩm nhập túi.' : 'Nhận vật phẩm.', itemText(normalGain, 'Nhận'), { gains: normalGain });
-  if (pillLoss.length) push(entries, username, 'item', 'Sử dụng hoặc tiêu hao đan dược.', itemText(pillLoss, 'Tiêu hao'), { losses: pillLoss });
-  if (normalLoss.length) push(entries, username, 'inventory', 'Tiêu hao vật phẩm.', itemText(normalLoss, 'Tiêu hao'), { losses: normalLoss });
-
-  const curDiffs = currencyDiff(before, after).filter(x => x.amount !== 0);
-  if (curDiffs.length) {
-    const detail = curDiffs.map(x => `${x.id} ${x.amount > 0 ? '+' : ''}${x.amount}`).join(', ');
-    push(entries, username, killDelta > 0 ? 'combat' : 'currency', 'Tài nguyên biến động.', detail, { currencies: curDiffs });
-  }
-
-  const oldTuVi = num(before?.cultivation?.tuVi);
-  const newTuVi = num(after?.cultivation?.tuVi);
-  const tuViDelta = newTuVi - oldTuVi;
-  const realmChanged = num(before?.cultivation?.realmIndex) !== num(after?.cultivation?.realmIndex) || num(before?.cultivation?.stage) !== num(after?.cultivation?.stage);
-  if (realmChanged) {
-    push(entries, username, 'cultivation', 'Cảnh giới biến động.', `Tu vi: ${oldTuVi} → ${newTuVi}.`, { tuVi: tuViDelta });
-  } else if (tuViDelta > 0 && killDelta <= 0 && !newEncounterHistory.length) {
-    push(entries, username, 'cultivation', `Tu luyện tăng ${tuViDelta} tu vi.`, '', { tuVi: tuViDelta });
-  }
-
-  const bodyDelta = num(after?.bodyCultivation?.exp) - num(before?.bodyCultivation?.exp);
-  if (bodyDelta > 0) push(entries, username, 'body', `Luyện thể tăng ${bodyDelta} kinh nghiệm.`, '', { bodyExp: bodyDelta });
-
-  const soulDelta = num(after?.soulCultivation?.exp) - num(before?.soulCultivation?.exp);
-  if (soulDelta > 0) push(entries, username, 'soul', `Luyện hồn tăng ${soulDelta} kinh nghiệm.`, '', { soulExp: soulDelta });
-
-  const oldLifeMax = num(before?.lifespan?.maxYears);
-  const newLifeMax = num(after?.lifespan?.maxYears);
-  if (newLifeMax !== oldLifeMax) {
-    const delta = newLifeMax - oldLifeMax;
-    push(entries, username, 'lifespan', `${delta > 0 ? 'Tăng' : 'Giảm'} ${Math.abs(delta)} năm thọ nguyên tối đa.`, '', { maxYears: delta });
-  }
-
-  const oldPlots = Array.isArray(before?.herbPlots) ? before.herbPlots : [];
-  const newPlots = Array.isArray(after?.herbPlots) ? after.herbPlots : [];
-  for (let i = 0; i < Math.max(oldPlots.length, newPlots.length); i += 1) {
-    const o = oldPlots[i] || {};
-    const n = newPlots[i] || {};
-    if (o.state !== n.state || o.herbId !== n.herbId) {
-      if (n.state === 'growing') push(entries, username, 'garden', `Gieo trồng ô dược viên ${i + 1}.`, `Dược liệu: ${n.herbId || 'không rõ'}.`, { plotIndex: i, herbId: n.herbId });
-      if ((o.state === 'ready' || o.state === 'growing') && (!n.state || n.state === 'empty')) push(entries, username, 'garden', `Thu hoạch ô dược viên ${i + 1}.`, `Dược liệu: ${o.herbId || 'không rõ'}.`, { plotIndex: i, herbId: o.herbId });
-    }
-  }
-
-  const oldTech = before?.techniques?.equipped || {};
-  const newTech = after?.techniques?.equipped || {};
-  for (const slot of new Set([...Object.keys(oldTech), ...Object.keys(newTech)])) {
-    if (oldTech[slot] !== newTech[slot]) push(entries, username, 'skill', `Công pháp ${slot} thay đổi.`, `${oldTech[slot] || 'trống'} → ${newTech[slot] || 'trống'}`, { slot, before: oldTech[slot], after: newTech[slot] });
-  }
-  const oldMartial = before?.martialSkills?.equipped?.active || '';
-  const newMartial = after?.martialSkills?.equipped?.active || '';
-  if (oldMartial !== newMartial) push(entries, username, 'skill', 'Vũ kỹ xuất chiến thay đổi.', `${oldMartial || 'trống'} → ${newMartial || 'trống'}`, { before: oldMartial, after: newMartial });
-
-  return entries;
+  lastSnapshot = nextSnapshot;
+  return written.filter(Boolean);
 }
 
-function logPlayerChanges(dataFile, nextPlayers) {
-  const beforePlayers = safeReadJson(dataFile, {});
-  const afterPlayers = cloneSimple(nextPlayers || {});
-  const usernames = new Set([...Object.keys(beforePlayers || {}), ...Object.keys(afterPlayers || {})]);
-
-  for (const username of usernames) {
-    const before = beforePlayers[username];
-    const after = afterPlayers[username];
-    if (!after) continue;
-    const entries = buildPlayerEntries(username, before, after);
-    for (const entry of entries) writeEntry(dataFile, entry);
-  }
-}
-
-function readJsonlTail(file, maxLines = 2000) {
+function readJsonl(file, limit = 50) {
   try {
     if (!fs.existsSync(file)) return [];
-    const raw = fs.readFileSync(file, 'utf8').trim();
-    if (!raw) return [];
-    const lines = raw.split(/\r?\n/).slice(-maxLines);
-    return lines.map(line => {
-      try { return JSON.parse(line); } catch (err) { return null; }
+    const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/).filter(Boolean);
+    return lines.slice(-Math.max(1, Number(limit) || 50)).map(line => {
+      try { return JSON.parse(line); } catch { return null; }
     }).filter(Boolean);
-  } catch (err) {
+  } catch {
     return [];
   }
 }
 
-function readPlayerLogs(dataFile, username, limit = DEFAULT_LIMIT) {
-  const logDir = getLogDir(dataFile);
-  const allFile = path.join(logDir, 'all.jsonl');
-  const name = String(username || '').trim();
-  const max = Math.max(1, Math.min(300, Number(limit || DEFAULT_LIMIT)));
-  return readJsonlTail(allFile, Math.max(2000, max * 30))
-    .filter(item => item.username === name)
-    .slice(-max)
-    .reverse();
+function readPlayerLogs(username, limit = 50) {
+  const safeName = String(username || '').trim();
+  if (!safeName) return [];
+  const direct = path.join(LOG_DIR, `player_${safeName}.jsonl`);
+  let logs = readJsonl(direct, limit);
+  if (!logs.length) {
+    logs = readJsonl(ALL_LOG, Math.max(200, limit * 4)).filter(row => row.username === safeName);
+  }
+  return logs.slice(-Math.max(1, Number(limit) || 50)).reverse();
 }
 
 module.exports = {
   CATEGORY_LABELS,
-  logPlayerChanges,
+  writeActionLog,
+  recordPlayerSaveDiff,
   readPlayerLogs,
-  writeEntry,
 };

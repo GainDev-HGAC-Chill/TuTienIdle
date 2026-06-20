@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 
 const serverActionLog = require('./core/serverActionLog');
+const recordPlayerSaveDiff = serverActionLog.recordPlayerSaveDiff;
 const app = express(); const { ensureActivityLog, addActivityLog, addResultActivityLog } = require('./core/activityLog');
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -123,9 +124,7 @@ function loadPlayers() {
   return {};
 }
 
-function savePlayers(players) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(players, null, 2));
-}
+function savePlayers(players) { try { recordPlayerSaveDiff(players, DATA_FILE); } catch (err) { console.warn('[ActionLog] Không thể ghi log save:', err.message); } fs.writeFileSync(DATA_FILE, JSON.stringify(players, null, 2)); }
 
 function createProgress(id) {
   return { id, rank: 1, phase: 1, exp: 0, maxExp: 100 };
@@ -1031,6 +1030,17 @@ app.post('/api/player/:username/encounter/decline', (req, res) => {
 });
 
 app.get('/api/player/:username/action-log', (req, res) => { const limit = Math.max(1, Math.min(300, Number(req.query.limit || 80))); res.json({ success: true, logs: serverActionLog.readPlayerLogs(DATA_FILE, req.params.username, limit) }); });
+
+app.get('/api/player/:username/action-logs', (req, res) => {
+  try {
+    const limit = Number(req.query.limit || 80);
+    const includeCombat = req.query.includeCombat === '1' || req.query.includeCombat === 'true';
+    const logs = readPlayerActionLogs(req.params.username, { limit, includeCombat });
+    res.json({ success: true, logs });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 app.listen(PORT, () => {
   console.log(`Tu Tien Idle server: http://localhost:${PORT}`);
   console.log(`Data file: ${DATA_FILE}`);
