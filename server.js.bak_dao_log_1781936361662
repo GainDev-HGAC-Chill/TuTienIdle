@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const serverActionLog = require('./core/serverActionLog');
 const recordPlayerSaveDiff = serverActionLog.recordPlayerSaveDiff;
-const app = express();
+const app = express(); const { ensureActivityLog, addActivityLog, addResultActivityLog } = require('./core/activityLog');
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const DATA_FILE = path.join(DATA_DIR, 'players.json');
@@ -124,7 +124,7 @@ function loadPlayers() {
   return {};
 }
 
-function savePlayers(players) { try { recordPlayerSaveDiff(players); } catch (err) { console.warn('[ActionLog] Không thể ghi log save:', err.message); } fs.writeFileSync(DATA_FILE, JSON.stringify(players, null, 2)); }
+function savePlayers(players) { try { recordPlayerSaveDiff(players, DATA_FILE); } catch (err) { console.warn('[ActionLog] Không thể ghi log save:', err.message); } fs.writeFileSync(DATA_FILE, JSON.stringify(players, null, 2)); }
 
 function createProgress(id) {
   return { id, rank: 1, phase: 1, exp: 0, maxExp: 100 };
@@ -683,7 +683,7 @@ function sanitizePlayer(player) {
     interaction: player.interaction,
     encounter: { active: player.encounter.active, history: player.encounter.history.slice(-8) },
     temporaryPenaltyPercent,
-    activityLog: serverActionLog.readPlayerLogs(player.username, 80), pillEffects: { tuViGainPerSecond: getTuViGainPerSecond(player) },
+    activityLog: serverActionLog.readPlayerLogs(DATA_FILE, player.username, 80), pillEffects: { tuViGainPerSecond: getTuViGainPerSecond(player) },
   };
 }
 
@@ -900,7 +900,6 @@ app.post('/api/player/:username/cultivation/focus', (req, res) => {
     selected.push(type);
   }
   player.cultivationFocus = selected.slice(0, limit);
-  serverActionLog.writeActionLog({ username: player.username, category: 'cultivation', text: 'Đã đổi trạng thái tu luyện.' });
   sendPlayer(res, players, player, { message: 'Đã đổi trạng thái tu luyện.' });
 });
 
@@ -913,7 +912,6 @@ app.post('/api/player/:username/technique/equip', (req, res) => {
   if (!cfg) return res.status(400).json({ success: false, error: 'Công pháp không tồn tại.' });
   if (!player.techniques.learned[id]) return res.status(400).json({ success: false, error: 'Chưa học công pháp này.' });
   player.techniques.equipped[cfg.system] = id;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: `Đã vận chuyển ${cfg.name}.` });
   sendPlayer(res, players, player, { message: `Đã vận chuyển ${cfg.name}.` });
 });
 
@@ -933,7 +931,6 @@ app.post('/api/player/:username/technique/unequip', (req, res) => {
     return res.status(400).json({ success: false, error: 'Vị trí công pháp không hợp lệ.' });
   }
   player.techniques.equipped[slot] = null;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: `Đã tháo công pháp ${slot === 'cultivation' ? 'tu luyện' : slot === 'body' ? 'luyện thể' : 'luyện hồn'}.` });
   sendPlayer(res, players, player, { message: `Đã tháo công pháp ${slot === 'cultivation' ? 'tu luyện' : slot === 'body' ? 'luyện thể' : 'luyện hồn'}.` });
 });
 
@@ -946,7 +943,6 @@ app.post('/api/player/:username/martial-skill/equip', (req, res) => {
   if (!cfg) return res.status(400).json({ success: false, error: 'Vũ kỹ không tồn tại.' });
   if (!player.martialSkills.learned[id]) return res.status(400).json({ success: false, error: 'Chưa học vũ kỹ này.' });
   player.martialSkills.equipped.active = id;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: `Đã trang bị ${cfg.name}.` });
   sendPlayer(res, players, player, { message: `Đã trang bị ${cfg.name}.` });
 });
 
@@ -955,7 +951,6 @@ app.post('/api/player/:username/martial-skill/unequip', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   if (!guardNormalAction(res, player)) return;
   player.martialSkills.equipped.active = null;
-  serverActionLog.writeActionLog({ username: player.username, category: 'technique', text: 'Đã tháo vũ kỹ chiến đấu.' });
   sendPlayer(res, players, player, { message: 'Đã tháo vũ kỹ chiến đấu.' });
 });
 
@@ -972,7 +967,6 @@ app.post('/api/player/:username/herb/plant', (req, res) => {
   const result = plantHerb(player, Number(req.body.plotIndex || 0), req.body.herbId);
   if (!result.success) return res.status(400).json(result);
   lockInteraction(player, 'garden', 'gieo trồng dược liệu', 800);
-  serverActionLog.writeActionLog({ username: player.username, category: 'garden', text: result.message || 'Đã gieo trồng dược liệu.' });
   sendPlayer(res, players, player, result);
 });
 
@@ -984,7 +978,6 @@ app.post('/api/player/:username/herb/harvest', (req, res) => {
   const result = harvestHerb(player, Number(req.body.plotIndex || 0));
   if (!result.success) return res.status(400).json(result);
   lockInteraction(player, 'garden', 'thu hoạch dược liệu', 800);
-  serverActionLog.writeActionLog({ username: player.username, category: 'garden', text: result.message || 'Đã thu hoạch dược liệu.' });
   sendPlayer(res, players, player, result);
 });
 
@@ -995,7 +988,6 @@ app.post('/api/player/:username/alchemy/craft', (req, res) => {
   if (!guardActiveTab(res, player, 'alchemy', 'luyện đan')) return;
   const result = craftRecipe(player, req.body.recipeId);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'alchemy', text: result.message || 'Luyện đan hoàn tất.' });
   sendPlayer(res, players, player, result);
 });
 
@@ -1005,7 +997,6 @@ app.post('/api/player/:username/pill/use', (req, res) => {
   if (!guardNormalAction(res, player)) return;
   const result = useLifespanPill(player, req.body.itemId || req.body.pillId);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'item', text: result.message || 'Đã sử dụng đan dược.' });
   sendPlayer(res, players, player, result);
 });
 
@@ -1017,11 +1008,9 @@ app.post('/api/player/:username/use', (req, res) => {
   if (LIFESPAN_PILLS.some(x => x.id === itemId)) {
     const result = useLifespanPill(player, itemId);
     if (!result.success) return res.status(400).json(result);
-    serverActionLog.writeActionLog({ username: player.username, category: 'item', text: result.message || 'Đã sử dụng vật phẩm.' });
     return sendPlayer(res, players, player, result);
   }
-  serverActionLog.writeActionLog({ username: player.username, category: 'item', text: `Thử sử dụng vật phẩm: ${itemId || 'không rõ'} nhưng chưa có logic.` });
-  sendPlayer(res, players, player, { message: 'Vật phẩm này chưa có logic sử dụng.' });
+  addActivityLog(player, 'item', `Thử sử dụng vật phẩm: ${itemId || 'không rõ'} nhưng chưa có logic.`); addActivityLog(player, 'item', `Thử sử dụng vật phẩm: ${itemId || 'không rõ'} nhưng chưa có logic.`); sendPlayer(res, players, player, { message: 'Vật phẩm này chưa có logic sử dụng.' });
 });
 
 app.post('/api/player/:username/encounter/choose', (req, res) => {
@@ -1029,7 +1018,6 @@ app.post('/api/player/:username/encounter/choose', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   const result = resolveEncounter(player, req.body.choiceId);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'encounter', text: result.message || 'Đã lựa chọn kỳ ngộ.' });
   sendPlayer(res, players, player, result);
 });
 
@@ -1038,14 +1026,20 @@ app.post('/api/player/:username/encounter/decline', (req, res) => {
   const player = getPlayerOrCreate(players, req.params.username);
   const result = declineEncounter(player);
   if (!result.success) return res.status(400).json(result);
-  serverActionLog.writeActionLog({ username: player.username, category: 'encounter', text: result.message || 'Đã từ chối kỳ ngộ.' });
   sendPlayer(res, players, player, result);
 });
 
-app.get('/api/player/:username/action-log', (req, res) => {
-  const limit = Math.max(1, Math.min(300, Number(req.query.limit || 80)));
-  const logs = serverActionLog.readPlayerLogs(req.params.username, limit);
-  res.json({ success: true, logs });
+app.get('/api/player/:username/action-log', (req, res) => { const limit = Math.max(1, Math.min(300, Number(req.query.limit || 80))); res.json({ success: true, logs: serverActionLog.readPlayerLogs(DATA_FILE, req.params.username, limit) }); });
+
+app.get('/api/player/:username/action-logs', (req, res) => {
+  try {
+    const limit = Number(req.query.limit || 80);
+    const includeCombat = req.query.includeCombat === '1' || req.query.includeCombat === 'true';
+    const logs = readPlayerActionLogs(req.params.username, { limit, includeCombat });
+    res.json({ success: true, logs });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 app.listen(PORT, () => {
   console.log(`Tu Tien Idle server: http://localhost:${PORT}`);

@@ -153,11 +153,17 @@ function renderActivityHint() {
 
 function renderAll() {
   if (!playerData) return;
+
+  window.playerData = playerData;
+
   renderHeader();
   renderEncounter();
   renderOverview();
 
- renderActivityLog(); renderServerActionLog();
+  if (typeof window.renderActivityLog === 'function') {
+    window.renderActivityLog();
+  }
+
   renderCultivation();
   renderCombat();
   renderSkills();
@@ -259,30 +265,6 @@ function formatActivityTime(at) {
 
 }
 
-function renderActivityLog() {
-
- const box = $('activity-log-list');
-
- if (!box) return;
-
- const logs = Array.isArray(playerData.activityLog) ? playerData.activityLog : [];
-
- if (!logs.length) {
-  box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-  return;
- }
-
- box.innerHTML = logs.map(item => {
-  const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-  const text = escapeHtml(item.text || 'Hoạt động không rõ');
-  const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-  const time = escapeHtml(formatActivityTime(item.at));
-  return '<div class="activity-log-item activity-' + escapeHtml(item.category || 'system') + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
- }).join('');
-
-}
-
-
 // ===============================
 // Nhật Ký Đạo Hành - Tổng Quan
 // ===============================
@@ -291,33 +273,7 @@ function formatActivityTime(at) {
  if (!time) return '';
  return new Date(time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
-function ensureActivityPanel() {
- let box = $('activity-log-list');
- if (box) return box;
- const overview = $('tab-overview');
- if (!overview) return null;
- const panel = document.createElement('div');
- panel.className = 'panel wide activity-panel';
- panel.innerHTML = '<div class="panel-head"><h3>Nhật Ký Đạo Hành</h3><span>Không gồm combat</span></div><div id="activity-log-list" class="activity-log-list"></div>';
- overview.appendChild(panel);
- return $('activity-log-list');
-}
-function renderActivityLog() {
- const box = ensureActivityPanel();
- if (!box) return;
- const logs = Array.isArray(playerData?.activityLog) ? playerData.activityLog : [];
- if (!logs.length) {
-  box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-  return;
- }
- box.innerHTML = logs.map(item => {
-  const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-  const text = escapeHtml(item.text || 'Hoạt động không rõ');
-  const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-  const time = escapeHtml(formatActivityTime(item.at));
-  return '<div class="activity-log-item activity-' + escapeHtml(item.category || 'system') + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
- }).join('');
-}
+
 function renderCultivation() {
   const c = playerData.cultivation || {};
   const tuviGain = playerData.pillEffects?.tuViGainPerSecond || playerData.tuViGainPerSecond || 1;
@@ -763,33 +719,5 @@ function formatServerActionTime(at) {
   return new Date(time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
-function ensureActionLogPanel() {
-  let box = document.getElementById('activity-log-list');
-  if (box) return box;
-  const overview = document.getElementById('tab-overview');
-  if (!overview) return null;
-  const panel = document.createElement('div');
-  panel.className = 'panel wide activity-panel';
-  panel.innerHTML = '<div class="panel-title"><div><h3>Nhật Ký Đạo Hành</h3><p>Ghi từ log server, không phụ thuộc tab đang mở.</p></div></div><div id="activity-log-list" class="activity-log-list"></div>';
-  overview.appendChild(panel);
-  return document.getElementById('activity-log-list');
-}
 
-function renderServerActionLog() {
-  const box = ensureActionLogPanel();
-  if (!box) return;
-  const logs = Array.isArray(playerData?.activityLog) ? playerData.activityLog : [];
-  if (!logs.length) {
-    box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-    return;
-  }
-  box.innerHTML = logs.map(item => {
-    const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-    const text = escapeHtml(item.text || 'Đạo hành biến động.');
-    const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-    const time = escapeHtml(formatServerActionTime(item.at));
-    const cls = escapeHtml(item.category || 'system');
-    return '<div class="activity-log-item activity-' + cls + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
-  }).join('');
-}
 

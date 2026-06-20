@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781935977091,
-    "lastTick": 1781935977091,
+    "lastSave": 1781938365085,
+    "lastTick": 1781938365085,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
@@ -20,7 +20,7 @@
     "soulCultivation": {
       "rank": 6,
       "name": "Tĩnh Hồn",
-      "exp": 39,
+      "exp": 66,
       "maxExp": 942
     },
     "cultivationFocus": [
@@ -97,22 +97,22 @@
       {
         "id": "linh_thuy_so_cap",
         "name": "Linh Thủy Sơ Cấp",
-        "amount": 26
+        "amount": 23
       },
       {
         "id": "linh_nhuong_so_cap",
         "name": "Linh Nhưỡng Sơ Cấp",
-        "amount": 28
+        "amount": 25
       },
       {
         "id": "hat_giong_linh_thao",
         "name": "Hạt Giống Linh Thảo",
-        "amount": 24
+        "amount": 21
       },
       {
         "id": "linh_thao",
         "name": "Linh Thảo",
-        "amount": 3
+        "amount": 6
       },
       {
         "id": "tho_nguyen_dan",
@@ -128,7 +128,7 @@
       }
     ],
     "currencies": {
-      "so_linh_thach": 358,
+      "so_linh_thach": 328,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -139,7 +139,7 @@
     "stats": {
       "totalKills": 301,
       "totalTuVi": 19955,
-      "playTime": 8230
+      "playTime": 8233
     },
     "permanentBonuses": {
       "atk": 0,
@@ -149,7 +149,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8036
+        "aura": 8055
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -189,10 +189,10 @@
     "herbPlots": [
       {
         "index": 0,
-        "state": "empty",
-        "herbId": null,
-        "plantedAt": 0,
-        "readyAt": 0
+        "state": "growing",
+        "herbId": "linh_thao",
+        "plantedAt": 1781938191694,
+        "readyAt": 1781938251694
       },
       {
         "index": 1,
@@ -217,17 +217,17 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.499791666664244,
+      "ageYears": 16.52640046296043,
       "maxYears": 310,
       "usedPills": {
         "tho_nguyen_dan": 5
       }
     },
     "interaction": {
-      "type": "alchemy",
-      "label": "luyện đan",
-      "until": 1781935952683,
-      "startedAt": 1781935951483
+      "type": "garden",
+      "label": "gieo trồng dược liệu",
+      "until": 1781938192494,
+      "startedAt": 1781938191694
     },
     "encounter": {
       "active": null,
