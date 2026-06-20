@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781920215079,
-    "lastTick": 1781920215079,
+    "lastSave": 1781927725092,
+    "lastTick": 1781927725092,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 1,
@@ -211,7 +211,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.44793981481242,
+      "ageYears": 16.489756944442046,
       "maxYears": 310,
       "usedPills": {
         "tho_nguyen_dan": 5
