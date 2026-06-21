@@ -545,39 +545,3 @@ button.success, .success { background: linear-gradient(180deg, #75eaa0, #3ba86b)
 .dao-popup-x { white-space: nowrap; }
 @media (max-width: 720px) { .dao-popup-grid { grid-template-columns: 1fr; } .dao-popup-head { align-items: flex-start; } .activity-log-scroll-box { max-height: 300px; } }
 
-
-/* DAO_UI_POPUP_FIX_V4 */
-.activity-panel-scroll-host { display: flex; flex-direction: column; min-height: 0; }
-.activity-log-scroll-box { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; padding-right: 8px; scrollbar-width: thin; }
-.activity-log-scroll-box .log-entry { margin-bottom: 10px; }
-.activity-log-scroll-box::-webkit-scrollbar { width: 8px; }
-.activity-log-scroll-box::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(222, 184, 135, .35); }
-.dao-compact-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; align-items: stretch; }
-.dao-compact-card { cursor: pointer; border: 1px solid rgba(219, 170, 96, .24); border-radius: 16px; padding: 14px; background: linear-gradient(145deg, rgba(52, 34, 20, .88), rgba(23, 17, 13, .92)); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); transition: transform .15s ease, border-color .15s ease, background .15s ease; }
-.dao-compact-card:hover { transform: translateY(-2px); border-color: rgba(244, 201, 125, .58); background: linear-gradient(145deg, rgba(70, 43, 24, .92), rgba(28, 19, 13, .96)); }
-.dao-compact-card h4 { margin: 4px 0 8px; color: #f6d59a; font-size: 15px; }
-.dao-compact-card p { margin: 0 0 10px; color: rgba(255, 238, 212, .78); line-height: 1.5; }
-.dao-card-tag { display: inline-flex; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #e7b76e; opacity: .9; }
-.dao-card-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-.dao-card-meta span { border: 1px solid rgba(222, 184, 135, .22); border-radius: 999px; padding: 3px 8px; color: #ead5b4; font-size: 12px; background: rgba(255,255,255,.04); }
-.dao-popup.hidden { display: none !important; }
-.dao-popup { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 18px; }
-.dao-popup-backdrop { position: absolute; inset: 0; background: rgba(7, 5, 3, .72); backdrop-filter: blur(4px); }
-.dao-popup-card { position: relative; width: min(860px, 96vw); max-height: min(760px, 90vh); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(241, 196, 115, .38); border-radius: 22px; background: radial-gradient(circle at top left, rgba(95, 58, 27, .96), rgba(18, 13, 10, .98) 45%, rgba(9, 7, 6, .99)); box-shadow: 0 24px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); }
-.dao-popup-head, .dao-popup-foot { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(222, 184, 135, .18); }
-.dao-popup-foot { border-top: 1px solid rgba(222, 184, 135, .18); border-bottom: 0; justify-content: flex-end; }
-.dao-popup-kicker { color: #dca95f; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-.dao-popup-head h2 { margin: 4px 0 0; color: #ffe2a9; font-size: 22px; }
-.dao-popup-body { overflow-y: auto; padding: 18px; overscroll-behavior: contain; }
-.dao-popup-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.dao-popup-section { border: 1px solid rgba(222, 184, 135, .2); border-radius: 16px; padding: 14px; background: rgba(255,255,255,.045); }
-.dao-popup-wide { grid-column: 1 / -1; }
-.dao-popup-section h3 { margin: 0 0 10px; color: #f5c77d; font-size: 15px; }
-.dao-popup-section p { margin: 0; color: rgba(255, 239, 216, .82); line-height: 1.65; }
-.dao-popup-stat, .dao-popup-material { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px dashed rgba(222, 184, 135, .18); color: rgba(255,239,216,.82); }
-.dao-popup-stat:last-child, .dao-popup-material:last-child { border-bottom: 0; }
-.dao-popup-stat b, .dao-popup-material b { color: #ffe2a9; text-align: right; }
-.dao-popup-empty { color: rgba(255,239,216,.58); font-style: italic; }
-.dao-popup-x { white-space: nowrap; }
-@media (max-width: 720px) { .dao-popup-grid { grid-template-columns: 1fr; } .dao-popup-head { align-items: flex-start; } .activity-log-scroll-box { max-height: 300px; } }
-
