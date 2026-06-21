@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1781962408079,
-    "lastTick": 1781962408079,
+    "lastSave": 1782024696924,
+    "lastTick": 1782024696924,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
@@ -144,7 +144,7 @@
       }
     ],
     "currencies": {
-      "so_linh_thach": 481,
+      "so_linh_thach": 485,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -153,9 +153,9 @@
     "currentZone": "vuong_lao_ba_suong",
     "autoFight": true,
     "stats": {
-      "totalKills": 364,
+      "totalKills": 365,
       "totalTuVi": 22399,
-      "playTime": 8804
+      "playTime": 12409
     },
     "permanentBonuses": {
       "atk": 0,
@@ -166,7 +166,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8101
+        "aura": 8140
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -174,7 +174,7 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 0,
+      "fightProgress": 2988,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "suong_anh_yeu",
@@ -190,14 +190,14 @@
       "monsterMaxHp": 47,
       "status": "Combat tạm dừng do đang ở mục khác.",
       "logs": [
-        "[20:16:39] Hạ Độc Diệp Trùng, nhận 12 tu vi và 3 linh thạch.",
-        "[20:16:39] Nhặt được Linh Nhưỡng Cấp 2.",
         "[20:19:28] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -59 HP.",
         "[20:19:28] Hạ Độc Diệp Trùng, nhận 12 tu vi và 3 linh thạch.",
         "[20:25:59] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -67 HP.",
         "[20:25:59] Hạ Sương Ảnh Yêu, nhận 14 tu vi và 4 linh thạch.",
         "[20:28:47] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -66 HP.",
-        "[20:28:47] Hạ Sương Ảnh Yêu, nhận 14 tu vi và 4 linh thạch."
+        "[20:28:47] Hạ Sương Ảnh Yêu, nhận 14 tu vi và 4 linh thạch.",
+        "[13:42:21] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -56 HP.",
+        "[13:42:21] Hạ Sương Ảnh Yêu, nhận 4 linh thạch."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -234,7 +234,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.77658564814294,
+      "ageYears": 16.824444444439212,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -287,7 +287,7 @@
       ]
     },
     "temporaryPenalties": [],
-    "activeTab": "cultivation",
+    "activeTab": "overview",
     "alchemy": {
       "level": 1,
       "exp": 0,
