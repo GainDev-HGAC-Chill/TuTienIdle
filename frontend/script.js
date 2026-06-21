@@ -59,7 +59,7 @@ function showLogin() {
 }
 
 async function loadMeta() {
-  try { metaData = await api('/api/meta'); } catch (err) { console.warn(err.message); }
+  try { metaData = await api('/api/meta'); window.metaData = metaData; } catch (err) { console.warn(err.message); }
 }
 
 async function loadPlayer() {
@@ -159,7 +159,7 @@ function renderAll() {
   renderOverview();
 
   window.playerData = playerData;
-  if (typeof window.renderActivityLog === 'function') window.renderActivityLog();
+  renderActivityLog();
   renderCultivation();
   renderCombat();
   renderSkills();
@@ -261,28 +261,7 @@ function formatActivityTime(at) {
 
 }
 
-function renderActivityLog() {
 
- const box = $('activity-log-list');
-
- if (!box) return;
-
- const logs = Array.isArray(playerData.activityLog) ? playerData.activityLog : [];
-
- if (!logs.length) {
-  box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-  return;
- }
-
- box.innerHTML = logs.map(item => {
-  const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-  const text = escapeHtml(item.text || 'Hoạt động không rõ');
-  const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-  const time = escapeHtml(formatActivityTime(item.at));
-  return '<div class="activity-log-item activity-' + escapeHtml(item.category || 'system') + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
- }).join('');
-
-}
 
 
 // ===============================
@@ -305,21 +284,29 @@ function ensureActivityPanel() {
  return $('activity-log-list');
 }
 function renderActivityLog() {
- const box = ensureActivityPanel();
- if (!box) return;
- const logs = Array.isArray(playerData?.activityLog) ? playerData.activityLog : [];
- if (!logs.length) {
-  box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-  return;
- }
- box.innerHTML = logs.map(item => {
-  const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
-  const text = escapeHtml(item.text || 'Hoạt động không rõ');
-  const detail = item.detail ? '<p>' + escapeHtml(item.detail) + '</p>' : '';
-  const time = escapeHtml(formatActivityTime(item.at));
-  return '<div class="activity-log-item activity-' + escapeHtml(item.category || 'system') + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
- }).join('');
+  const box = ensureActionLogPanel?.() || ensureActivityPanel?.() || $('activity-log-list');
+  if (!box) return;
+  const panel = box.closest('.panel') || box.parentElement;
+  if (panel) panel.classList.add('activity-panel');
+  box.classList.add('activity-log-list', 'dao-scroll-log');
+
+  const logs = Array.isArray(playerData?.activityLog) ? playerData.activityLog : [];
+  if (!logs.length) {
+    box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
+    return;
+  }
+
+  box.innerHTML = logs.map(item => {
+    const category = escapeHtml(item.categoryLabel || item.category || 'Thiên Cơ');
+    const text = escapeHtml(item.text || item.message || 'Đạo hành biến động.');
+    const detail = item.detail ? '<p class="dao-log-detail">' + escapeHtml(item.detail) + '</p>' : '';
+    const time = escapeHtml(formatActivityTime(item.at) || formatServerActionTime?.(item.at) || '');
+    const cls = escapeHtml(item.category || 'system');
+    return '<article class="dao-log-row activity-' + cls + '"><div class="dao-log-head"><b>' + category + '</b><span>' + time + '</span></div><div class="dao-log-text">' + text + '</div>' + detail + '</article>';
+  }).join('');
 }
+window.renderActivityLog = renderActivityLog;
+
 function renderCultivation() {
   const c = playerData.cultivation || {};
   const tuviGain = playerData.pillEffects?.tuViGainPerSecond || playerData.tuViGainPerSecond || 1;
@@ -497,18 +484,7 @@ async function equipPracticeItem(kind, id) {
   } catch (err) { alert(err.message); }
 }
 
-function renderAlchemy() {
-  setText('alchemy-bonus', `+${fmt(playerData.cave?.alchemyBonus || 0)}%`);
-  const recipes = metaData?.recipes || playerData.recipes || [];
-  const recipeHtml = Array.isArray(recipes) && recipes.length
-    ? recipes.map(r => `<div class="mini-card"><div><b>${escapeHtml(r.name || r.id)}</b><p>${escapeHtml(r.description || 'Công thức luyện đan')}</p></div><button type="button" data-craft="${escapeHtml(r.id)}">Luyện</button></div>`).join('')
-    : `<div class="mini-card"><div><b>Luyện Thọ Nguyên Đan</b><p>Công thức luyện đan</p></div><button type="button" disabled>Luyện</button></div><div class="mini-card"><div><b>Luyện Huyền Thọ Đan</b><p>Công thức luyện đan</p></div><button type="button" disabled>Luyện</button></div>`;
-  $('recipe-list').innerHTML = recipeHtml;
-  document.querySelectorAll('[data-craft]').forEach(btn => btn.addEventListener('click', () => craftPill(btn.dataset.craft)));
 
-  const pills = (playerData.inventory || []).filter(item => item.basePillId || String(item.id || '').includes('dan'));
-  $('pill-list').innerHTML = pills.length ? pills.map(item => smallCard(item.name || item.id, `Số lượng: ${fmt(item.amount)}`, item.quality || 'Đan dược')).join('') : '<p class="empty">Chưa có đan dược.</p>';
-}
 
 async function craftPill(recipeId) {
   try {
@@ -674,30 +650,199 @@ async function unequipPracticeItem(kind, id, system) {
     renderAll();
   } catch (err) { alert(err.message); }
 }
+
+function daoAlchemyRecipes() {
+  const metaRecipes = findMetaList('recipes');
+  if (metaRecipes.length) return metaRecipes;
+  return Array.isArray(playerData?.recipes) ? playerData.recipes : [];
+}
+
+function daoAlchemyPillMetas() {
+  return [...findMetaList('lifespanPills'), ...findMetaList('pills')];
+}
+
+function daoAlchemyFindPill(id) {
+  if (!id) return null;
+  const clean = String(id).replace(/_(thuong|tot|cuc_pham)$/i, '');
+  return daoAlchemyPillMetas().find(p => p && (p.id === id || p.id === clean)) || getMetaItem(id) || getMetaItem(clean);
+}
+
+function daoAlchemyRecipePill(recipe) {
+  return daoAlchemyFindPill(recipe?.pillId || recipe?.resultPillId || recipe?.resultId || recipe?.outputId);
+}
+
+function daoAlchemyIngredients(recipe) {
+  const list = recipe?.ingredients || recipe?.materials || recipe?.costItems || recipe?.requires || [];
+  return Array.isArray(list) ? list : [];
+}
+
+function daoAlchemySuccessText(recipe) {
+  const rate = recipe?.successRate ?? recipe?.successChance ?? recipe?.baseSuccessRate ?? recipe?.rate ?? recipe?.chance;
+  if (rate === undefined || rate === null || rate === '') return 'Theo bậc Đan Sư';
+  const n = Number(rate);
+  if (!Number.isFinite(n)) return String(rate);
+  return (n <= 1 ? Math.round(n * 100) : Math.round(n)) + '%';
+}
+
+function daoAlchemyRankText(recipe) {
+  return recipe?.alchemistRankName || recipe?.rankName || recipe?.requiredRankName || recipe?.requiredRank || recipe?.requiredAlchemyRank || recipe?.alchemyLevel || recipe?.requiredAlchemyLevel || 'Không ghi yêu cầu';
+}
+
+function daoAlchemyCostText(recipe) {
+  const cost = recipe?.cost ?? recipe?.lingStoneCost ?? recipe?.spiritStoneCost ?? recipe?.linhThachCost;
+  return cost ? fmt(cost) : 'Không tốn';
+}
+
+function daoAlchemyInventoryAmount(id) {
+  const inv = Array.isArray(playerData?.inventory) ? playerData.inventory : [];
+  const item = inv.find(x => x && String(x.id) === String(id));
+  return Number(item?.amount || item?.count || 0);
+}
+
+function daoAlchemyRecipeSummary(recipe) {
+  const ingredients = daoAlchemyIngredients(recipe);
+  if (!ingredients.length) return 'Không yêu cầu nguyên liệu';
+  return ingredients.slice(0, 2).map(item => {
+    const id = item.id || item.itemId || item.materialId || item.herbId || item.currency;
+    return `${getItemName(id)} x${fmt(item.amount || item.count || item.qty || 1)}`;
+  }).join(', ') + (ingredients.length > 2 ? '...' : '');
+}
+
+function daoEnsureDetailModal() {
+  let modal = $('dao-detail-modal');
+  if (modal) return modal;
+  modal = document.createElement('div');
+  modal.id = 'dao-detail-modal';
+  modal.className = 'dao-detail-modal hidden';
+  modal.innerHTML = '<div class="dao-detail-mask" data-dao-detail-close></div><section class="dao-detail-box" role="dialog" aria-modal="true"><button type="button" class="dao-detail-close" data-dao-detail-close>×</button><div id="dao-detail-content"></div></section>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click', event => {
+    if (event.target?.hasAttribute('data-dao-detail-close')) daoCloseDetailModal();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') daoCloseDetailModal();
+  });
+  return modal;
+}
+
+function daoOpenDetailModal(html) {
+  const modal = daoEnsureDetailModal();
+  const content = $('dao-detail-content');
+  if (content) content.innerHTML = html;
+  modal.classList.remove('hidden');
+  document.body.classList.add('dao-modal-open');
+}
+
+function daoCloseDetailModal() {
+  const modal = $('dao-detail-modal');
+  if (modal) modal.classList.add('hidden');
+  document.body.classList.remove('dao-modal-open');
+}
+
+function daoOpenRecipeDetail(recipeId) {
+  const recipe = daoAlchemyRecipes().find(r => String(r.id) === String(recipeId));
+  if (!recipe) return alert('Không tìm thấy đan phương.');
+  const pill = daoAlchemyRecipePill(recipe) || recipe;
+  const ingredients = daoAlchemyIngredients(recipe);
+  const canCraft = (playerData?.activeTab || currentTab) === 'alchemy';
+  const ingredientHtml = ingredients.length ? ingredients.map(item => {
+    const id = item.id || item.itemId || item.materialId || item.herbId || item.currency;
+    const need = Number(item.amount || item.count || item.qty || 1);
+    const have = daoAlchemyInventoryAmount(id);
+    const ok = have >= need;
+    return '<div class="dao-material-row ' + (ok ? 'enough' : 'missing') + '"><span>' + escapeHtml(getItemName(id)) + '</span><b>' + fmt(have) + ' / ' + fmt(need) + '</b></div>';
+  }).join('') : '<p class="empty">Không yêu cầu nguyên liệu.</p>';
+
+  daoOpenDetailModal(`
+    <div class="dao-detail-head">
+      <div><span>Đan Phương</span><h2>${escapeHtml(recipe.name || pill.name || recipe.id)}</h2><p>Thành đan: ${escapeHtml(pill.name || recipe.pillId || 'Chưa rõ')}</p></div>
+      <b>${escapeHtml(daoAlchemyRankText(recipe))}</b>
+    </div>
+    <div class="dao-detail-grid">
+      <section><h3>Công hiệu</h3><p>${escapeHtml(pillEffectText(pill))}</p></section>
+      <section><h3>Luyện chế</h3>
+        <div class="dao-stat-row"><span>Thời gian</span><b>${escapeHtml(secondsText(recipe.durationMs || recipe.durationSeconds || recipe.craftTimeMs || recipe.craftTime || 0))}</b></div>
+        <div class="dao-stat-row"><span>Tỷ lệ thành công</span><b>${escapeHtml(daoAlchemySuccessText(recipe))}</b></div>
+        <div class="dao-stat-row"><span>Linh thạch</span><b>${escapeHtml(daoAlchemyCostText(recipe))}</b></div>
+      </section>
+      <section class="wide"><h3>Linh tài cần dùng</h3><div class="dao-material-list">${ingredientHtml}</div></section>
+    </div>
+    <div class="dao-detail-actions"><button type="button" class="primary" data-dao-craft="${escapeHtml(recipe.id)}" ${canCraft ? '' : 'disabled'}>${canCraft ? 'Khai lò luyện đan' : 'Chỉ luyện khi đang ở tab Đan Dược'}</button></div>
+  `);
+  $('dao-detail-content')?.querySelector('[data-dao-craft]')?.addEventListener('click', () => {
+    daoCloseDetailModal();
+    craftPill(recipe.id);
+  });
+}
+
+function daoInventoryPills() {
+  const inv = Array.isArray(playerData?.inventory) ? playerData.inventory : [];
+  return inv.filter(item => item && (item.basePillId || item.pillId || String(item.id || '').toLowerCase().includes('dan') || String(item.type || '').toLowerCase().includes('pill')));
+}
+
+function daoOpenPillDetail(itemId) {
+  const item = daoInventoryPills().find(x => String(x.id) === String(itemId));
+  if (!item) return alert('Không tìm thấy đan dược.');
+  const pill = daoAlchemyFindPill(item.basePillId || item.pillId || item.id) || item;
+  const canUse = (playerData?.activeTab || currentTab) === 'alchemy';
+  daoOpenDetailModal(`
+    <div class="dao-detail-head">
+      <div><span>Linh Đan</span><h2>${escapeHtml(item.name || pill.name || item.id)}</h2><p>Số lượng: ${fmt(item.amount || item.count || 1)} · Phẩm chất: ${escapeHtml(item.quality || pill.quality || 'Thường')}</p></div>
+      <b>Đan Dược</b>
+    </div>
+    <div class="dao-detail-grid">
+      <section class="wide"><h3>Công hiệu</h3><p>${escapeHtml(pillEffectText(pill))}</p></section>
+      <section><h3>Thông tin</h3>
+        <div class="dao-stat-row"><span>Số lượng</span><b>${fmt(item.amount || item.count || 1)}</b></div>
+        <div class="dao-stat-row"><span>Hiệu lực</span><b>${escapeHtml(pill.durationMs || pill.durationSeconds ? secondsText(pill.durationMs || pill.durationSeconds) : 'Dùng ngay')}</b></div>
+      </section>
+      <section><h3>Ghi chú</h3><p>Một số linh đan có giới hạn số lần dùng hoặc chỉ hiệu quả ở cảnh giới phù hợp.</p></section>
+    </div>
+    <div class="dao-detail-actions"><button type="button" class="primary" data-dao-use-pill="${escapeHtml(item.id)}" ${canUse ? '' : 'disabled'}>${canUse ? 'Dùng linh đan' : 'Chỉ dùng khi đang ở tab Đan Dược'}</button></div>
+  `);
+  $('dao-detail-content')?.querySelector('[data-dao-use-pill]')?.addEventListener('click', () => {
+    daoCloseDetailModal();
+    usePill(item.id);
+  });
+}
+
 function renderAlchemy() {
   setText('alchemy-bonus', `+${fmt(playerData.cave?.alchemyBonus || 0)}%`);
-  const recipes = findMetaList('recipes');
-  const pillsMeta = [...findMetaList('lifespanPills'), ...findMetaList('pills')];
-  $('recipe-list').innerHTML = recipes.length ? recipes.map(recipe => {
-    const pill = pillsMeta.find(p => p.id === recipe.pillId) || getMetaItem(recipe.pillId);
-    return `<div class="recipe-card">
-      <div class="recipe-head"><h4>${escapeHtml(recipe.name || recipe.id)}</h4><span>${recipe.durationMs ? secondsText(recipe.durationMs) : 'Tức thời'}</span></div>
-      <p><b>Công hiệu:</b> ${escapeHtml(pillEffectText(pill))}</p>
-      <p><b>Công thức:</b> ${escapeHtml(formulaText(recipe))}</p>
-      <button type="button" ${(playerData.activeTab || currentTab) === 'alchemy' ? '' : 'disabled'} data-craft="${escapeHtml(recipe.id)}">${(playerData.activeTab || currentTab) === 'alchemy' ? 'Luyện' : 'Chuyển sang Đan Dược để luyện'}</button>
-    </div>`;
-  }).join('') : '<p class="empty">Chưa có công thức luyện đan.</p>';
-  document.querySelectorAll('[data-craft]').forEach(btn => btn.addEventListener('click', () => craftPill(btn.dataset.craft)));
-  const pills = (playerData.inventory || []).filter(item => item.basePillId || String(item.id || '').includes('dan'));
-  $('pill-list').innerHTML = pills.length ? pills.map(item => {
-    const pill = pillsMeta.find(p => p.id === (item.basePillId || item.id)) || item;
-    return `<div class="pill-card">
-      <div><h4>${escapeHtml(item.name || pill.name || item.id)}</h4><p>Số lượng: ${fmt(item.amount)}</p><p><b>Công hiệu:</b> ${escapeHtml(pillEffectText(pill))}</p></div>
-      <button type="button" data-use-pill="${escapeHtml(item.id)}">Dùng</button>
-    </div>`;
-  }).join('') : '<p class="empty">Chưa có đan dược.</p>';
-  document.querySelectorAll('[data-use-pill]').forEach(btn => btn.addEventListener('click', () => usePill(btn.dataset.usePill)));
+
+  const recipes = daoAlchemyRecipes();
+  const recipeBox = $('recipe-list');
+  if (recipeBox) {
+    recipeBox.className = 'card-list dao-alchemy-grid';
+    recipeBox.innerHTML = recipes.length ? recipes.map(recipe => {
+      const pill = daoAlchemyRecipePill(recipe) || recipe;
+      return `<button type="button" class="dao-alchemy-card" data-recipe-detail="${escapeHtml(recipe.id)}">
+        <span class="dao-card-kicker">Đan phương</span>
+        <b>${escapeHtml(recipe.name || pill.name || recipe.id)}</b>
+        <p>${escapeHtml(daoAlchemyRecipeSummary(recipe))}</p>
+        <small>${escapeHtml(secondsText(recipe.durationMs || recipe.durationSeconds || recipe.craftTimeMs || recipe.craftTime || 0))} · Thành công: ${escapeHtml(daoAlchemySuccessText(recipe))}</small>
+      </button>`;
+    }).join('') : '<p class="empty">Chưa có công thức luyện đan.</p>';
+  }
+
+  const pillBox = $('pill-list');
+  const pills = daoInventoryPills();
+  if (pillBox) {
+    pillBox.className = 'card-list dao-alchemy-grid';
+    pillBox.innerHTML = pills.length ? pills.map(item => {
+      const pill = daoAlchemyFindPill(item.basePillId || item.pillId || item.id) || item;
+      return `<button type="button" class="dao-alchemy-card" data-pill-detail="${escapeHtml(item.id)}">
+        <span class="dao-card-kicker">Linh đan</span>
+        <b>${escapeHtml(item.name || pill.name || item.id)}</b>
+        <p>Số lượng: ${fmt(item.amount || item.count || 1)} · ${escapeHtml(item.quality || pill.quality || 'Đan dược')}</p>
+        <small>Bấm để xem công hiệu / dùng đan</small>
+      </button>`;
+    }).join('') : '<p class="empty">Chưa có đan dược.</p>';
+  }
+
+  document.querySelectorAll('[data-recipe-detail]').forEach(btn => btn.addEventListener('click', () => daoOpenRecipeDetail(btn.dataset.recipeDetail)));
+  document.querySelectorAll('[data-pill-detail]').forEach(btn => btn.addEventListener('click', () => daoOpenPillDetail(btn.dataset.pillDetail)));
 }
+
 async function usePill(itemId) {
   try {
     const data = await api(`/api/player/${encodeURIComponent(username)}/pill/use`, { method: 'POST', body: JSON.stringify({ itemId }) });
@@ -793,695 +938,5 @@ function renderServerActionLog() {
     const cls = escapeHtml(item.category || 'system');
     return '<div class="activity-log-item activity-' + cls + '"><div><b>' + category + '</b><span>' + time + '</span></div><strong>' + text + '</strong>' + detail + '</div>';
   }).join('');
-}
-
-
-
-// DAO_UI_POPUP_V2_SCRIPT - Popup chi tiết Đan Dược + Nhật Ký cuộn riêng
-(function daoUiPopupV2() {
-  if (window.__daoUiPopupV2Loaded) return;
-  window.__daoUiPopupV2Loaded = true;
-
-  function el(id) { return document.getElementById(id); }
-  function esc(text) {
-    if (typeof escapeHtml === 'function') return escapeHtml(text == null ? '' : text);
-    return String(text == null ? '' : text).replace(/[&<>"']/g, function(c) {
-      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
-    });
-  }
-  function numberText(value) {
-    if (typeof fmt === 'function') return fmt(Number(value || 0));
-    return Number(value || 0).toLocaleString('vi-VN', { maximumFractionDigits: 0 });
-  }
-  function timeText(ms) {
-    const sec = Math.ceil(Number(ms || 0) / 1000);
-    if (sec <= 0) return 'Tức thời';
-    if (sec < 60) return sec + ' giây';
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return m + ' phút' + (s ? ' ' + s + ' giây' : '');
-  }
-  function findList(name) {
-    if (typeof findMetaList === 'function') return findMetaList(name);
-    return Array.isArray(window.metaData && window.metaData[name]) ? window.metaData[name] : [];
-  }
-  function allRecipes() { return [].concat(findList('recipes'), Array.isArray(window.playerData && window.playerData.recipes) ? window.playerData.recipes : []); }
-  function allPillMeta() { return [].concat(findList('lifespanPills'), findList('pills')); }
-  function getName(id) {
-    if (typeof getItemName === 'function') return getItemName(id);
-    const pool = [].concat(findList('materials'), findList('herbs'), allPillMeta());
-    const found = pool.find(function(item) { return item && item.id === id; });
-    return found ? found.name : id;
-  }
-  function findPill(id) {
-    const cleanId = String(id || '').replace(/_(thuong|tot|cuc_pham)$/i, '');
-    return allPillMeta().find(function(p) { return p && (p.id === id || p.id === cleanId); }) || null;
-  }
-  function inventoryAmount(itemId) {
-    const inv = Array.isArray(window.playerData && window.playerData.inventory) ? window.playerData.inventory : [];
-    const item = inv.find(function(x) { return x && x.id === itemId; });
-    return Number(item && item.amount || 0);
-  }
-  function recipeMaterials(recipe) {
-    return Array.isArray(recipe && recipe.ingredients) ? recipe.ingredients : (Array.isArray(recipe && recipe.materials) ? recipe.materials : []);
-  }
-  function effectMap(source) {
-    if (!source) return {};
-    if (source.effects && typeof source.effects === 'object') return source.effects;
-    const out = {};
-    ['lifespanYears','tuViPercent','breakthroughBonus','hpBuffPercent','atkBuffPercent','defBuffPercent','cultivationSpeedBonus','auraBonus','bodyExpBonus','soulExpBonus','atkBonus','defBonus'].forEach(function(key) {
-      if (source[key] !== undefined && source[key] !== null && source[key] !== 0) out[key] = source[key];
-    });
-    return out;
-  }
-  function effectLabel(key) {
-    return ({
-      lifespanYears: 'Tăng thọ nguyên', tuViPercent: 'Tăng tu vi', breakthroughBonus: 'Tỷ lệ đột phá',
-      hpBuffPercent: 'Sinh lực', atkBuffPercent: 'Công kích', defBuffPercent: 'Phòng thủ',
-      cultivationSpeedBonus: 'Tốc độ tu luyện', auraBonus: 'Linh khí', bodyExpBonus: 'Luyện thể', soulExpBonus: 'Luyện hồn',
-      atkBonus: 'Công kích', defBonus: 'Phòng ngự'
-    })[key] || key;
-  }
-  function effectValue(value) {
-    if (typeof value === 'number') {
-      if (Math.abs(value) > 0 && Math.abs(value) < 1) return Math.round(value * 100) + '%';
-      return numberText(value);
-    }
-    return String(value);
-  }
-  function successRateText(recipe) {
-    if (recipe && typeof recipe.successRate === 'number') return Math.round(recipe.successRate * 100) + '%';
-    if (recipe && typeof recipe.successRatePercent === 'number') return Math.round(recipe.successRatePercent) + '%';
-    const player = window.playerData || {};
-    const level = Number(player.alchemy && player.alchemy.level || 1);
-    const need = Number(recipe && (recipe.alchemyLevel || recipe.requiredAlchemyRank) || 1);
-    const approx = Math.min(95, Math.max(25, 55 + (level - need) * 4));
-    return approx + '% dự tính';
-  }
-  function callUsePill(itemId) {
-    if (typeof usePill === 'function') return usePill(itemId);
-    alert('Không tìm thấy hàm usePill trong script.js.');
-  }
-  function callCraft(recipeId) {
-    if (typeof craftPill === 'function') return craftPill(recipeId);
-    alert('Không tìm thấy hàm craftPill trong script.js.');
-  }
-  function closeModal() { const modal = el('dao-detail-modal'); if (modal) modal.classList.add('hidden'); }
-  function ensureModal() {
-    let modal = el('dao-detail-modal');
-    if (modal) return modal;
-    modal = document.createElement('div');
-    modal.id = 'dao-detail-modal';
-    modal.className = 'dao-modal hidden';
-    modal.innerHTML = '<div class="dao-modal-shell"><div class="dao-modal-head"><div><h3 class="dao-modal-title" id="dao-modal-title">Chi tiết</h3><div class="dao-modal-subtitle" id="dao-modal-subtitle"></div></div><button class="dao-modal-close" type="button" data-dao-close>×</button></div><div class="dao-modal-body" id="dao-modal-body"></div></div>';
-    document.body.appendChild(modal);
-    modal.addEventListener('click', function(e) { if (e.target === modal || e.target.closest('[data-dao-close]')) closeModal(); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
-    return modal;
-  }
-  function openModal(title, subtitle, bodyHtml) {
-    const modal = ensureModal();
-    el('dao-modal-title').textContent = title || 'Chi tiết';
-    el('dao-modal-subtitle').textContent = subtitle || '';
-    el('dao-modal-body').innerHTML = bodyHtml;
-    modal.classList.remove('hidden');
-    modal.querySelectorAll('[data-craft]').forEach(function(btn) { btn.addEventListener('click', function(e) { e.stopPropagation(); callCraft(btn.dataset.craft); closeModal(); }); });
-    modal.querySelectorAll('[data-use-pill]').forEach(function(btn) { btn.addEventListener('click', function(e) { e.stopPropagation(); callUsePill(btn.dataset.usePill); closeModal(); }); });
-  }
-  function recipeDetail(recipe) {
-    const pill = findPill(recipe.pillId) || {};
-    const mats = recipeMaterials(recipe);
-    const effects = effectMap(pill);
-    const matHtml = mats.length ? mats.map(function(m) {
-      const have = inventoryAmount(m.id);
-      const need = Number(m.amount || 1);
-      return '<div class="dao-material-row ' + (have >= need ? 'enough' : 'missing') + '"><span>' + esc(getName(m.id)) + '</span><span>' + numberText(have) + ' / ' + numberText(need) + '</span></div>';
-    }).join('') : '<p>Chưa cần nguyên liệu.</p>';
-    const effHtml = Object.keys(effects).length ? Object.entries(effects).map(function(pair) {
-      return '<div class="dao-effect-row"><span>' + esc(effectLabel(pair[0])) + '</span><span>' + esc(effectValue(pair[1])) + '</span></div>';
-    }).join('') : '<p>Chưa ghi chỉ số công hiệu.</p>';
-    return '<div class="dao-detail-grid"><div class="dao-detail-section"><h4>Đan phương</h4><div class="dao-kv">'
-      + '<b>Công hiệu</b><span>' + esc((typeof pillEffectText === 'function' ? pillEffectText(pill) : '') || pill.description || recipe.description || 'Chưa ghi công hiệu.') + '</span>'
-      + '<b>Thời gian luyện</b><span>' + esc(timeText(recipe.durationMs || recipe.craftTimeMs || 0)) + '</span>'
-      + '<b>Tỷ lệ thành công</b><span>' + esc(successRateText(recipe)) + '</span>'
-      + '<b>Đan sư yêu cầu</b><span>Bậc ' + esc(recipe.alchemyLevel || recipe.requiredAlchemyRank || 1) + '</span>'
-      + '<b>Linh thạch</b><span>' + numberText(recipe.cost || 0) + '</span>'
-      + '</div><div class="dao-modal-actions"><button type="button" data-craft="' + esc(recipe.id) + '">Khai lò luyện đan</button><button class="secondary" type="button" data-dao-close>Đóng</button></div></div>'
-      + '<div class="dao-detail-section"><h4>Nguyên liệu</h4>' + matHtml + '<h4 style="margin-top:14px">Hiệu quả</h4>' + effHtml + '</div></div>';
-  }
-  function pillDetail(item) {
-    const pill = findPill(item.basePillId || item.id) || item;
-    const effects = effectMap(pill);
-    const effHtml = Object.keys(effects).length ? Object.entries(effects).map(function(pair) {
-      return '<div class="dao-effect-row"><span>' + esc(effectLabel(pair[0])) + '</span><span>' + esc(effectValue(pair[1])) + '</span></div>';
-    }).join('') : '<p>Chưa ghi chỉ số công hiệu.</p>';
-    return '<div class="dao-detail-grid"><div class="dao-detail-section"><h4>Đan dược</h4><div class="dao-kv">'
-      + '<b>Số lượng</b><span>' + numberText(item.amount || 0) + '</span>'
-      + '<b>Phẩm chất</b><span>' + esc(item.qualityName || item.quality || 'Đan dược') + '</span>'
-      + '<b>Loại</b><span>' + esc(pill.category || item.category || 'Đan dược') + '</span>'
-      + '<b>Mô tả</b><span>' + esc((typeof pillEffectText === 'function' ? pillEffectText(pill) : '') || pill.description || item.description || 'Chưa ghi công hiệu.') + '</span>'
-      + '</div><div class="dao-modal-actions"><button type="button" data-use-pill="' + esc(item.id) + '">Dùng đan</button><button class="secondary" type="button" data-dao-close>Đóng</button></div></div>'
-      + '<div class="dao-detail-section"><h4>Công hiệu</h4>' + effHtml + '<h4 style="margin-top:14px">Ghi chú</h4><p>Những thẻ dài như công pháp, vũ kỹ, linh căn có thể dùng lại khung popup này.</p></div></div>';
-  }
-  window.openRecipeDetail = function(id) {
-    const recipe = allRecipes().find(function(r) { return r && r.id === id; });
-    if (!recipe) return alert('Không tìm thấy đan phương.');
-    openModal(recipe.name || recipe.id, 'Đan phương · nguyên liệu · tỷ lệ · công hiệu', recipeDetail(recipe));
-  };
-  window.openPillDetail = function(id) {
-    const inv = Array.isArray(window.playerData && window.playerData.inventory) ? window.playerData.inventory : [];
-    const item = inv.find(function(x) { return x && x.id === id; });
-    if (!item) return alert('Không tìm thấy đan dược.');
-    openModal(item.name || item.id, 'Chi tiết đan dược trong túi', pillDetail(item));
-  };
-  window.renderActivityLog = function renderActivityLogPopupV2() {
-    const box = (typeof ensureActivityPanel === 'function' ? ensureActivityPanel() : el('activity-log-list'));
-    if (!box) return;
-    if (!box.dataset.daoWheelBound) {
-      box.dataset.daoWheelBound = '1';
-      box.addEventListener('wheel', function(e) { e.stopPropagation(); }, { passive: true });
-    }
-    const logs = Array.isArray(window.playerData && window.playerData.activityLog) ? window.playerData.activityLog : [];
-    if (!logs.length) { box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>'; return; }
-    box.innerHTML = logs.map(function(item) {
-      const category = esc(item.categoryLabel || item.category || 'Thiên Cơ');
-      const text = esc(item.text || item.message || 'Đạo hành biến động.');
-      const detail = item.detail ? '<p class="log-detail">' + esc(item.detail) + '</p>' : '';
-      const time = typeof formatActivityTime === 'function' ? esc(formatActivityTime(item.at)) : '';
-      return '<article class="log-item"><div class="log-head"><span>' + category + '</span><time>' + time + '</time></div><p>' + text + '</p>' + detail + '</article>';
-    }).join('');
-  };
-  window.renderAlchemy = function renderAlchemyPopupV2() {
-    if (typeof setText === 'function') setText('alchemy-bonus', '+' + numberText(window.playerData && window.playerData.cave && window.playerData.cave.alchemyBonus || 0) + '%');
-    const recipeList = el('recipe-list');
-    const recipes = allRecipes();
-    if (recipeList) {
-      recipeList.classList.add('dao-recipe-grid');
-      recipeList.innerHTML = recipes.length ? recipes.map(function(r) {
-        const pill = findPill(r.pillId) || {};
-        const mats = recipeMaterials(r);
-        return '<article class="dao-recipe-card" data-open-recipe="' + esc(r.id) + '"><div class="dao-card-title">' + esc(r.name || r.id) + '</div><div class="dao-card-desc">' + esc((typeof pillEffectText === 'function' ? pillEffectText(pill) : '') || pill.description || r.description || 'Công thức luyện đan') + '</div><div class="dao-card-meta"><span class="dao-chip">' + esc(timeText(r.durationMs || r.craftTimeMs || 0)) + '</span><span class="dao-chip">' + mats.length + ' nguyên liệu</span><span class="dao-chip">TC: ' + esc(successRateText(r)) + '</span></div><div class="dao-card-actions"><button type="button" data-open-recipe="' + esc(r.id) + '">Chi tiết</button><button type="button" data-craft="' + esc(r.id) + '">Luyện</button></div></article>';
-      }).join('') : '<p class="empty">Chưa có đan phương.</p>';
-    }
-    const pillList = el('pill-list');
-    const inv = Array.isArray(window.playerData && window.playerData.inventory) ? window.playerData.inventory : [];
-    const pills = inv.filter(function(item) { return item && (item.basePillId || String(item.id || '').includes('dan')); });
-    if (pillList) {
-      pillList.classList.add('dao-pill-grid');
-      pillList.innerHTML = pills.length ? pills.map(function(item) {
-        const pill = findPill(item.basePillId || item.id) || item;
-        return '<article class="dao-pill-card" data-open-pill="' + esc(item.id) + '"><div class="dao-card-title">' + esc(item.name || pill.name || item.id) + '</div><div class="dao-card-desc">Số lượng: ' + numberText(item.amount || 0) + '</div><div class="dao-card-meta"><span class="dao-chip">' + esc(item.qualityName || item.quality || 'Đan dược') + '</span><span class="dao-chip">Xem công hiệu</span></div><div class="dao-card-actions"><button type="button" data-open-pill="' + esc(item.id) + '">Chi tiết</button><button type="button" data-use-pill="' + esc(item.id) + '">Dùng</button></div></article>';
-      }).join('') : '<p class="empty">Chưa có đan dược.</p>';
-    }
-    document.querySelectorAll('[data-open-recipe]').forEach(function(btn) { btn.addEventListener('click', function(e) { e.stopPropagation(); window.openRecipeDetail(btn.dataset.openRecipe); }); });
-    document.querySelectorAll('[data-open-pill]').forEach(function(btn) { btn.addEventListener('click', function(e) { e.stopPropagation(); window.openPillDetail(btn.dataset.openPill); }); });
-    document.querySelectorAll('#recipe-list [data-craft]').forEach(function(btn) { btn.addEventListener('click', function(e) { e.stopPropagation(); callCraft(btn.dataset.craft); }); });
-    document.querySelectorAll('#pill-list [data-use-pill]').forEach(function(btn) { btn.addEventListener('click', function(e) { e.stopPropagation(); callUsePill(btn.dataset.usePill); }); });
-  };
-})();
-
-
-// ===============================
-// DAO_UI_POPUP_FIX_V3
-// Nhật Ký Đạo Hành cuộn riêng + Popup Đan Dược
-// ===============================
-(function () {
-  function q(id) { return document.getElementById(id); }
-  function html(value) {
-    if (typeof escapeHtml === 'function') return escapeHtml(value);
-    return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
-      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[c];
-    });
-  }
-  function num(value) {
-    if (typeof fmt === 'function') return fmt(value);
-    return Number(value || 0).toLocaleString('vi-VN', { maximumFractionDigits: 0 });
-  }
-  function listFromMeta(name) {
-    return Array.isArray(window.metaData && window.metaData[name]) ? window.metaData[name] : [];
-  }
-  function currencyLabel(id) {
-    if (typeof currencyName === 'function') return currencyName(id);
-    return id || '-';
-  }
-  function allKnownItems() {
-    return []
-      .concat(listFromMeta('materials'))
-      .concat(listFromMeta('herbs'))
-      .concat(listFromMeta('lifespanPills'))
-      .concat(listFromMeta('pills'))
-      .concat(listFromMeta('items'))
-      .concat(listFromMeta('seeds'));
-  }
-  function findKnownItem(id) {
-    return allKnownItems().find(function (item) { return item && item.id === id; }) || null;
-  }
-  function itemName(id) {
-    const item = findKnownItem(id);
-    return (item && item.name) || currencyLabel(id) || id || '-';
-  }
-  function secondsText(msOrSec) {
-    const raw = Number(msOrSec || 0);
-    const sec = raw > 1000 ? Math.ceil(raw / 1000) : Math.ceil(raw);
-    if (sec <= 0) return 'Hoàn tất';
-    if (sec < 60) return sec + ' giây';
-    const min = Math.floor(sec / 60);
-    const rest = sec % 60;
-    if (min < 60) return rest ? (min + ' phút ' + rest + ' giây') : (min + ' phút');
-    const hour = Math.floor(min / 60);
-    const m = min % 60;
-    return m ? (hour + ' giờ ' + m + ' phút') : (hour + ' giờ');
-  }
-  function effectText(effects) {
-    const labels = {
-      cultivationSpeedBonus: 'Tốc độ tu luyện', auraBonus: 'Linh khí', tuViBonus: 'Tu vi', tuViGainPerSecond: 'Tu vi mỗi giây',
-      hpBonus: 'Sinh mệnh', maxHpBonus: 'Sinh mệnh tối đa', defBonus: 'Phòng ngự', atkBonus: 'Công kích',
-      bodyExpBonus: 'Kinh nghiệm luyện thể', soulExpBonus: 'Kinh nghiệm luyện hồn', soulPowerBonus: 'Hồn lực',
-      critBonus: 'Bạo kích', damageMultiplier: 'Hệ số sát thương', extraDamage: 'Sát thương thêm', breakthroughBonus: 'Tỷ lệ đột phá'
-    };
-    const entries = Object.entries(effects || {});
-    if (!entries.length) return '';
-    return entries.map(function (entry) {
-      const key = entry[0];
-      let value = entry[1];
-      if (typeof value === 'number' && Math.abs(value) < 1) value = Math.round(value * 100) + '%';
-      return (labels[key] || key) + ': ' + value;
-    }).join(' · ');
-  }
-  function pillEffectText(pill) {
-    if (!pill) return 'Chưa rõ công hiệu.';
-    const out = [];
-    if (pill.description) out.push(pill.description);
-    if (pill.addYears) out.push('Tăng ' + num(pill.addYears) + ' năm thọ nguyên');
-    if (pill.durationMs || pill.durationSeconds) out.push('Hiệu lực ' + secondsText(pill.durationMs || pill.durationSeconds));
-    if (pill.maxUses) out.push('Giới hạn dùng: ' + num(pill.maxUses) + ' lần');
-    if (pill.realmMinOrder) out.push('Yêu cầu cảnh giới bậc ' + num(pill.realmMinOrder));
-    const effects = effectText(pill.effects || pill.effect || pill.stats);
-    if (effects) out.push(effects);
-    return Array.from(new Set(out.filter(Boolean))).join(' · ') || 'Công hiệu chưa được khai mở.';
-  }
-  function recipeMaterials(recipe) {
-    return recipe.ingredients || recipe.materials || recipe.costItems || recipe.requires || [];
-  }
-  function materialRows(recipe) {
-    const items = recipeMaterials(recipe);
-    if (!items.length) return '<div class="dao-popup-empty">Không yêu cầu nguyên liệu.</div>';
-    return items.map(function (mat) {
-      const id = mat.id || mat.itemId || mat.materialId || mat.herbId || mat.currency;
-      const amount = mat.amount || mat.count || mat.qty || 1;
-      return '<div class="dao-popup-material"><span>' + html(itemName(id)) + '</span><b>x' + html(num(amount)) + '</b></div>';
-    }).join('');
-  }
-  function getRecipes() {
-    const fromMeta = listFromMeta('recipes');
-    if (fromMeta.length) return fromMeta;
-    return Array.isArray(window.playerData && window.playerData.recipes) ? window.playerData.recipes : [];
-  }
-  function getPillMetas() {
-    return [].concat(listFromMeta('lifespanPills')).concat(listFromMeta('pills'));
-  }
-  function findRecipe(id) {
-    return getRecipes().find(function (r) { return r && String(r.id) === String(id); }) || null;
-  }
-  function findPill(id) {
-    return getPillMetas().find(function (p) { return p && String(p.id) === String(id); }) || findKnownItem(id);
-  }
-  function recipePill(recipe) {
-    return findPill(recipe && (recipe.pillId || recipe.outputId || recipe.resultId || recipe.resultPillId));
-  }
-  function openDaoPopup(title, bodyHtml, actionHtml) {
-    let layer = q('dao-detail-popup');
-    if (!layer) {
-      layer = document.createElement('div');
-      layer.id = 'dao-detail-popup';
-      layer.className = 'dao-popup hidden';
-      document.body.appendChild(layer);
-    }
-    layer.className = 'dao-popup';
-    layer.innerHTML = '' +
-      '<div class="dao-popup-backdrop" data-dao-popup-close="1"></div>' +
-      '<section class="dao-popup-card" role="dialog" aria-modal="true">' +
-        '<header class="dao-popup-head"><div><span class="dao-popup-kicker">Đan Các Chi Tiết</span><h2>' + html(title) + '</h2></div><button class="ghost-btn dao-popup-x" data-dao-popup-close="1">Đóng</button></header>' +
-        '<div class="dao-popup-body">' + bodyHtml + '</div>' +
-        '<footer class="dao-popup-foot">' + (actionHtml || '') + '</footer>' +
-      '</section>';
-    layer.querySelectorAll('[data-dao-popup-close]').forEach(function (el) {
-      el.addEventListener('click', closeDaoPopup);
-    });
-    layer.querySelectorAll('[data-popup-craft]').forEach(function (btn) {
-      btn.addEventListener('click', function () { closeDaoPopup(); craftPill(btn.dataset.popupCraft); });
-    });
-    layer.querySelectorAll('[data-popup-use-pill]').forEach(function (btn) {
-      btn.addEventListener('click', function () { closeDaoPopup(); usePill(btn.dataset.popupUsePill); });
-    });
-  }
-  function closeDaoPopup() {
-    const layer = q('dao-detail-popup');
-    if (layer) layer.classList.add('hidden');
-  }
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape') closeDaoPopup();
-  });
-
-  window.openDaoRecipePopup = function (recipeId) {
-    const recipe = findRecipe(recipeId);
-    if (!recipe) return;
-    const pill = recipePill(recipe);
-    const success = recipe.successRate || recipe.baseSuccessRate || recipe.rate || recipe.chance;
-    const cost = recipe.cost || recipe.lingStoneCost || recipe.spiritStoneCost;
-    const body = '' +
-      '<div class="dao-popup-grid">' +
-        '<div class="dao-popup-section"><h3>Công hiệu</h3><p>' + html(pillEffectText(pill || recipe)) + '</p></div>' +
-        '<div class="dao-popup-section"><h3>Yêu cầu luyện chế</h3>' +
-          '<div class="dao-popup-stat"><span>Thời gian</span><b>' + html(secondsText(recipe.durationMs || recipe.durationSeconds || recipe.craftTime || 0)) + '</b></div>' +
-          '<div class="dao-popup-stat"><span>Tỷ lệ thành công</span><b>' + html(success ? ((success <= 1 ? Math.round(success * 100) : success) + '%') : 'Theo bậc đan sư') + '</b></div>' +
-          '<div class="dao-popup-stat"><span>Linh thạch</span><b>' + html(cost ? num(cost) : 'Không tốn') + '</b></div>' +
-          '<div class="dao-popup-stat"><span>Đan sư</span><b>' + html(recipe.alchemistRankName || recipe.rankName || recipe.requiredRank || 'Không yêu cầu') + '</b></div>' +
-        '</div>' +
-        '<div class="dao-popup-section dao-popup-wide"><h3>Nguyên liệu</h3>' + materialRows(recipe) + '</div>' +
-      '</div>';
-    const disabled = (window.playerData && window.playerData.activeTab || window.currentTab) !== 'alchemy';
-    const action = '<button class="primary-btn" data-popup-craft="' + html(recipe.id) + '"' + (disabled ? ' disabled' : '') + '>' + (disabled ? 'Chuyển sang Đan Dược để luyện' : 'Khai lò luyện đan') + '</button>';
-    openDaoPopup(recipe.name || recipe.id, body, action);
-  };
-
-  window.openDaoPillPopup = function (itemId) {
-    const inv = Array.isArray(window.playerData && window.playerData.inventory) ? window.playerData.inventory : [];
-    const item = inv.find(function (it) { return String(it.id) === String(itemId); }) || {};
-    const pill = findPill(item.basePillId || item.pillId || item.id) || item;
-    const body = '' +
-      '<div class="dao-popup-grid">' +
-        '<div class="dao-popup-section dao-popup-wide"><h3>Công hiệu</h3><p>' + html(pillEffectText(pill)) + '</p></div>' +
-        '<div class="dao-popup-section"><h3>Thông tin linh đan</h3>' +
-          '<div class="dao-popup-stat"><span>Số lượng</span><b>' + html(num(item.amount || 1)) + '</b></div>' +
-          '<div class="dao-popup-stat"><span>Phẩm chất</span><b>' + html(item.quality || pill.quality || 'Đan dược') + '</b></div>' +
-          '<div class="dao-popup-stat"><span>Hiệu lực</span><b>' + html(pill.durationMs || pill.durationSeconds ? secondsText(pill.durationMs || pill.durationSeconds) : 'Dùng ngay') + '</b></div>' +
-        '</div>' +
-      '</div>';
-    const disabled = (window.playerData && window.playerData.activeTab || window.currentTab) !== 'alchemy';
-    const action = '<button class="primary-btn" data-popup-use-pill="' + html(item.id || itemId) + '"' + (disabled ? ' disabled' : '') + '>' + (disabled ? 'Chuyển sang Đan Dược để dùng' : 'Dùng linh đan') + '</button>';
-    openDaoPopup(item.name || pill.name || itemId, body, action);
-  };
-
-  window.renderActivityLog = function renderActivityLogDaoScroll() {
-    const box = q('activity-log-list') || (typeof ensureActionLogPanel === 'function' ? ensureActionLogPanel() : null) || (typeof ensureActivityPanel === 'function' ? ensureActivityPanel() : null);
-    if (!box) return;
-    const logs = Array.isArray(window.playerData && window.playerData.activityLog) ? window.playerData.activityLog : [];
-    const panel = box.closest('.panel') || box.parentElement;
-    if (panel) panel.classList.add('activity-panel-scroll-host');
-    box.classList.add('activity-log-scroll-box');
-    if (!logs.length) {
-      box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-      return;
-    }
-    box.innerHTML = logs.map(function (item) {
-      const category = html(item.categoryLabel || item.category || 'Thiên Cơ');
-      const text = html(item.text || item.message || 'Đạo hành biến động.');
-      const detail = item.detail ? '<p>' + html(item.detail) + '</p>' : '';
-      const at = Number(item.at || 0);
-      const time = at ? new Date(at).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '';
-      const cls = html(item.category || 'system');
-      return '<article class="log-entry log-' + cls + '"><div><b>' + category + '</b><span>' + html(time) + '</span></div><p>' + text + '</p>' + detail + '</article>';
-    }).join('');
-  };
-
-  window.renderAlchemy = function renderAlchemyPopupCards() {
-    if (!window.playerData) return;
-    const bonusEl = q('alchemy-bonus');
-    if (bonusEl) bonusEl.textContent = '+' + num((window.playerData.cave && window.playerData.cave.alchemyBonus) || 0) + '%';
-    const recipes = getRecipes();
-    const recipeBox = q('recipe-list');
-    if (recipeBox) {
-      recipeBox.classList.add('dao-compact-card-grid');
-      recipeBox.innerHTML = recipes.length ? recipes.map(function (recipe) {
-        const pill = recipePill(recipe);
-        const duration = secondsText(recipe.durationMs || recipe.durationSeconds || recipe.craftTime || 0);
-        const success = recipe.successRate || recipe.baseSuccessRate || recipe.rate || recipe.chance;
-        const shownRate = success ? ((success <= 1 ? Math.round(success * 100) : success) + '%') : 'Theo đan sư';
-        return '<article class="dao-compact-card" data-open-recipe="' + html(recipe.id) + '">' +
-          '<div><span class="dao-card-tag">Công thức</span><h4>' + html(recipe.name || recipe.id) + '</h4></div>' +
-          '<p>' + html((pill && pill.description) || recipe.description || 'Bấm để xem nguyên liệu và công hiệu.') + '</p>' +
-          '<div class="dao-card-meta"><span>' + html(duration) + '</span><span>' + html(shownRate) + '</span></div>' +
-          '<button class="ghost-btn" type="button" data-open-recipe="' + html(recipe.id) + '">Xem chi tiết</button>' +
-        '</article>';
-      }).join('') : '<p class="empty">Chưa có công thức luyện đan.</p>';
-    }
-    const pills = (Array.isArray(window.playerData.inventory) ? window.playerData.inventory : []).filter(function (item) {
-      return item && (item.basePillId || item.pillId || String(item.id || '').toLowerCase().includes('dan'));
-    });
-    const pillBox = q('pill-list');
-    if (pillBox) {
-      pillBox.classList.add('dao-compact-card-grid');
-      pillBox.innerHTML = pills.length ? pills.map(function (item) {
-        const pill = findPill(item.basePillId || item.pillId || item.id) || item;
-        return '<article class="dao-compact-card" data-open-pill="' + html(item.id) + '">' +
-          '<div><span class="dao-card-tag">Linh đan</span><h4>' + html(item.name || pill.name || item.id) + '</h4></div>' +
-          '<p>Số lượng: ' + html(num(item.amount || 1)) + ' · ' + html(item.quality || pill.quality || 'Đan dược') + '</p>' +
-          '<div class="dao-card-meta"><span>' + html(pill.durationMs || pill.durationSeconds ? secondsText(pill.durationMs || pill.durationSeconds) : 'Dùng ngay') + '</span><span>Chi tiết</span></div>' +
-          '<button class="ghost-btn" type="button" data-open-pill="' + html(item.id) + '">Xem / dùng</button>' +
-        '</article>';
-      }).join('') : '<p class="empty">Chưa có đan dược.</p>';
-    }
-    document.querySelectorAll('[data-open-recipe]').forEach(function (el) {
-      el.addEventListener('click', function (ev) { ev.stopPropagation(); window.openDaoRecipePopup(el.dataset.openRecipe); });
-    });
-    document.querySelectorAll('[data-open-pill]').forEach(function (el) {
-      el.addEventListener('click', function (ev) { ev.stopPropagation(); window.openDaoPillPopup(el.dataset.openPill); });
-    });
-  };
-})();
-
-
-// ===============================
-// DAO_UI_POPUP_FIX_V4
-// Ghi đè trực tiếp hàm renderActivityLog + renderAlchemy ở scope chính.
-// Không dùng window.renderAlchemy vì renderAll gọi renderAlchemy lexical.
-// ===============================
-function daoUiEscape(value) {
-  if (typeof escapeHtml === 'function') return escapeHtml(value);
-  return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]));
-}
-function daoUiFmt(value) {
-  if (typeof fmt === 'function') return fmt(value);
-  return Number(value || 0).toLocaleString('vi-VN', { maximumFractionDigits: 0 });
-}
-function daoUiMetaList(name) {
-  return Array.isArray(metaData && metaData[name]) ? metaData[name] : [];
-}
-function daoUiCurrencyName(id) {
-  return typeof currencyName === 'function' ? currencyName(id) : (id || '-');
-}
-function daoUiKnownItems() {
-  return []
-    .concat(daoUiMetaList('materials'))
-    .concat(daoUiMetaList('herbs'))
-    .concat(daoUiMetaList('lifespanPills'))
-    .concat(daoUiMetaList('pills'))
-    .concat(daoUiMetaList('items'))
-    .concat(daoUiMetaList('seeds'));
-}
-function daoUiFindKnownItem(id) {
-  return daoUiKnownItems().find(item => item && String(item.id) === String(id)) || null;
-}
-function daoUiItemName(id) {
-  const found = daoUiFindKnownItem(id);
-  return found?.name || daoUiCurrencyName(id) || id || '-';
-}
-function daoUiTimeText(msOrSec) {
-  const raw = Number(msOrSec || 0);
-  const sec = raw > 1000 ? Math.ceil(raw / 1000) : Math.ceil(raw);
-  if (sec <= 0) return 'Hoàn tất';
-  if (sec < 60) return sec + ' giây';
-  const min = Math.floor(sec / 60);
-  const rest = sec % 60;
-  if (min < 60) return rest ? (min + ' phút ' + rest + ' giây') : (min + ' phút');
-  const hour = Math.floor(min / 60);
-  const m = min % 60;
-  return m ? (hour + ' giờ ' + m + ' phút') : (hour + ' giờ');
-}
-function daoUiEffectText(effects = {}) {
-  const labels = {
-    cultivationSpeedBonus: 'Tốc độ tu luyện', auraBonus: 'Linh khí', tuViBonus: 'Tu vi', tuViGainPerSecond: 'Tu vi mỗi giây',
-    hpBonus: 'Sinh mệnh', maxHpBonus: 'Sinh mệnh tối đa', defBonus: 'Phòng ngự', atkBonus: 'Công kích',
-    bodyExpBonus: 'Kinh nghiệm luyện thể', soulExpBonus: 'Kinh nghiệm luyện hồn', soulPowerBonus: 'Hồn lực',
-    critBonus: 'Bạo kích', damageMultiplier: 'Hệ số sát thương', extraDamage: 'Sát thương thêm', breakthroughBonus: 'Tỷ lệ đột phá'
-  };
-  return Object.entries(effects || {}).map(([key, value]) => {
-    let shown = value;
-    if (typeof shown === 'number' && Math.abs(shown) < 1) shown = Math.round(shown * 100) + '%';
-    return (labels[key] || key) + ': ' + shown;
-  }).join(' · ');
-}
-function daoUiPillEffectText(pill) {
-  if (!pill) return 'Chưa rõ công hiệu.';
-  const out = [];
-  if (pill.description) out.push(pill.description);
-  if (pill.addYears) out.push('Tăng ' + daoUiFmt(pill.addYears) + ' năm thọ nguyên');
-  if (pill.durationMs || pill.durationSeconds) out.push('Hiệu lực ' + daoUiTimeText(pill.durationMs || pill.durationSeconds));
-  if (pill.maxUses) out.push('Giới hạn dùng: ' + daoUiFmt(pill.maxUses) + ' lần');
-  if (pill.realmMinOrder) out.push('Yêu cầu cảnh giới bậc ' + daoUiFmt(pill.realmMinOrder));
-  const e = daoUiEffectText(pill.effects || pill.effect || pill.stats || {});
-  if (e) out.push(e);
-  return [...new Set(out.filter(Boolean))].join(' · ') || 'Công hiệu chưa được khai mở.';
-}
-function daoUiRecipeMaterials(recipe) {
-  return recipe?.ingredients || recipe?.materials || recipe?.costItems || recipe?.requires || [];
-}
-function daoUiMaterialHtml(recipe) {
-  const mats = daoUiRecipeMaterials(recipe);
-  if (!mats.length) return '<div class="dao-popup-empty">Không yêu cầu nguyên liệu.</div>';
-  return mats.map(mat => {
-    const id = mat.id || mat.itemId || mat.materialId || mat.herbId || mat.currency;
-    const amount = mat.amount || mat.count || mat.qty || 1;
-    return '<div class="dao-popup-material"><span>' + daoUiEscape(daoUiItemName(id)) + '</span><b>x' + daoUiEscape(daoUiFmt(amount)) + '</b></div>';
-  }).join('');
-}
-function daoUiRecipes() {
-  const recipes = daoUiMetaList('recipes');
-  return recipes.length ? recipes : (Array.isArray(playerData?.recipes) ? playerData.recipes : []);
-}
-function daoUiPillMetas() {
-  return [].concat(daoUiMetaList('lifespanPills')).concat(daoUiMetaList('pills'));
-}
-function daoUiFindRecipe(id) {
-  return daoUiRecipes().find(r => r && String(r.id) === String(id)) || null;
-}
-function daoUiFindPill(id) {
-  return daoUiPillMetas().find(p => p && String(p.id) === String(id)) || daoUiFindKnownItem(id);
-}
-function daoUiRecipePill(recipe) {
-  return daoUiFindPill(recipe?.pillId || recipe?.outputId || recipe?.resultId || recipe?.resultPillId);
-}
-function daoUiSuccessText(recipe) {
-  const rate = recipe?.successRate ?? recipe?.baseSuccessRate ?? recipe?.rate ?? recipe?.chance;
-  if (rate === undefined || rate === null || rate === '') return 'Theo bậc đan sư';
-  const n = Number(rate);
-  if (!Number.isFinite(n)) return String(rate);
-  return (n <= 1 ? Math.round(n * 100) : n) + '%';
-}
-function daoUiCostText(recipe) {
-  const cost = recipe?.cost ?? recipe?.lingStoneCost ?? recipe?.spiritStoneCost;
-  return cost ? daoUiFmt(cost) : 'Không tốn';
-}
-function daoUiEnsurePopup() {
-  let layer = document.getElementById('dao-detail-popup');
-  if (!layer) {
-    layer = document.createElement('div');
-    layer.id = 'dao-detail-popup';
-    layer.className = 'dao-popup hidden';
-    document.body.appendChild(layer);
-  }
-  return layer;
-}
-function daoUiClosePopup() {
-  const layer = document.getElementById('dao-detail-popup');
-  if (layer) layer.classList.add('hidden');
-}
-function daoUiOpenPopup(title, bodyHtml, actionHtml) {
-  const layer = daoUiEnsurePopup();
-  layer.className = 'dao-popup';
-  layer.innerHTML = '' +
-    '<div class="dao-popup-backdrop" data-dao-popup-close="1"></div>' +
-    '<section class="dao-popup-card" role="dialog" aria-modal="true">' +
-      '<header class="dao-popup-head"><div><span class="dao-popup-kicker">Đan Các Chi Tiết</span><h2>' + daoUiEscape(title) + '</h2></div><button class="ghost-btn dao-popup-x" data-dao-popup-close="1">Đóng</button></header>' +
-      '<div class="dao-popup-body">' + bodyHtml + '</div>' +
-      '<footer class="dao-popup-foot">' + (actionHtml || '') + '</footer>' +
-    '</section>';
-  layer.querySelectorAll('[data-dao-popup-close]').forEach(el => el.addEventListener('click', daoUiClosePopup));
-  layer.querySelectorAll('[data-popup-craft]').forEach(btn => btn.addEventListener('click', () => { daoUiClosePopup(); craftPill(btn.dataset.popupCraft); }));
-  layer.querySelectorAll('[data-popup-use-pill]').forEach(btn => btn.addEventListener('click', () => { daoUiClosePopup(); usePill(btn.dataset.popupUsePill); }));
-}
-document.addEventListener('keydown', ev => { if (ev.key === 'Escape') daoUiClosePopup(); });
-function daoUiOpenRecipePopup(recipeId) {
-  const recipe = daoUiFindRecipe(recipeId);
-  if (!recipe) return;
-  const pill = daoUiRecipePill(recipe);
-  const body = '' +
-    '<div class="dao-popup-grid">' +
-      '<div class="dao-popup-section dao-popup-wide"><h3>Công hiệu</h3><p>' + daoUiEscape(daoUiPillEffectText(pill || recipe)) + '</p></div>' +
-      '<div class="dao-popup-section"><h3>Yêu cầu luyện chế</h3>' +
-        '<div class="dao-popup-stat"><span>Thời gian</span><b>' + daoUiEscape(daoUiTimeText(recipe.durationMs || recipe.durationSeconds || recipe.craftTime || 0)) + '</b></div>' +
-        '<div class="dao-popup-stat"><span>Tỷ lệ thành công</span><b>' + daoUiEscape(daoUiSuccessText(recipe)) + '</b></div>' +
-        '<div class="dao-popup-stat"><span>Linh thạch</span><b>' + daoUiEscape(daoUiCostText(recipe)) + '</b></div>' +
-        '<div class="dao-popup-stat"><span>Bậc đan sư</span><b>' + daoUiEscape(recipe.alchemistRankName || recipe.rankName || recipe.requiredRank || 'Không yêu cầu') + '</b></div>' +
-      '</div>' +
-      '<div class="dao-popup-section"><h3>Nguyên liệu</h3>' + daoUiMaterialHtml(recipe) + '</div>' +
-    '</div>';
-  const disabled = (playerData?.activeTab || currentTab) !== 'alchemy';
-  const action = '<button class="primary-btn" type="button" data-popup-craft="' + daoUiEscape(recipe.id) + '"' + (disabled ? ' disabled' : '') + '>' + (disabled ? 'Chuyển sang Đan Dược để luyện' : 'Khai lò luyện đan') + '</button>';
-  daoUiOpenPopup(recipe.name || recipe.id, body, action);
-}
-function daoUiOpenPillPopup(itemId) {
-  const inv = Array.isArray(playerData?.inventory) ? playerData.inventory : [];
-  const item = inv.find(it => String(it.id) === String(itemId)) || {};
-  const pill = daoUiFindPill(item.basePillId || item.pillId || item.id) || item;
-  const body = '' +
-    '<div class="dao-popup-grid">' +
-      '<div class="dao-popup-section dao-popup-wide"><h3>Công hiệu</h3><p>' + daoUiEscape(daoUiPillEffectText(pill)) + '</p></div>' +
-      '<div class="dao-popup-section"><h3>Thông tin linh đan</h3>' +
-        '<div class="dao-popup-stat"><span>Số lượng</span><b>' + daoUiEscape(daoUiFmt(item.amount || 1)) + '</b></div>' +
-        '<div class="dao-popup-stat"><span>Phẩm chất</span><b>' + daoUiEscape(item.quality || pill.quality || 'Đan dược') + '</b></div>' +
-        '<div class="dao-popup-stat"><span>Hiệu lực</span><b>' + daoUiEscape(pill.durationMs || pill.durationSeconds ? daoUiTimeText(pill.durationMs || pill.durationSeconds) : 'Dùng ngay') + '</b></div>' +
-      '</div>' +
-    '</div>';
-  const disabled = (playerData?.activeTab || currentTab) !== 'alchemy';
-  const action = '<button class="primary-btn" type="button" data-popup-use-pill="' + daoUiEscape(item.id || itemId) + '"' + (disabled ? ' disabled' : '') + '>' + (disabled ? 'Chuyển sang Đan Dược để dùng' : 'Dùng linh đan') + '</button>';
-  daoUiOpenPopup(item.name || pill.name || itemId, body, action);
-}
-
-function renderActivityLog() {
-  const box = typeof ensureActionLogPanel === 'function' ? ensureActionLogPanel() : (typeof ensureActivityPanel === 'function' ? ensureActivityPanel() : document.getElementById('activity-log-list'));
-  if (!box) return;
-  const panel = box.closest('.panel') || box.parentElement;
-  if (panel) panel.classList.add('activity-panel-scroll-host');
-  box.classList.add('activity-log-scroll-box');
-  const logs = Array.isArray(playerData?.activityLog) ? playerData.activityLog : [];
-  if (!logs.length) {
-    box.innerHTML = '<p class="empty">Chưa có đạo hành nào được ghi nhận.</p>';
-    return;
-  }
-  box.innerHTML = logs.map(item => {
-    const category = daoUiEscape(item.categoryLabel || item.category || 'Thiên Cơ');
-    const text = daoUiEscape(item.text || item.message || 'Đạo hành biến động.');
-    const detail = item.detail ? '<p>' + daoUiEscape(item.detail) + '</p>' : '';
-    const at = Number(item.at || 0);
-    const time = at ? new Date(at).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '';
-    const cls = daoUiEscape(item.category || 'system');
-    return '<article class="log-entry log-' + cls + '"><div><b>' + category + '</b><span>' + daoUiEscape(time) + '</span></div><p>' + text + '</p>' + detail + '</article>';
-  }).join('');
-}
-
-function renderAlchemy() {
-  setText('alchemy-bonus', '+' + daoUiFmt(playerData?.cave?.alchemyBonus || 0) + '%');
-  const recipeBox = document.getElementById('recipe-list');
-  const pillBox = document.getElementById('pill-list');
-  const recipes = daoUiRecipes();
-  if (recipeBox) {
-    recipeBox.classList.add('dao-compact-card-grid');
-    recipeBox.innerHTML = recipes.length ? recipes.map(recipe => {
-      const pill = daoUiRecipePill(recipe);
-      return '<article class="dao-compact-card" data-open-recipe="' + daoUiEscape(recipe.id) + '">' +
-        '<div><span class="dao-card-tag">Công thức</span><h4>' + daoUiEscape(recipe.name || recipe.id) + '</h4></div>' +
-        '<p>' + daoUiEscape((pill && pill.description) || recipe.description || 'Bấm để xem nguyên liệu, công hiệu, thời gian và tỷ lệ thành công.') + '</p>' +
-        '<div class="dao-card-meta"><span>' + daoUiEscape(daoUiTimeText(recipe.durationMs || recipe.durationSeconds || recipe.craftTime || 0)) + '</span><span>' + daoUiEscape(daoUiSuccessText(recipe)) + '</span></div>' +
-        '<button class="ghost-btn" type="button" data-open-recipe="' + daoUiEscape(recipe.id) + '">Xem chi tiết</button>' +
-      '</article>';
-    }).join('') : '<p class="empty">Chưa có công thức luyện đan.</p>';
-  }
-  const pills = (Array.isArray(playerData?.inventory) ? playerData.inventory : []).filter(item => item && (item.basePillId || item.pillId || String(item.id || '').toLowerCase().includes('dan')));
-  if (pillBox) {
-    pillBox.classList.add('dao-compact-card-grid');
-    pillBox.innerHTML = pills.length ? pills.map(item => {
-      const pill = daoUiFindPill(item.basePillId || item.pillId || item.id) || item;
-      return '<article class="dao-compact-card" data-open-pill="' + daoUiEscape(item.id) + '">' +
-        '<div><span class="dao-card-tag">Linh đan</span><h4>' + daoUiEscape(item.name || pill.name || item.id) + '</h4></div>' +
-        '<p>Số lượng: ' + daoUiEscape(daoUiFmt(item.amount || 1)) + ' · ' + daoUiEscape(item.quality || pill.quality || 'Đan dược') + '</p>' +
-        '<div class="dao-card-meta"><span>' + daoUiEscape(pill.durationMs || pill.durationSeconds ? daoUiTimeText(pill.durationMs || pill.durationSeconds) : 'Dùng ngay') + '</span><span>Chi tiết</span></div>' +
-        '<button class="ghost-btn" type="button" data-open-pill="' + daoUiEscape(item.id) + '">Xem / dùng</button>' +
-      '</article>';
-    }).join('') : '<p class="empty">Chưa có đan dược.</p>';
-  }
-  document.querySelectorAll('[data-open-recipe]').forEach(el => el.addEventListener('click', ev => { ev.stopPropagation(); daoUiOpenRecipePopup(el.dataset.openRecipe); }));
-  document.querySelectorAll('[data-open-pill]').forEach(el => el.addEventListener('click', ev => { ev.stopPropagation(); daoUiOpenPillPopup(el.dataset.openPill); }));
 }
 
