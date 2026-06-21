@@ -368,245 +368,474 @@ button.success, .success { background: linear-gradient(180deg, #75eaa0, #3ba86b)
 .server-action-log-item p { margin: 4px 0 0; color: rgba(235,245,255,.72); font-size: 12px; }
 
 
-/* =============================== */
-/* Đan Các Popup + Nhật Ký Cuộn Riêng - Clean */
-/* =============================== */
-.activity-panel {
+/* DAO_UI_POPUP_V2_STYLE - Nhật Ký cuộn riêng + popup chi tiết đan phương */
+.activity-panel,
+.panel.activity-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+#activity-log-list {
+  max-height: 360px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 8px;
+}
+#activity-log-list::-webkit-scrollbar,
+.dao-modal-body::-webkit-scrollbar { width: 8px; }
+#activity-log-list::-webkit-scrollbar-thumb,
+.dao-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(214, 177, 96, 0.45);
+  border-radius: 999px;
+}
+#recipe-list.dao-recipe-grid,
+#pill-list.dao-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+.dao-recipe-card,
+.dao-pill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 148px;
+  padding: 14px;
+  border: 1px solid rgba(214, 177, 96, 0.28);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(45, 32, 18, 0.92), rgba(16, 13, 10, 0.92));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.035), 0 12px 24px rgba(0,0,0,0.22);
+  cursor: pointer;
+}
+.dao-recipe-card:hover,
+.dao-pill-card:hover {
+  border-color: rgba(241, 203, 121, 0.72);
+  transform: translateY(-1px);
+}
+.dao-card-title { color: #f5d58a; font-weight: 700; line-height: 1.25; }
+.dao-card-desc { color: rgba(242, 232, 205, 0.78); font-size: 13px; line-height: 1.45; min-height: 38px; }
+.dao-card-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.dao-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(214, 177, 96, 0.12);
+  border: 1px solid rgba(214, 177, 96, 0.18);
+  color: rgba(245, 225, 172, 0.96);
+  font-size: 12px;
+}
+.dao-card-actions,
+.dao-modal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.dao-card-actions button,
+.dao-modal-actions button {
+  border: 1px solid rgba(241, 203, 121, 0.35);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: rgba(165, 107, 35, 0.82);
+  color: #fff6d8;
+  cursor: pointer;
+}
+.dao-card-actions button.secondary,
+.dao-modal-actions button.secondary { background: rgba(255,255,255,0.06); }
+.dao-modal.hidden { display: none; }
+.dao-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: rgba(3, 2, 1, 0.72);
+  backdrop-filter: blur(3px);
+  padding: 20px;
+}
+.dao-modal-shell {
+  width: min(980px, 96vw);
+  max-height: min(760px, 92vh);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(241, 203, 121, 0.38);
+  border-radius: 22px;
+  background: radial-gradient(circle at 20% 0%, rgba(116, 75, 29, 0.92), rgba(18, 14, 10, 0.98) 42%, rgba(8, 7, 6, 0.98));
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+  overflow: hidden;
+}
+.dao-modal-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(241, 203, 121, 0.22);
+}
+.dao-modal-title { margin: 0; color: #ffe3a1; font-size: 22px; }
+.dao-modal-subtitle { margin-top: 6px; color: rgba(246, 232, 197, 0.72); font-size: 13px; }
+.dao-modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(241, 203, 121, 0.30);
+  background: rgba(255,255,255,0.06);
+  color: #ffe7aa;
+  cursor: pointer;
+  font-size: 20px;
+}
+.dao-modal-body { overflow-y: auto; padding: 18px 20px 20px; }
+.dao-detail-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr); gap: 14px; }
+.dao-detail-section {
+  border: 1px solid rgba(241, 203, 121, 0.18);
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(255,255,255,0.045);
+}
+.dao-detail-section h4 { margin: 0 0 10px; color: #f6d78d; }
+.dao-kv { display: grid; grid-template-columns: 140px 1fr; gap: 8px 12px; font-size: 14px; }
+.dao-kv b { color: rgba(255, 232, 176, 0.85); }
+.dao-kv span { color: rgba(248, 239, 214, 0.90); }
+.dao-material-row,
+.dao-effect-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(241, 203, 121, 0.18);
+}
+.dao-material-row:last-child,
+.dao-effect-row:last-child { border-bottom: 0; }
+.dao-material-row.missing span:last-child { color: #ff9f7a; }
+.dao-material-row.enough span:last-child { color: #bdf0a8; }
+@media (max-width: 760px) {
+  .dao-detail-grid { grid-template-columns: 1fr; }
+  .dao-kv { grid-template-columns: 1fr; }
+}
+
+
+/* DAO_UI_POPUP_FIX_V3 */
+.activity-panel-scroll-host { display: flex; flex-direction: column; min-height: 0; }
+.activity-log-scroll-box { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; padding-right: 8px; scrollbar-width: thin; }
+.activity-log-scroll-box .log-entry { margin-bottom: 10px; }
+.activity-log-scroll-box::-webkit-scrollbar { width: 8px; }
+.activity-log-scroll-box::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(222, 184, 135, .35); }
+.dao-compact-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; align-items: stretch; }
+.dao-compact-card { cursor: pointer; border: 1px solid rgba(219, 170, 96, .24); border-radius: 16px; padding: 14px; background: linear-gradient(145deg, rgba(52, 34, 20, .88), rgba(23, 17, 13, .92)); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.dao-compact-card:hover { transform: translateY(-2px); border-color: rgba(244, 201, 125, .58); background: linear-gradient(145deg, rgba(70, 43, 24, .92), rgba(28, 19, 13, .96)); }
+.dao-compact-card h4 { margin: 4px 0 8px; color: #f6d59a; font-size: 15px; }
+.dao-compact-card p { margin: 0 0 10px; color: rgba(255, 238, 212, .78); line-height: 1.5; }
+.dao-card-tag { display: inline-flex; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #e7b76e; opacity: .9; }
+.dao-card-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.dao-card-meta span { border: 1px solid rgba(222, 184, 135, .22); border-radius: 999px; padding: 3px 8px; color: #ead5b4; font-size: 12px; background: rgba(255,255,255,.04); }
+.dao-popup.hidden { display: none !important; }
+.dao-popup { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 18px; }
+.dao-popup-backdrop { position: absolute; inset: 0; background: rgba(7, 5, 3, .72); backdrop-filter: blur(4px); }
+.dao-popup-card { position: relative; width: min(860px, 96vw); max-height: min(760px, 90vh); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(241, 196, 115, .38); border-radius: 22px; background: radial-gradient(circle at top left, rgba(95, 58, 27, .96), rgba(18, 13, 10, .98) 45%, rgba(9, 7, 6, .99)); box-shadow: 0 24px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); }
+.dao-popup-head, .dao-popup-foot { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(222, 184, 135, .18); }
+.dao-popup-foot { border-top: 1px solid rgba(222, 184, 135, .18); border-bottom: 0; justify-content: flex-end; }
+.dao-popup-kicker { color: #dca95f; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.dao-popup-head h2 { margin: 4px 0 0; color: #ffe2a9; font-size: 22px; }
+.dao-popup-body { overflow-y: auto; padding: 18px; overscroll-behavior: contain; }
+.dao-popup-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.dao-popup-section { border: 1px solid rgba(222, 184, 135, .2); border-radius: 16px; padding: 14px; background: rgba(255,255,255,.045); }
+.dao-popup-wide { grid-column: 1 / -1; }
+.dao-popup-section h3 { margin: 0 0 10px; color: #f5c77d; font-size: 15px; }
+.dao-popup-section p { margin: 0; color: rgba(255, 239, 216, .82); line-height: 1.65; }
+.dao-popup-stat, .dao-popup-material { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px dashed rgba(222, 184, 135, .18); color: rgba(255,239,216,.82); }
+.dao-popup-stat:last-child, .dao-popup-material:last-child { border-bottom: 0; }
+.dao-popup-stat b, .dao-popup-material b { color: #ffe2a9; text-align: right; }
+.dao-popup-empty { color: rgba(255,239,216,.58); font-style: italic; }
+.dao-popup-x { white-space: nowrap; }
+@media (max-width: 720px) { .dao-popup-grid { grid-template-columns: 1fr; } .dao-popup-head { align-items: flex-start; } .activity-log-scroll-box { max-height: 300px; } }
+
+
+/* DAO_UI_POPUP_FIX_V4 */
+.activity-panel-scroll-host { display: flex; flex-direction: column; min-height: 0; }
+.activity-log-scroll-box { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; padding-right: 8px; scrollbar-width: thin; }
+.activity-log-scroll-box .log-entry { margin-bottom: 10px; }
+.activity-log-scroll-box::-webkit-scrollbar { width: 8px; }
+.activity-log-scroll-box::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(222, 184, 135, .35); }
+.dao-compact-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; align-items: stretch; }
+.dao-compact-card { cursor: pointer; border: 1px solid rgba(219, 170, 96, .24); border-radius: 16px; padding: 14px; background: linear-gradient(145deg, rgba(52, 34, 20, .88), rgba(23, 17, 13, .92)); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.dao-compact-card:hover { transform: translateY(-2px); border-color: rgba(244, 201, 125, .58); background: linear-gradient(145deg, rgba(70, 43, 24, .92), rgba(28, 19, 13, .96)); }
+.dao-compact-card h4 { margin: 4px 0 8px; color: #f6d59a; font-size: 15px; }
+.dao-compact-card p { margin: 0 0 10px; color: rgba(255, 238, 212, .78); line-height: 1.5; }
+.dao-card-tag { display: inline-flex; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #e7b76e; opacity: .9; }
+.dao-card-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.dao-card-meta span { border: 1px solid rgba(222, 184, 135, .22); border-radius: 999px; padding: 3px 8px; color: #ead5b4; font-size: 12px; background: rgba(255,255,255,.04); }
+.dao-popup.hidden { display: none !important; }
+.dao-popup { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 18px; }
+.dao-popup-backdrop { position: absolute; inset: 0; background: rgba(7, 5, 3, .72); backdrop-filter: blur(4px); }
+.dao-popup-card { position: relative; width: min(860px, 96vw); max-height: min(760px, 90vh); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(241, 196, 115, .38); border-radius: 22px; background: radial-gradient(circle at top left, rgba(95, 58, 27, .96), rgba(18, 13, 10, .98) 45%, rgba(9, 7, 6, .99)); box-shadow: 0 24px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.08); }
+.dao-popup-head, .dao-popup-foot { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(222, 184, 135, .18); }
+.dao-popup-foot { border-top: 1px solid rgba(222, 184, 135, .18); border-bottom: 0; justify-content: flex-end; }
+.dao-popup-kicker { color: #dca95f; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.dao-popup-head h2 { margin: 4px 0 0; color: #ffe2a9; font-size: 22px; }
+.dao-popup-body { overflow-y: auto; padding: 18px; overscroll-behavior: contain; }
+.dao-popup-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.dao-popup-section { border: 1px solid rgba(222, 184, 135, .2); border-radius: 16px; padding: 14px; background: rgba(255,255,255,.045); }
+.dao-popup-wide { grid-column: 1 / -1; }
+.dao-popup-section h3 { margin: 0 0 10px; color: #f5c77d; font-size: 15px; }
+.dao-popup-section p { margin: 0; color: rgba(255, 239, 216, .82); line-height: 1.65; }
+.dao-popup-stat, .dao-popup-material { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px dashed rgba(222, 184, 135, .18); color: rgba(255,239,216,.82); }
+.dao-popup-stat:last-child, .dao-popup-material:last-child { border-bottom: 0; }
+.dao-popup-stat b, .dao-popup-material b { color: #ffe2a9; text-align: right; }
+.dao-popup-empty { color: rgba(255,239,216,.58); font-style: italic; }
+.dao-popup-x { white-space: nowrap; }
+@media (max-width: 720px) { .dao-popup-grid { grid-template-columns: 1fr; } .dao-popup-head { align-items: flex-start; } .activity-log-scroll-box { max-height: 300px; } }
+
+
+/* ===== DAO_UI_POPUP_FINAL_V5_CSS_START ===== */
+.activity-panel,
+.dao-activity-panel {
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
 
 #activity-log-list,
-.activity-log-list.dao-scroll-log {
+.activity-log-list,
+.dao-activity-scroll {
   max-height: 420px;
   overflow-y: auto;
-  overflow-x: hidden;
   overscroll-behavior: contain;
   padding-right: 8px;
+  scroll-behavior: smooth;
 }
 
-#activity-log-list::-webkit-scrollbar,
-.dao-detail-box::-webkit-scrollbar {
+.dao-activity-scroll::-webkit-scrollbar,
+.dao-modal-panel::-webkit-scrollbar {
   width: 8px;
 }
 
-#activity-log-list::-webkit-scrollbar-thumb,
-.dao-detail-box::-webkit-scrollbar-thumb {
-  background: rgba(246, 196, 83, .45);
+.dao-activity-scroll::-webkit-scrollbar-thumb,
+.dao-modal-panel::-webkit-scrollbar-thumb {
+  background: rgba(220, 170, 64, 0.45);
   border-radius: 999px;
 }
 
-.dao-log-row {
-  padding: 12px 14px;
+.dao-log-item {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.42);
   border-radius: 14px;
-  background: linear-gradient(145deg, rgba(23,34,52,.96), rgba(10,18,30,.96));
-  border: 1px solid rgba(103,133,174,.34);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
-  margin-bottom: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
 }
 
 .dao-log-head {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
-  align-items: center;
-  margin-bottom: 6px;
+  color: #f8e7b0;
+  margin-bottom: 4px;
 }
 
-.dao-log-head b { color: #ffd76a; }
-.dao-log-head span { color: #8fb9ff; font-size: 12px; white-space: nowrap; }
-.dao-log-text { color: #fff6d8; font-weight: 700; }
-.dao-log-detail { margin: 7px 0 0; color: #cfe2ff; line-height: 1.45; }
+.dao-log-head span {
+  color: #93a4bd;
+  font-size: 12px;
+  white-space: nowrap;
+}
 
-.dao-alchemy-grid {
+.dao-log-text {
+  color: #eef5ff;
+  line-height: 1.45;
+}
+
+.dao-log-detail {
+  margin-top: 6px;
+  color: #c9d7ec;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.dao-compact-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
   align-items: stretch;
 }
 
-.dao-alchemy-card {
+.dao-mini-card {
   width: 100%;
-  min-height: 138px;
+  min-height: 142px;
   text-align: left;
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: 16px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.72));
+  color: #eef5ff;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 15px;
-  border-radius: 16px;
-  background: linear-gradient(145deg, rgba(23,34,52,.96), rgba(12,20,33,.96));
-  border: 1px solid rgba(103,133,174,.34);
-  color: var(--text);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 10px 22px rgba(0,0,0,.16);
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
-.dao-alchemy-card:hover {
-  border-color: rgba(246, 196, 83, .78);
+.dao-mini-card:hover {
   transform: translateY(-1px);
+  border-color: rgba(245, 180, 57, 0.76);
+  background: linear-gradient(135deg, rgba(45, 34, 16, 0.95), rgba(15, 23, 42, 0.86));
 }
 
-.dao-alchemy-card .dao-card-kicker {
-  color: #ffd76a;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.dao-alchemy-card b {
-  color: #fff6d8;
+.dao-mini-title {
+  color: #fff7d6;
+  font-weight: 800;
   font-size: 16px;
-  line-height: 1.25;
 }
 
-.dao-alchemy-card p {
-  margin: 0;
-  color: #cfe2ff;
+.dao-mini-meta {
+  color: #9fb2cf;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.dao-mini-desc {
+  color: #dbe7f8;
   line-height: 1.45;
+  font-size: 14px;
+  flex: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.dao-alchemy-card small {
-  color: #7ee6a0;
-  margin-top: auto;
+.dao-mini-action {
+  align-self: flex-start;
+  color: #ffd166;
   font-weight: 800;
+  font-size: 13px;
 }
 
-.dao-detail-modal.hidden { display: none !important; }
+.dao-modal.hidden {
+  display: none;
+}
 
-.dao-detail-modal {
+.dao-modal {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 24px;
 }
 
-.dao-detail-mask {
+.dao-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(2, 6, 23, .76);
+  background: rgba(2, 6, 23, 0.76);
   backdrop-filter: blur(4px);
 }
 
-.dao-detail-box {
+.dao-modal-panel {
   position: relative;
-  width: min(900px, 96vw);
+  width: min(820px, 96vw);
   max-height: min(760px, 88vh);
   overflow-y: auto;
-  border: 1px solid rgba(246, 196, 83, .45);
-  border-radius: 24px;
-  background: radial-gradient(circle at top left, rgba(54, 38, 16, .98), rgba(17, 26, 41, .98) 42%, rgba(8, 13, 22, .99));
-  box-shadow: 0 28px 90px rgba(0,0,0,.52);
+  border: 1px solid rgba(245, 180, 57, 0.38);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(17, 31, 59, 0.98));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
   padding: 24px;
-  color: var(--text);
+  color: #eef5ff;
 }
 
-.dao-detail-close {
+.dao-modal-close {
   position: absolute;
   top: 14px;
   right: 14px;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
-  padding: 0;
-  display: grid;
-  place-items: center;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(246,196,83,.35);
-  color: #fff6d8;
+  border: 1px solid rgba(245, 180, 57, 0.45);
+  background: rgba(80, 52, 12, 0.72);
+  color: #fff7d6;
   font-size: 24px;
   line-height: 1;
+  cursor: pointer;
 }
 
 .dao-detail-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 18px;
-  padding-right: 46px;
+  align-items: flex-start;
+  padding-right: 42px;
   margin-bottom: 18px;
 }
 
-.dao-detail-head span {
-  display: block;
-  color: #ffd76a;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .1em;
+.dao-detail-kicker {
+  color: #f6c453;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 800;
   margin-bottom: 6px;
 }
 
 .dao-detail-head h2 {
   margin: 0 0 6px;
   font-size: clamp(24px, 3vw, 36px);
-  color: #fff6d8;
+  color: #fff7d6;
 }
 
-.dao-detail-head p {
+.dao-detail-head p,
+.dao-detail-section p,
+.dao-detail-grid p {
   margin: 0;
-  color: #cfe2ff;
+  color: #dbe7f8;
+  line-height: 1.6;
 }
 
-.dao-detail-head > b {
-  flex: 0 0 auto;
-  padding: 8px 12px;
+.dao-detail-badge {
+  border: 1px solid rgba(245, 180, 57, 0.38);
   border-radius: 999px;
-  border: 1px solid rgba(246,196,83,.35);
-  background: rgba(246,196,83,.10);
-  color: #ffd76a;
+  padding: 8px 12px;
+  background: rgba(80, 52, 12, 0.45);
+  color: #ffe2a0;
+  white-space: nowrap;
+  font-weight: 800;
 }
 
 .dao-detail-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 14px;
+  margin-bottom: 14px;
 }
 
-.dao-detail-grid .wide { grid-column: 1 / -1; }
-
-.dao-detail-grid section {
-  border: 1px solid rgba(103,133,174,.34);
+.dao-detail-grid section,
+.dao-detail-section {
+  border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 16px;
-  padding: 15px;
-  background: rgba(17, 26, 41, .76);
+  background: rgba(15, 23, 42, 0.54);
+  padding: 14px;
 }
 
-.dao-detail-grid h3 {
+.dao-detail-grid h3,
+.dao-detail-section h3 {
   margin: 0 0 10px;
-  color: #ffd76a;
+  color: #ffd166;
   font-size: 16px;
 }
 
-.dao-detail-grid p {
-  margin: 0;
-  color: #dbe8ff;
-  line-height: 1.6;
+.dao-material-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
 }
 
-.dao-stat-row,
-.dao-material-row {
+.dao-material-list div {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 9px 0;
-  border-bottom: 1px dashed rgba(148,163,184,.24);
+  border-radius: 12px;
+  background: rgba(30, 41, 59, 0.76);
+  padding: 10px 12px;
 }
 
-.dao-stat-row:last-child,
-.dao-material-row:last-child { border-bottom: 0; }
-.dao-stat-row span,
-.dao-material-row span { color: #cfe2ff; }
-.dao-stat-row b,
-.dao-material-row b { color: #fff6d8; text-align: right; }
-.dao-material-row.enough b { color: #7ee6a0; }
-.dao-material-row.missing b { color: #f39a9a; }
+.dao-material-list b {
+  color: #f8e7b0;
+}
 
 .dao-detail-actions {
   display: flex;
@@ -615,24 +844,31 @@ button.success, .success { background: linear-gradient(180deg, #75eaa0, #3ba86b)
   margin-top: 18px;
 }
 
+.dao-detail-actions button,
 .dao-detail-actions .primary {
-  min-width: 170px;
+  border: 1px solid rgba(245, 180, 57, 0.62);
+  border-radius: 12px;
+  padding: 11px 18px;
+  background: linear-gradient(135deg, #8a5a0a, #5f3b05);
+  color: #fff7d6;
+  font-weight: 900;
+  cursor: pointer;
 }
 
-body.dao-modal-open { overflow: hidden; }
-
-@media (max-width: 760px) {
-  .dao-detail-grid { grid-template-columns: 1fr; }
-  .dao-detail-head { flex-direction: column; }
-  .dao-detail-head > b { white-space: normal; }
+.dao-detail-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
+body.dao-modal-open {
+  overflow: hidden;
+}
+/* ===== DAO_UI_POPUP_FINAL_V5_CSS_END ===== */
 
-/* ===== DAO_FINAL_FORCE_UI_START ===== */
-#activity-log-list.activity-log-list,
-#activity-log-list.dao-scroll-log {
-  display: grid !important;
-  gap: 10px !important;
+
+/* DAO_UI_REAL_V6_CSS_START */
+#activity-log-list.dao-log-scroll,
+#activity-log-list {
   max-height: 360px !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
@@ -640,62 +876,407 @@ body.dao-modal-open { overflow: hidden; }
   padding-right: 10px !important;
 }
 .dao-log-row {
-  padding: 12px 14px !important;
-  border-radius: 14px !important;
-  background: linear-gradient(145deg, rgba(16, 27, 46, .92), rgba(8, 16, 29, .94)) !important;
-  border: 1px solid rgba(246, 196, 83, .18) !important;
+  border: 1px solid rgba(212, 175, 55, .18);
+  background: rgba(8, 18, 35, .55);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
 }
-.dao-log-head { display:flex !important; justify-content:space-between !important; gap:12px !important; margin-bottom:6px !important; }
-.dao-log-head b { color:#ffd76a !important; }
-.dao-log-head span { color:#9fb2cf !important; font-size:12px !important; white-space:nowrap !important; }
-.dao-log-text { color:#eef5ff !important; line-height:1.45 !important; font-weight:650 !important; }
-.dao-log-detail { color:#c9d7ec !important; margin-top:6px !important; font-size:13px !important; }
-#recipe-list.dao-alchemy-grid,
-#pill-list.dao-alchemy-grid {
+.dao-log-top { display:flex; justify-content:space-between; gap:12px; color:#f8e7aa; margin-bottom:5px; }
+.dao-log-top span { color:#93a4c7; font-size:12px; white-space:nowrap; }
+.dao-log-row p { margin:6px 0 0; color:#b9c7e6; line-height:1.45; }
+.alchemy-compact-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
   gap: 12px !important;
   align-items: stretch !important;
 }
-.dao-alchemy-card {
-  width: 100% !important;
-  min-height: 150px !important;
-  text-align: left !important;
-  border: 1px solid rgba(246, 196, 83, .24) !important;
-  border-radius: 16px !important;
-  padding: 14px !important;
-  background: linear-gradient(145deg, rgba(16, 27, 46, .96), rgba(8, 16, 29, .96)) !important;
-  color: #f7fbff !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 10px 22px rgba(0,0,0,.16) !important;
+.dao-mini-card {
+  width: 100%;
+  min-height: 138px;
+  text-align: left;
+  border: 1px solid rgba(212, 175, 55, .22);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(15,28,52,.96), rgba(9,18,34,.96));
+  color: #f7fbff;
+  padding: 14px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
 }
-.dao-alchemy-card:hover { border-color: rgba(246, 196, 83, .75) !important; transform: translateY(-1px); }
-.dao-alchemy-card .dao-card-kicker { color:#f6c453 !important; font-size:12px !important; text-transform:uppercase !important; letter-spacing:.08em !important; }
-.dao-alchemy-card b { color:#fff7df !important; font-size:16px !important; line-height:1.25 !important; }
-.dao-alchemy-card p { color:#cfe2ff !important; margin:0 !important; line-height:1.45 !important; flex:1 !important; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-.dao-alchemy-card small { color:#9ecbff !important; font-weight:700 !important; }
-.dao-detail-modal.hidden { display:none !important; }
-.dao-detail-modal { position:fixed !important; inset:0 !important; z-index:9999 !important; display:flex !important; align-items:center !important; justify-content:center !important; padding:24px !important; }
-.dao-detail-backdrop { position:absolute !important; inset:0 !important; background:rgba(2,6,23,.76) !important; backdrop-filter:blur(4px) !important; }
-.dao-detail-panel { position:relative !important; width:min(860px,96vw) !important; max-height:88vh !important; overflow:auto !important; border:1px solid rgba(246,196,83,.38) !important; border-radius:22px !important; background:linear-gradient(145deg,#101a2d,#07111f) !important; color:#eef5ff !important; padding:24px !important; box-shadow:0 24px 80px rgba(0,0,0,.55) !important; }
-.dao-detail-close { position:absolute !important; top:14px !important; right:14px !important; width:36px !important; height:36px !important; border-radius:50% !important; display:grid !important; place-items:center !important; padding:0 !important; }
-.dao-detail-head { display:flex !important; justify-content:space-between !important; gap:18px !important; padding-right:44px !important; margin-bottom:18px !important; }
-.dao-detail-head span { color:#f6c453 !important; text-transform:uppercase !important; font-size:12px !important; letter-spacing:.08em !important; font-weight:900 !important; }
-.dao-detail-head h2 { margin:4px 0 6px !important; color:#fff7df !important; font-size:30px !important; }
-.dao-detail-head p { margin:0 !important; color:#cfe2ff !important; }
-.dao-detail-head > b { height:max-content !important; border:1px solid rgba(246,196,83,.35) !important; border-radius:999px !important; padding:8px 12px !important; color:#ffe4a2 !important; background:rgba(122,79,18,.25) !important; white-space:nowrap !important; }
-.dao-detail-grid { display:grid !important; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)) !important; gap:14px !important; }
-.dao-detail-grid section, .dao-detail-section { border:1px solid rgba(148,163,184,.22) !important; border-radius:16px !important; padding:14px !important; background:rgba(15,23,42,.52) !important; }
-.dao-detail-grid section.wide { grid-column:1 / -1 !important; }
-.dao-detail-grid h3, .dao-detail-section h3 { margin:0 0 10px !important; color:#ffd76a !important; }
-.dao-detail-grid p, .dao-detail-section p { margin:0 !important; color:#dbe7f8 !important; line-height:1.6 !important; }
-.dao-stat-row, .dao-material-row { display:flex !important; justify-content:space-between !important; gap:12px !important; padding:9px 0 !important; border-bottom:1px dashed rgba(148,163,184,.22) !important; }
-.dao-stat-row:last-child, .dao-material-row:last-child { border-bottom:0 !important; }
-.dao-stat-row b, .dao-material-row b { color:#ffe4a2 !important; text-align:right !important; }
-.dao-material-list { display:grid !important; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)) !important; gap:8px !important; }
-.dao-detail-actions { display:flex !important; justify-content:flex-end !important; margin-top:18px !important; }
-.dao-detail-actions .primary { border:1px solid rgba(246,196,83,.62) !important; border-radius:12px !important; padding:11px 18px !important; background:linear-gradient(180deg,#8a5a0a,#5f3b05) !important; color:#fff7df !important; font-weight:900 !important; }
-@media (max-width:720px){ .dao-detail-head{flex-direction:column !important;} }
-/* ===== DAO_FINAL_FORCE_UI_END ===== */
+.dao-mini-card:hover { border-color: rgba(245, 190, 70, .75); transform: translateY(-1px); }
+.dao-mini-card div { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+.dao-mini-card b { color:#fff4c2; font-size:16px; }
+.dao-mini-card span { color:#ffd36b; font-size:13px; white-space:nowrap; }
+.dao-mini-card p { color:#c8d5f0; margin:10px 0; line-height:1.45; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.dao-mini-card em { color:#82e6d6; font-style:normal; font-size:13px; }
+.dao-modal.hidden { display:none !important; }
+.dao-modal { position: fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px; }
+.dao-modal-mask { position:absolute; inset:0; background: rgba(0, 5, 16, .72); backdrop-filter: blur(4px); }
+.dao-modal-box { position:relative; width:min(820px, 96vw); max-height:86vh; overflow:auto; border:1px solid rgba(245, 190, 70, .34); border-radius:22px; background:linear-gradient(145deg, #101d35, #081225); color:#f7fbff; padding:24px; box-shadow:0 24px 80px rgba(0,0,0,.45); }
+.dao-modal-x { position:absolute; right:16px; top:12px; width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06); color:#fff; font-size:22px; cursor:pointer; }
+.dao-modal-head span { color:#ffd36b; text-transform:uppercase; letter-spacing:.08em; font-size:12px; }
+.dao-modal-head h2 { margin:6px 42px 6px 0; font-size:28px; color:#fff4c2; }
+.dao-modal-head p { margin:0 0 18px; color:#b9c7e6; }
+.dao-modal-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; }
+.dao-modal-grid section { border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:14px; background:rgba(255,255,255,.035); }
+.dao-modal-grid b { color:#ffd36b; }
+.dao-modal-grid p { margin:8px 0 0; color:#dbe6ff; line-height:1.55; }
+.dao-modal-actions { display:flex; justify-content:flex-end; margin-top:18px; }
+.dao-modal-actions .primary { border:1px solid rgba(255,210,90,.55); background:linear-gradient(180deg,#9b650e,#624006); color:#fff8d8; border-radius:12px; padding:11px 18px; font-weight:800; cursor:pointer; }
+@media (max-width: 720px) { .dao-modal-grid { grid-template-columns: 1fr; } .alchemy-compact-grid { grid-template-columns: 1fr !important; } }
+/* DAO_UI_REAL_V6_CSS_END */
+
+
+/* DAO_ALCHEMY_REAL_POPUP_V9_CSS_START */
+#recipe-list.alchemy-realm-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+
+.alchemy-realm-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 84px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  text-align: left !important;
+  padding: 14px 16px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(93, 58, 16, .86), rgba(22, 31, 48, .95)) !important;
+  border: 1px solid rgba(246, 196, 83, .28) !important;
+  color: #f8fafc !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.alchemy-realm-card:hover {
+  border-color: rgba(246, 196, 83, .72) !important;
+  transform: translateY(-1px);
+}
+
+.alchemy-realm-card h3 {
+  margin: 0 0 5px !important;
+  color: #fff7df !important;
+  font-size: 17px !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.alchemy-realm-card p {
+  margin: 0 !important;
+  color: #cfe2ff !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.alchemy-realm-card > span {
+  flex: 0 0 auto !important;
+  color: #fff7df !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+}
+
+.alchemy-realm-card.locked {
+  opacity: .68;
+  filter: grayscale(.2);
+}
+
+#pill-list.alchemy-pill-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+  overflow: hidden !important;
+}
+
+.alchemy-pill-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 92px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  text-align: left !important;
+  padding: 14px 16px !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(148, 163, 184, .28) !important;
+  background: rgba(16, 26, 43, .96) !important;
+  color: #f8fafc !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.alchemy-pill-card:hover {
+  border-color: rgba(246, 196, 83, .72) !important;
+}
+
+.alchemy-pill-card .pill-card-main {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+.alchemy-pill-card h3 {
+  margin: 0 0 6px !important;
+  color: #fff7df !important;
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.alchemy-pill-card p {
+  margin: 0 !important;
+  color: #c9d6ea !important;
+  font-size: 13px !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.alchemy-pill-card > span {
+  flex: 0 0 auto !important;
+  max-width: 62px !important;
+  color: #ffd166 !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+}
+
+.alchemy-popup.hidden {
+  display: none !important;
+}
+
+.alchemy-popup {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 24px !important;
+}
+
+.alchemy-popup-mask {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(2, 6, 23, .78) !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+.alchemy-popup-box {
+  position: relative !important;
+  width: min(980px, 96vw) !important;
+  max-height: min(780px, 90vh) !important;
+  overflow-y: auto !important;
+  border-radius: 24px !important;
+  border: 1px solid rgba(246, 196, 83, .42) !important;
+  background: radial-gradient(circle at top left, rgba(92, 58, 16, .96), rgba(15, 23, 42, .98) 38%, rgba(8, 13, 22, .99)) !important;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .55) !important;
+  padding: 24px !important;
+  color: #f8fafc !important;
+}
+
+.alchemy-popup-close {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 999px !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+  background: rgba(8, 13, 22, .76) !important;
+  border: 1px solid rgba(246, 196, 83, .38) !important;
+  color: #fff7df !important;
+}
+
+.alchemy-popup-head {
+  padding-right: 48px !important;
+  margin-bottom: 18px !important;
+}
+
+.alchemy-popup-head span {
+  color: #f6c453 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .08em !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+}
+
+.alchemy-popup-head h2 {
+  margin: 6px 0 8px !important;
+  color: #fff7df !important;
+  font-size: clamp(26px, 4vw, 40px) !important;
+  line-height: 1.1 !important;
+}
+
+.alchemy-popup-head p {
+  margin: 0 !important;
+  color: #dbe8ff !important;
+  line-height: 1.55 !important;
+}
+
+.alchemy-recipe-popup-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.alchemy-popup-recipe-card {
+  min-width: 0 !important;
+  border: 1px solid rgba(148, 163, 184, .22) !important;
+  border-radius: 18px !important;
+  background: rgba(15, 23, 42, .62) !important;
+  padding: 14px !important;
+  overflow: hidden !important;
+}
+
+.alchemy-card-title-row {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+.alchemy-card-title-row h3 {
+  margin: 0 !important;
+  color: #fff7df !important;
+  font-size: 17px !important;
+  line-height: 1.25 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.alchemy-card-title-row span,
+.alchemy-card-meta span {
+  flex: 0 0 auto !important;
+  color: #ffd166 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+}
+
+.alchemy-popup-recipe-card p {
+  color: #dbe8ff !important;
+  margin: 0 0 10px !important;
+  line-height: 1.45 !important;
+  overflow-wrap: anywhere !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 4 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+.alchemy-card-meta,
+.alchemy-card-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-top: 10px !important;
+}
+
+.alchemy-card-actions button,
+.alchemy-popup-actions button {
+  border-radius: 12px !important;
+  padding: 9px 13px !important;
+}
+
+.alchemy-detail-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.alchemy-detail-grid section {
+  min-width: 0 !important;
+  border: 1px solid rgba(148, 163, 184, .22) !important;
+  border-radius: 18px !important;
+  background: rgba(15, 23, 42, .58) !important;
+  padding: 14px !important;
+}
+
+.alchemy-detail-grid section.wide {
+  grid-column: 1 / -1 !important;
+}
+
+.alchemy-detail-grid h3 {
+  margin: 0 0 10px !important;
+  color: #ffd166 !important;
+  font-size: 17px !important;
+}
+
+.alchemy-detail-grid p {
+  margin: 0 !important;
+  color: #dbe8ff !important;
+  line-height: 1.6 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.alchemy-stat-line,
+.alchemy-material-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 9px 0 !important;
+  border-bottom: 1px dashed rgba(148, 163, 184, .18) !important;
+  color: #dbe8ff !important;
+}
+
+.alchemy-stat-line:last-child,
+.alchemy-material-row:last-child {
+  border-bottom: 0 !important;
+}
+
+.alchemy-stat-line b,
+.alchemy-material-row b {
+  color: #fff7df !important;
+  text-align: right !important;
+}
+
+.alchemy-popup-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-top: 18px !important;
+}
+
+.alchemy-empty-line {
+  color: #c9d6ea !important;
+}
+
+body.alchemy-popup-open {
+  overflow: hidden !important;
+}
+
+@media (max-width: 900px) {
+  #recipe-list.alchemy-realm-grid,
+  .alchemy-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 680px) {
+  .alchemy-popup {
+    padding: 12px !important;
+  }
+  .alchemy-popup-box {
+    padding: 18px !important;
+  }
+  .alchemy-recipe-popup-grid,
+  #pill-list.alchemy-pill-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* DAO_ALCHEMY_REAL_POPUP_V9_CSS_END */
+
