@@ -45,12 +45,12 @@
         <div class="resource-pill">
           <span class="resource-icon">💎</span>
           <span>Tiên Ngọc</span>
-          <strong>--</strong>
+          <strong id="top-jade-text">0</strong>
         </div>
         <div class="resource-pill">
           <span class="resource-icon">🪙</span>
           <span>Linh Thạch</span>
-          <strong>--</strong>
+          <strong id="top-spirit-stone-text">0</strong>
         </div>
         <div class="resource-pill">
           <span class="resource-icon">🔥</span>
@@ -60,6 +60,7 @@
       </section>
 
       <section class="top-actions">
+        <button id="theme-toggle-btn" class="icon-btn" type="button" title="Đổi sáng/tối">☾</button>
         <button id="refresh-btn" class="icon-btn" type="button" title="Làm mới">↻</button>
         <button id="toggle-auto-btn" class="icon-btn wide" type="button">Tạm dừng tự đánh</button>
         <button id="logout-btn" class="icon-btn" type="button" title="Thoát">⎋</button>
@@ -214,12 +215,16 @@
         <div class="panel-grid two-col">
           <article class="panel alchemy-panel wide" data-activity-mode="alchemy">
             <div class="panel-title"><span>Luyện Đan</span><small id="alchemy-bonus">+0%</small></div>
-            <p>Công thức ghi rõ nguyên liệu, thời gian và công hiệu.</p>
-            <div id="recipe-list" class="card-list recipe-list"></div>
+            <p>Không xổ danh sách dài. Bấm mở Đan Lô để chọn công thức trong khung nhỏ.</p>
+            <div class="alchemy-control-box">
+              <button id="open-alchemy-modal" class="primary-action" type="button">Mở Đan Lô</button>
+              <div id="selected-recipe-preview" class="selected-recipe-preview">Chưa chọn công thức.</div>
+            </div>
+            <div id="recipe-list" class="card-list recipe-list compact-hidden-host"></div>
           </article>
           <article class="panel wide">
             <div class="panel-title"><span>Đan Dược</span><small>Đã luyện</small></div>
-            <div id="pill-list" class="card-list pill-list"></div>
+            <div id="pill-list" class="item-grid pill-list"></div>
           </article>
         </div>
       </section>
@@ -246,21 +251,34 @@
       <section id="tab-inventory" class="tab-page">
         <div class="panel inventory-panel wide">
           <div class="panel-title"><span>Túi Đồ</span><small id="inventory-count">0 vật phẩm</small></div>
-          <div id="inventory-list" class="inventory-list"></div>
+          <p class="inventory-hint">Vật phẩm đã được xếp gọn. Đưa chuột vào từng ô để xem thông tin.</p>
+          <div id="inventory-list" class="inventory-list item-grid"></div>
         </div>
       </section>
     </main>
 
-    <nav class="bottom-nav">
-      <button class="nav-btn active" data-tab="cultivation" type="button"><span>🧘</span><b>Tu Luyện</b></button>
-      <button class="nav-btn" data-tab="combat" type="button"><span>⚔</span><b>Chiến Đấu</b></button>
-      <button class="nav-btn" data-tab="alchemy" type="button"><span>⚗</span><b>Luyện Đan</b></button>
-      <button class="nav-btn" data-tab="cave" type="button"><span>⛰</span><b>Động Phủ</b></button>
-      <button class="nav-btn" data-tab="inventory" type="button"><span>🎒</span><b>Túi Đồ</b></button>
-    </nav>
+
   </div>
 
+
+
+  <div id="alchemy-modal" class="modal-backdrop hidden" aria-hidden="true">
+    <section class="modal-card alchemy-modal-card">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Đan Đạo</p>
+          <h2>Đan Lô Cửu Chuyển</h2>
+        </div>
+        <button id="close-alchemy-modal" class="icon-btn" type="button">×</button>
+      </div>
+      <div class="alchemy-modal-layout">
+        <aside id="alchemy-recipe-picker" class="alchemy-recipe-picker"></aside>
+        <main id="alchemy-recipe-detail" class="alchemy-recipe-detail"></main>
+      </div>
+    </section>
+  </div>
   <script src="script.js"></script>
+  <script src="v2UiPatch.js"></script>
   <script src="actionLogClient.js"></script>
   <script src="realmAlchemyClientPatch.js"></script>
 </body>

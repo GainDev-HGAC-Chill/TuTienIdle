@@ -2,13 +2,13 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1782857031622,
-    "lastTick": 1782857031622,
+    "lastSave": 1782860703632,
+    "lastTick": 1782860703632,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
       "stage": 3,
-      "tuVi": 225,
+      "tuVi": 585,
       "maxTuVi": 878,
       "pendingBreakthrough": false
     },
@@ -169,8 +169,8 @@
     "autoFight": false,
     "stats": {
       "totalKills": 373,
-      "totalTuVi": 22624,
-      "playTime": 12456
+      "totalTuVi": 22984,
+      "playTime": 12496
     },
     "permanentBonuses": {
       "atk": 0,
@@ -181,7 +181,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8180
+        "aura": 8187
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -249,7 +249,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.971967592586918,
+      "ageYears": 17.0138194444387,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -302,7 +302,7 @@
       ]
     },
     "temporaryPenalties": [],
-    "activeTab": "inventory",
+    "activeTab": "cultivation",
     "alchemy": {
       "level": 1,
       "exp": 0,
