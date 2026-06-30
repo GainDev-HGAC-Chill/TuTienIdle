@@ -2,13 +2,13 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1782033682921,
-    "lastTick": 1782033682921,
+    "lastSave": 1782857031622,
+    "lastTick": 1782857031622,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
       "stage": 3,
-      "tuVi": 18,
+      "tuVi": 225,
       "maxTuVi": 878,
       "pendingBreakthrough": false
     },
@@ -21,11 +21,11 @@
     "soulCultivation": {
       "rank": 6,
       "name": "Luyện Khí Hồn 6/9",
-      "exp": 156,
+      "exp": 246,
       "maxExp": 942
     },
     "cultivationFocus": [
-      "soul"
+      "main"
     ],
     "techniques": {
       "equipped": {
@@ -166,11 +166,11 @@
       "tien_ngoc": 0
     },
     "currentZone": "vuong_lao_ba_suong",
-    "autoFight": true,
+    "autoFight": false,
     "stats": {
       "totalKills": 373,
-      "totalTuVi": 22417,
-      "playTime": 12423
+      "totalTuVi": 22624,
+      "playTime": 12456
     },
     "permanentBonuses": {
       "atk": 0,
@@ -181,7 +181,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8174
+        "aura": 8180
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -189,7 +189,7 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 0,
+      "fightProgress": 2556,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "doc_diep_trung",
@@ -249,7 +249,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 16.924687499994413,
+      "ageYears": 16.971967592586918,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -302,7 +302,7 @@
       ]
     },
     "temporaryPenalties": [],
-    "activeTab": "alchemy",
+    "activeTab": "inventory",
     "alchemy": {
       "level": 1,
       "exp": 0,
