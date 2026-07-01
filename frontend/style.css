@@ -1256,3 +1256,196 @@ body.theme-dark input {
     display: none;
   }
 }
+
+
+/* ===============================
+   UI V2.2 - Thu gọn khung Thiên Đài
+   =============================== */
+.compact-hero {
+  min-height: 142px;
+  display: grid;
+  grid-template-columns: 180px minmax(260px, 1fr);
+  align-items: center;
+  justify-items: stretch;
+  gap: 18px;
+  padding: 16px 24px;
+  margin-bottom: 14px;
+  border-radius: 26px;
+}
+
+.compact-hero .sr-only-hero {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.compact-hero::before,
+.compact-hero::after {
+  height: 100%;
+  opacity: 0.34;
+}
+
+.compact-figure {
+  width: 150px;
+  height: 110px;
+  justify-self: center;
+}
+
+.compact-figure .cultivator-body {
+  width: 74px;
+  height: 74px;
+  font-size: 34px;
+}
+
+.compact-figure .ring-a {
+  width: 112px;
+  height: 112px;
+}
+
+.compact-figure .ring-b {
+  width: 88px;
+  height: 88px;
+}
+
+.compact-figure .aura-line {
+  width: 132px;
+  bottom: 12px;
+}
+
+.hero-quick-info {
+  position: relative;
+  z-index: 2;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.hero-main-realm {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero-main-realm span {
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.hero-main-realm strong {
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1.1;
+  text-align: right;
+}
+
+.hero-exp-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.hero-exp-line b {
+  color: var(--jade);
+}
+
+.hero-progress {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(22, 55, 76, 0.12);
+}
+
+.hero-progress span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--jade));
+  box-shadow: 0 0 18px rgba(109, 219, 243, 0.58);
+  transition: width 0.25s ease;
+}
+
+.hero-mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hero-mini-stats span {
+  min-width: 0;
+  padding: 9px 10px;
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.36);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-mini-stats b {
+  font-weight: 900;
+}
+
+.theme-dark .hero-mini-stats span {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 900px) {
+  .compact-hero {
+    grid-template-columns: 1fr;
+    min-height: 190px;
+    padding: 14px;
+  }
+
+  .compact-figure {
+    height: 96px;
+  }
+
+  .hero-main-realm {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-main-realm strong {
+    text-align: left;
+    font-size: 20px;
+  }
+
+  .hero-mini-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ===============================
+   UI V2.3 - Loại bỏ Thiên Đài/Hero dư thừa
+   =============================== */
+.main-stage {
+  padding-top: 18px;
+}
+
+.tab-page.active:first-child {
+  margin-top: 0;
+}
+
+.overview-grid {
+  margin-top: 0;
+}

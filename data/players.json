@@ -2,20 +2,20 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1782860703632,
-    "lastTick": 1782860703632,
+    "lastSave": 1782946355637,
+    "lastTick": 1782946355637,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
-      "stage": 3,
-      "tuVi": 585,
-      "maxTuVi": 878,
+      "stage": 4,
+      "tuVi": 0,
+      "maxTuVi": 1233,
       "pendingBreakthrough": false
     },
     "bodyCultivation": {
       "rank": 11,
       "name": "Trúc Cơ Thể 2/9",
-      "exp": 1439,
+      "exp": 2573,
       "maxExp": 4716
     },
     "soulCultivation": {
@@ -25,7 +25,7 @@
       "maxExp": 942
     },
     "cultivationFocus": [
-      "main"
+      "body"
     ],
     "techniques": {
       "equipped": {
@@ -86,10 +86,10 @@
       }
     },
     "combat": {
-      "hp": 350,
-      "maxHp": 350,
-      "atk": 56,
-      "def": 28,
+      "hp": 360,
+      "maxHp": 360,
+      "atk": 58,
+      "def": 29,
       "speed": 5,
       "critRate": 0.05,
       "critDmg": 1.5
@@ -159,7 +159,7 @@
       }
     ],
     "currencies": {
-      "so_linh_thach": 512,
+      "so_linh_thach": 525,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
@@ -168,9 +168,9 @@
     "currentZone": "vuong_lao_ba_suong",
     "autoFight": false,
     "stats": {
-      "totalKills": 373,
-      "totalTuVi": 22984,
-      "playTime": 12496
+      "totalKills": 377,
+      "totalTuVi": 55447,
+      "playTime": 16242
     },
     "permanentBonuses": {
       "atk": 0,
@@ -181,7 +181,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8187
+        "aura": 8190
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -189,30 +189,30 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 2556,
+      "fightProgress": 0,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "doc_diep_trung",
         "name": "Độc Diệp Trùng",
-        "hp": 41,
+        "hp": 44,
         "atk": 7,
         "def": 2,
         "tuViReward": 12,
         "stoneReward": 3,
         "mapId": "vuong_lao_ba_suong"
       },
-      "monsterHp": 41,
-      "monsterMaxHp": 41,
-      "status": "Combat tạm dừng do đang ở mục khác.",
+      "monsterHp": 44,
+      "monsterMaxHp": 44,
+      "status": "Tự đánh đang tắt.",
       "logs": [
-        "[14:52:24] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
-        "[14:52:30] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -56 HP.",
-        "[14:52:30] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
-        "[14:52:33] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -57 HP.",
-        "[14:52:33] Hạ Sương Ảnh Yêu, nhận 4 linh thạch.",
-        "[14:52:33] Nhặt được Hạt Giống Kim Dương Chi.",
-        "[14:54:21] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -61 HP.",
-        "[14:54:21] Hạ Độc Diệp Trùng, nhận 3 linh thạch."
+        "[05:37:48] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -61 HP.",
+        "[05:37:48] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
+        "[05:37:52] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -75 HP.",
+        "[05:37:52] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
+        "[05:37:55] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -63 HP.",
+        "[05:37:55] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
+        "[05:37:58] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -65 HP.",
+        "[05:37:58] Hạ Sương Ảnh Yêu, nhận 4 linh thạch."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -249,7 +249,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 17.0138194444387,
+      "ageYears": 17.065983796290336,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -302,7 +302,7 @@
       ]
     },
     "temporaryPenalties": [],
-    "activeTab": "cultivation",
+    "activeTab": "combat",
     "alchemy": {
       "level": 1,
       "exp": 0,

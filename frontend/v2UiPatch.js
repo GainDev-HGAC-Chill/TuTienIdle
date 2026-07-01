@@ -197,7 +197,8 @@
         selectedRecipeId = btn.dataset.selectRecipe;
         localStorage.setItem('tuTienSelectedRecipeId', selectedRecipeId);
         renderAlchemyModal();
-        renderSelectedRecipePreview();
+        updateCompactHero();
+    renderSelectedRecipePreview();
       });
     });
     const recipe = getRecipe(selectedRecipeId);
@@ -270,12 +271,36 @@
     </div>`;
   }
 
+
+
+  function updateCompactHero() {
+    const p = currentPlayer();
+    if (!p) return;
+    const c = p.cultivation || {};
+    const currencies = p.currencies || {};
+    const cur = Number(c.exp ?? c.tuVi ?? 0);
+    const max = Number(c.maxExp ?? c.maxTuVi ?? 0);
+    const rate = p.pillEffects?.tuViGainPerSecond || p.tuViGainPerSecond || 0;
+    const percent = max > 0 ? Math.max(0, Math.min(100, cur / max * 100)) : 0;
+    setText('hero-realm-text', c.realmName || '-');
+    setText('hero-tuvi-text', `${viFmt(cur)} / ${viFmt(max)}`);
+    setText('hero-rate-text', `+${viFmt(rate)}/s`);
+    setText('hero-stone-text', viFmt(currencies.linh_thach || currencies.so_linh_thach || currencies.spirit_stone || currencies.spiritStone || 0));
+    setText('hero-jade-text', viFmt(currencies.tien_ngoc || currencies.jade || 0));
+    const lifespan = p.lifespan || p.life || p.ageInfo || {};
+    const lifeText = p.lifespanText || (p.age != null && p.maxAge != null ? `${viFmt(p.age)} / ${viFmt(p.maxAge)} năm` : (lifespan.current != null && lifespan.max != null ? `${viFmt(lifespan.current)} / ${viFmt(lifespan.max)} năm` : '-'));
+    setText('hero-life-text', lifeText);
+    const bar = $id('hero-exp-bar');
+    if (bar) bar.style.width = `${percent}%`;
+  }
+
   window.renderAlchemy = function renderAlchemyV2() {
     const p = currentPlayer();
     if (!p) return;
     setText('alchemy-bonus', `+${viFmt(p.cave?.alchemyBonus || 0)}%`);
     const recipeHost = $id('recipe-list');
     if (recipeHost) recipeHost.innerHTML = '';
+    updateCompactHero();
     renderSelectedRecipePreview();
     const openBtn = $id('open-alchemy-modal');
     if (openBtn && !openBtn.dataset.bound) {
@@ -325,6 +350,7 @@
 
   window.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    setInterval(updateCompactHero, 1000);
     $id('theme-toggle-btn')?.addEventListener('click', toggleTheme);
     $id('close-alchemy-modal')?.addEventListener('click', closeAlchemyModal);
     $id('alchemy-modal')?.addEventListener('click', event => {
