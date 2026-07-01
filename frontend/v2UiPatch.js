@@ -348,10 +348,129 @@
     if (btn) btn.textContent = nextDark ? '☀' : '☾';
   }
 
+
+  function percent(cur, max) {
+    const a = Number(cur || 0);
+    const b = Number(max || 0);
+    return b > 0 ? Math.max(0, Math.min(100, a / b * 100)) : 0;
+  }
+
+  function setBarWidth(id, value) {
+    const el = $id(id);
+    if (el) el.style.width = `${Math.max(0, Math.min(100, Number(value || 0)))}%`;
+  }
+
+  function currentMapId(player) {
+    return player?.currentMap?.id || player?.currentMap?.mapId || player?.mapId || player?.zoneId || '';
+  }
+
+  function mapGroupTitle(map) {
+    const world = map.worldName || map.world || 'Sơn Hải';
+    const realm = map.realmName || map.realm || 'Cảnh giới';
+    return `${world} · ${realm}`;
+  }
+
+  function renderMapPicker(maps, activeId) {
+    if (!maps.length) return '<p class="empty">Chưa mở map.</p>';
+    const grouped = new Map();
+    maps.forEach(map => {
+      const key = mapGroupTitle(map);
+      if (!grouped.has(key)) grouped.set(key, []);
+      grouped.get(key).push(map);
+    });
+    return [...grouped.entries()].map(([title, items]) => `
+      <section class="map-picker-group">
+        <h3>${html(title)}</h3>
+        ${items.map(map => {
+          const id = map.id || map.mapId || map.zoneId || '';
+          const active = String(id) === String(activeId) ? ' active' : '';
+          const desc = map.description || map.monsterName || map.enemyName || 'Đạo địa đã mở';
+          return `<button class="map-picker-btn${active}" type="button" data-map="${html(id)}">
+            <span><b>${html(map.name || id || 'Vô danh địa')}</b><small>${html(desc)}</small></span>
+            <em>${html(map.realmName || map.realm || '')}</em>
+          </button>`;
+        }).join('')}
+      </section>
+    `).join('');
+  }
+
+  function openMapModal() {
+    const box = $id('combat-map-popover');
+    if (!box) return;
+    box.classList.remove('hidden');
+    box.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeMapModal() {
+    const box = $id('combat-map-popover');
+    if (!box) return;
+    box.classList.add('hidden');
+    box.setAttribute('aria-hidden', 'true');
+  }
+
+  window.renderCombat = function renderCombatV2() {
+    const p = currentPlayer();
+    if (!p) return;
+    const map = p.currentMap || {};
+    const state = p.combatState || {};
+    const combat = p.combat || {};
+    const monster = state.currentMonster || {};
+    const activeTab = p.activeTab || localStorage.getItem('tuTienActiveTab') || 'overview';
+    const maps = Array.isArray(p.unlockedMaps) ? p.unlockedMaps : [];
+    const activeMapId = currentMapId(p);
+
+    setText('combat-zone', map.name || p.zoneName || '-');
+    setText('current-map-name', map.name || p.zoneName || 'Chưa chọn map');
+    setText('current-map-desc', map.description || map.realmName || map.worldName || 'Bấm Chọn Map để đổi khu vực.');
+    setText('monster-name', monster.name || 'Không rõ');
+    setText('combat-status', activeTab === 'combat' ? (state.status || (p.autoFight ? 'Đang tự đánh' : 'Tự đánh đang tắt')) : 'Combat tạm dừng vì đang ở mục khác.');
+    setText('combat-player-hp', `${viFmt(combat.hp)} / ${viFmt(combat.maxHp)}`);
+    setText('combat-monster-hp', `${viFmt(state.monsterHp)} / ${viFmt(state.monsterMaxHp)}`);
+    const fightPct = percent(state.fightProgress || 0, state.fightDuration || 3000);
+    setText('fight-progress-text', `${Math.round(fightPct)}%`);
+    setBarWidth('fight-progress-bar', fightPct);
+    setBarWidth('player-hp-bar', percent(combat.hp, combat.maxHp));
+    setBarWidth('monster-hp-bar', percent(state.monsterHp, state.monsterMaxHp));
+    setText('auto-fight-status', p.autoFight ? 'Đang bật' : 'Đang tắt');
+    setText('kill-count', viFmt(p.stats?.totalKills || 0));
+    setText('death-penalty', `${viFmt(state.deathPenaltyPercent || p.temporaryPenaltyPercent || 0)}%`);
+
+    const mapList = $id('map-list');
+    if (mapList) {
+      mapList.innerHTML = renderMapPicker(maps, activeMapId);
+      mapList.querySelectorAll('[data-map]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (typeof window.changeMap === 'function') {
+            window.changeMap(btn.dataset.map);
+          } else {
+            console.warn('Không tìm thấy hàm changeMap trong script.js');
+          }
+          closeMapModal();
+        });
+      });
+    }
+
+    const logs = Array.isArray(state.logs) ? state.logs : [];
+    const logBox = $id('combat-logs');
+    if (logBox) {
+      logBox.innerHTML = logs.length
+        ? logs.slice(-24).reverse().map(line => `<div>${html(line)}</div>`).join('')
+        : '<p class="empty">Chưa có nhật ký.</p>';
+    }
+  };
+
   window.addEventListener('DOMContentLoaded', () => {
     initTheme();
     setInterval(updateCompactHero, 1000);
     $id('theme-toggle-btn')?.addEventListener('click', toggleTheme);
+    $id('open-map-modal')?.addEventListener('click', openMapModal);
+    $id('close-map-modal')?.addEventListener('click', closeMapModal);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeMapModal();
+        closeAlchemyModal();
+      }
+    });
     $id('close-alchemy-modal')?.addEventListener('click', closeAlchemyModal);
     $id('alchemy-modal')?.addEventListener('click', event => {
       if (event.target?.id === 'alchemy-modal') closeAlchemyModal();

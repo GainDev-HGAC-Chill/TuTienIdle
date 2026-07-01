@@ -151,6 +151,24 @@
         <div class="panel-grid combat-grid">
           <article class="panel combat-arena" data-activity-mode="combat">
             <div class="panel-title"><span>Khu Vực Combat</span><small id="combat-zone">-</small></div>
+            <div class="combat-map-strip">
+              <div>
+                <small>Đạo địa đang chọn</small>
+                <strong id="current-map-name">Chưa chọn map</strong>
+                <span id="current-map-desc">Bấm Chọn Map để đổi khu vực.</span>
+              </div>
+              <button id="open-map-modal" class="primary-action slim" type="button">Chọn Map</button>
+            </div>
+            <div id="combat-map-popover" class="combat-map-popover hidden" aria-hidden="true">
+              <div class="combat-map-popover-head">
+                <div>
+                  <p class="eyebrow">Sơn Hà Đồ</p>
+                  <h3>Chọn Khu Vực</h3>
+                </div>
+                <button id="close-map-modal" class="icon-btn" type="button">×</button>
+              </div>
+              <div id="map-list" class="map-list map-popup-list"></div>
+            </div>
             <div class="monster-emblem">獸</div>
             <h2 id="monster-name">Không rõ</h2>
             <p id="combat-status">Chọn map để bắt đầu tự đánh.</p>
@@ -161,19 +179,16 @@
             </div>
           </article>
 
-          <article class="panel map-panel">
-            <div class="panel-title"><span>Map Đã Mở</span><small>Theo cảnh giới</small></div>
-            <div id="map-list" class="map-list"></div>
-          </article>
-
-          <article class="panel status-panel">
+          <article class="panel status-panel combat-side-card">
             <div class="panel-title"><span>Trạng thái</span><small>Chiến sự</small></div>
-            <div class="stat-row"><span>Tự đánh</span><strong id="auto-fight-status">-</strong></div>
-            <div class="stat-row"><span>Quái đã hạ</span><strong id="kill-count">0</strong></div>
-            <div class="stat-row"><span>Phạt trọng thương</span><strong id="death-penalty">0%</strong></div>
+            <div class="combat-state-grid">
+              <div><span>Tự đánh</span><strong id="auto-fight-status">-</strong></div>
+              <div><span>Hạ quái</span><strong id="kill-count">0</strong></div>
+              <div><span>Trọng thương</span><strong id="death-penalty">0%</strong></div>
+            </div>
           </article>
 
-          <article class="panel combat-log-panel wide">
+          <article class="panel combat-log-panel combat-side-card">
             <div class="panel-title"><span>Nhật Ký Combat</span><small>Sát phạt</small></div>
             <div id="combat-logs" class="log-list combat-log"></div>
           </article>

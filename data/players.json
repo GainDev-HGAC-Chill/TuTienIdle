@@ -2,8 +2,8 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1782946355637,
-    "lastTick": 1782946355637,
+    "lastSave": 1782946761642,
+    "lastTick": 1782946761642,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
@@ -15,7 +15,7 @@
     "bodyCultivation": {
       "rank": 11,
       "name": "Trúc Cơ Thể 2/9",
-      "exp": 2573,
+      "exp": 3392,
       "maxExp": 4716
     },
     "soulCultivation": {
@@ -170,7 +170,7 @@
     "stats": {
       "totalKills": 377,
       "totalTuVi": 55447,
-      "playTime": 16242
+      "playTime": 16333
     },
     "permanentBonuses": {
       "atk": 0,
@@ -189,7 +189,7 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 0,
+      "fightProgress": 2527,
       "fightDuration": 3000,
       "currentMonster": {
         "id": "doc_diep_trung",
@@ -203,7 +203,7 @@
       },
       "monsterHp": 44,
       "monsterMaxHp": 44,
-      "status": "Tự đánh đang tắt.",
+      "status": "Combat tạm dừng do đang ở mục khác.",
       "logs": [
         "[05:37:48] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -61 HP.",
         "[05:37:48] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
@@ -249,7 +249,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 17.065983796290336,
+      "ageYears": 17.070312499993996,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5
@@ -302,7 +302,7 @@
       ]
     },
     "temporaryPenalties": [],
-    "activeTab": "combat",
+    "activeTab": "cultivation",
     "alchemy": {
       "level": 1,
       "exp": 0,
