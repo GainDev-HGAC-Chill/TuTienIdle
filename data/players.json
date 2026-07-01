@@ -2,26 +2,26 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1782946761642,
-    "lastTick": 1782946761642,
+    "lastSave": 1782946895634,
+    "lastTick": 1782946895634,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
       "stage": 4,
-      "tuVi": 0,
+      "tuVi": 27,
       "maxTuVi": 1233,
       "pendingBreakthrough": false
     },
     "bodyCultivation": {
       "rank": 11,
       "name": "Trúc Cơ Thể 2/9",
-      "exp": 3392,
+      "exp": 3707,
       "maxExp": 4716
     },
     "soulCultivation": {
       "rank": 6,
       "name": "Luyện Khí Hồn 6/9",
-      "exp": 246,
+      "exp": 264,
       "maxExp": 942
     },
     "cultivationFocus": [
@@ -169,8 +169,8 @@
     "autoFight": false,
     "stats": {
       "totalKills": 377,
-      "totalTuVi": 55447,
-      "playTime": 16333
+      "totalTuVi": 55474,
+      "playTime": 16373
     },
     "permanentBonuses": {
       "atk": 0,
@@ -249,7 +249,7 @@
       }
     ],
     "lifespan": {
-      "ageYears": 17.070312499993996,
+      "ageYears": 17.071597222216194,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5

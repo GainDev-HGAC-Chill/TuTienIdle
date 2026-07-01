@@ -333,6 +333,103 @@
     box.innerHTML = currencyHtml + itemHtml || '<p class="empty">Túi đồ trống.</p>';
   };
 
+
+
+  function cultivationProgressData(type) {
+    const p = currentPlayer() || {};
+    if (type === 'main') {
+      const c = p.cultivation || {};
+      return {
+        type,
+        title: c.realmName || 'Tu Luyện',
+        cur: c.exp ?? c.tuVi ?? 0,
+        max: c.maxExp ?? c.maxTuVi ?? 100,
+        sub: c.info?.worldName || c.worldName || 'Đạo cảnh',
+        icon: '☯'
+      };
+    }
+    if (type === 'body') {
+      const b = p.bodyCultivation || {};
+      return {
+        type,
+        title: b.info?.name || b.name || 'Luyện Thể',
+        cur: b.exp || 0,
+        max: b.maxExp || 100,
+        sub: 'Khí huyết rèn thân',
+        icon: '⚔'
+      };
+    }
+    const soul = p.soulCultivation || {};
+    return {
+      type,
+      title: soul.info?.name || soul.name || 'Luyện Hồn',
+      cur: soul.exp || 0,
+      max: soul.maxExp || 100,
+      sub: 'Thần thức dưỡng hồn',
+      icon: '✦'
+    };
+  }
+
+  function systemTitle(type) {
+    return { main: 'Tu Luyện', cultivation: 'Tu Luyện', body: 'Luyện Thể', soul: 'Luyện Hồn' }[type] || type || '-';
+  }
+
+  function renderBuffCard(buff) {
+    const name = html(buff.name || buff.id || 'Linh đan');
+    const remain = buff.remainingMs ? `Còn ${secondsText(buff.remainingMs)}` : 'Đang hiệu lực';
+    return `<div class="mini-card"><b>${name}</b><span>${html(remain)}</span></div>`;
+  }
+
+  window.renderCultivation = function renderCultivationV2Compact() {
+    const p = currentPlayer();
+    if (!p) return;
+    const c = p.cultivation || {};
+    const tuviGain = p.pillEffects?.tuViGainPerSecond || p.tuViGainPerSecond || 1;
+    setText('cultivation-title', `${c.realmName || '-'} · ${viFmt(c.exp ?? c.tuVi)} / ${viFmt(c.maxExp ?? c.maxTuVi)}`);
+    setText('cult-world', c.info?.worldName || c.worldName || '-');
+    setText('cult-type', c.info?.name || '-');
+    setText('tuvi-rate', `${viFmt(tuviGain)}/s`);
+
+    const state = p.cultivationFocusState || { selected: ['main'], limit: 1, options: ['main', 'body', 'soul'] };
+    const selected = Array.isArray(state.selected) ? state.selected : ['main'];
+    const options = Array.isArray(state.options) ? state.options : ['main', 'body', 'soul'];
+    const host = $id('cultivation-progress-panels');
+    if (host) {
+      host.innerHTML = options.map(type => {
+        const d = cultivationProgressData(type);
+        const w = percent(d.cur, d.max);
+        const active = selected.includes(type);
+        const disabled = !active && selected.length >= Number(state.limit || 1);
+        return `<button class="cultivation-choice ${active ? 'is-active' : ''} ${disabled ? 'is-limited' : ''}" type="button" data-focus="${html(type)}">
+          <span class="cultivation-choice-head"><i>${html(d.icon)}</i><b>${html(systemTitle(type))}</b><em>${active ? 'Đang tu' : (disabled ? 'Đủ mạch' : 'Chọn tu')}</em></span>
+          <strong>${html(d.title)}</strong>
+          <small>${html(d.sub)}</small>
+          <span class="mini-progress"><span style="width:${w}%"></span></span>
+          <span class="cultivation-choice-foot"><span>${viFmt(d.cur)} / ${viFmt(d.max)}</span><span>${Math.round(w)}%</span></span>
+        </button>`;
+      }).join('');
+    }
+
+    const mainPanel = document.querySelector('.cultivation-main');
+    if (mainPanel) {
+      mainPanel.dataset.focusInfo = `Đang tu ${selected.length}/${state.limit || 1} mạch`;
+    }
+
+    document.querySelectorAll('[data-focus]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (typeof window.toggleFocus === 'function') window.toggleFocus(btn.dataset.focus);
+      });
+    });
+
+    const buffs = p.activePillBuffs || [];
+    const buffHost = $id('pill-buffs');
+    if (buffHost) {
+      buffHost.innerHTML = buffs.length ? buffs.map(renderBuffCard).join('') : '<p class="empty">Chưa có buff đan.</p>';
+    }
+    updateCompactHero();
+  };
+
+
   function initTheme() {
     const saved = localStorage.getItem('tuTienTheme') || 'light';
     document.body.classList.toggle('theme-dark', saved === 'dark');

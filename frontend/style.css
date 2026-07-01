@@ -1668,3 +1668,149 @@ body.theme-dark input {
     width: auto;
   }
 }
+
+
+/* UI V2.5 - Tu luyện gọn: chọn mạch trực tiếp trong khung Tu Luyện */
+.cultivation-main {
+  position: relative;
+}
+
+.cultivation-main::after {
+  content: attr(data-focus-info);
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent-strong);
+}
+
+.cultivation-main > p {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 16px 10px 0;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.38);
+  font-size: 12px;
+}
+
+.theme-dark .cultivation-main > p {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cultivation-main .progress-card-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cultivation-choice {
+  width: 100%;
+  min-height: 156px;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 14px;
+  background: linear-gradient(145deg, rgba(255,255,255,.58), rgba(255,255,255,.22));
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.theme-dark .cultivation-choice {
+  background: linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+}
+
+.cultivation-choice:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.cultivation-choice.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(83, 205, 216, .25), var(--shadow-soft);
+}
+
+.cultivation-choice.is-limited:not(.is-active) {
+  opacity: .72;
+}
+
+.cultivation-choice-head,
+.cultivation-choice-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cultivation-choice-head i {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(97, 199, 216, .16);
+  font-style: normal;
+}
+
+.cultivation-choice-head b {
+  margin-right: auto;
+}
+
+.cultivation-choice-head em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-strong);
+}
+
+.cultivation-choice strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.cultivation-choice small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.cultivation-choice-foot {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.mini-progress {
+  display: block;
+  height: 8px;
+  margin-top: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(24, 52, 66, .14);
+}
+
+.mini-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+}
+
+@media (max-width: 980px) {
+  .cultivation-main .progress-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cultivation-main::after {
+    position: static;
+    display: inline-block;
+    margin: 0 0 8px 0;
+  }
+}
