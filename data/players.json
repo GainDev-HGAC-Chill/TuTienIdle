@@ -2,30 +2,30 @@
   "GainGain": {
     "username": "GainGain",
     "createdAt": 1781870440029,
-    "lastSave": 1782946895634,
-    "lastTick": 1782946895634,
+    "lastSave": 1782999617121,
+    "lastTick": 1782999617121,
     "cultivation": {
       "world": "nhan_gioi",
       "realmIndex": 2,
       "stage": 4,
-      "tuVi": 27,
+      "tuVi": 471,
       "maxTuVi": 1233,
       "pendingBreakthrough": false
     },
     "bodyCultivation": {
       "rank": 11,
       "name": "Trúc Cơ Thể 2/9",
-      "exp": 3707,
+      "exp": 4559,
       "maxExp": 4716
     },
     "soulCultivation": {
-      "rank": 6,
-      "name": "Luyện Khí Hồn 6/9",
-      "exp": 264,
-      "maxExp": 942
+      "rank": 8,
+      "name": "Luyện Khí Hồn 8/9",
+      "exp": 1397,
+      "maxExp": 1833
     },
     "cultivationFocus": [
-      "body"
+      "soul"
     ],
     "techniques": {
       "equipped": {
@@ -145,32 +145,32 @@
       {
         "id": "linh_thuy_cap_3",
         "name": "Linh Thủy Cấp 3",
-        "amount": 2
+        "amount": 5
       },
       {
         "id": "linh_nhuong_cap_4",
         "name": "Linh Nhưỡng Cấp 4",
-        "amount": 1
+        "amount": 2
       },
       {
         "id": "hat_giong_kim_dan",
         "name": "Hạt Giống Kim Dương Chi",
-        "amount": 1
+        "amount": 4
       }
     ],
     "currencies": {
-      "so_linh_thach": 525,
+      "so_linh_thach": 677,
       "trung_linh_thach": 0,
       "cao_linh_thach": 0,
       "cuc_pham_linh_thach": 0,
       "tien_ngoc": 0
     },
     "currentZone": "vuong_lao_ba_suong",
-    "autoFight": false,
+    "autoFight": true,
     "stats": {
-      "totalKills": 377,
-      "totalTuVi": 55474,
-      "playTime": 16373
+      "totalKills": 393,
+      "totalTuVi": 55918,
+      "playTime": 16787
     },
     "permanentBonuses": {
       "atk": 0,
@@ -181,7 +181,7 @@
     "cave": {
       "level": 1,
       "resources": {
-        "aura": 8190
+        "aura": 14019
       },
       "buildings": {},
       "auraPerSecond": 1,
@@ -189,30 +189,30 @@
     },
     "activePillBuffs": [],
     "combatState": {
-      "fightProgress": 2527,
+      "fightProgress": 2995,
       "fightDuration": 3000,
       "currentMonster": {
-        "id": "doc_diep_trung",
-        "name": "Độc Diệp Trùng",
-        "hp": 44,
-        "atk": 7,
-        "def": 2,
-        "tuViReward": 12,
-        "stoneReward": 3,
+        "id": "suong_anh_yeu",
+        "name": "Sương Ảnh Yêu",
+        "hp": 51,
+        "atk": 8,
+        "def": 3,
+        "tuViReward": 14,
+        "stoneReward": 4,
         "mapId": "vuong_lao_ba_suong"
       },
-      "monsterHp": 44,
-      "monsterMaxHp": 44,
+      "monsterHp": 51,
+      "monsterMaxHp": 51,
       "status": "Combat tạm dừng do đang ở mục khác.",
       "logs": [
-        "[05:37:48] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -61 HP.",
-        "[05:37:48] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
-        "[05:37:52] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -75 HP.",
-        "[05:37:52] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
-        "[05:37:55] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -63 HP.",
-        "[05:37:55] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
-        "[05:37:58] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -65 HP.",
-        "[05:37:58] Hạ Sương Ảnh Yêu, nhận 4 linh thạch."
+        "[20:38:49] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
+        "[20:38:49] Nhặt được Hạt Giống Kim Dương Chi.",
+        "[20:38:52] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -59 HP.",
+        "[20:38:52] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
+        "[20:38:58] Thi triển Man Ngưu Quyền, đánh Độc Diệp Trùng -64 HP.",
+        "[20:38:58] Hạ Độc Diệp Trùng, nhận 3 linh thạch.",
+        "[20:39:04] Thi triển Man Ngưu Quyền, đánh Sương Ảnh Yêu -91 HP.",
+        "[20:39:04] Hạ Sương Ảnh Yêu, nhận 4 linh thạch."
       ],
       "deathCount": 2,
       "deathPenaltyPercent": 3,
@@ -249,17 +249,17 @@
       }
     ],
     "lifespan": {
-      "ageYears": 17.071597222216194,
+      "ageYears": 17.14703703703087,
       "maxYears": 390,
       "usedPills": {
         "tho_nguyen_dan": 5
       }
     },
     "interaction": {
-      "type": "garden",
-      "label": "thu hoạch dược liệu",
-      "until": 1781959496496,
-      "startedAt": 1781959495696
+      "type": null,
+      "label": "",
+      "until": 0,
+      "startedAt": 1782996886763
     },
     "encounter": {
       "active": null,
@@ -298,11 +298,18 @@
           "name": "Cổ Mộ Dược Viên",
           "choice": "Hái linh dược",
           "at": 1781935106169
+        },
+        {
+          "name": "Động Phủ Vô Chủ",
+          "choice": "Lục soát bảo khố",
+          "reward": "+96 Sơ Linh Thạch",
+          "penalty": "Giảm 4% thuộc tính trong 45 phút",
+          "at": 1782996886763
         }
       ]
     },
     "temporaryPenalties": [],
-    "activeTab": "cultivation",
+    "activeTab": "overview",
     "alchemy": {
       "level": 1,
       "exp": 0,
