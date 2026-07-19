@@ -1,42 +1,61 @@
-const { query, transaction } = require('../db/mysql');
+const { getPool, transaction } = require('../db/mysql');
 
-async function findById(playerId) {
-  const rows = await query(`SELECT p.*, c.main_realm_id,c.main_layer,c.main_exp,c.body_realm_id,c.body_layer,c.body_exp,c.soul_realm_id,c.soul_layer,c.soul_exp FROM players p JOIN player_cultivation c ON c.player_id=p.id WHERE p.id=? LIMIT 1`, [playerId]);
+async function findById(id, connection = getPool(), lock = false) {
+  const [rows] = await connection.query(`
+    SELECT p.*, c.main_realm_index,c.main_layer,c.main_exp,c.body_realm_index,c.body_layer,c.body_exp,
+           c.soul_realm_index,c.soul_layer,c.soul_exp,
+           a.max_hp,a.max_mp,a.attack_value,a.defense_value,a.crit_rate,a.cultivation_rate,
+           s.map_id,s.monster_id,s.monster_hp,s.monster_max_hp,s.wins,s.losses
+    FROM players p
+    JOIN player_cultivation c ON c.player_id=p.id
+    JOIN player_attributes a ON a.player_id=p.id
+    JOIN player_combat_state s ON s.player_id=p.id
+    WHERE p.id=? ${lock ? 'FOR UPDATE' : ''}`, [id]);
   return rows[0] || null;
 }
 
 async function findByName(name) {
-  const rows = await query(`SELECT p.*, c.main_realm_id,c.main_layer,c.main_exp,c.body_realm_id,c.body_layer,c.body_exp,c.soul_realm_id,c.soul_layer,c.soul_exp FROM players p JOIN player_cultivation c ON c.player_id=p.id WHERE p.name=? LIMIT 1`, [name]);
-  return rows[0] || null;
+  const [rows] = await getPool().query('SELECT id FROM players WHERE name=? LIMIT 1', [name]);
+  return rows[0] ? findById(rows[0].id) : null;
 }
 
-async function listInventory(playerId) {
-  return query('SELECT id,item_id,quantity,bind_type,slot_index,metadata FROM player_inventory WHERE player_id=? ORDER BY slot_index,id', [playerId]);
-}
-
-async function createPlayer(name) {
-  return transaction(async conn => {
-    const [existing] = await conn.execute('SELECT id FROM players WHERE name=? LIMIT 1', [name]);
-    if (existing.length) {
-      const error = new Error('Đạo hiệu đã tồn tại.');
-      error.statusCode = 409;
-      error.code = 'PLAYER_ALREADY_EXISTS';
+async function create(name) {
+  return transaction(async connection => {
+    const clean = String(name || '').trim().replace(/\s+/g, ' ');
+    if (clean.length < 2 || clean.length > 24) {
+      const error = new Error('Đạo hiệu phải từ 2 đến 24 ký tự.'); error.statusCode = 400; throw error;
+    }
+    try {
+      const [result] = await connection.query('INSERT INTO players(name) VALUES(?)', [clean]);
+      const id = result.insertId;
+      await connection.query('INSERT INTO player_cultivation(player_id) VALUES(?)', [id]);
+      await connection.query('INSERT INTO player_attributes(player_id) VALUES(?)', [id]);
+      await connection.query('INSERT INTO player_combat_state(player_id) VALUES(?)', [id]);
+      await connection.query('INSERT INTO player_inventory(player_id,item_id,item_name,item_type,quantity) VALUES(?,?,?,?,?)', [id,'linh_thach','Linh Thạch','currency',100]);
+      await addLog(connection, id, 'system', `Đạo hiệu ${clean} khai mở tiên lộ.`);
+      return findById(id, connection);
+    } catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') { error.statusCode = 409; error.message = 'Đạo hiệu đã tồn tại.'; }
       throw error;
     }
-    const [result] = await conn.execute(`INSERT INTO players(name,world_id,spiritual_root_id,spirit_stones,current_hp,current_mp,current_activity) VALUES(?,?,?,?,?,?,?)`, [name, 'nhan_gioi', 'linh_can_pham', 0, 100, 0, 'idle']);
-    const id = result.insertId;
-    await conn.execute(`INSERT INTO player_cultivation(player_id,main_realm_id,main_layer,main_exp,body_realm_id,body_layer,body_exp,soul_realm_id,soul_layer,soul_exp) VALUES(?,?,?,?,?,?,?,?,?,?)`, [id, 'realm_luyen_khi', 1, 0, 'body_pham_the', 1, 0, 'soul_pham_hon', 1, 0]);
-    await conn.execute('INSERT INTO player_attributes(player_id) VALUES(?)', [id]);
-    await conn.execute('INSERT INTO player_activity(player_id) VALUES(?)', [id]);
-    await conn.execute('INSERT INTO player_combat_state(player_id,player_current_hp) VALUES(?,?)', [id, 100]);
-    await conn.execute('INSERT INTO player_map_unlocks(player_id,map_id) VALUES(?,?)', [id, 'map_ngoai_mon_son_lam']);
-    await conn.execute('INSERT INTO player_cave(player_id) VALUES(?)', [id]);
-    return id;
   });
 }
 
-async function addLog(playerId, category, action, title, message, detail = null) {
-  await query('INSERT INTO player_logs(player_id,category,action,title,message,detail_data) VALUES(?,?,?,?,?,?)', [playerId, category, action, title, message, detail ? JSON.stringify(detail) : null]);
+async function inventory(playerId, connection = getPool()) {
+  const [rows] = await connection.query('SELECT item_id,item_name,item_type,quantity,metadata FROM player_inventory WHERE player_id=? AND quantity>0 ORDER BY id', [playerId]);
+  return rows.map(x => ({ ...x, metadata: typeof x.metadata === 'string' ? JSON.parse(x.metadata) : x.metadata }));
 }
-
-module.exports = { findById, findByName, listInventory, createPlayer, addLog };
+async function logs(playerId, limit = 80, connection = getPool()) {
+  const safeLimit = Math.min(200, Math.max(1, Number(limit) || 80));
+  const [rows] = await connection.query(`SELECT category,message,created_at FROM player_logs WHERE player_id=? ORDER BY id DESC LIMIT ${safeLimit}`, [playerId]);
+  return rows;
+}
+async function addLog(connection, playerId, category, message) {
+  await connection.query('INSERT INTO player_logs(player_id,category,message) VALUES(?,?,?)', [playerId, category, message]);
+}
+async function addItem(connection, playerId, item) {
+  await connection.query(`INSERT INTO player_inventory(player_id,item_id,item_name,item_type,quantity,metadata)
+    VALUES(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE quantity=quantity+VALUES(quantity), item_name=VALUES(item_name), metadata=VALUES(metadata)`,
+    [playerId,item.id,item.name,item.type,item.quantity || 1,item.metadata ? JSON.stringify(item.metadata) : null]);
+}
+module.exports = { findById, findByName, create, inventory, logs, addLog, addItem };

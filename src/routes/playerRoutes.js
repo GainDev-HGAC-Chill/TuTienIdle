@@ -1,26 +1,7 @@
-const express = require('express');
-const service = require('../services/playerService');
-const router = express.Router();
-
-router.post('/', async (req, res, next) => {
-  try { res.status(201).json({ success: true, player: await service.create(req.body.name) }); }
-  catch (error) { next(error); }
-});
-
-router.get('/by-name/:name', async (req, res, next) => {
-  try {
-    const player = await service.getProfileByName(req.params.name);
-    if (!player) return res.status(404).json({ success: false, error: 'Không tìm thấy đạo hữu.' });
-    res.json({ success: true, player });
-  } catch (error) { next(error); }
-});
-
-router.get('/:id', async (req, res, next) => {
-  try {
-    const player = await service.getProfile(Number(req.params.id));
-    if (!player) return res.status(404).json({ success: false, error: 'Không tìm thấy đạo hữu.' });
-    res.json({ success: true, player });
-  } catch (error) { next(error); }
-});
-
-module.exports = router;
+const router=require('express').Router();
+const game=require('../services/gameService');
+const wrap=fn=>(req,res,next)=>Promise.resolve(fn(req,res,next)).catch(next);
+router.post('/',wrap(async(req,res)=>res.status(201).json({success:true,...await game.create(req.body.name)})));
+router.get('/by-name/:name',wrap(async(req,res)=>res.json({success:true,...await game.byName(req.params.name)})));
+router.get('/:id',wrap(async(req,res)=>res.json({success:true,...await game.profile(req.params.id)})));
+module.exports=router;
