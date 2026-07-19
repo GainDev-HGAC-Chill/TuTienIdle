@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tu Tiên Idle · Nhân Giới</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">仙</span>
+        <div>
+          <small>NHÂN GIỚI ĐẠO TẠNG</small>
+          <h1>Tu Tiên Idle</h1>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <span id="serverStatus" class="status-pill is-loading">Đang cảm ứng linh mạch</span>
+        <button id="themeToggle" class="icon-button" type="button" aria-label="Đổi giao diện sáng tối">☾</button>
+      </div>
+    </header>
+
+    <section id="entryGate" class="entry-gate">
+      <div class="entry-card">
+        <span class="eyebrow">Khai mở đạo đồ</span>
+        <h2>Đạo hữu muốn dùng đạo hiệu nào?</h2>
+        <p>Nhập đạo hiệu đã có để tiếp tục hành trình. Chỉ khi chưa tồn tại, hệ thống mới tạo nhân vật mới.</p>
+        <div class="entry-form">
+          <input id="playerNameInput" maxlength="50" autocomplete="off" placeholder="Ví dụ: gain">
+          <button id="enterWorldButton" class="primary-button" type="button">Bước vào Nhân Giới</button>
+        </div>
+        <div id="entryMessage" class="form-message"></div>
+      </div>
+    </section>
+
+    <main id="gameRoot" class="game-root is-hidden">
+      <section class="player-banner panel">
+        <div>
+          <span class="eyebrow">Đạo hiệu</span>
+          <h2 id="playerName">Vô Danh</h2>
+          <p id="playerSubtitle">Phàm nhân sơ nhập tiên đồ</p>
+        </div>
+        <div class="resource-strip">
+          <div class="resource-item"><span>Linh thạch</span><strong id="spiritStones">0</strong></div>
+          <div class="resource-item"><span>Tuổi thọ</span><strong id="lifespan">16 / 80</strong></div>
+          <div class="resource-item"><span>Trạng thái</span><strong id="currentActivity">Tĩnh tu</strong></div>
+        </div>
+      </section>
+
+      <nav class="main-tabs" aria-label="Các khu vực tu hành">
+        <button class="tab-button is-active" data-tab="overview">Tổng Quan</button>
+        <button class="tab-button" data-tab="cave">Động Phủ</button>
+        <button class="tab-button" data-tab="combat">Chiến Đấu</button>
+        <button class="tab-button" data-tab="skills">Công Pháp</button>
+        <button class="tab-button" data-tab="alchemy">Luyện Đan</button>
+        <button class="tab-button" data-tab="inventory">Túi Đồ</button>
+        <button class="tab-button" data-tab="logs">Đạo Hành</button>
+      </nav>
+
+      <section id="tab-overview" class="tab-panel is-active">
+        <div class="dashboard-grid">
+          <article class="panel realm-panel">
+            <div class="panel-heading"><div><span class="eyebrow">Tam mạch đồng tu</span><h3>Cảnh giới hiện tại</h3></div></div>
+            <div class="realm-list">
+              <div class="realm-card accent-gold">
+                <div class="realm-icon">靈</div>
+                <div class="realm-info"><span>Linh Tu</span><strong id="mainRealm">Luyện Khí · Tầng 1</strong><div class="progress"><i id="mainProgress"></i></div><small id="mainExp">0 tu vi</small></div>
+              </div>
+              <div class="realm-card accent-red">
+                <div class="realm-icon">體</div>
+                <div class="realm-info"><span>Luyện Thể</span><strong id="bodyRealm">Phàm Thể · Tầng 1</strong><div class="progress"><i id="bodyProgress"></i></div><small id="bodyExp">0 thể tu</small></div>
+              </div>
+              <div class="realm-card accent-violet">
+                <div class="realm-icon">魂</div>
+                <div class="realm-info"><span>Luyện Hồn</span><strong id="soulRealm">Phàm Hồn · Tầng 1</strong><div class="progress"><i id="soulProgress"></i></div><small id="soulExp">0 hồn lực</small></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel stats-panel">
+            <div class="panel-heading"><div><span class="eyebrow">Đạo cơ</span><h3>Thông tin tu sĩ</h3></div></div>
+            <div class="stat-grid">
+              <div><span>Sinh mệnh</span><strong id="hpStat">100 / 100</strong></div>
+              <div><span>Linh lực</span><strong id="mpStat">0 / 0</strong></div>
+              <div><span>Linh căn</span><strong id="rootStat">Phàm Linh Căn</strong></div>
+              <div><span>Khu vực</span><strong id="mapStat">Ngoại Môn Sơn Lâm</strong></div>
+            </div>
+          </article>
+
+          <article class="panel world-panel">
+            <div class="panel-heading"><div><span class="eyebrow">Thiên cơ</span><h3>Nhân Giới Đạo Tạng</h3></div></div>
+            <div id="worldSummary" class="world-summary"></div>
+          </article>
+
+          <article class="panel quick-panel">
+            <div class="panel-heading"><div><span class="eyebrow">Lối tắt</span><h3>Hành động nhanh</h3></div></div>
+            <div class="quick-actions">
+              <button data-open-tab="cave">Về động phủ tu luyện</button>
+              <button data-open-tab="combat">Tiến vào chiến trường</button>
+              <button data-open-tab="alchemy">Khai lò luyện đan</button>
+              <button data-open-tab="inventory">Kiểm tra túi đồ</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="tab-cave" class="tab-panel">
+        <div class="section-grid">
+          <article class="panel feature-card feature-wide">
+            <div class="panel-heading"><div><span class="eyebrow">Động phủ</span><h3>Linh Tu</h3></div><span class="feature-state">Nền móng</span></div>
+            <p>Hệ thống tu luyện sẽ đọc tốc độ, yêu cầu và đột phá trực tiếp từ XML. API tu luyện chưa được nối trong bản nền hiện tại.</p>
+            <button class="primary-button locked-action" type="button">Bắt đầu vận công</button>
+          </article>
+          <article class="panel feature-card"><span class="eyebrow">Dược viên</span><h3>Vườn linh thảo</h3><p>Quản lý ô đất, thời gian sinh trưởng và thu hoạch dược liệu.</p><button class="secondary-button locked-action" type="button">Mở dược viên</button></article>
+          <article class="panel feature-card"><span class="eyebrow">Linh mạch</span><h3>Nâng cấp động phủ</h3><p>Tăng linh khí, số ô dược viên và sức chứa kho.</p><button class="secondary-button locked-action" type="button">Xem nâng cấp</button></article>
+        </div>
+      </section>
+
+      <section id="tab-combat" class="tab-panel">
+        <div class="section-grid combat-layout">
+          <article class="panel feature-wide">
+            <div class="panel-heading"><div><span class="eyebrow">Sơn hà Nhân Giới</span><h3>Chọn khu vực chiến đấu</h3></div></div>
+            <div id="mapList" class="map-list"><div class="empty-state">Đang dò tìm bản đồ...</div></div>
+          </article>
+          <article class="panel combatant-card"><span class="eyebrow">Tu sĩ</span><h3 id="combatPlayerName">Đạo hữu</h3><div class="health-bar"><i id="playerHpBar"></i></div><strong id="combatPlayerHp">100 / 100 HP</strong></article>
+          <article class="panel combatant-card enemy"><span class="eyebrow">Yêu thú</span><h3>Chưa xuất chiến</h3><div class="health-bar"><i></i></div><strong>0 / 0 HP</strong></article>
+          <article class="panel feature-wide"><div class="panel-heading"><div><span class="eyebrow">Chiến cuộc</span><h3>Nhật ký chiến đấu</h3></div><button class="secondary-button locked-action compact" type="button">Tự động chiến đấu</button></div><div class="log-box"><p>Chọn một bản đồ để chuẩn bị xuất chiến. API chiến đấu sẽ được nối ở bước tiếp theo.</p></div></article>
+        </div>
+      </section>
+
+      <section id="tab-skills" class="tab-panel"><div class="section-grid"><article class="panel feature-wide"><div class="panel-heading"><div><span class="eyebrow">Truyền thừa</span><h3>Công pháp và vũ kỹ</h3></div></div><div class="empty-state">Chưa có công pháp nào được ghi nhận trong hồ sơ nhân vật.</div></article></div></section>
+      <section id="tab-alchemy" class="tab-panel"><div class="section-grid"><article class="panel feature-wide"><div class="panel-heading"><div><span class="eyebrow">Đan đạo</span><h3>Lò luyện đan</h3></div></div><div class="empty-state">Đan phương và đan dược đã có trong XML; API luyện đan chưa được nối.</div></article></div></section>
+      <section id="tab-inventory" class="tab-panel"><div class="section-grid"><article class="panel feature-wide"><div class="panel-heading"><div><span class="eyebrow">Tàng bảo</span><h3>Túi đồ</h3></div><span id="inventoryCount" class="feature-state">0 vật phẩm</span></div><div id="inventoryGrid" class="inventory-grid"></div></article></div></section>
+      <section id="tab-logs" class="tab-panel"><div class="section-grid"><article class="panel feature-wide"><div class="panel-heading"><div><span class="eyebrow">Đạo hành</span><h3>Nhật ký tu hành</h3></div></div><div class="empty-state">API đọc nhật ký chưa được mở trong backend hiện tại.</div></article></div></section>
+    </main>
+
+    <div id="toast" class="toast" role="status"></div>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>

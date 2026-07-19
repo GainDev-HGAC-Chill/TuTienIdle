@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><Herbs worldId="nhan_gioi"><Herb id="herb_tu_linh_thao" name="Tụ Linh Thảo" growSeconds="300" seedCost="10" harvestMin="1" harvestMax="3"/><Herb id="herb_thanh_tam_hoa" name="Thanh Tâm Hoa" growSeconds="600" seedCost="20" harvestMin="1" harvestMax="2"/></Herbs>
