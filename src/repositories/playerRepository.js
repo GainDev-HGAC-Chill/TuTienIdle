@@ -44,7 +44,12 @@ async function findById(id, connection = getPool(), lock = false) {
     [id]
   );
 
-  return rows[0] || null;
+  const player = rows[0] || null;
+  if (player) {
+    player.spiritual_root_scores = parseMetadata(player.spiritual_root_scores) || {};
+    player.hidden_spiritual_roots = parseMetadata(player.hidden_spiritual_roots) || [];
+  }
+  return player;
 }
 
 async function findByName(name) {
@@ -52,11 +57,10 @@ async function findByName(name) {
     'SELECT id FROM players WHERE name = ? LIMIT 1',
     [name]
   );
-
   return rows[0] ? findById(rows[0].id) : null;
 }
 
-async function create(name) {
+async function create(name, destiny) {
   return transaction(async connection => {
     const clean = String(name || '')
       .trim()
@@ -68,17 +72,56 @@ async function create(name) {
       throw error;
     }
 
-    const spiritualRoot = dataManager.getRandomSpiritualRoot();
+    if (!destiny?.mainRootId) {
+      const error = new Error('Chưa hoàn thành khảo nghiệm Thiên Mệnh.');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const baseSpiritualRoot = dataManager.getSpiritualRoot(destiny.mainRootId);
+    const visibleRootId = destiny.visibleRootId || destiny.mainRootId;
+    const spiritualRoot = dataManager.getSpiritualRoot(visibleRootId);
+
+    if (!baseSpiritualRoot || !['kim', 'mộc', 'thủy', 'hỏa', 'thổ'].includes(baseSpiritualRoot.element)) {
+      const error = new Error('Thiên Mệnh Ngũ Hành không tồn tại trong Đạo Tạng.');
+      error.statusCode = 400;
+      throw error;
+    }
+    if (!spiritualRoot) {
+      const error = new Error(`Linh Căn hiển lộ ${visibleRootId} không tồn tại trong LinhCan.xml.`);
+      error.statusCode = 400;
+      throw error;
+    }
 
     try {
       const [result] = await connection.query(
-        `INSERT INTO players(name, spiritual_root)
-         VALUES(?, ?)`,
-        [clean, spiritualRoot.id]
+        `INSERT INTO players(
+           name,
+           spiritual_root,
+           base_spiritual_root,
+           spiritual_root_level,
+           spiritual_root_scores,
+           spiritual_root_trait_scores,
+           hidden_spiritual_roots,
+           missing_spiritual_root,
+           innate_special_root,
+           is_innate_special_root
+         ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          clean,
+          visibleRootId,
+          destiny.mainRootId,
+          destiny.mainRootLevel,
+          JSON.stringify(destiny.scores),
+          JSON.stringify(destiny.traitScores),
+          JSON.stringify(destiny.hiddenRootLevels),
+          destiny.missingRootId,
+          destiny.innateSpecialRootId,
+          destiny.innateSpecialAwakened ? 1 : 0
+        ]
       );
 
       const playerId = result.insertId;
-
       await connection.query(
         'INSERT INTO player_cultivation(player_id) VALUES(?)',
         [playerId]
@@ -133,7 +176,9 @@ async function create(name) {
         connection,
         playerId,
         'system',
-        `Đạo hiệu ${clean} khai mở tiên lộ, thức tỉnh ${spiritualRoot.name}.`
+        destiny.innateSpecialAwakened
+          ? `Đạo hiệu ${clean} khai mở tiên lộ, thiên địa dị tượng, thức tỉnh ${spiritualRoot.name} Phàm phẩm cấp ${destiny.mainRootLevel}.`
+          : `Đạo hiệu ${clean} khai mở tiên lộ, Thiên Mệnh hiển hóa ${spiritualRoot.name} Phàm phẩm cấp ${destiny.mainRootLevel}.`
       );
 
       return findById(playerId, connection);
@@ -142,7 +187,6 @@ async function create(name) {
         error.statusCode = 409;
         error.message = 'Đạo hiệu đã tồn tại.';
       }
-
       throw error;
     }
   });
@@ -151,7 +195,6 @@ async function create(name) {
 function parseMetadata(value) {
   if (value === null || value === undefined || value === '') return null;
   if (typeof value !== 'string') return value;
-
   try {
     return JSON.parse(value);
   } catch {
@@ -163,12 +206,10 @@ async function inventory(playerId, connection = getPool()) {
   const [rows] = await connection.query(
     `SELECT item_id, item_name, item_type, quantity, metadata
      FROM player_inventory
-     WHERE player_id = ?
-       AND quantity > 0
+     WHERE player_id = ? AND quantity > 0
      ORDER BY id`,
     [playerId]
   );
-
   return rows.map(row => ({
     ...row,
     metadata: parseMetadata(row.metadata)
@@ -177,7 +218,6 @@ async function inventory(playerId, connection = getPool()) {
 
 async function logs(playerId, limit = 80, connection = getPool()) {
   const safeLimit = Math.min(200, Math.max(1, Number(limit) || 80));
-
   const [rows] = await connection.query(
     `SELECT category, message, created_at
      FROM player_logs
@@ -186,7 +226,6 @@ async function logs(playerId, limit = 80, connection = getPool()) {
      LIMIT ${safeLimit}`,
     [playerId]
   );
-
   return rows;
 }
 

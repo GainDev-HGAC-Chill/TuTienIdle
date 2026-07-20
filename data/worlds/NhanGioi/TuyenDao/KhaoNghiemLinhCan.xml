@@ -1,0 +1,402 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SpiritualRootAssessment version="2.0.0" questionCount="10" tokenLifetimeSeconds="900">
+  <SpecialRootRules>
+    <!--Chỉ các Linh Căn trong danh sách này mới có thể thiên sinh từ khảo nghiệm. Sinh, Tử, Không Gian và Thời Gian tuyệt đối không đặt tại đây.-->
+    <SpecialRoot id="phong_linh_can" name="Phong Linh Căn" priority="70" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="tu_do" minPoints="2" />
+        <Requirement trait="linh_hoat" minPoints="2" />
+        <Requirement trait="thich_nghi" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+    <SpecialRoot id="loi_linh_can" name="Lôi Linh Căn" priority="80" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="quyet_doan" minPoints="2" />
+        <Requirement trait="can_dam" minPoints="2" />
+        <Requirement trait="hanh_dong" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+    <SpecialRoot id="bang_linh_can" name="Băng Linh Căn" priority="70" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="binh_tinh" minPoints="2" />
+        <Requirement trait="ly_tri" minPoints="2" />
+        <Requirement trait="kiem_che" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+    <SpecialRoot id="quang_linh_can" name="Quang Linh Căn" priority="60" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="nhan_ai" minPoints="2" />
+        <Requirement trait="chinh_truc" minPoints="2" />
+        <Requirement trait="hy_sinh" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+    <SpecialRoot id="am_linh_can" name="Ám Linh Căn" priority="60" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="tham_tram" minPoints="2" />
+        <Requirement trait="doc_lap" minPoints="2" />
+        <Requirement trait="bi_mat" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+    <SpecialRoot id="doc_linh_can" name="Độc Linh Căn" priority="50" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="can_trong" minPoints="2" />
+        <Requirement trait="kien_nhan" minPoints="2" />
+        <Requirement trait="thuc_dung" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+    <SpecialRoot id="huyet_linh_can" name="Huyết Linh Căn" priority="50" chance="0.01" minTotalTraitPoints="9">
+      <Requirements>
+        <Requirement trait="nhiet_huyet" minPoints="2" />
+        <Requirement trait="bao_ho" minPoints="2" />
+        <Requirement trait="quyet_liet" minPoints="2" />
+      </Requirements>
+    </SpecialRoot>
+  </SpecialRootRules>
+  <Questions>
+    <Question id="q001" text="Trong một hành trình dài, điều gì khiến ngươi an tâm nhất?">
+      <Answer id="a" text="Biết rõ mình cần làm gì tiếp theo.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="b" text="Có thể tùy cơ ứng biến trước mọi thay đổi.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="tu_do" points="2" />
+        <Trait id="linh_hoat" points="1" />
+        <Trait id="thich_nghi" points="1" />
+      </Answer>
+      <Answer id="c" text="Giữ được ý chí dù đường phía trước chưa rõ.">
+        <Effect element="hoa" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="quyet_doan" points="2" />
+        <Trait id="can_dam" points="1" />
+        <Trait id="hanh_dong" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q002" text="Khi một kế hoạch bất ngờ thất bại, ngươi thường làm gì trước tiên?">
+      <Answer id="a" text="Tìm nguyên nhân và sửa từng sai lệch.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="binh_tinh" points="2" />
+        <Trait id="ly_tri" points="1" />
+        <Trait id="kiem_che" points="1" />
+      </Answer>
+      <Answer id="b" text="Dừng lại, ổn định mọi người rồi tính tiếp.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+      <Answer id="c" text="Lập tức thử một con đường táo bạo hơn.">
+        <Effect element="hoa" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="quyet_doan" points="2" />
+        <Trait id="can_dam" points="1" />
+        <Trait id="hanh_dong" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q003" text="Ngươi nhận được một lời mời khó đoán thật giả. Ngươi sẽ...">
+      <Answer id="a" text="Quan sát người đưa lời mời trước khi đáp lại.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="tham_tram" points="2" />
+        <Trait id="doc_lap" points="1" />
+        <Trait id="bi_mat" points="1" />
+      </Answer>
+      <Answer id="b" text="Hỏi thẳng mục đích và điều kiện của họ.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="quyet_doan" points="2" />
+        <Trait id="can_dam" points="1" />
+        <Trait id="hanh_dong" points="1" />
+      </Answer>
+      <Answer id="c" text="Xem lời mời ấy có thể giúp ích cho ai không.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q004" text="Khi sống cùng nhiều người có tính cách khác nhau, ngươi thường...">
+      <Answer id="a" text="Giữ nguyên tắc chung để tránh hỗn loạn.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="b" text="Điều hòa mâu thuẫn để mọi người cùng tiến.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+      <Answer id="c" text="Khơi dậy khí thế để cả nhóm hành động.">
+        <Effect element="hoa" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="nhiet_huyet" points="2" />
+        <Trait id="bao_ho" points="1" />
+        <Trait id="quyet_liet" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q005" text="Điều gì khiến ngươi khó chấp nhận nhất?">
+      <Answer id="a" text="Một lời hứa bị xem nhẹ.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="nhiet_huyet" points="2" />
+        <Trait id="bao_ho" points="1" />
+        <Trait id="quyet_liet" points="1" />
+      </Answer>
+      <Answer id="b" text="Một kết luận thiếu căn cứ.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="binh_tinh" points="2" />
+        <Trait id="ly_tri" points="1" />
+        <Trait id="kiem_che" points="1" />
+      </Answer>
+      <Answer id="c" text="Một người bị bỏ mặc khi đang cần giúp đỡ.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q006" text="Trước một cánh cửa chưa ai từng mở, suy nghĩ đầu tiên của ngươi là gì?">
+      <Answer id="a" text="Bên trong chắc chắn có điều đáng để khám phá.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="tu_do" points="2" />
+        <Trait id="linh_hoat" points="1" />
+        <Trait id="thich_nghi" points="1" />
+      </Answer>
+      <Answer id="b" text="Cần kiểm tra xem cánh cửa có nguy hiểm hay không.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="c" text="Không nên mở khi chưa bảo đảm an toàn cho người phía sau.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q007" text="Khi phải học một việc hoàn toàn mới, ngươi thích cách nào hơn?">
+      <Answer id="a" text="Nắm nguyên lý rồi luyện theo từng bước.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="binh_tinh" points="2" />
+        <Trait id="ly_tri" points="1" />
+        <Trait id="kiem_che" points="1" />
+      </Answer>
+      <Answer id="b" text="Bắt tay làm, sai ở đâu sửa ở đó.">
+        <Effect element="hoa" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="quyet_doan" points="2" />
+        <Trait id="can_dam" points="1" />
+        <Trait id="hanh_dong" points="1" />
+      </Answer>
+      <Answer id="c" text="Quan sát nhiều cách rồi tự tìm lối phù hợp.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="tu_do" points="2" />
+        <Trait id="linh_hoat" points="1" />
+        <Trait id="thich_nghi" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q008" text="Một người từng đối đầu với ngươi nay muốn hợp tác. Ngươi sẽ...">
+      <Answer id="a" text="Đồng ý nếu điều kiện rõ ràng và công bằng.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="b" text="Cho họ cơ hội nếu thấy họ thật lòng thay đổi.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+      <Answer id="c" text="Hợp tác tạm thời nhưng luôn chuẩn bị đường lui.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="tham_tram" points="2" />
+        <Trait id="doc_lap" points="1" />
+        <Trait id="bi_mat" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q009" text="Nếu chỉ có thể giữ lại một thành quả sau nhiều năm cố gắng, ngươi chọn...">
+      <Answer id="a" text="Một nền móng đủ vững để bắt đầu lại.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="b" text="Kinh nghiệm để không lặp lại sai lầm.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="binh_tinh" points="2" />
+        <Trait id="ly_tri" points="1" />
+        <Trait id="kiem_che" points="1" />
+      </Answer>
+      <Answer id="c" text="Khát vọng để tiếp tục tiến về phía trước.">
+        <Effect element="hoa" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="nhiet_huyet" points="2" />
+        <Trait id="bao_ho" points="1" />
+        <Trait id="quyet_liet" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q010" text="Khi nghe hai người tranh luận gay gắt, ngươi thường chú ý điều gì?">
+      <Answer id="a" text="Lập luận nào chính xác và có chứng cứ hơn.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="binh_tinh" points="2" />
+        <Trait id="ly_tri" points="1" />
+        <Trait id="kiem_che" points="1" />
+      </Answer>
+      <Answer id="b" text="Nguyên nhân sâu xa khiến họ không thể hiểu nhau.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="tham_tram" points="2" />
+        <Trait id="doc_lap" points="1" />
+        <Trait id="bi_mat" points="1" />
+      </Answer>
+      <Answer id="c" text="Cách kết thúc tranh luận mà không ai bị tổn thương.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q011" text="Ngươi có một ngày hoàn toàn tự do. Ngươi muốn dành nó để...">
+      <Answer id="a" text="Hoàn thành việc còn dang dở.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="b" text="Đi đến một nơi chưa từng đặt chân tới.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="tu_do" points="2" />
+        <Trait id="linh_hoat" points="1" />
+        <Trait id="thich_nghi" points="1" />
+      </Answer>
+      <Answer id="c" text="Ở bên những người khiến mình thấy bình yên.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q012" text="Khi nắm giữ một bí mật quan trọng, ngươi sẽ...">
+      <Answer id="a" text="Giữ kín cho đến khi thật sự cần công bố.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="tham_tram" points="2" />
+        <Trait id="doc_lap" points="1" />
+        <Trait id="bi_mat" points="1" />
+      </Answer>
+      <Answer id="b" text="Xác định rõ ai có quyền được biết.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="c" text="Nói ra nếu điều đó có thể bảo vệ người khác.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="nhiet_huyet" points="2" />
+        <Trait id="bao_ho" points="1" />
+        <Trait id="quyet_liet" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q013" text="Khi đứng trước một mục tiêu rất xa, điều gì giúp ngươi tiếp tục?">
+      <Answer id="a" text="Chia nó thành từng bước có thể hoàn thành.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="b" text="Tin rằng bản thân sẽ trưởng thành trên đường đi.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+      <Answer id="c" text="Không ngừng thay đổi phương pháp cho tới khi tìm ra lối.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="kim" points="1" />
+        <Trait id="tu_do" points="2" />
+        <Trait id="linh_hoat" points="1" />
+        <Trait id="thich_nghi" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q014" text="Nếu có quyền thay đổi một quyết định cũ, ngươi sẽ...">
+      <Answer id="a" text="Chỉ thay đổi khi đã hiểu hết hậu quả.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="thuy" points="1" />
+        <Trait id="binh_tinh" points="2" />
+        <Trait id="ly_tri" points="1" />
+        <Trait id="kiem_che" points="1" />
+      </Answer>
+      <Answer id="b" text="Chấp nhận quá khứ vì nó tạo nên mình hôm nay.">
+        <Effect element="tho" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="can_trong" points="2" />
+        <Trait id="kien_nhan" points="1" />
+        <Trait id="thuc_dung" points="1" />
+      </Answer>
+      <Answer id="c" text="Thay đổi ngay nếu có thể cứu được điều quan trọng.">
+        <Effect element="hoa" points="2" primary="true" />
+        <Effect element="moc" points="1" />
+        <Trait id="nhiet_huyet" points="2" />
+        <Trait id="bao_ho" points="1" />
+        <Trait id="quyet_liet" points="1" />
+      </Answer>
+    </Question>
+    <Question id="q015" text="Trong ba điều sau, điều nào gần với cách sống của ngươi nhất?">
+      <Answer id="a" text="Rõ ràng với bản thân, dứt khoát với lựa chọn.">
+        <Effect element="kim" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="quyet_doan" points="2" />
+        <Trait id="can_dam" points="1" />
+        <Trait id="hanh_dong" points="1" />
+      </Answer>
+      <Answer id="b" text="Mềm dẻo trước hoàn cảnh, kiên định với mục tiêu.">
+        <Effect element="thuy" points="2" primary="true" />
+        <Effect element="tho" points="1" />
+        <Trait id="tu_do" points="2" />
+        <Trait id="linh_hoat" points="1" />
+        <Trait id="thich_nghi" points="1" />
+      </Answer>
+      <Answer id="c" text="Cùng người khác trưởng thành thay vì đi một mình.">
+        <Effect element="moc" points="2" primary="true" />
+        <Effect element="hoa" points="1" />
+        <Trait id="nhan_ai" points="2" />
+        <Trait id="chinh_truc" points="1" />
+        <Trait id="hy_sinh" points="1" />
+      </Answer>
+    </Question>
+  </Questions>
+</SpiritualRootAssessment>

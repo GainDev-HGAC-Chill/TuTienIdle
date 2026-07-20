@@ -3,7 +3,10 @@ const state = {
   profile: null,
   config: null,
   busy: false,
-  refreshTimer: null
+  refreshTimer: null,
+  assessment: null,
+  assessmentIndex: 0,
+  assessmentAnswers: []
 };
 
 const $ = selector => document.querySelector(selector);
@@ -130,10 +133,11 @@ function render() {
 
   $('#overviewRootName').textContent =
     player.spiritual_root_name || 'Vô Danh Linh Căn';
-  $('#rootGrade').textContent =
-    player.spiritual_root_grade || 'không rõ';
-  $('#rootGradeText').textContent =
-    player.spiritual_root_grade || 'không rõ';
+  const rootGradeDisplay = player.is_innate_special_root
+    ? `${player.spiritual_root_grade || 'không rõ'} · Thiên sinh đặc tính`
+    : (player.spiritual_root_grade || 'không rõ');
+  $('#rootGrade').textContent = rootGradeDisplay;
+  $('#rootGradeText').textContent = rootGradeDisplay;
 
   const rootConfig = state.config.spiritualRoots?.find(
     item => String(item.id) === String(player.spiritual_root)
@@ -287,22 +291,95 @@ async function useItem(itemId) {
 window.selectMap = selectMap;
 window.useItem = useItem;
 
-$('#createBtn').onclick = async () => {
+function closeAssessment() {
+  state.assessment = null;
+  state.assessmentIndex = 0;
+  state.assessmentAnswers = [];
+  $('#assessmentModal').classList.add('hidden');
+  $('#assessmentAnswers').innerHTML = '';
+}
+
+function renderAssessmentQuestion() {
+  const assessment = state.assessment;
+  if (!assessment) return;
+
+  const question = assessment.questions[state.assessmentIndex];
+  $('#assessmentProgress').textContent =
+    `Thiên vấn ${state.assessmentIndex + 1} / ${assessment.total}`;
+  $('#assessmentProgressBar').style.width =
+    `${(state.assessmentIndex + 1) / assessment.total * 100}%`;
+  $('#assessmentQuestion').textContent = question.text;
+  $('#assessmentAnswers').innerHTML = question.answers.map((answer, index) => `
+    <button class="assessment-answer" data-answer-id="${answer.id}">
+      <span>${String.fromCharCode(65 + index)}</span>
+      <b>${answer.text}</b>
+    </button>
+  `).join('');
+
+  $$('.assessment-answer').forEach(button => {
+    button.onclick = () => chooseAssessmentAnswer(button.dataset.answerId);
+  });
+}
+
+async function beginAssessment() {
   const name = $('#nameInput').value.trim();
-  if (name.length < 2) {
-    $('#gateMsg').textContent = 'Đạo hiệu phải có ít nhất 2 ký tự.';
+  if (name.length < 2 || name.length > 24) {
+    $('#gateMsg').textContent = 'Đạo hiệu phải từ 2 đến 24 ký tự.';
     return;
   }
+
+  $('#gateMsg').textContent = '';
+  try {
+    const data = await api('/api/player/assessment');
+    state.assessment = data.assessment;
+    state.assessmentIndex = 0;
+    state.assessmentAnswers = [];
+    $('#assessmentModal').classList.remove('hidden');
+    renderAssessmentQuestion();
+  } catch (error) {
+    $('#gateMsg').textContent = error.message;
+  }
+}
+
+async function chooseAssessmentAnswer(answerId) {
+  if (!state.assessment) return;
+
+  const question = state.assessment.questions[state.assessmentIndex];
+  state.assessmentAnswers.push({
+    questionId: question.id,
+    answerId
+  });
+
+  state.assessmentIndex += 1;
+  if (state.assessmentIndex < state.assessment.total) {
+    renderAssessmentQuestion();
+    return;
+  }
+
+  const name = $('#nameInput').value.trim();
+  $('#assessmentQuestion').textContent = 'Thiên Mệnh đang hiển hóa...';
+  $('#assessmentAnswers').innerHTML =
+    '<div class="assessment-wait">Không thể quay đầu sau khi đạo cơ được định.</div>';
 
   try {
     openGame(await api('/api/player', {
       method: 'POST',
-      body: JSON.stringify({ name })
+      body: JSON.stringify({
+        name,
+        assessmentToken: state.assessment.token,
+        answers: state.assessmentAnswers
+      })
     }));
+    closeAssessment();
+    toast('Thiên Mệnh đã định, tiên lộ chính thức khai mở.');
   } catch (error) {
+    closeAssessment();
     $('#gateMsg').textContent = error.message;
   }
-};
+}
+
+$('#createBtn').onclick = beginAssessment;
+$('#cancelAssessment').onclick = closeAssessment;
 
 $('#loadBtn').onclick = async () => {
   const name = $('#nameInput').value.trim();

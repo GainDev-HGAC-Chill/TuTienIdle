@@ -97,8 +97,16 @@ async function byName(name) {
   return profile(player.id);
 }
 
-async function create(name) {
-  const player = await repo.create(name);
+async function create(name, destiny) {
+  if (!destiny) {
+    const error = new Error(
+      'Chưa hoàn thành khảo nghiệm Thiên Mệnh.'
+    );
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const player = await repo.create(name, destiny);
   return profile(player.id);
 }
 
