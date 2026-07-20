@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Maps worldId="nhan_gioi">
 	<Region id="region_ngoai_mon" name="Ngoại Môn" order="1">
-		<Map id="map_ngoai_mon_son_lam" name="Ngoại Môn Sơn Lâm" order="1" enabled="true">
+		<Map id="map_ngoai_mon_son_lam" name="Ngoại Vi Sơn Lâm" order="1" enabled="true">
 			<UnlockRequirement realmId="realm_luyen_khi" layer="1"/>
 			<Monsters>
 				<MonsterRef monsterId="monster_son_lang" weight="70"/>

@@ -85,8 +85,8 @@ function render() {
   $('#soulExp').textContent = fmt(player.soul_exp);
   $('#breakBtn').disabled = !player.can_breakthrough;
 
-  const map = state.config.maps.find(item => item.id === player.map_id);
-  const monster = state.config.monsters.find(item => item.id === player.monster_id);
+  const map = state.config.maps.find(item => String(item.id) === String(player.map_id));
+  const monster = state.config.monsters.find(item => String(item.id) === String(player.monster_id));
   $('#mapName').textContent = map?.name || 'Chưa chọn';
   $('#monsterName').textContent = monster?.name || 'Chưa gặp yêu thú';
 
@@ -130,16 +130,16 @@ function renderLogs(logs) {
 }
 
 function renderMaps(unlocked) {
-  const unlockedIds = new Set(unlocked.map(item => item.id));
+  const unlockedIds = new Set(unlocked.map(item => String(item.id)));
   $('#mapList').innerHTML = state.config.maps.map(map => `
-    <div class="map-option ${unlockedIds.has(map.id) ? '' : 'locked'}">
+    <div class="map-option ${unlockedIds.has(String(map.id)) ? '' : 'locked'}">
       <div>
         <b>${map.name}</b>
         <small style="display:block">
           Yêu cầu: ${state.config.realms[map.realmRequired].name} tầng ${map.layerRequired}
         </small>
       </div>
-      <button ${unlockedIds.has(map.id) ? `onclick="selectMap(${map.id})"` : 'disabled'}>Chọn</button>
+      <button ${unlockedIds.has(String(map.id)) ? `onclick="selectMap(${JSON.stringify(map.id)})"` : 'disabled'}>Chọn</button>
     </div>
   `).join('');
 }

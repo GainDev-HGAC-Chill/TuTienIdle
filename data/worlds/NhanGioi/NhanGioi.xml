@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <World id="nhan_gioi" name="Nhân Giới" version="1.0.0" enabled="true"><Configs>
-<Config type="realms" path="TuyenDao/CanhGioi.xml"/><Config type="maps" path="ChienDau/Maps.xml"/><Config type="monsters" path="ChienDau/Monsters.xml"/>
-<Config type="items" path="VatPham/Items.xml"/><Config type="pills" path="LuyenDan/DanDuoc.xml"/><Config type="recipes" path="LuyenDan/CongThuc.xml"/><Config type="herbs" path="LuyenDan/DuocLieu.xml"/>
-<Config type="cultivationSkills" path="CongPhap/CongPhap.xml"/><Config type="combatSkills" path="CongPhap/VuKy.xml"/>
+<Config type="realms" path="TuyenDao/CanhGioi.xml"/>
+<Config type="maps" path="ChienDau/Maps.xml"/>
+<Config type="monsters" path="ChienDau/Monsters.xml"/>
+<Config type="items" path="VatPham/Items.xml"/>
+<Config type="pills" path="LuyenDan/DanDuoc.xml"/>
+<Config type="recipes" path="LuyenDan/CongThuc.xml"/>
+<Config type="herbs" path="LuyenDan/DuocLieu.xml"/>
+<Config type="cultivationSkills" path="CongPhap/CongPhap.xml"/>
+<Config type="combatSkills" path="CongPhap/VuKy.xml"/>
 </Configs></World>
