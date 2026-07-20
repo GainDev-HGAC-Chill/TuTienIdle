@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MonsterSkills version="1.0.0">
+  <!-- Kỹ năng chủ động hoặc bị động của yêu thú. -->
+  <Skill
+    id="skill_son_lang_cao"
+    name="Sơn Lang Trảo"
+    type="active"
+    target="player"
+    element="physical"
+    powerMultiplier="1.20"
+    cooldownSeconds="5"
+    hitRate="1.00"
+    effectId=""
+    enabled="true">
+    <Description>Yêu lang vung trảo, gây sát thương vật lý bằng 120% công kích.</Description>
+  </Skill>
+</MonsterSkills>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SecretArts version="1.0.0">
+  <!-- Bí thuật thường có điều kiện kích hoạt và thời gian hồi riêng. -->
+  <SecretArt
+    id="bi_thuat_huyet_khi"
+    name="Huyết Khí Quy Nguyên"
+    type="active"
+    requiredRealmId="luyen_khi"
+    requiredLayer="5"
+    costType="mp"
+    costValue="20"
+    cooldownSeconds="30"
+    effectId="effect_bi_thuat_huyet_khi"
+    enabled="true">
+    <Description>Vận chuyển huyết khí, tạm thời tăng công kích nhưng tiêu hao nội lực.</Description>
+  </SecretArt>
+</SecretArts>

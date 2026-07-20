@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlantingRules version="1.0.0">
+  <!-- Luật gieo trồng dược liệu trong Dược Viên. -->
+  <Rule
+    id="planting_default"
+    plotLimit="1"
+    wateringEnabled="false"
+    offlineGrowth="true"
+    witherEnabled="false"
+    harvestBonusChance="0.05"
+    harvestBonusMultiplier="2"
+    cancelRefundRate="0.50"
+    enabled="true">
+    <Description>Mỗi ô đất chỉ trồng một loại linh dược và vẫn sinh trưởng khi người chơi rời game.</Description>
+  </Rule>
+</PlantingRules>

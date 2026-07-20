@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EncounterRewards version="1.0.0">
+  <!-- Gói thưởng/phạt của kỳ ngộ. Một gói có thể chứa nhiều Reward. -->
+  <RewardGroup id="reward_co_mieu_thanh_cong" name="Cổ Miếu Cơ Duyên" enabled="true">
+    <Reward
+      type="currency"
+      targetId="linh_thach"
+      minAmount="20"
+      maxAmount="50"
+      chance="1.00" />
+  </RewardGroup>
+</EncounterRewards>

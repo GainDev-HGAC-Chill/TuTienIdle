@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shops version="1.0.0">
+  <!-- Cửa hàng và danh mục vật phẩm được phép giao dịch. -->
+  <Shop
+    id="shop_phuong_thi"
+    name="Phường Thị Nhân Giới"
+    currencyId="linh_thach"
+    refreshSeconds="0"
+    requiredRealmId="luyen_khi"
+    requiredLayer="1"
+    enabled="true">
+    <ItemRef itemId="hoi_khi_dan" buyPriceId="buy_hoi_khi_dan" sellPriceId="sell_hoi_khi_dan" stock="-1" />
+  </Shop>
+</Shops>

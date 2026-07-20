@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Currencies version="1.0.0">
+  <!-- Các loại tiền tệ của thế giới. -->
+  <Currency
+    id="linh_thach"
+    name="Linh Thạch"
+    symbol="LT"
+    precision="0"
+    maxAmount="999999999999"
+    tradeable="true"
+    droppable="true"
+    enabled="true">
+    <Description>Tiền tệ phổ biến của giới tu hành, dùng trong mua bán và tu luyện.</Description>
+  </Currency>
+</Currencies>

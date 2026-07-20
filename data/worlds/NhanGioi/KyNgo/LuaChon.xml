@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EncounterChoices version="1.0.0">
+  <!-- Các lựa chọn của kỳ ngộ, liên kết bằng encounterId. -->
+  <Choice
+    id="choice_co_mieu_1"
+    encounterId="ky_ngo_co_mieu"
+    order="1"
+    text="Tiến vào cổ miếu thăm dò"
+    requirementType="none"
+    requirementValue=""
+    successRate="0.70"
+    successRewardId="reward_co_mieu_thanh_cong"
+    failureRewardId="reward_co_mieu_that_bai"
+    enabled="true">
+    <Description>Mạo hiểm tiến vào cổ miếu, có khả năng nhận linh thạch hoặc gặp nguy hiểm.</Description>
+  </Choice>
+</EncounterChoices>

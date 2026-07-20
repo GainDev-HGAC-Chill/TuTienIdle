@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SellPrices version="1.0.0">
+  <!-- Giá cửa hàng trả cho người chơi khi bán vật phẩm. -->
+  <Price
+    id="sell_hoi_khi_dan"
+    itemId="hoi_khi_dan"
+    currencyId="linh_thach"
+    amount="5"
+    quantity="1"
+    dailyLimit="0"
+    enabled="true" />
+</SellPrices>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SkillEffects version="1.0.0">
+  <!-- Hiệu ứng kỹ năng, công pháp, bí thuật hoặc kỹ năng yêu thú. -->
+  <Effect
+    id="effect_bi_thuat_huyet_khi"
+    name="Huyết Khí Bạo Phát"
+    stat="attack"
+    operation="multiply"
+    value="1.20"
+    durationSeconds="10"
+    tickSeconds="0"
+    stackMode="refresh"
+    maxStacks="1"
+    dispellable="true"
+    enabled="true">
+    <Description>Tăng 20% công kích trong 10 giây.</Description>
+  </Effect>
+</SkillEffects>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Equipment version="1.0.0">
+  <!-- Trang bị: vũ khí, pháp bào, giày, nhẫn, pháp bảo... -->
+  <Item
+    id="eq_thanh_moc_kiem"
+    name="Thanh Mộc Kiếm"
+    slot="weapon"
+    rarity="common"
+    requiredRealmId="luyen_khi"
+    requiredLayer="1"
+    attack="8"
+    defense="0"
+    maxHp="0"
+    maxMp="0"
+    critRate="0"
+    sellPrice="20"
+    stackable="false"
+    enabled="true">
+    <Description>Mộc kiếm nhập môn dành cho tu sĩ mới bước lên tiên lộ.</Description>
+  </Item>
+</Equipment>

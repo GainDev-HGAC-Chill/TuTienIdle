@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StartingPlayer version="1.0.0">
+  <!-- Chỉ số, tài nguyên và vật phẩm ban đầu khi khai mở nhân vật. -->
+  <Preset
+    id="nhan_gioi_default"
+    worldId="nhan_gioi"
+    realmId="luyen_khi"
+    layer="1"
+    spiritStones="100"
+    maxHp="100"
+    maxMp="50"
+    attack="10"
+    defense="5"
+    critRate="0.05"
+    cultivationRate="1.00"
+    currentActivity="idle"
+    enabled="true">
+    <StartingItems>
+      <ItemRef itemId="linh_thach" quantity="100" />
+    </StartingItems>
+  </Preset>
+</StartingPlayer>

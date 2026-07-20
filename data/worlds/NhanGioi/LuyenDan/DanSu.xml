@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Alchemists version="1.0.0">
+  <!-- Cấp bậc Đan Sư và năng lực luyện đan. -->
+  <Rank
+    id="dan_su_nhat_pham"
+    order="1"
+    name="Nhất Phẩm Đan Sư"
+    requiredExp="0"
+    maxRecipeGrade="1"
+    successBonus="0.00"
+    speedBonus="0.00"
+    enabled="true">
+    <Description>Đã nhập môn đan đạo, có thể luyện chế đan dược nhất phẩm.</Description>
+  </Rank>
+</Alchemists>

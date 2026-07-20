@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BuyPrices version="1.0.0">
+  <!-- Giá người chơi phải trả khi mua từ cửa hàng. -->
+  <Price
+    id="buy_hoi_khi_dan"
+    itemId="hoi_khi_dan"
+    currencyId="linh_thach"
+    amount="15"
+    quantity="1"
+    requiredRealmId="luyen_khi"
+    requiredLayer="1"
+    enabled="true" />
+</BuyPrices>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AlchemyRules version="1.0.0">
+  <!-- Luật tổng quát của hệ thống luyện đan. -->
+  <Rule
+    id="alchemy_default"
+    baseSuccessRate="0.60"
+    minimumSuccessRate="0.05"
+    maximumSuccessRate="0.95"
+    failureConsumeMaterials="true"
+    failureReturnRate="0.00"
+    queueLimit="1"
+    offlineProgress="true"
+    enabled="true">
+    <Description>Tỷ lệ cuối được cộng thêm từ cấp Đan Sư, lò đan và phẩm chất nguyên liệu.</Description>
+  </Rule>
+</AlchemyRules>
