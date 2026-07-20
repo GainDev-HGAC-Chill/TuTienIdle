@@ -579,8 +579,8 @@ getMonsterSkills(monster) {
       pills: this.pills.size,
       recipes: this.recipes.size,
       herbs: this.herbs.size,
-      skills: this.skills.size
-	  monsterSkills: this.monsterSkills.size,
+      skills: this.skills.size,
+	  monsterSkills: this.monsterSkills.size
     };
   }
 }
