@@ -63,13 +63,128 @@
     </div>
 
     <nav class="tabs">
-      <button class="active" data-tab="cultivation">Động Phủ</button>
+      <button class="active" data-tab="overview">Tổng Quan</button>
+      <button data-tab="cultivation">Động Phủ</button>
       <button data-tab="combat">Chiến Đạo</button>
       <button data-tab="inventory">Túi Càn Khôn</button>
       <button data-tab="logs">Thiên Cơ Ký</button>
     </nav>
 
-    <section id="cultivation" class="tab-pane active">
+    <section id="overview" class="tab-pane active">
+      <div class="overview-grid">
+        <article class="card body-card">
+          <div class="title-row">
+            <div>
+              <span class="eyebrow">ĐẠO THỂ</span>
+              <h3 id="overviewPlayerName">—</h3>
+            </div>
+            <span id="overviewRealm" class="badge">—</span>
+          </div>
+
+          <div class="resource-block">
+            <div class="resource-label">
+              <span>Sinh Lực</span>
+              <strong id="overviewHp">0 / 0</strong>
+            </div>
+            <div class="bar health"><i id="overviewHpBar"></i></div>
+          </div>
+
+          <div class="resource-block">
+            <div class="resource-label">
+              <span>Nội Lực</span>
+              <strong id="overviewMp">0 / 0</strong>
+            </div>
+            <div class="bar mana"><i id="overviewMpBar"></i></div>
+          </div>
+
+          <div class="overview-summary">
+            <div><span>Hoạt động</span><b id="overviewActivity">Tĩnh tọa</b></div>
+            <div><span>Chiến lực</span><b id="overviewPower">0</b></div>
+            <div><span>Linh thạch</span><b id="overviewStones">0</b></div>
+            <div><span>Chiến tích</span><b id="overviewRecord">0 thắng · 0 bại</b></div>
+          </div>
+        </article>
+
+        <article class="card root-card">
+          <div class="title-row">
+            <div>
+              <span class="eyebrow">TIÊN THIÊN CĂN CỐT</span>
+              <h3 id="overviewRootName">Vô Danh Linh Căn</h3>
+            </div>
+            <span id="rootGrade" class="badge">—</span>
+          </div>
+
+          <p id="rootDescription" class="root-description">—</p>
+
+          <div class="root-meta">
+            <div><span>Phẩm cấp</span><b id="rootGradeText">—</b></div>
+            <div><span>Thuộc tính</span><b id="rootElement">—</b></div>
+          </div>
+
+          <div class="growth-panel">
+            <span>Thiên hướng tăng trưởng khi phá đại cảnh giới</span>
+            <div id="rootGrowth" class="growth-list"></div>
+          </div>
+        </article>
+      </div>
+
+      <article class="card attribute-card">
+        <div class="title-row">
+          <div>
+            <span class="eyebrow">ĐẠO THỂ CHÂN GIẢI</span>
+            <h3>Thuộc tính cá nhân</h3>
+          </div>
+          <span class="badge">Nhân Giới</span>
+        </div>
+
+        <div class="attribute-section">
+          <h4>Chỉ số căn bản</h4>
+          <div class="attribute-grid basic-attributes">
+            <div><span>Sinh Lực</span><b id="statHp">0</b></div>
+            <div><span>Nội Lực</span><b id="statMp">0</b></div>
+            <div><span>Công Kích</span><b id="statAttack">0</b></div>
+            <div><span>Phòng Thủ</span><b id="statDefense">0</b></div>
+          </div>
+        </div>
+
+        <div class="attribute-section">
+          <h4>Chỉ số chiến đấu</h4>
+          <div class="attribute-grid">
+            <div><span>Chính Xác</span><b id="statAccuracy">0</b></div>
+            <div><span>Né Tránh</span><b id="statDodge">0%</b></div>
+            <div><span>Bạo Kích</span><b id="statCrit">0%</b></div>
+            <div><span>Bạo Thương</span><b id="statCritDamage">150%</b></div>
+            <div><span>Tốc Độ</span><b id="statSpeed">0</b></div>
+            <div><span>Xuyên Giáp</span><b id="statArmorPen">0</b></div>
+            <div><span>Kháng Bạo</span><b id="statCritResist">0%</b></div>
+            <div><span>Hút Sinh Lực</span><b id="statLifeSteal">0%</b></div>
+            <div><span>Hồi HP</span><b id="statHpRegen">0/s</b></div>
+            <div><span>Hồi MP</span><b id="statMpRegen">0/s</b></div>
+            <div><span>Tốc Độ Tu Luyện</span><b id="statCultivation">0/s</b></div>
+            <div><span>Chiến Lực</span><b id="statPower">0</b></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card equipped-card">
+        <div class="title-row">
+          <div>
+            <span class="eyebrow">ĐẠO PHÁP HỘ THÂN</span>
+            <h3>Công pháp đang trang bị</h3>
+          </div>
+          <span class="muted">Chỉ hiển thị</span>
+        </div>
+
+        <div class="equipped-grid">
+          <div><span>Chủ Tu</span><b>Chưa trang bị</b></div>
+          <div><span>Thân Pháp</span><b>Chưa trang bị</b></div>
+          <div><span>Luyện Thể</span><b>Chưa trang bị</b></div>
+          <div><span>Luyện Hồn</span><b>Chưa trang bị</b></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="cultivation" class="tab-pane">
       <article class="card action-card">
         <div>
           <h3>Linh Tu</h3>
@@ -84,9 +199,12 @@
 
     <section id="combat" class="tab-pane">
       <div class="combat-top-grid">
-        <article class="card">
+        <article class="card map-card">
           <div class="title-row">
-            <h3>Khu vực lịch luyện</h3>
+            <div>
+              <span class="eyebrow">LỊCH LUYỆN CHI ĐỊA</span>
+              <h3>Khu vực chiến đấu</h3>
+            </div>
             <button id="mapBtn">Chọn bản đồ</button>
           </div>
           <p id="mapName" class="big">—</p>
@@ -100,18 +218,16 @@
           <div class="combatant player-combatant">
             <div class="combatant-head">
               <div>
-                <span class="eyebrow">ĐẠO THỂ</span>
+                <span class="eyebrow">ĐẠO HỮU</span>
                 <h3 id="combatPlayerName">—</h3>
               </div>
               <b id="combatPlayerRealm">—</b>
             </div>
-
             <div class="resource-label">
               <span>Sinh Lực</span>
               <strong id="combatPlayerHp">0 / 0</strong>
             </div>
             <div class="bar health"><i id="playerHpBar"></i></div>
-
             <div class="resource-label">
               <span>Nội Lực</span>
               <strong id="combatPlayerMp">0 / 0</strong>
@@ -129,7 +245,6 @@
               </div>
               <b id="record">0 thắng · 0 bại</b>
             </div>
-
             <div class="resource-label">
               <span>Sinh Lực</span>
               <strong id="monsterHp">0 / 0</strong>
@@ -138,45 +253,6 @@
           </div>
         </article>
       </div>
-
-      <article class="card attribute-card">
-        <div class="title-row">
-          <div>
-            <span class="eyebrow">ĐẠO THỂ CHÂN GIẢI</span>
-            <h3>Chỉ số cá nhân</h3>
-          </div>
-          <span id="rootGrade" class="badge">—</span>
-        </div>
-
-        <p id="rootDescription" class="root-description">—</p>
-
-        <div class="attribute-grid">
-          <div><span>Sinh Lực</span><b id="statHp">0</b></div>
-          <div><span>Nội Lực</span><b id="statMp">0</b></div>
-          <div><span>Công Kích</span><b id="statAttack">0</b></div>
-          <div><span>Phòng Thủ</span><b id="statDefense">0</b></div>
-
-          <div><span>Chính Xác</span><b id="statAccuracy">0</b></div>
-          <div><span>Né Tránh</span><b id="statDodge">0%</b></div>
-          <div><span>Bạo Kích</span><b id="statCrit">0%</b></div>
-          <div><span>Bạo Thương</span><b id="statCritDamage">150%</b></div>
-
-          <div><span>Tốc Độ</span><b id="statSpeed">0</b></div>
-          <div><span>Xuyên Giáp</span><b id="statArmorPen">0</b></div>
-          <div><span>Kháng Bạo</span><b id="statCritResist">0%</b></div>
-          <div><span>Hút Sinh Lực</span><b id="statLifeSteal">0%</b></div>
-
-          <div><span>Hồi HP</span><b id="statHpRegen">0/s</b></div>
-          <div><span>Hồi MP</span><b id="statMpRegen">0/s</b></div>
-          <div><span>Tốc Độ Tu Luyện</span><b id="statCultivation">0/s</b></div>
-          <div><span>Chiến Lực</span><b id="statPower">0</b></div>
-        </div>
-
-        <div class="growth-panel">
-          <span>Thiên hướng tăng trưởng khi phá đại cảnh giới</span>
-          <div id="rootGrowth" class="growth-list"></div>
-        </div>
-      </article>
     </section>
 
     <section id="inventory" class="tab-pane">

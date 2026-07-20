@@ -112,23 +112,43 @@ function render() {
   const playerHpPercent = clampPercent(player.current_hp, player.max_hp);
   const playerMpPercent = clampPercent(player.current_mp, player.max_mp);
 
-  $('#combatPlayerName').textContent = player.name;
-  $('#combatPlayerRealm').textContent =
+  // Tổng Quan
+  $('#overviewPlayerName').textContent = player.name;
+  $('#overviewRealm').textContent =
     `${player.realm_name} · Tầng ${player.main_layer}`;
-  $('#combatPlayerHp').textContent =
+  $('#overviewHp').textContent =
     `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
-  $('#combatPlayerMp').textContent =
+  $('#overviewMp').textContent =
     `${fmt(player.current_mp)} / ${fmt(player.max_mp)}`;
-  $('#playerHpBar').style.width = `${playerHpPercent}%`;
-  $('#playerMpBar').style.width = `${playerMpPercent}%`;
+  $('#overviewHpBar').style.width = `${playerHpPercent}%`;
+  $('#overviewMpBar').style.width = `${playerMpPercent}%`;
+  $('#overviewActivity').textContent = activityName(player.current_activity);
+  $('#overviewPower').textContent = fmt(player.power);
+  $('#overviewStones').textContent = fmt(player.spirit_stones);
+  $('#overviewRecord').textContent =
+    `${fmt(player.wins)} thắng · ${fmt(player.losses)} bại`;
 
+  $('#overviewRootName').textContent =
+    player.spiritual_root_name || 'Vô Danh Linh Căn';
   $('#rootGrade').textContent =
-    `${player.spiritual_root_name || 'Vô Danh Linh Căn'} · ${player.spiritual_root_grade || 'không rõ'}`;
-  $('#rootDescription').textContent =
-    player.spiritual_root_description || 'Chưa có ghi chép về Linh Căn này.';
+    player.spiritual_root_grade || 'không rõ';
+  $('#rootGradeText').textContent =
+    player.spiritual_root_grade || 'không rõ';
 
-  $('#statHp').textContent = `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
-  $('#statMp').textContent = `${fmt(player.current_mp)} / ${fmt(player.max_mp)}`;
+  const rootConfig = state.config.spiritualRoots?.find(
+    item => String(item.id) === String(player.spiritual_root)
+  );
+
+  $('#rootElement').textContent = rootConfig?.element || 'không rõ';
+  $('#rootDescription').textContent =
+    player.spiritual_root_description ||
+    rootConfig?.description ||
+    'Chưa có ghi chép về Linh Căn này.';
+
+  $('#statHp').textContent =
+    `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
+  $('#statMp').textContent =
+    `${fmt(player.current_mp)} / ${fmt(player.max_mp)}`;
   $('#statAttack').textContent = fmt(player.attack_value);
   $('#statDefense').textContent = fmt(player.defense_value);
   $('#statAccuracy').textContent = fmt(player.accuracy);
@@ -141,7 +161,8 @@ function render() {
   $('#statLifeSteal').textContent = percent(player.life_steal);
   $('#statHpRegen').textContent = `${fmt(player.hp_regen, 2)}/s`;
   $('#statMpRegen').textContent = `${fmt(player.mp_regen, 2)}/s`;
-  $('#statCultivation').textContent = `${fmt(player.cultivation_rate, 2)}/s`;
+  $('#statCultivation').textContent =
+    `${fmt(player.cultivation_rate, 2)}/s`;
   $('#statPower').textContent = fmt(player.power);
 
   const growth = player.spiritual_root_growth || {};
@@ -153,6 +174,17 @@ function render() {
   ].map(([label, value]) =>
     `<span>${label} ×${fmt(value || 1, 2)}</span>`
   ).join('');
+
+  // Chiến Đạo chỉ giữ dữ liệu trực tiếp phục vụ giao chiến.
+  $('#combatPlayerName').textContent = player.name;
+  $('#combatPlayerRealm').textContent =
+    `${player.realm_name} · Tầng ${player.main_layer}`;
+  $('#combatPlayerHp').textContent =
+    `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
+  $('#combatPlayerMp').textContent =
+    `${fmt(player.current_mp)} / ${fmt(player.max_mp)}`;
+  $('#playerHpBar').style.width = `${playerHpPercent}%`;
+  $('#playerMpBar').style.width = `${playerMpPercent}%`;
 
   renderInventory(data.inventory || []);
   renderLogs(data.logs || []);

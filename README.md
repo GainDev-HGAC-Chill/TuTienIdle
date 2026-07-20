@@ -1,71 +1,53 @@
-# Linh Căn · Đạo Thể Chân Giải
+# Tổng Quan · Đạo Thể Chân Giải
 
-## 1. Chép đè/tạo mới các file
+Bộ full này giữ nguyên hệ Linh Căn, MySQL và backend của bản trước.
 
-```text
-data/worlds/NhanGioi/NhanGioi.xml
-data/worlds/NhanGioi/TuyenDao/LinhCan.xml
-
-src/config/dataManager.js
-src/routes/configRoutes.js
-src/repositories/playerRepository.js
-src/services/gameService.js
-
-frontend/index.html
-frontend/style.css
-frontend/script.js
-
-database/schema.sql
-database/migrations/20260720_linh_can_chi_so.sql
-```
-
-## 2. Database đang có dữ liệu
-
-Không chạy lại toàn bộ `schema.sql`.
-
-Chỉ chạy:
+## Bố cục mới
 
 ```text
-database/migrations/20260720_linh_can_chi_so.sql
+Tổng Quan
+Động Phủ
+Chiến Đạo
+Túi Càn Khôn
+Thiên Cơ Ký
 ```
 
-## 3. Database mới hoàn toàn
+### Tổng Quan
 
-Chạy:
+- HP và MP
+- Hoạt động
+- Chiến lực
+- Linh thạch
+- Thành tích
+- Linh Căn, phẩm cấp, thuộc tính và mô tả
+- Thiên hướng tăng trưởng
+- Toàn bộ chỉ số cá nhân
+- Công pháp đang trang bị
 
-```text
-database/schema.sql
-```
+### Chiến Đạo
 
-## 4. Package XML
+- Chọn khu vực
+- HP/MP đạo hữu
+- HP yêu thú
+- Thắng/bại
+- Khai chiến và dừng chiến
 
-Nếu chưa cài:
+Không còn bảng thuộc tính chi tiết trong Chiến Đạo.
 
-```bat
-npm install fast-xml-parser
-```
+## Áp dụng
 
-## 5. Chạy game
+Chép đè toàn bộ file theo đúng thư mục.
+
+Nếu đã chạy migration Linh Căn ở bản trước thì không chạy lại.
+
+Sau đó:
 
 ```bat
 npm start
 ```
 
-Sau đó nhấn `Ctrl + F5` trên trình duyệt.
+Trên trình duyệt nhấn:
 
-## Cơ chế
-
-- Nhân vật mới ngẫu nhiên nhận một Linh Căn theo `weight` trong XML.
-- Nhân vật cũ giữ `Ngũ Hành Tạp Linh Căn`.
-- Phá đại cảnh giới chỉ cộng:
-  - Sinh Lực
-  - Nội Lực
-  - Công Kích
-  - Phòng Thủ
-- Linh Căn nhân hệ số tăng trưởng bốn chỉ số này.
-- Các thiên phú như bạo kích, né tránh, xuyên giáp, hồi phục được cấp lúc tạo nhân vật.
-- Giao diện Chiến Đạo hiển thị HP/MP bản thân, HP yêu thú và toàn bộ chỉ số cá nhân.
-
-## Chú ý về NhanGioi.xml
-
-Manifest đi kèm đúng theo cấu trúc thư mục trong ảnh. `dataManager.js` sẽ cảnh báo và bỏ qua file chưa tồn tại, vì vậy bạn có thể hoàn thiện từng đạo tàng dần mà server vẫn chạy.
+```text
+Ctrl + F5
+```
