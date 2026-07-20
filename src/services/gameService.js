@@ -22,23 +22,67 @@ function decorate(p) {
   };
 }
 async function profile(id) {
-  const p = await repo.findById(id); ensurePlayer(p);
-  return { player: decorate(p), inventory: await repo.inventory(id), logs: await repo.logs(id) };
+  const p = await repo.findById(id);
+  ensurePlayer(p);
+
+  const inventory = await repo.inventory(id);
+  const logs = await repo.logs(id);
+  const player = {
+    ...decorate(p),
+    inventory
+  };
+
+  return { player, inventory, logs };
 }
+
 async function byName(name) {
   const p = await repo.findByName(String(name || '').trim()); ensurePlayer(p); return profile(p.id);
 }
 async function create(name) { const p = await repo.create(name); return profile(p.id); }
 
 async function setActivity(id, activity) {
-  const allowed = ['idle','spirit_cultivation','combat'];
-  if (!allowed.includes(activity)) { const e = new Error('Hoạt động không hợp lệ.'); e.statusCode=400; throw e; }
+  const allowed = ['idle', 'spirit_cultivation', 'combat'];
+
+  if (!allowed.includes(activity)) {
+    const error = new Error('Hoạt động không hợp lệ.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const current = await repo.findById(id);
+  ensurePlayer(current);
+
+  if (current.current_activity === activity) {
+    return profile(id);
+  }
+
   await tick(id);
-  await transaction(async c => {
-    const p = await repo.findById(id,c,true); ensurePlayer(p);
-    await c.query('UPDATE players SET current_activity=?,last_tick_at=NOW(3) WHERE id=?',[activity,id]);
-    await repo.addLog(c,id,'system', activity==='idle'?'Đã thu công, trở về trạng thái tĩnh tọa.':activity==='combat'?'Bước vào Chiến Đạo.':'Trở về động phủ tiến hành Linh Tu.');
+
+  await transaction(async connection => {
+    const player = await repo.findById(id, connection, true);
+    ensurePlayer(player);
+
+    if (player.current_activity === activity) {
+      return;
+    }
+
+    await connection.query(
+      'UPDATE players SET current_activity = ?, last_tick_at = NOW(3) WHERE id = ?',
+      [activity, id]
+    );
+
+    await repo.addLog(
+      connection,
+      id,
+      'system',
+      activity === 'idle'
+        ? 'Đã thu công, trở về trạng thái tĩnh tọa.'
+        : activity === 'combat'
+          ? 'Bước vào Chiến Đạo.'
+          : 'Trở về động phủ tiến hành Linh Tu.'
+    );
   });
+
   return profile(id);
 }
 
@@ -142,17 +186,56 @@ async function breakthrough(id) {
   });
 }
 
-async function useItem(id,itemId) {
-  return transaction(async c => {
-    const p=await repo.findById(id,c,true); ensurePlayer(p);
-    const [rows]=await c.query('SELECT * FROM player_inventory WHERE player_id=? AND item_id=? AND quantity>0 FOR UPDATE',[id,itemId]);
-    if(!rows[0]) { const e=new Error('Vật phẩm không tồn tại.');e.statusCode=404;throw e; }
-    if(itemId==='hoi_khi_dan') {
-      await c.query('UPDATE players SET current_hp=LEAST(?,current_hp+25) WHERE id=?',[p.max_hp,id]);
-    } else { const e=new Error('Vật phẩm này chưa thể sử dụng.');e.statusCode=400;throw e; }
-    await c.query('UPDATE player_inventory SET quantity=quantity-1 WHERE id=?',[rows[0].id]);
-    await repo.addLog(c,id,'item',`Đã sử dụng ${rows[0].item_name}.`);
-    return profile(id);
+async function useItem(id, itemId) {
+  await transaction(async connection => {
+    const player = await repo.findById(id, connection, true);
+    ensurePlayer(player);
+
+    const [rows] = await connection.query(
+      `SELECT *
+       FROM player_inventory
+       WHERE player_id = ? AND item_id = ? AND quantity > 0
+       FOR UPDATE`,
+      [id, itemId]
+    );
+
+    const item = rows[0];
+    if (!item) {
+      const error = new Error('Vật phẩm không tồn tại.');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    if (itemId === 'hoi_khi_dan') {
+      await connection.query(
+        'UPDATE players SET current_hp = LEAST(?, current_hp + 25) WHERE id = ?',
+        [player.max_hp, id]
+      );
+    } else {
+      const error = new Error('Vật phẩm này chưa thể sử dụng.');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    await connection.query(
+      'UPDATE player_inventory SET quantity = quantity - 1 WHERE id = ?',
+      [item.id]
+    );
+
+    await connection.query(
+      'DELETE FROM player_inventory WHERE id = ? AND quantity <= 0',
+      [item.id]
+    );
+
+    await repo.addLog(
+      connection,
+      id,
+      'item',
+      `Đã sử dụng ${item.item_name}.`
+    );
   });
+
+  return profile(id);
 }
+
 module.exports={ profile,byName,create,setActivity,selectMap,tick,breakthrough,useItem };
