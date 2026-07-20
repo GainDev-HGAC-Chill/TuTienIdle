@@ -2,6 +2,10 @@
 <Monsters worldId="nhan_gioi">
 	<Monster id="monster_son_lang" name="Sơn Lang" rank="normal" level="1">
 		<Stats hp="300" attack="18" defense="5" speed="8"/><Rewards spiritStonesMin="2" spiritStonesMax="4" bodyExp="25" soulExp="5" mainExp="0" dropTableId="none"/>
+		    <Skills>
+			  <SkillRef skillId="skill_son_lang_trao" chance="0.30" unlockHpPercent="1.00" enabled="true" />
+			  <SkillRef skillId="skill_son_lang_cuong_no" chance="1.00" unlockHpPercent="0.30" enabled="true" />
+			</Skills>
 	</Monster>
 	<Monster id="monster_doc_nha" name="Độc Nha Xà" rank="normal" level="2">
 		<Stats hp="380" attack="22" defense="7" speed="10"/><Rewards spiritStonesMin="3" spiritStonesMax="6" bodyExp="30" soulExp="7" mainExp="0" dropTableId="none"/>

@@ -47,6 +47,7 @@ class DataManager {
     this.realms = [];
     this.maps = [];
     this.monsters = [];
+	this.monsterSkills = new Map();
     this.spiritualRoots = [];
 
     this.realmByXmlId = new Map();
@@ -115,6 +116,9 @@ class DataManager {
       case 'monsters':
         this.ingestMonsters(document);
         break;
+	  case 'monsterSkills':
+		this.ingestMonsterSkills(document);
+		break;
       case 'spiritualRoots':
         this.ingestSpiritualRoots(document);
         break;
@@ -250,34 +254,97 @@ class DataManager {
       }
     }
   }
+  ingestMonsterSkills(document) {
+  for (const raw of arrayOf(document.MonsterSkills?.Skill)) {
+    const id = String(raw.id || '').trim();
 
-  ingestMonsters(document) {
-    for (const raw of arrayOf(document.Monsters?.Monster)) {
-      const xmlId = String(raw.id || '');
-      if (!xmlId) throw new Error('Yêu thú thiếu id.');
-
-      const stats = raw.Stats || {};
-      const rewards = raw.Rewards || {};
-
-      this.monsters.push({
-        id: 0,
-        runtimeId: 0,
-        xmlId,
-        name: String(raw.name || xmlId),
-        rank: String(raw.rank || 'normal'),
-        level: asNumber(raw.level, 1),
-        hp: asNumber(stats.hp, 1),
-        attack: asNumber(stats.attack, 1),
-        defense: asNumber(stats.defense, 0),
-        speed: asNumber(stats.speed, 0),
-        stonesMin: asNumber(rewards.spiritStonesMin, 0),
-        stonesMax: asNumber(rewards.spiritStonesMax, 0),
-        bodyExp: asNumber(rewards.bodyExp, 0),
-        soulExp: asNumber(rewards.soulExp, 0),
-        mainExp: asNumber(rewards.mainExp, 0)
-      });
+    if (!id) {
+      throw new Error('Kỹ năng yêu thú thiếu id.');
     }
+
+    if (this.monsterSkills.has(id)) {
+      throw new Error(`Trùng kỹ năng yêu thú: ${id}`);
+    }
+
+    const skill = {
+      id,
+      name: String(raw.name || id),
+      type: String(raw.type || 'damage'),
+      target: String(raw.target || 'player'),
+      element: String(raw.element || 'physical'),
+
+      powerMultiplier: asNumber(raw.powerMultiplier, 1),
+      flatDamage: asNumber(raw.flatDamage, 0),
+      hitRate: asNumber(raw.hitRate, 1),
+
+      cooldownRounds: Math.max(
+        0,
+        asNumber(raw.cooldownRounds, 0)
+      ),
+
+      priority: asNumber(raw.priority, 0),
+
+      trigger: String(raw.trigger || 'random'),
+      triggerValue: asNumber(raw.triggerValue, 0),
+
+      effectId: String(raw.effectId || ''),
+      enabled: asBoolean(raw.enabled, true),
+
+      description: String(raw.Description || '')
+    };
+
+    this.monsterSkills.set(id, skill);
   }
+}
+ingestMonsters(document) {
+  for (const raw of arrayOf(document.Monsters?.Monster)) {
+    const xmlId = String(raw.id || '');
+
+    if (!xmlId) {
+      throw new Error('Yêu thú thiếu id.');
+    }
+
+    const stats = raw.Stats || {};
+    const rewards = raw.Rewards || {};
+
+    const skillRefs = arrayOf(raw.Skills?.SkillRef).map(ref => ({
+      skillId: String(ref.skillId || '').trim(),
+      chance: Math.min(
+        1,
+        Math.max(0, asNumber(ref.chance, 0))
+      ),
+      unlockHpPercent: Math.min(
+        1,
+        Math.max(0, asNumber(ref.unlockHpPercent, 1))
+      ),
+      enabled: asBoolean(ref.enabled, true)
+    }));
+
+    this.monsters.push({
+      id: 0,
+      runtimeId: 0,
+      xmlId,
+
+      name: String(raw.name || xmlId),
+      rank: String(raw.rank || 'normal'),
+      level: asNumber(raw.level, 1),
+      enabled: asBoolean(raw.enabled, true),
+
+      hp: asNumber(stats.hp, 1),
+      attack: asNumber(stats.attack, 1),
+      defense: asNumber(stats.defense, 0),
+      speed: asNumber(stats.speed, 0),
+
+      stonesMin: asNumber(rewards.spiritStonesMin, 0),
+      stonesMax: asNumber(rewards.spiritStonesMax, 0),
+      bodyExp: asNumber(rewards.bodyExp, 0),
+      soulExp: asNumber(rewards.soulExp, 0),
+      mainExp: asNumber(rewards.mainExp, 0),
+
+      skillRefs
+    });
+  }
+}
 
   finalize() {
     this.realms.sort((a, b) => a.order - b.order);
@@ -386,7 +453,33 @@ class DataManager {
       monsterRefs: item.monsterRefs.map(ref => ({ ...ref }))
     }));
   }
+getMonsterSkill(id) {
+  this.ensureLoaded();
+  return this.monsterSkills.get(String(id)) || null;
+}
 
+getMonsterSkills(monster) {
+  this.ensureLoaded();
+
+  if (!monster) return [];
+
+  return (monster.skillRefs || [])
+    .filter(ref => ref.enabled)
+    .map(ref => {
+      const skill = this.monsterSkills.get(ref.skillId);
+
+      if (!skill || !skill.enabled) {
+        return null;
+      }
+
+      return {
+        ...skill,
+        chance: ref.chance,
+        unlockHpPercent: ref.unlockHpPercent
+      };
+    })
+    .filter(Boolean);
+}
   getMonster(id) {
     this.ensureLoaded();
 
@@ -487,6 +580,7 @@ class DataManager {
       recipes: this.recipes.size,
       herbs: this.herbs.size,
       skills: this.skills.size
+	  monsterSkills: this.monsterSkills.size,
     };
   }
 }

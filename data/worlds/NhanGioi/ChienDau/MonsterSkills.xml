@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MonsterSkills version="1.0.0">
-  <!-- Kỹ năng chủ động hoặc bị động của yêu thú. -->
+
   <Skill
-    id="skill_son_lang_cao"
+    id="skill_son_lang_trao"
     name="Sơn Lang Trảo"
-    type="active"
+    type="damage"
     target="player"
     element="physical"
     powerMultiplier="1.20"
-    cooldownSeconds="5"
+    flatDamage="0"
     hitRate="1.00"
-    effectId=""
+    cooldownRounds="3"
+    priority="10"
     enabled="true">
-    <Description>Yêu lang vung trảo, gây sát thương vật lý bằng 120% công kích.</Description>
+    <Description>
+      Sơn Lang vung lợi trảo, gây 120% công kích vật lý.
+    </Description>
   </Skill>
+
+  <Skill
+    id="skill_son_lang_cuong_no"
+    name="Sơn Lang Cuồng Nộ"
+    type="buff"
+    target="self"
+    trigger="hp_below"
+    triggerValue="0.30"
+    effectId="effect_son_lang_cuong_no"
+    cooldownRounds="99"
+    priority="100"
+    enabled="true">
+    <Description>
+      Khi sinh lực dưới 30%, Sơn Lang tiến vào trạng thái cuồng nộ.
+    </Description>
+  </Skill>
+
 </MonsterSkills>

@@ -11,6 +11,41 @@ function ensurePlayer(player) {
   }
 }
 
+function selectMonsterSkill(monster, monsterHp) {
+  const skills = dataManager.getMonsterSkills(monster) || [];
+
+  if (!skills.length) {
+    return null;
+  }
+
+  const hpPercent = Math.max(
+    0,
+    Math.min(
+      1,
+      Number(monsterHp) /
+        Math.max(1, Number(monster.hp || 1))
+    )
+  );
+
+  const available = skills
+    .filter(skill => skill && skill.enabled !== false)
+    .filter(
+      skill =>
+        hpPercent <= Number(skill.unlockHpPercent ?? 1)
+    )
+    .filter(
+      skill =>
+        Math.random() < Number(skill.chance ?? 0)
+    )
+    .sort(
+      (a, b) =>
+        Number(b.priority || 0) -
+        Number(a.priority || 0)
+    );
+
+  return available[0] || null;
+}
+
 function decorate(player) {
   const realm = dataManager.getRealm(player.main_realm_index);
   const required = formula.expRequired(realm, player.main_layer);
@@ -291,39 +326,48 @@ async function combatTick(connection, player, elapsed) {
           Math.max(1, Number(player.accuracy) + Number(monster.speed || 0) * 5)
       )
     );
+	let playerDamage = 0;
+    let playerHit = false;
+    let critical = false;
 
-    if (Math.random() > hitChance) {
-      continue;
+    if (Math.random() <= hitChance) {
+      playerHit = true;
+
+      const effectiveCritRate = Math.max(
+        0,
+        Number(player.crit_rate || 0) -
+          Number(player.crit_resistance || 0)
+      );
+
+      critical = Math.random() < effectiveCritRate;
+
+      const effectiveDefense = Math.max(
+        0,
+        Number(monster.defense || 0) -
+          Number(player.armor_penetration || 0)
+      );
+
+      playerDamage = Math.max(
+        1,
+        Math.floor(
+          Number(player.attack_value || 1) *
+            (
+              critical
+                ? Number(player.crit_damage || 1.5)
+                : 1
+            ) -
+          effectiveDefense
+        )
+      );
+
+      monsterHp -= playerDamage;
     }
-
-    const effectiveCritRate = Math.max(
-      0,
-      Number(player.crit_rate) - Number(player.crit_resistance || 0)
-    );
-
-    const critical = Math.random() < effectiveCritRate;
-    const effectiveDefense = Math.max(
-      0,
-      Number(monster.defense) - Number(player.armor_penetration || 0)
-    );
-
-    const playerDamage = Math.max(
-      1,
-      Math.floor(
-        Number(player.attack_value) *
-          (critical ? Number(player.crit_damage || 1.5) : 1) -
-        effectiveDefense
-      )
-    );
-
-    monsterHp -= playerDamage;
 
     if (monsterHp <= 0) {
       wins += 1;
       stones += dataManager.rollMonsterStones(monster);
-      bodyExp += monster.bodyExp;
-      soulExp += monster.soulExp;
-
+		bodyExp += Number(monster.bodyExp || 0);
+		soulExp += Number(monster.soulExp || 0);
       if (Math.random() < 0.12) {
         await repo.addItem(connection, player.id, {
           id: 'hoi_khi_dan',
@@ -337,25 +381,71 @@ async function combatTick(connection, player, elapsed) {
       }
 
       monster = dataManager.getRandomMonster(map.id);
-      monsterHp = monster.hp;
+	  monsterHp = Number(monster.hp || 1);
       continue;
     }
+	
+    const dodgeChance = Math.min(
+      0.75,
+      Math.max(
+        0,
+        Number(player.dodge_rate || 0)
+      )
+    );
 
-    const dodgeChance = Math.min(0.75, Math.max(0, Number(player.dodge_rate)));
     if (Math.random() >= dodgeChance) {
-      hp -= Math.max(
-        1,
-        Number(monster.attack) - Number(player.defense_value)
+      const monsterSkill = selectMonsterSkill(
+        monster,
+        monsterHp
       );
+
+      let monsterAttack = Number(monster.attack || 1);
+      let monsterHitRate = 1;
+
+      if (
+        monsterSkill &&
+        monsterSkill.type === 'damage'
+      ) {
+        monsterAttack =
+          monsterAttack *
+            Number(monsterSkill.powerMultiplier || 1) +
+          Number(monsterSkill.flatDamage || 0);
+
+        monsterHitRate = Math.min(
+          1,
+          Math.max(
+            0,
+            Number(monsterSkill.hitRate ?? 1)
+          )
+        );
+      }
+
+      if (Math.random() <= monsterHitRate) {
+        const monsterDamage = Math.max(
+          1,
+          Math.floor(
+            monsterAttack -
+              Number(player.defense_value || 0)
+          )
+        );
+
+        hp -= monsterDamage;
+      }
     }
 
-    if (Number(player.life_steal) > 0) {
-      hp = Math.min(
-        Number(player.max_hp),
-        hp + Math.floor(playerDamage * Number(player.life_steal))
-      );
-    }
-
+	if (
+	  playerHit &&
+	  playerDamage > 0 &&
+	  Number(player.life_steal || 0) > 0
+	) {
+	  hp = Math.min(
+		Number(player.max_hp),
+		hp + Math.floor(
+		  playerDamage * Number(player.life_steal)
+		)
+	  );
+	}
+	
     if (hp <= 0) {
       const lost = Math.floor(Number(player.spirit_stones) * 0.01);
       hp = Number(player.max_hp);
