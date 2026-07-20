@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const { loadXml, arrayOf } = require('./xmlLoader');
 
@@ -25,6 +26,7 @@ function weightedRandom(rows, weightSelector) {
   }
 
   let roll = Math.random() * total;
+
   for (const row of rows) {
     roll -= Math.max(0, asNumber(weightSelector(row), 0));
     if (roll <= 0) return row;
@@ -45,12 +47,14 @@ class DataManager {
     this.realms = [];
     this.maps = [];
     this.monsters = [];
+    this.spiritualRoots = [];
 
     this.realmByXmlId = new Map();
     this.mapByXmlId = new Map();
     this.mapByRuntimeId = new Map();
     this.monsterByXmlId = new Map();
     this.monsterByRuntimeId = new Map();
+    this.spiritualRootById = new Map();
 
     this.items = new Map();
     this.pills = new Map();
@@ -80,8 +84,17 @@ class DataManager {
 
     for (const reference of arrayOf(manifest.Configs?.Config)) {
       const filePath = path.join(baseDirectory, String(reference.path));
-      const configDocument = loadXml(filePath);
-      this.ingest(String(reference.type), configDocument);
+
+      /*
+       * Manifest giữ đủ cấu trúc đạo tàng.
+       * Giai đoạn nào chưa tạo file thì tạm bỏ qua để server vẫn khởi động.
+       */
+      if (!fs.existsSync(filePath)) {
+        console.warn(`[DAO_TANG] Chưa có ${reference.path}, tạm bỏ qua.`);
+        continue;
+      }
+
+      this.ingest(String(reference.type), loadXml(filePath));
     }
 
     this.finalize();
@@ -102,6 +115,9 @@ class DataManager {
       case 'monsters':
         this.ingestMonsters(document);
         break;
+      case 'spiritualRoots':
+        this.ingestSpiritualRoots(document);
+        break;
       case 'items':
         this.ingestSimple(document.Items?.Item, this.items, type);
         break;
@@ -119,7 +135,8 @@ class DataManager {
         this.ingestSimple(document.Skills?.Skill, this.skills, type);
         break;
       default:
-        console.warn(`[DAO_TANG] Bỏ qua loại cấu hình chưa hỗ trợ: ${type}`);
+        // Các đạo tàng chưa có logic runtime sẽ được nạp ở giai đoạn tương ứng.
+        break;
     }
   }
 
@@ -132,13 +149,49 @@ class DataManager {
     }
   }
 
+  ingestSpiritualRoots(document) {
+    for (const raw of arrayOf(document.SpiritualRoots?.Root)) {
+      const id = String(raw.id || '');
+
+      if (!id) throw new Error('Linh Căn thiếu id.');
+      if (this.spiritualRootById.has(id)) {
+        throw new Error(`Trùng Linh Căn: ${id}`);
+      }
+
+      const root = {
+        id,
+        name: String(raw.name || id),
+        grade: String(raw.grade || 'phàm'),
+        element: String(raw.element || 'vô'),
+        weight: asNumber(raw.weight, 1),
+        description: String(raw.description || ''),
+
+        growthHp: asNumber(raw.growthHp, 1),
+        growthMp: asNumber(raw.growthMp, 1),
+        growthAttack: asNumber(raw.growthAttack, 1),
+        growthDefense: asNumber(raw.growthDefense, 1),
+
+        bonusAccuracy: asNumber(raw.bonusAccuracy, 0),
+        bonusDodgeRate: asNumber(raw.bonusDodgeRate, 0),
+        bonusCritRate: asNumber(raw.bonusCritRate, 0),
+        bonusCritDamage: asNumber(raw.bonusCritDamage, 0),
+        bonusSpeed: asNumber(raw.bonusSpeed, 0),
+        bonusArmorPenetration: asNumber(raw.bonusArmorPenetration, 0),
+        bonusCritResistance: asNumber(raw.bonusCritResistance, 0),
+        bonusLifeSteal: asNumber(raw.bonusLifeSteal, 0),
+        bonusHpRegen: asNumber(raw.bonusHpRegen, 0),
+        bonusMpRegen: asNumber(raw.bonusMpRegen, 0)
+      };
+
+      this.spiritualRoots.push(root);
+      this.spiritualRootById.set(root.id, root);
+    }
+  }
+
   ingestRealms(document) {
     for (const rawRealm of arrayOf(document.Realms?.Realm)) {
       const xmlId = String(rawRealm.id || '');
       if (!xmlId) throw new Error('Cảnh giới thiếu id.');
-      if (this.realmByXmlId.has(xmlId)) {
-        throw new Error(`Trùng cảnh giới: ${xmlId}`);
-      }
 
       const layers = arrayOf(rawRealm.Layers?.Layer)
         .map(layer => ({
@@ -150,7 +203,7 @@ class DataManager {
         }))
         .sort((a, b) => a.index - b.index);
 
-      const baseSuccessRate = asNumber(
+      const baseRate = asNumber(
         rawRealm.Breakthrough?.baseSuccessRate,
         0
       );
@@ -160,16 +213,10 @@ class DataManager {
         xmlId,
         order: asNumber(rawRealm.order, this.realms.length + 1),
         name: String(rawRealm.name || xmlId),
-        layers: asNumber(rawRealm.maxLayer, 9),
         maxLayer: asNumber(rawRealm.maxLayer, 9),
         description: String(rawRealm.Description || ''),
         layerData: layers,
-        targetRealmId: rawRealm.Breakthrough?.targetRealmId
-          ? String(rawRealm.Breakthrough.targetRealmId)
-          : null,
-        breakthroughRate: baseSuccessRate > 1
-          ? baseSuccessRate / 100
-          : baseSuccessRate
+        breakthroughRate: baseRate > 1 ? baseRate / 100 : baseRate
       };
 
       this.realms.push(realm);
@@ -183,11 +230,6 @@ class DataManager {
         const xmlId = String(rawMap.id || '');
         if (!xmlId) throw new Error('Bản đồ thiếu id.');
 
-        const monsterRefs = arrayOf(rawMap.Monsters?.MonsterRef).map(ref => ({
-          monsterId: String(ref.monsterId || ''),
-          weight: asNumber(ref.weight, 1)
-        }));
-
         this.maps.push({
           id: 0,
           runtimeId: 0,
@@ -200,27 +242,30 @@ class DataManager {
           realmId: String(rawMap.UnlockRequirement?.realmId || ''),
           realmRequired: 0,
           layerRequired: asNumber(rawMap.UnlockRequirement?.layer, 1),
-          monsterRefs
+          monsterRefs: arrayOf(rawMap.Monsters?.MonsterRef).map(ref => ({
+            monsterId: String(ref.monsterId || ''),
+            weight: asNumber(ref.weight, 1)
+          }))
         });
       }
     }
   }
 
   ingestMonsters(document) {
-    for (const rawMonster of arrayOf(document.Monsters?.Monster)) {
-      const xmlId = String(rawMonster.id || '');
+    for (const raw of arrayOf(document.Monsters?.Monster)) {
+      const xmlId = String(raw.id || '');
       if (!xmlId) throw new Error('Yêu thú thiếu id.');
 
-      const stats = rawMonster.Stats || {};
-      const rewards = rawMonster.Rewards || {};
+      const stats = raw.Stats || {};
+      const rewards = raw.Rewards || {};
 
       this.monsters.push({
         id: 0,
         runtimeId: 0,
         xmlId,
-        name: String(rawMonster.name || xmlId),
-        rank: String(rawMonster.rank || 'normal'),
-        level: asNumber(rawMonster.level, 1),
+        name: String(raw.name || xmlId),
+        rank: String(raw.rank || 'normal'),
+        level: asNumber(raw.level, 1),
         hp: asNumber(stats.hp, 1),
         attack: asNumber(stats.attack, 1),
         defense: asNumber(stats.defense, 0),
@@ -229,8 +274,7 @@ class DataManager {
         stonesMax: asNumber(rewards.spiritStonesMax, 0),
         bodyExp: asNumber(rewards.bodyExp, 0),
         soulExp: asNumber(rewards.soulExp, 0),
-        mainExp: asNumber(rewards.mainExp, 0),
-        dropTableId: String(rewards.dropTableId || 'none')
+        mainExp: asNumber(rewards.mainExp, 0)
       });
     }
   }
@@ -251,7 +295,6 @@ class DataManager {
       map.id = index + 1;
       map.runtimeId = map.id;
       map.realmRequired = this.getRealmIndexById(map.realmId);
-
       this.mapByXmlId.set(map.xmlId, map);
       this.mapByRuntimeId.set(map.runtimeId, map);
     });
@@ -259,7 +302,6 @@ class DataManager {
     this.monsters.forEach((monster, index) => {
       monster.id = index + 1;
       monster.runtimeId = monster.id;
-
       this.monsterByXmlId.set(monster.xmlId, monster);
       this.monsterByRuntimeId.set(monster.runtimeId, monster);
     });
@@ -278,15 +320,15 @@ class DataManager {
       throw new Error('Đạo tàng không có yêu thú.');
     }
 
+    if (!this.spiritualRoots.length) {
+      throw new Error('Đạo tàng không có Linh Căn.');
+    }
+
     for (const map of this.maps) {
       if (!this.realmByXmlId.has(map.realmId)) {
         throw new Error(
           `Bản đồ ${map.xmlId} yêu cầu cảnh giới không tồn tại: ${map.realmId}`
         );
-      }
-
-      if (!map.monsterRefs.length) {
-        throw new Error(`Bản đồ ${map.xmlId} chưa khai báo yêu thú.`);
       }
 
       for (const reference of map.monsterRefs) {
@@ -301,16 +343,13 @@ class DataManager {
 
   ensureLoaded() {
     if (!this.loaded) {
-      throw new Error(
-        'Đạo tàng chưa được khai mở. Hãy gọi dataManager.load() khi server khởi động.'
-      );
+      throw new Error('Đạo tàng chưa được khai mở.');
     }
   }
 
   getRealmIndexById(id) {
     const realm = this.realmByXmlId.get(String(id));
-    if (!realm) return -1;
-    return this.realms.indexOf(realm);
+    return realm ? this.realms.indexOf(realm) : -1;
   }
 
   getRealm(indexOrId) {
@@ -318,8 +357,7 @@ class DataManager {
       return this.realmByXmlId.get(indexOrId) || null;
     }
 
-    const index = asNumber(indexOrId, -1);
-    return this.realms[index] || null;
+    return this.realms[asNumber(indexOrId, -1)] || null;
   }
 
   getRealmName(indexOrId) {
@@ -328,7 +366,7 @@ class DataManager {
 
   getAllRealms() {
     this.ensureLoaded();
-    return this.realms.map(realm => ({ ...realm }));
+    return this.realms.map(item => ({ ...item }));
   }
 
   getMap(id) {
@@ -343,9 +381,9 @@ class DataManager {
 
   getAllMaps() {
     this.ensureLoaded();
-    return this.maps.map(map => ({
-      ...map,
-      monsterRefs: map.monsterRefs.map(ref => ({ ...ref }))
+    return this.maps.map(item => ({
+      ...item,
+      monsterRefs: item.monsterRefs.map(ref => ({ ...ref }))
     }));
   }
 
@@ -361,22 +399,53 @@ class DataManager {
 
   getAllMonsters() {
     this.ensureLoaded();
-    return this.monsters.map(monster => ({ ...monster }));
+    return this.monsters.map(item => ({ ...item }));
+  }
+
+  getSpiritualRoot(id) {
+    this.ensureLoaded();
+    return this.spiritualRootById.get(String(id)) || null;
+  }
+
+  getAllSpiritualRoots() {
+    this.ensureLoaded();
+    return this.spiritualRoots.map(item => ({ ...item }));
+  }
+
+  getRandomSpiritualRoot() {
+    this.ensureLoaded();
+    return weightedRandom(this.spiritualRoots, root => root.weight);
+  }
+
+  getRealmGrowth(spiritualRootId, baseGrowth) {
+    const root = this.getSpiritualRoot(spiritualRootId)
+      || this.getSpiritualRoot('ngu_hanh_tap_linh_can');
+
+    return {
+      hp: Math.max(1, Math.round(asNumber(baseGrowth.hp) * root.growthHp)),
+      mp: Math.max(1, Math.round(asNumber(baseGrowth.mp) * root.growthMp)),
+      attack: Math.max(
+        1,
+        Math.round(asNumber(baseGrowth.attack) * root.growthAttack)
+      ),
+      defense: Math.max(
+        1,
+        Math.round(asNumber(baseGrowth.defense) * root.growthDefense)
+      )
+    };
   }
 
   getRandomMonster(mapId) {
     const map = this.getMap(mapId);
-    if (!map) {
-      throw new Error(`Không tìm thấy bản đồ: ${mapId}`);
-    }
+    if (!map) throw new Error(`Không tìm thấy bản đồ: ${mapId}`);
 
-    const selectedReference = weightedRandom(
+    const selected = weightedRandom(
       map.monsterRefs,
       reference => reference.weight
     );
 
-    const monster = selectedReference
-      ? this.monsterByXmlId.get(selectedReference.monsterId)
+    const monster = selected
+      ? this.monsterByXmlId.get(selected.monsterId)
       : null;
 
     if (!monster) {
@@ -412,6 +481,7 @@ class DataManager {
       realms: this.realms.length,
       maps: this.maps.length,
       monsters: this.monsters.length,
+      spiritualRoots: this.spiritualRoots.length,
       items: this.items.size,
       pills: this.pills.size,
       recipes: this.recipes.size,

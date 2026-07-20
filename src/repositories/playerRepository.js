@@ -1,4 +1,5 @@
 const { getPool, transaction } = require('../db/mysql');
+const dataManager = require('../config/dataManager');
 
 async function findById(id, connection = getPool(), lock = false) {
   const [rows] = await connection.query(
@@ -17,7 +18,16 @@ async function findById(id, connection = getPool(), lock = false) {
        a.max_mp,
        a.attack_value,
        a.defense_value,
+       a.accuracy,
+       a.dodge_rate,
        a.crit_rate,
+       a.crit_damage,
+       a.speed_value,
+       a.armor_penetration,
+       a.crit_resistance,
+       a.life_steal,
+       a.hp_regen,
+       a.mp_regen,
        a.cultivation_rate,
        s.map_id,
        s.monster_id,
@@ -58,10 +68,13 @@ async function create(name) {
       throw error;
     }
 
+    const spiritualRoot = dataManager.getRandomSpiritualRoot();
+
     try {
       const [result] = await connection.query(
-        'INSERT INTO players(name) VALUES(?)',
-        [clean]
+        `INSERT INTO players(name, spiritual_root)
+         VALUES(?, ?)`,
+        [clean, spiritualRoot.id]
       );
 
       const playerId = result.insertId;
@@ -72,8 +85,32 @@ async function create(name) {
       );
 
       await connection.query(
-        'INSERT INTO player_attributes(player_id) VALUES(?)',
-        [playerId]
+        `INSERT INTO player_attributes(
+           player_id,
+           accuracy,
+           dodge_rate,
+           crit_rate,
+           crit_damage,
+           speed_value,
+           armor_penetration,
+           crit_resistance,
+           life_steal,
+           hp_regen,
+           mp_regen
+         ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          playerId,
+          100 + spiritualRoot.bonusAccuracy,
+          spiritualRoot.bonusDodgeRate,
+          0.05 + spiritualRoot.bonusCritRate,
+          1.50 + spiritualRoot.bonusCritDamage,
+          10 + spiritualRoot.bonusSpeed,
+          spiritualRoot.bonusArmorPenetration,
+          spiritualRoot.bonusCritResistance,
+          spiritualRoot.bonusLifeSteal,
+          spiritualRoot.bonusHpRegen,
+          spiritualRoot.bonusMpRegen
+        ]
       );
 
       await connection.query(
@@ -89,20 +126,14 @@ async function create(name) {
            item_type,
            quantity
          ) VALUES(?, ?, ?, ?, ?)`,
-        [
-          playerId,
-          'linh_thach',
-          'Linh Thạch',
-          'currency',
-          100
-        ]
+        [playerId, 'linh_thach', 'Linh Thạch', 'currency', 100]
       );
 
       await addLog(
         connection,
         playerId,
         'system',
-        `Đạo hiệu ${clean} khai mở tiên lộ.`
+        `Đạo hiệu ${clean} khai mở tiên lộ, thức tỉnh ${spiritualRoot.name}.`
       );
 
       return findById(playerId, connection);
@@ -118,13 +149,8 @@ async function create(name) {
 }
 
 function parseMetadata(value) {
-  if (value === null || value === undefined || value === '') {
-    return null;
-  }
-
-  if (typeof value !== 'string') {
-    return value;
-  }
+  if (value === null || value === undefined || value === '') return null;
+  if (typeof value !== 'string') return value;
 
   try {
     return JSON.parse(value);
@@ -135,12 +161,7 @@ function parseMetadata(value) {
 
 async function inventory(playerId, connection = getPool()) {
   const [rows] = await connection.query(
-    `SELECT
-       item_id,
-       item_name,
-       item_type,
-       quantity,
-       metadata
+    `SELECT item_id, item_name, item_type, quantity, metadata
      FROM player_inventory
      WHERE player_id = ?
        AND quantity > 0
@@ -155,10 +176,7 @@ async function inventory(playerId, connection = getPool()) {
 }
 
 async function logs(playerId, limit = 80, connection = getPool()) {
-  const safeLimit = Math.min(
-    200,
-    Math.max(1, Number(limit) || 80)
-  );
+  const safeLimit = Math.min(200, Math.max(1, Number(limit) || 80));
 
   const [rows] = await connection.query(
     `SELECT category, message, created_at

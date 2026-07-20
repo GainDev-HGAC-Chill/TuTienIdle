@@ -1,17 +1,207 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nhân Giới · Tu Tiên Idle</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div><h1>Nhân Giới Đạo Đồ</h1><p>Tu tiên idle · Máy chủ quyết định toàn bộ tiến trình</p></div><button id="themeBtn">Âm Dương</button></header>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nhân Giới · Tu Tiên Idle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>Nhân Giới Đạo Đồ</h1>
+    <p>Tu tiên idle · Máy chủ quyết định toàn bộ tiến trình</p>
+  </div>
+  <button id="themeBtn">Âm Dương</button>
+</header>
+
 <main>
-<section id="gate" class="card gate"><h2>Khai mở đạo hiệu</h2><div class="row"><input id="nameInput" maxlength="24" placeholder="Nhập đạo hiệu"><button id="loadBtn">Đăng nhập</button><button id="createBtn" class="primary">Tạo nhân vật</button></div><p id="gateMsg" class="muted"></p></section>
-<section id="game" class="hidden">
-<div class="top-grid">
-<article class="card profile"><div class="title-row"><div><span class="eyebrow">ĐẠO HIỆU</span><h2 id="playerName">—</h2></div><span id="activityBadge" class="badge">Tĩnh tọa</span></div><div class="stats"><div><span>Cảnh giới</span><b id="realm">—</b></div><div><span>Chiến lực</span><b id="power">0</b></div><div><span>Linh thạch</span><b id="stones">0</b></div><div><span>Sinh lực</span><b id="hp">0/0</b></div></div></article>
-<article class="card progress-card"><div class="title-row"><h3>Đạo Hành</h3><button id="breakBtn" class="primary">Đột phá</button></div><div class="bar"><i id="expBar"></i></div><div class="between"><span id="expText">0 / 0</span><span id="rateText">0%</span></div><div class="minor-grid"><div><span>Luyện Thể</span><b id="bodyExp">0</b></div><div><span>Luyện Hồn</span><b id="soulExp">0</b></div></div></article>
+  <section id="gate" class="card gate">
+    <h2>Khai mở đạo hiệu</h2>
+    <div class="row">
+      <input id="nameInput" maxlength="24" placeholder="Nhập đạo hiệu">
+      <button id="loadBtn">Đăng nhập</button>
+      <button id="createBtn" class="primary">Tạo nhân vật</button>
+    </div>
+    <p id="gateMsg" class="muted"></p>
+  </section>
+
+  <section id="game" class="hidden">
+    <div class="top-grid">
+      <article class="card profile">
+        <div class="title-row">
+          <div>
+            <span class="eyebrow">ĐẠO HIỆU</span>
+            <h2 id="playerName">—</h2>
+          </div>
+          <span id="activityBadge" class="badge">Tĩnh tọa</span>
+        </div>
+
+        <div class="stats">
+          <div><span>Cảnh giới</span><b id="realm">—</b></div>
+          <div><span>Linh Căn</span><b id="spiritualRoot">—</b></div>
+          <div><span>Chiến lực</span><b id="power">0</b></div>
+          <div><span>Linh thạch</span><b id="stones">0</b></div>
+        </div>
+      </article>
+
+      <article class="card progress-card">
+        <div class="title-row">
+          <h3>Đạo Hành</h3>
+          <button id="breakBtn" class="primary">Đột phá</button>
+        </div>
+        <div class="bar"><i id="expBar"></i></div>
+        <div class="between">
+          <span id="expText">0 / 0</span>
+          <span id="rateText">0%</span>
+        </div>
+        <div class="minor-grid">
+          <div><span>Luyện Thể</span><b id="bodyExp">0</b></div>
+          <div><span>Luyện Hồn</span><b id="soulExp">0</b></div>
+        </div>
+      </article>
+    </div>
+
+    <nav class="tabs">
+      <button class="active" data-tab="cultivation">Động Phủ</button>
+      <button data-tab="combat">Chiến Đạo</button>
+      <button data-tab="inventory">Túi Càn Khôn</button>
+      <button data-tab="logs">Thiên Cơ Ký</button>
+    </nav>
+
+    <section id="cultivation" class="tab-pane active">
+      <article class="card action-card">
+        <div>
+          <h3>Linh Tu</h3>
+          <p>Về động phủ hấp thu linh khí. Khi tu vi viên mãn, nhấn đột phá.</p>
+        </div>
+        <div class="actions">
+          <button data-action="spirit_cultivation" class="primary">Bắt đầu Linh Tu</button>
+          <button data-action="idle">Thu công</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="combat" class="tab-pane">
+      <div class="combat-top-grid">
+        <article class="card">
+          <div class="title-row">
+            <h3>Khu vực lịch luyện</h3>
+            <button id="mapBtn">Chọn bản đồ</button>
+          </div>
+          <p id="mapName" class="big">—</p>
+          <div class="actions">
+            <button data-action="combat" class="danger">Khai chiến</button>
+            <button data-action="idle">Dừng chiến</button>
+          </div>
+        </article>
+
+        <article class="card duel-card">
+          <div class="combatant player-combatant">
+            <div class="combatant-head">
+              <div>
+                <span class="eyebrow">ĐẠO THỂ</span>
+                <h3 id="combatPlayerName">—</h3>
+              </div>
+              <b id="combatPlayerRealm">—</b>
+            </div>
+
+            <div class="resource-label">
+              <span>Sinh Lực</span>
+              <strong id="combatPlayerHp">0 / 0</strong>
+            </div>
+            <div class="bar health"><i id="playerHpBar"></i></div>
+
+            <div class="resource-label">
+              <span>Nội Lực</span>
+              <strong id="combatPlayerMp">0 / 0</strong>
+            </div>
+            <div class="bar mana"><i id="playerMpBar"></i></div>
+          </div>
+
+          <div class="versus">ĐỐI CHIẾN</div>
+
+          <div class="combatant monster-combatant">
+            <div class="combatant-head">
+              <div>
+                <span class="eyebrow">YÊU THÚ</span>
+                <h3 id="monsterName">Chưa gặp yêu thú</h3>
+              </div>
+              <b id="record">0 thắng · 0 bại</b>
+            </div>
+
+            <div class="resource-label">
+              <span>Sinh Lực</span>
+              <strong id="monsterHp">0 / 0</strong>
+            </div>
+            <div class="bar enemy"><i id="monsterBar"></i></div>
+          </div>
+        </article>
+      </div>
+
+      <article class="card attribute-card">
+        <div class="title-row">
+          <div>
+            <span class="eyebrow">ĐẠO THỂ CHÂN GIẢI</span>
+            <h3>Chỉ số cá nhân</h3>
+          </div>
+          <span id="rootGrade" class="badge">—</span>
+        </div>
+
+        <p id="rootDescription" class="root-description">—</p>
+
+        <div class="attribute-grid">
+          <div><span>Sinh Lực</span><b id="statHp">0</b></div>
+          <div><span>Nội Lực</span><b id="statMp">0</b></div>
+          <div><span>Công Kích</span><b id="statAttack">0</b></div>
+          <div><span>Phòng Thủ</span><b id="statDefense">0</b></div>
+
+          <div><span>Chính Xác</span><b id="statAccuracy">0</b></div>
+          <div><span>Né Tránh</span><b id="statDodge">0%</b></div>
+          <div><span>Bạo Kích</span><b id="statCrit">0%</b></div>
+          <div><span>Bạo Thương</span><b id="statCritDamage">150%</b></div>
+
+          <div><span>Tốc Độ</span><b id="statSpeed">0</b></div>
+          <div><span>Xuyên Giáp</span><b id="statArmorPen">0</b></div>
+          <div><span>Kháng Bạo</span><b id="statCritResist">0%</b></div>
+          <div><span>Hút Sinh Lực</span><b id="statLifeSteal">0%</b></div>
+
+          <div><span>Hồi HP</span><b id="statHpRegen">0/s</b></div>
+          <div><span>Hồi MP</span><b id="statMpRegen">0/s</b></div>
+          <div><span>Tốc Độ Tu Luyện</span><b id="statCultivation">0/s</b></div>
+          <div><span>Chiến Lực</span><b id="statPower">0</b></div>
+        </div>
+
+        <div class="growth-panel">
+          <span>Thiên hướng tăng trưởng khi phá đại cảnh giới</span>
+          <div id="rootGrowth" class="growth-list"></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="inventory" class="tab-pane">
+      <div id="inventoryGrid" class="inventory-grid"></div>
+    </section>
+
+    <section id="logs" class="tab-pane">
+      <article class="card">
+        <div id="logList" class="log-list"></div>
+      </article>
+    </section>
+  </section>
+</main>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <div class="title-row">
+      <h3>Chọn khu vực lịch luyện</h3>
+      <button id="closeModal">Đóng</button>
+    </div>
+    <div id="mapList" class="map-list"></div>
+  </div>
 </div>
-<nav class="tabs"><button class="active" data-tab="cultivation">Động Phủ</button><button data-tab="combat">Chiến Đạo</button><button data-tab="inventory">Túi Càn Khôn</button><button data-tab="logs">Thiên Cơ Ký</button></nav>
-<section id="cultivation" class="tab-pane active"><article class="card action-card"><div><h3>Linh Tu</h3><p>Về động phủ hấp thu linh khí. Khi tu vi viên mãn, nhấn đột phá.</p></div><div class="actions"><button data-action="spirit_cultivation" class="primary">Bắt đầu Linh Tu</button><button data-action="idle">Thu công</button></div></article></section>
-<section id="combat" class="tab-pane"><div class="combat-grid"><article class="card"><div class="title-row"><h3>Khu vực lịch luyện</h3><button id="mapBtn">Chọn bản đồ</button></div><p id="mapName" class="big">—</p><div class="actions"><button data-action="combat" class="danger">Khai chiến</button><button data-action="idle">Dừng chiến</button></div></article><article class="card"><h3 id="monsterName">Chưa gặp yêu thú</h3><div class="bar enemy"><i id="monsterBar"></i></div><div class="between"><span id="monsterHp">0 / 0</span><span id="record">0 thắng · 0 bại</span></div></article></div></section>
-<section id="inventory" class="tab-pane"><div id="inventoryGrid" class="inventory-grid"></div></section>
-<section id="logs" class="tab-pane"><article class="card"><div id="logList" class="log-list"></div></article></section>
-</section></main>
-<div id="modal" class="modal hidden"><div class="modal-box"><div class="title-row"><h3>Chọn khu vực lịch luyện</h3><button id="closeModal">Đóng</button></div><div id="mapList" class="map-list"></div></div></div>
-<div id="toast"></div><script src="script.js"></script></body></html>
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>

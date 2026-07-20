@@ -1,12 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<World id="nhan_gioi" name="Nhân Giới" version="1.0.0" enabled="true"><Configs>
-<Config type="realms" path="TuyenDao/CanhGioi.xml"/>
-<Config type="maps" path="ChienDau/Maps.xml"/>
-<Config type="monsters" path="ChienDau/Monsters.xml"/>
-<Config type="items" path="VatPham/Items.xml"/>
-<Config type="pills" path="LuyenDan/DanDuoc.xml"/>
-<Config type="recipes" path="LuyenDan/CongThuc.xml"/>
-<Config type="herbs" path="LuyenDan/DuocLieu.xml"/>
-<Config type="cultivationSkills" path="CongPhap/CongPhap.xml"/>
-<Config type="combatSkills" path="CongPhap/VuKy.xml"/>
-</Configs></World>
+<?xml version="1.0" encoding="utf-8"?>
+<World id="nhan_gioi" name="Nhân Giới" version="1.1.0" enabled="true">
+  <Configs>
+    <Config type="realms" path="TuyenDao/CanhGioi.xml" />
+    <Config type="bodyCultivation" path="TuyenDao/LuyenThe.xml" />
+    <Config type="soulCultivation" path="TuyenDao/LuyenHon.xml" />
+    <Config type="breakthroughs" path="TuyenDao/DotPha.xml" />
+    <Config type="spiritualRoots" path="TuyenDao/LinhCan.xml" />
+
+    <Config type="maps" path="ChienDau/Maps.xml" />
+    <Config type="monsters" path="ChienDau/Monsters.xml" />
+    <Config type="monsterSkills" path="ChienDau/MonsterSkills.xml" />
+    <Config type="dropTables" path="ChienDau/DropTables.xml" />
+    <Config type="combatRules" path="ChienDau/CombatRules.xml" />
+
+    <Config type="items" path="VatPham/Items.xml" />
+    <Config type="equipment" path="VatPham/Equipment.xml" />
+    <Config type="materials" path="VatPham/Materials.xml" />
+    <Config type="itemEffects" path="VatPham/ItemEffects.xml" />
+
+    <Config type="pills" path="LuyenDan/DanDuoc.xml" />
+    <Config type="recipes" path="LuyenDan/CongThuc.xml" />
+    <Config type="herbs" path="LuyenDan/DuocLieu.xml" />
+    <Config type="alchemistRealms" path="LuyenDan/DanSu.xml" />
+    <Config type="alchemyRules" path="LuyenDan/LuyenDanRules.xml" />
+
+    <Config type="cultivationSkills" path="CongPhap/CongPhap.xml" />
+    <Config type="weapons" path="CongPhap/VuKy.xml" />
+    <Config type="secretArts" path="CongPhap/BiThuat.xml" />
+    <Config type="skillEffects" path="CongPhap/SkillEffects.xml" />
+
+    <Config type="cave" path="DongPhu/DongPhu.xml" />
+    <Config type="herbGarden" path="DongPhu/DuocVien.xml" />
+    <Config type="plantingRules" path="DongPhu/TrongCayRules.xml" />
+
+    <Config type="encounters" path="KyNgo/KyNgo.xml" />
+    <Config type="encounterChoices" path="KyNgo/LuaChon.xml" />
+    <Config type="encounterRewards" path="KyNgo/KyNgoRewards.xml" />
+
+    <Config type="currency" path="KinhTe/Currency.xml" />
+    <Config type="shop" path="KinhTe/Shop.xml" />
+    <Config type="buyPrices" path="KinhTe/BuyPrices.xml" />
+    <Config type="sellPrices" path="KinhTe/SellPrices.xml" />
+
+    <Config type="startingPlayer" path="HeThong/StartingPlayer.xml" />
+    <Config type="gameRules" path="HeThong/GameRules.xml" />
+  </Configs>
+</World>

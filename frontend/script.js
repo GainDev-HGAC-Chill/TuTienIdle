@@ -40,8 +40,20 @@ function activityName(value) {
   })[value] || value;
 }
 
-function fmt(value) {
-  return Number(value || 0).toLocaleString('vi-VN');
+function fmt(value, maximumFractionDigits = 0) {
+  return Number(value || 0).toLocaleString('vi-VN', {
+    maximumFractionDigits
+  });
+}
+
+function percent(value) {
+  return `${fmt(Number(value || 0) * 100, 2)}%`;
+}
+
+function clampPercent(current, maximum) {
+  const max = Number(maximum || 0);
+  if (max <= 0) return 0;
+  return Math.max(0, Math.min(100, Number(current || 0) / max * 100));
 }
 
 function showGate(message = '') {
@@ -75,9 +87,9 @@ function render() {
   $('#playerName').textContent = player.name;
   $('#activityBadge').textContent = activityName(player.current_activity);
   $('#realm').textContent = `${player.realm_name} · Tầng ${player.main_layer}`;
+  $('#spiritualRoot').textContent = player.spiritual_root_name || 'Vô Danh Linh Căn';
   $('#power').textContent = fmt(player.power);
   $('#stones').textContent = fmt(player.spirit_stones);
-  $('#hp').textContent = `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
   $('#expText').textContent = `${fmt(player.main_exp)} / ${fmt(player.exp_required)}`;
   $('#rateText').textContent = `${player.exp_percent}%`;
   $('#expBar').style.width = `${player.exp_percent}%`;
@@ -96,6 +108,51 @@ function render() {
   $('#monsterBar').style.width = `${monsterPercent}%`;
   $('#monsterHp').textContent = `${fmt(player.monster_hp)} / ${fmt(player.monster_max_hp)}`;
   $('#record').textContent = `${fmt(player.wins)} thắng · ${fmt(player.losses)} bại`;
+
+  const playerHpPercent = clampPercent(player.current_hp, player.max_hp);
+  const playerMpPercent = clampPercent(player.current_mp, player.max_mp);
+
+  $('#combatPlayerName').textContent = player.name;
+  $('#combatPlayerRealm').textContent =
+    `${player.realm_name} · Tầng ${player.main_layer}`;
+  $('#combatPlayerHp').textContent =
+    `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
+  $('#combatPlayerMp').textContent =
+    `${fmt(player.current_mp)} / ${fmt(player.max_mp)}`;
+  $('#playerHpBar').style.width = `${playerHpPercent}%`;
+  $('#playerMpBar').style.width = `${playerMpPercent}%`;
+
+  $('#rootGrade').textContent =
+    `${player.spiritual_root_name || 'Vô Danh Linh Căn'} · ${player.spiritual_root_grade || 'không rõ'}`;
+  $('#rootDescription').textContent =
+    player.spiritual_root_description || 'Chưa có ghi chép về Linh Căn này.';
+
+  $('#statHp').textContent = `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
+  $('#statMp').textContent = `${fmt(player.current_mp)} / ${fmt(player.max_mp)}`;
+  $('#statAttack').textContent = fmt(player.attack_value);
+  $('#statDefense').textContent = fmt(player.defense_value);
+  $('#statAccuracy').textContent = fmt(player.accuracy);
+  $('#statDodge').textContent = percent(player.dodge_rate);
+  $('#statCrit').textContent = percent(player.crit_rate);
+  $('#statCritDamage').textContent = percent(player.crit_damage);
+  $('#statSpeed').textContent = fmt(player.speed_value);
+  $('#statArmorPen').textContent = fmt(player.armor_penetration);
+  $('#statCritResist').textContent = percent(player.crit_resistance);
+  $('#statLifeSteal').textContent = percent(player.life_steal);
+  $('#statHpRegen').textContent = `${fmt(player.hp_regen, 2)}/s`;
+  $('#statMpRegen').textContent = `${fmt(player.mp_regen, 2)}/s`;
+  $('#statCultivation').textContent = `${fmt(player.cultivation_rate, 2)}/s`;
+  $('#statPower').textContent = fmt(player.power);
+
+  const growth = player.spiritual_root_growth || {};
+  $('#rootGrowth').innerHTML = [
+    ['Sinh Lực', growth.hp],
+    ['Nội Lực', growth.mp],
+    ['Công Kích', growth.attack],
+    ['Phòng Thủ', growth.defense]
+  ].map(([label, value]) =>
+    `<span>${label} ×${fmt(value || 1, 2)}</span>`
+  ).join('');
 
   renderInventory(data.inventory || []);
   renderLogs(data.logs || []);

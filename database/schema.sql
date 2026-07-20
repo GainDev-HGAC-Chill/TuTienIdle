@@ -2,14 +2,16 @@ CREATE TABLE IF NOT EXISTS players (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(32) NOT NULL,
   world_id VARCHAR(32) NOT NULL DEFAULT 'nhan_gioi',
-  spiritual_root VARCHAR(32) NOT NULL DEFAULT 'ngu_hanh_tap_linh_can',
+  spiritual_root VARCHAR(64) NOT NULL DEFAULT 'ngu_hanh_tap_linh_can',
   spirit_stones BIGINT NOT NULL DEFAULT 100,
   current_hp BIGINT NOT NULL DEFAULT 100,
   current_mp BIGINT NOT NULL DEFAULT 50,
-  current_activity ENUM('idle','spirit_cultivation','combat') NOT NULL DEFAULT 'idle',
+  current_activity ENUM('idle','spirit_cultivation','combat')
+    NOT NULL DEFAULT 'idle',
   last_tick_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY uq_players_name (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -29,12 +31,25 @@ CREATE TABLE IF NOT EXISTS player_cultivation (
 
 CREATE TABLE IF NOT EXISTS player_attributes (
   player_id BIGINT UNSIGNED PRIMARY KEY,
+
   max_hp BIGINT NOT NULL DEFAULT 100,
   max_mp BIGINT NOT NULL DEFAULT 50,
   attack_value BIGINT NOT NULL DEFAULT 12,
   defense_value BIGINT NOT NULL DEFAULT 5,
-  crit_rate DECIMAL(6,4) NOT NULL DEFAULT 0.0500,
+
+  accuracy BIGINT NOT NULL DEFAULT 100,
+  dodge_rate DECIMAL(7,4) NOT NULL DEFAULT 0.0000,
+  crit_rate DECIMAL(7,4) NOT NULL DEFAULT 0.0500,
+  crit_damage DECIMAL(7,4) NOT NULL DEFAULT 1.5000,
+  speed_value BIGINT NOT NULL DEFAULT 10,
+  armor_penetration BIGINT NOT NULL DEFAULT 0,
+  crit_resistance DECIMAL(7,4) NOT NULL DEFAULT 0.0000,
+  life_steal DECIMAL(7,4) NOT NULL DEFAULT 0.0000,
+  hp_regen DECIMAL(12,4) NOT NULL DEFAULT 0.0000,
+  mp_regen DECIMAL(12,4) NOT NULL DEFAULT 0.0000,
+
   cultivation_rate DECIMAL(10,4) NOT NULL DEFAULT 2.0000,
+
   FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

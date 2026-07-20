@@ -15,8 +15,19 @@ function decorate(player) {
   const realm = dataManager.getRealm(player.main_realm_index);
   const required = formula.expRequired(realm, player.main_layer);
 
+  const spiritualRoot = dataManager.getSpiritualRoot(player.spiritual_root);
+
   return {
     ...player,
+    spiritual_root_name: spiritualRoot?.name || 'Vô Danh Linh Căn',
+    spiritual_root_grade: spiritualRoot?.grade || 'không rõ',
+    spiritual_root_description: spiritualRoot?.description || '',
+    spiritual_root_growth: spiritualRoot ? {
+      hp: spiritualRoot.growthHp,
+      mp: spiritualRoot.growthMp,
+      attack: spiritualRoot.growthAttack,
+      defense: spiritualRoot.growthDefense
+    } : null,
     realm_name: realm?.name || 'Vô Danh Cảnh',
     exp_required: required,
     exp_percent: Math.min(
@@ -272,13 +283,36 @@ async function combatTick(connection, player, elapsed) {
   let soulExp = 0;
 
   for (let round = 0; round < rounds; round += 1) {
-    const critical = Math.random() < Number(player.crit_rate);
+    const hitChance = Math.min(
+      0.98,
+      Math.max(
+        0.35,
+        Number(player.accuracy) /
+          Math.max(1, Number(player.accuracy) + Number(monster.speed || 0) * 5)
+      )
+    );
+
+    if (Math.random() > hitChance) {
+      continue;
+    }
+
+    const effectiveCritRate = Math.max(
+      0,
+      Number(player.crit_rate) - Number(player.crit_resistance || 0)
+    );
+
+    const critical = Math.random() < effectiveCritRate;
+    const effectiveDefense = Math.max(
+      0,
+      Number(monster.defense) - Number(player.armor_penetration || 0)
+    );
 
     const playerDamage = Math.max(
       1,
       Math.floor(
-        Number(player.attack_value) * (critical ? 1.8 : 1) -
-        monster.defense
+        Number(player.attack_value) *
+          (critical ? Number(player.crit_damage || 1.5) : 1) -
+        effectiveDefense
       )
     );
 
@@ -307,10 +341,20 @@ async function combatTick(connection, player, elapsed) {
       continue;
     }
 
-    hp -= Math.max(
-      1,
-      Number(monster.attack) - Number(player.defense_value)
-    );
+    const dodgeChance = Math.min(0.75, Math.max(0, Number(player.dodge_rate)));
+    if (Math.random() >= dodgeChance) {
+      hp -= Math.max(
+        1,
+        Number(monster.attack) - Number(player.defense_value)
+      );
+    }
+
+    if (Number(player.life_steal) > 0) {
+      hp = Math.min(
+        Number(player.max_hp),
+        hp + Math.floor(playerDamage * Number(player.life_steal))
+      );
+    }
 
     if (hp <= 0) {
       const lost = Math.floor(Number(player.spirit_stones) * 0.01);
@@ -465,15 +509,25 @@ async function breakthrough(id) {
         [nextRealm.index, id]
       );
 
+      /*
+       * Phá đại cảnh giới chỉ tăng bốn chỉ số căn bản.
+       * Linh Căn quyết định chỉ số nào được tăng mạnh hơn.
+       */
+      const growth = dataManager.getRealmGrowth(player.spiritual_root, {
+        hp: 80,
+        mp: 30,
+        attack: 18,
+        defense: 8
+      });
+
       await connection.query(
         `UPDATE player_attributes
-         SET max_hp = max_hp + 80,
-             max_mp = max_mp + 30,
-             attack_value = attack_value + 18,
-             defense_value = defense_value + 8,
-             cultivation_rate = cultivation_rate + 0.8
+         SET max_hp = max_hp + ?,
+             max_mp = max_mp + ?,
+             attack_value = attack_value + ?,
+             defense_value = defense_value + ?
          WHERE player_id = ?`,
-        [id]
+        [growth.hp, growth.mp, growth.attack, growth.defense, id]
       );
 
       await connection.query(

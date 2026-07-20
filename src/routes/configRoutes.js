@@ -7,7 +7,8 @@ router.get('/', (_req, res) => {
     world: dataManager.world,
     realms: dataManager.getAllRealms(),
     maps: dataManager.getAllMaps(),
-    monsters: dataManager.getAllMonsters()
+    monsters: dataManager.getAllMonsters(),
+    spiritualRoots: dataManager.getAllSpiritualRoots()
   });
 });
 

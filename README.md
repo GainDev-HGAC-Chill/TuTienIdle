@@ -1,74 +1,71 @@
-# Đạo Tàng Đồng Nhất
+# Linh Căn · Đạo Thể Chân Giải
 
-Bộ file này chuyển nguồn dữ liệu gameplay từ:
-
-```js
-require('../config/gameData')
-```
-
-sang:
+## 1. Chép đè/tạo mới các file
 
 ```text
 data/worlds/NhanGioi/NhanGioi.xml
-        ↓
+data/worlds/NhanGioi/TuyenDao/LinhCan.xml
+
 src/config/dataManager.js
-        ↓
-gameService + configRoutes
+src/routes/configRoutes.js
+src/repositories/playerRepository.js
+src/services/gameService.js
+
+frontend/index.html
+frontend/style.css
+frontend/script.js
+
+database/schema.sql
+database/migrations/20260720_linh_can_chi_so.sql
 ```
 
-## File cần chép đè
+## 2. Database đang có dữ liệu
 
-1. `server.js`
-2. `src/config/dataManager.js`
-3. `src/formulas/cultivationFormula.js`
-4. `src/routes/configRoutes.js`
-5. `src/services/gameService.js`
+Không chạy lại toàn bộ `schema.sql`.
 
-## Không xóa
-
-Giữ nguyên:
+Chỉ chạy:
 
 ```text
-src/config/xmlLoader.js
-data/worlds/NhanGioi/
+database/migrations/20260720_linh_can_chi_so.sql
 ```
 
-## Cách chạy
+## 3. Database mới hoàn toàn
+
+Chạy:
+
+```text
+database/schema.sql
+```
+
+## 4. Package XML
+
+Nếu chưa cài:
+
+```bat
+npm install fast-xml-parser
+```
+
+## 5. Chạy game
 
 ```bat
 npm start
 ```
 
-Khi thành công, terminal phải có dòng gần giống:
+Sau đó nhấn `Ctrl + F5` trên trình duyệt.
 
-```text
-[DAO_TANG] Nhân Giới: 9 cảnh giới, 1 bản đồ, 2 yêu thú.
-[LINH_MACH] Đã kết nối MySQL.
-[THIEN_CO] http://localhost:3000
-```
+## Cơ chế
 
-Sau đó trên trình duyệt nhấn:
+- Nhân vật mới ngẫu nhiên nhận một Linh Căn theo `weight` trong XML.
+- Nhân vật cũ giữ `Ngũ Hành Tạp Linh Căn`.
+- Phá đại cảnh giới chỉ cộng:
+  - Sinh Lực
+  - Nội Lực
+  - Công Kích
+  - Phòng Thủ
+- Linh Căn nhân hệ số tăng trưởng bốn chỉ số này.
+- Các thiên phú như bạo kích, né tránh, xuyên giáp, hồi phục được cấp lúc tạo nhân vật.
+- Giao diện Chiến Đạo hiển thị HP/MP bản thân, HP yêu thú và toàn bộ chỉ số cá nhân.
 
-```text
-Ctrl + F5
-```
+## Chú ý về NhanGioi.xml
 
-## Lưu ý kiến trúc
-
-Bộ này cố ý giữ runtime ID số:
-
-- map đầu tiên = `1`
-- yêu thú đầu tiên = `1`
-- yêu thú thứ hai = `2`
-
-Nhờ vậy MySQL hiện tại không cần đổi cột `map_id` và `monster_id`.
-
-ID XML vẫn được giữ trong trường `xmlId`, ví dụ:
-
-```text
-map_ngoai_mon_son_lam
-monster_son_lang
-monster_doc_nha
-```
-
-Sau khi ổn định hoàn toàn mới nên migration MySQL sang ID chuỗi.
+Manifest đi kèm đúng theo cấu trúc thư mục trong ảnh. `dataManager.js` sẽ cảnh báo và bỏ qua file chưa tồn tại, vì vậy bạn có thể hoàn thiện từng đạo tàng dần mà server vẫn chạy.
