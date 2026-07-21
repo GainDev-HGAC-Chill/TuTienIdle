@@ -1,0 +1,2586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CultivationArts version="3.0" category="luyen_the" categoryName="Luyện Thể Pháp">
+  <Rules>
+    <Rule key="oneEquippedSlot" value="true"/>
+    <Rule key="rootAffinityBonusPercent" value="20"/>
+    <Rule key="offRootAllowed" value="true"/>
+  </Rules>
+  <Arts>
+    <RootGroup rootId="kim_linh_can" rootName="Kim Linh Căn" element="kim">
+      <Art id="kim_cang_bat_hoai_the" name="Kim Cang Bất Hoại Thể" category="luyen_the" compatibleRootId="kim_linh_can" element="kim" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Kim Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận kim.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="32" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm kim: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="huyen_kim_phan_chan_cong" name="Huyền Kim Phản Chấn Công" category="luyen_the" compatibleRootId="kim_linh_can" element="kim" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Kim Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận kim.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="STUN_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="STUN_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="STUN_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="STUN_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="36" durationTurns="2"/>
+              <Effect id="STUN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="STUN_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm kim: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="canh_kim_ho_mach_kinh" name="Canh Kim Hộ Mạch Kinh" category="luyen_the" compatibleRootId="kim_linh_can" element="kim" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Kim Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận kim.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="40" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm kim: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="moc_linh_can" rootName="Mộc Linh Căn" element="mộc">
+      <Art id="thanh_moc_sinh_co_the" name="Thanh Mộc Sinh Cơ Thể" category="luyen_the" compatibleRootId="moc_linh_can" element="mộc" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Mộc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận mộc.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm mộc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="co_thu_ban_can_cong" name="Cổ Thụ Bàn Căn Công" category="luyen_the" compatibleRootId="moc_linh_can" element="mộc" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Mộc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận mộc.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="POISON_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="POISON_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="POISON_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="POISON_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="POISON" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="POISON_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="POISON" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm mộc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="van_moc_ho_tam_kinh" name="Vạn Mộc Hộ Tâm Kinh" category="luyen_the" compatibleRootId="moc_linh_can" element="mộc" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Mộc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận mộc.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm mộc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="thuy_linh_can" rootName="Thủy Linh Căn" element="thủy">
+      <Art id="nhuoc_thuy_nhu_than_cong" name="Nhược Thủy Nhu Thân Công" category="luyen_the" compatibleRootId="thuy_linh_can" element="thủy" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thủy Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thủy.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="32" durationTurns="1"/>
+              <Effect id="CLEAR_MIND" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thủy: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="huyen_thuy_ho_mach_kinh" name="Huyền Thủy Hộ Mạch Kinh" category="luyen_the" compatibleRootId="thuy_linh_can" element="thủy" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thủy Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thủy.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="36" durationTurns="2"/>
+              <Effect id="WEAKEN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thủy: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thuong_hai_bat_tuc_the" name="Thương Hải Bất Tức Thể" category="luyen_the" compatibleRootId="thuy_linh_can" element="thủy" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thủy Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thủy.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="40" durationTurns="1"/>
+              <Effect id="CLEAR_MIND" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thủy: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="hoa_linh_can" rootName="Hỏa Linh Căn" element="hỏa">
+      <Art id="viem_duong_luyen_the_cong" name="Viêm Dương Luyện Thể Công" category="luyen_the" compatibleRootId="hoa_linh_can" element="hỏa" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Hỏa Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận hỏa.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="32" durationTurns="1"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm hỏa: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hoa_linh_ho_mach_kinh" name="Hỏa Linh Hộ Mạch Kinh" category="luyen_the" compatibleRootId="hoa_linh_can" element="hỏa" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Hỏa Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận hỏa.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="BURN_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="BURN_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="BURN_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="BURN_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="36" durationTurns="2"/>
+              <Effect id="BURN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="BURN_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="BURN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm hỏa: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="phan_thien_bat_diet_the" name="Phần Thiên Bất Diệt Thể" category="luyen_the" compatibleRootId="hoa_linh_can" element="hỏa" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Hỏa Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận hỏa.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="FIRE_RESIST_DOWN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="FIRE_RESIST_DOWN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="FIRE_RESIST_DOWN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="FIRE_RESIST_DOWN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="40" durationTurns="1"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="FIRE_RESIST_DOWN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm hỏa: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="tho_linh_can" rootName="Thổ Linh Căn" element="thổ">
+      <Art id="huyen_quy_tran_nhac_the" name="Huyền Quy Trấn Nhạc Thể" category="luyen_the" compatibleRootId="tho_linh_can" element="thổ" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thổ Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thổ.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="32" durationTurns="1"/>
+              <Effect id="STUN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thổ: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hau_tho_ho_than_cong" name="Hậu Thổ Hộ Thân Công" category="luyen_the" compatibleRootId="tho_linh_can" element="thổ" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thổ Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thổ.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="36" durationTurns="2"/>
+              <Effect id="SHIELD" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thổ: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="bat_ong_son_ha_kinh" name="Bất Động Sơn Hà Kinh" category="luyen_the" compatibleRootId="tho_linh_can" element="thổ" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thổ Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thổ.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="STUN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="STUN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="STUN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="STUN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="40" durationTurns="1"/>
+              <Effect id="STUN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="STUN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thổ: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="phong_linh_can" rootName="Phong Linh Căn" element="phong">
+      <Art id="phong_hanh_vo_anh_the" name="Phong Hành Vô Ảnh Thể" category="luyen_the" compatibleRootId="phong_linh_can" element="phong" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Phong Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận phong.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="32" durationTurns="1"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm phong: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thanh_phong_ho_mach_cong" name="Thanh Phong Hộ Mạch Công" category="luyen_the" compatibleRootId="phong_linh_can" element="phong" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Phong Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận phong.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="COMBO_RATE_UP" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="COMBO_RATE_UP" chancePercent="36" durationTurns="2"/>
+              <Effect id="INVISIBLE" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm phong: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="cuu_tieu_linh_than_kinh" name="Cửu Tiêu Linh Thân Kinh" category="luyen_the" compatibleRootId="phong_linh_can" element="phong" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Phong Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận phong.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="COMBO_RATE_UP_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="COMBO_RATE_UP_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="COMBO_RATE_UP_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="COMBO_RATE_UP_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="40" durationTurns="1"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="COMBO_RATE_UP_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm phong: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="loi_linh_can" rootName="Lôi Linh Căn" element="lôi">
+      <Art id="loi_cuong_luyen_the_cong" name="Lôi Cương Luyện Thể Công" category="luyen_the" compatibleRootId="loi_linh_can" element="lôi" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Lôi Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận lôi.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm lôi: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thien_loi_ho_mach_kinh" name="Thiên Lôi Hộ Mạch Kinh" category="luyen_the" compatibleRootId="loi_linh_can" element="lôi" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Lôi Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận lôi.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="STUN_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="STUN_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="STUN_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="STUN_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="STUN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="STUN_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm lôi: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="cuu_tieu_phan_chan_the" name="Cửu Tiêu Phản Chấn Thể" category="luyen_the" compatibleRootId="loi_linh_can" element="lôi" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Lôi Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận lôi.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm lôi: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="bang_linh_can" rootName="Băng Linh Căn" element="băng">
+      <Art id="bang_co_ngoc_cot_cong" name="Băng Cơ Ngọc Cốt Công" category="luyen_the" compatibleRootId="bang_linh_can" element="băng" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Băng Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận băng.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="32" durationTurns="1"/>
+              <Effect id="SLOW" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SLOW" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm băng: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="han_nguyet_ho_tam_kinh" name="Hàn Nguyệt Hộ Tâm Kinh" category="luyen_the" compatibleRootId="bang_linh_can" element="băng" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Băng Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận băng.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="FREEZE_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="FREEZE_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="FREEZE_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SLOW" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="FREEZE_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SLOW" chancePercent="36" durationTurns="2"/>
+              <Effect id="FREEZE" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="FREEZE_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SLOW" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="FREEZE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm băng: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="cuc_han_bat_diet_the" name="Cực Hàn Bất Diệt Thể" category="luyen_the" compatibleRootId="bang_linh_can" element="băng" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Băng Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận băng.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="SLOW_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="SLOW_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="SLOW_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="SLOW_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="40" durationTurns="1"/>
+              <Effect id="SLOW" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="SLOW_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SLOW" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm băng: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="quang_linh_can" rootName="Quang Linh Căn" element="quang">
+      <Art id="quang_minh_ho_the_cong" name="Quang Minh Hộ Thể Công" category="luyen_the" compatibleRootId="quang_linh_can" element="quang" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Quang Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận quang.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="32" durationTurns="1"/>
+              <Effect id="SHIELD" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm quang: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hao_nhat_kim_than_kinh" name="Hạo Nhật Kim Thân Kinh" category="luyen_the" compatibleRootId="quang_linh_can" element="quang" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Quang Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận quang.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="36" durationTurns="2"/>
+              <Effect id="CLEAR_MIND" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm quang: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thanh_quang_tinh_the_ien" name="Thánh Quang Tịnh Thể Điển" category="luyen_the" compatibleRootId="quang_linh_can" element="quang" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Quang Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận quang.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="40" durationTurns="1"/>
+              <Effect id="SHIELD" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="SHIELD_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm quang: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="am_linh_can" rootName="Ám Linh Căn" element="ám">
+      <Art id="u_anh_vo_hinh_the" name="U Ảnh Vô Hình Thể" category="luyen_the" compatibleRootId="am_linh_can" element="ám" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Ám Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận ám.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="32" durationTurns="1"/>
+              <Effect id="CONFUSION" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CONFUSION" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm ám: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hac_da_ho_mach_cong" name="Hắc Dạ Hộ Mạch Công" category="luyen_the" compatibleRootId="am_linh_can" element="ám" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Ám Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận ám.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CONFUSION" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CONFUSION" chancePercent="36" durationTurns="2"/>
+              <Effect id="SEAL" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CONFUSION" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm ám: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="u_minh_phan_chan_kinh" name="U Minh Phản Chấn Kinh" category="luyen_the" compatibleRootId="am_linh_can" element="ám" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Ám Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận ám.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="CONFUSION_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="CONFUSION_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="CONFUSION_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="CONFUSION_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="40" durationTurns="1"/>
+              <Effect id="CONFUSION" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="CONFUSION_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CONFUSION" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm ám: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="doc_linh_can" rootName="Độc Linh Căn" element="độc">
+      <Art id="oc_cot_luyen_the_cong" name="Độc Cốt Luyện Thể Công" category="luyen_the" compatibleRootId="doc_linh_can" element="độc" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Độc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận độc.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm độc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="bach_oc_bat_xam_kinh" name="Bách Độc Bất Xâm Kinh" category="luyen_the" compatibleRootId="doc_linh_can" element="độc" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Độc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận độc.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="POISON_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="POISON_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="POISON_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="POISON_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="POISON" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="POISON_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="POISON" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm độc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="bich_lan_ho_mach_ien" name="Bích Lân Hộ Mạch Điển" category="luyen_the" compatibleRootId="doc_linh_can" element="độc" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Độc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận độc.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm độc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="huyet_linh_can" rootName="Huyết Linh Căn" element="huyết">
+      <Art id="huyet_cuong_luyen_the_cong" name="Huyết Cương Luyện Thể Công" category="luyen_the" compatibleRootId="huyet_linh_can" element="huyết" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Huyết Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận huyết.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm huyết: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="tu_la_bat_diet_the" name="Tu La Bất Diệt Thể" category="luyen_the" compatibleRootId="huyet_linh_can" element="huyết" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Huyết Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận huyết.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="BLOOD_MARK_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="BLOOD_MARK_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="BLOOD_MARK_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="BLOOD_MARK_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="BLOOD_MARK" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="BLOOD_MARK_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="BLOOD_MARK" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm huyết: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="huyet_hai_ho_tam_kinh" name="Huyết Hải Hộ Tâm Kinh" category="luyen_the" compatibleRootId="huyet_linh_can" element="huyết" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Huyết Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận huyết.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm huyết: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="sinh_linh_can" rootName="Sinh Linh Căn" element="sinh">
+      <Art id="truong_sinh_bat_lao_the" name="Trường Sinh Bất Lão Thể" category="luyen_the" compatibleRootId="sinh_linh_can" element="sinh" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Sinh Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận sinh.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="32" durationTurns="1"/>
+              <Effect id="REVITALIZE" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="REVITALIZE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm sinh: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="sinh_co_ho_mach_cong" name="Sinh Cơ Hộ Mạch Công" category="luyen_the" compatibleRootId="sinh_linh_can" element="sinh" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Sinh Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận sinh.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="REVITALIZE" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="REVITALIZE" chancePercent="36" durationTurns="2"/>
+              <Effect id="CLEAR_MIND" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="CLEAR_MIND_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="REVITALIZE" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm sinh: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="tao_hoa_linh_the_ien" name="Tạo Hóa Linh Thể Điển" category="luyen_the" compatibleRootId="sinh_linh_can" element="sinh" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Sinh Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận sinh.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="REVITALIZE_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="REVITALIZE_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="REVITALIZE_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="REVITALIZE_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="40" durationTurns="1"/>
+              <Effect id="REVITALIZE" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="REVITALIZE_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="REVITALIZE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm sinh: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="tu_linh_can" rootName="Tử Linh Căn" element="tử">
+      <Art id="minh_cot_luyen_the_cong" name="Minh Cốt Luyện Thể Công" category="luyen_the" compatibleRootId="tu_linh_can" element="tử" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Tử Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận tử.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="32" durationTurns="1"/>
+              <Effect id="SOUL_DECAY" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SOUL_DECAY" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm tử: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="tich_diet_bat_hoai_the" name="Tịch Diệt Bất Hoại Thể" category="luyen_the" compatibleRootId="tu_linh_can" element="tử" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Tử Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận tử.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SOUL_DECAY" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SOUL_DECAY" chancePercent="36" durationTurns="2"/>
+              <Effect id="SEAL" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SOUL_DECAY" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm tử: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hoang_tuyen_ho_hon_kinh" name="Hoàng Tuyền Hộ Hồn Kinh" category="luyen_the" compatibleRootId="tu_linh_can" element="tử" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Tử Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận tử.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="SOUL_DECAY_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="SOUL_DECAY_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="SOUL_DECAY_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="SOUL_DECAY_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="40" durationTurns="1"/>
+              <Effect id="SOUL_DECAY" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="SOUL_DECAY_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SOUL_DECAY" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm tử: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="khong_gian_linh_can" rootName="Không Gian Linh Căn" element="không_gian">
+      <Art id="hu_khong_vo_tuong_the" name="Hư Không Vô Tướng Thể" category="luyen_the" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Không Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận không_gian.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="32" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm không_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="khong_gian_ho_mach_cong" name="Không Gian Hộ Mạch Công" category="luyen_the" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Không Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận không_gian.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="36" durationTurns="2"/>
+              <Effect id="INVISIBLE" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="INVISIBLE_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm không_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thai_hu_bat_diet_kinh" name="Thái Hư Bất Diệt Kinh" category="luyen_the" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Không Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận không_gian.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="40" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="SEAL_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm không_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="thoi_gian_linh_can" rootName="Thời Gian Linh Căn" element="thời_gian">
+      <Art id="van_co_bat_hu_the" name="Vạn Cổ Bất Hủ Thể" category="luyen_the" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thời Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thời_gian.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="8.0" unit="flat"/>
+              <Stat key="MAX_HP" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="10.8" unit="flat"/>
+              <Stat key="MAX_HP" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="14.0" unit="flat"/>
+              <Stat key="MAX_HP" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+              <Stat key="MAX_HP" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="25.2" unit="flat"/>
+              <Stat key="MAX_HP" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RESIST" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thời_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="tue_nguyet_ho_mach_cong" name="Tuế Nguyệt Hộ Mạch Công" category="luyen_the" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thời Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thời_gian.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DEFENSE" value="16.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="21.0" unit="percent"/>
+              <Stat key="STUN_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DEFENSE" value="21.6" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="28.35" unit="percent"/>
+              <Stat key="STUN_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DEFENSE" value="28.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="36.75" unit="percent"/>
+              <Stat key="STUN_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DEFENSE" value="36.0" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="47.25" unit="percent"/>
+              <Stat key="STUN_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="STUN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DEFENSE" value="50.4" unit="flat"/>
+              <Stat key="COUNTER_RATE" value="66.15" unit="percent"/>
+              <Stat key="STUN_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thời_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thoi_luan_phan_chan_kinh" name="Thời Luân Phản Chấn Kinh" category="luyen_the" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="luyen_the">
+        <Description>Luyện Thể Pháp chuyên tu dành cho Thời Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thời_gian.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="24.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="29.0" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="34.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="32.4" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="39.15" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="45.9" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="42.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="50.75" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="59.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="54.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="65.25" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="76.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="DAMAGE_REDUCTION" value="75.6" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="91.35" unit="percent"/>
+              <Stat key="WEAKEN_RESIST" value="107.1" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thời_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+  </Arts>
+</CultivationArts>

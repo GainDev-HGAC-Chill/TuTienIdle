@@ -1,98 +1,1627 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<DivineArts worldId="nhan_gioi" version="1.0.0">
-  <DivineArt id="viem_long_phan_thien" name="Viêm Long Phần Thiên" element="fire" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Triệu Viêm Long giáng thế, lấy Công kích làm căn cơ và gieo Thiêu Đốt.</Description>
-    <Affinity primaryElement="fire" secondaryElement="wood" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="20" cooldownTurns="3"><Damage attackScale="1.20" element="fire"/></Grade>
-      <Grade id="hoang" manaCost="24" cooldownTurns="3"><Damage attackScale="1.65" element="fire"/></Grade>
-      <Grade id="huyen" manaCost="28" cooldownTurns="3"><Damage attackScale="1.90" element="fire"/><ApplyStatus id="BURN" chance="20" durationTurns="3" attackScalePerTick="0.08"/></Grade>
-      <Grade id="dia" manaCost="34" cooldownTurns="3"><Damage attackScale="2.40" element="fire"/><ApplyStatus id="BURN" chance="45" durationTurns="3" attackScalePerTick="0.11"/><Debuff id="FIRE_RESIST_DOWN" chance="30" durationTurns="2" valuePercent="10"/></Grade>
-      <Grade id="thien" manaCost="42" cooldownTurns="3"><Damage attackScale="3.60" element="fire"/><ApplyStatus id="BURN" guaranteed="true" durationTurns="4" attackScalePerTick="0.15" damageBonusPercent="30"/><Debuff id="FIRE_RESIST_DOWN" guaranteed="true" durationTurns="3" valuePercent="15"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="han_nguyet_phong_thien_quyet" name="Hàn Nguyệt Phong Thiên Quyết" element="ice" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Hàn ý phong thiên, Đóng Băng đối phương và gia tăng uy lực của đòn phá băng.</Description>
-    <Affinity primaryElement="water" secondaryElement="ice" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="22" cooldownTurns="4"><Damage attackScale="1.30" element="ice"/></Grade>
-      <Grade id="hoang" manaCost="26" cooldownTurns="4"><Damage attackScale="1.75" element="ice"/></Grade>
-      <Grade id="huyen" manaCost="31" cooldownTurns="4"><Damage attackScale="2.00" element="ice"/><ApplyStatus id="FREEZE" chance="15" durationTurns="2" breakDamageBonusPercent="15"/></Grade>
-      <Grade id="dia" manaCost="37" cooldownTurns="4"><Damage attackScale="2.50" element="ice"/><ApplyStatus id="FREEZE" chance="35" durationTurns="2" breakDamageBonusPercent="25"/><Debuff id="ICE_RESIST_DOWN" chance="25" durationTurns="2" valuePercent="10"/></Grade>
-      <Grade id="thien" manaCost="46" cooldownTurns="4"><Damage attackScale="3.80" element="ice"/><ApplyStatus id="FREEZE" guaranteed="true" durationTurns="2" breakDamageBonusPercent="40"/><Debuff id="ICE_RESIST_DOWN" guaranteed="true" durationTurns="3" valuePercent="15"/><Rule breakHitCanCrit="true"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="loi_nguc_chan_hon" name="Lôi Ngục Chấn Hồn" element="thunder" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Lôi quang chấn hồn, có thể khiến mục tiêu Choáng nhưng mục tiêu vẫn được phản kích.</Description>
-    <Affinity primaryElement="thunder" secondaryElement="metal" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="20" cooldownTurns="3"><Damage attackScale="1.25" element="thunder"/></Grade>
-      <Grade id="hoang" manaCost="24" cooldownTurns="3"><Damage attackScale="1.60" element="thunder"/></Grade>
-      <Grade id="huyen" manaCost="29" cooldownTurns="3"><Damage attackScale="1.85" element="thunder"/><ApplyStatus id="STUN" chance="15" durationTurns="1"/></Grade>
-      <Grade id="dia" manaCost="34" cooldownTurns="3"><Damage attackScale="2.30" element="thunder"/><ApplyStatus id="STUN" chance="35" durationTurns="1"/><Debuff id="ACTION_SPEED_DOWN" chance="30" durationTurns="1" valuePercent="10"/></Grade>
-      <Grade id="thien" manaCost="42" cooldownTurns="3"><Damage attackScale="3.30" element="thunder"/><ApplyStatus id="STUN" guaranteed="true" durationTurns="1"/><Debuff id="ACTION_SPEED_DOWN" guaranteed="true" durationTurns="1" valuePercent="20"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="cuu_u_phong_linh_an" name="Cửu U Phong Linh Ấn" element="dark" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Phong bế linh lực, khiến đối phương chỉ có thể đánh thường.</Description>
-    <Affinity primaryElement="dark" secondaryElement="water" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="18" cooldownTurns="4"><Damage maxMpScale="0.08" fixed="30" element="dark"/></Grade>
-      <Grade id="hoang" manaCost="22" cooldownTurns="4"><Damage maxMpScale="0.11" fixed="45" element="dark"/></Grade>
-      <Grade id="huyen" manaCost="27" cooldownTurns="4"><Damage maxMpScale="0.14" fixed="60" element="dark"/><ApplyStatus id="SEAL" chance="20" durationTurns="1"/></Grade>
-      <Grade id="dia" manaCost="32" cooldownTurns="4"><Damage maxMpScale="0.18" fixed="80" element="dark"/><ApplyStatus id="SEAL" chance="45" durationTurns="2"/><ApplyStatus id="WEAKEN" chance="25" durationTurns="2" valuePercent="10"/></Grade>
-      <Grade id="thien" manaCost="40" cooldownTurns="4"><Damage maxMpScale="0.25" fixed="120" element="dark"/><ApplyStatus id="SEAL" guaranteed="true" durationTurns="2"/><ApplyStatus id="WEAKEN" guaranteed="true" durationTurns="2" valuePercent="18"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="nghich_tam_loan_than_thuat" name="Nghịch Tâm Loạn Thần Thuật" element="soul" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Nhiễu loạn thần trí, buộc mục tiêu tự công kích chính mình.</Description>
-    <Affinity primaryElement="soul" secondaryElement="dark" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="24" cooldownTurns="5"><Damage attackScale="0.80" element="soul"/></Grade>
-      <Grade id="hoang" manaCost="29" cooldownTurns="5"><Damage attackScale="1.10" element="soul"/></Grade>
-      <Grade id="huyen" manaCost="35" cooldownTurns="5"><Damage attackScale="1.35" element="soul"/><ApplyStatus id="CONFUSION" chance="12" durationTurns="1" selfAttackScale="0.60"/></Grade>
-      <Grade id="dia" manaCost="42" cooldownTurns="5"><Damage attackScale="1.70" element="soul"/><ApplyStatus id="CONFUSION" chance="30" durationTurns="1" selfAttackScale="0.80" ignoreOwnDefensePercent="10"/><ApplyStatus id="WEAKEN" chance="25" durationTurns="2" valuePercent="12"/></Grade>
-      <Grade id="thien" manaCost="52" cooldownTurns="5"><Damage attackScale="2.40" element="soul"/><ApplyStatus id="CONFUSION" guaranteed="true" durationTurns="1" selfAttackScale="1.00" ignoreOwnDefensePercent="25"/><ApplyStatus id="WEAKEN" guaranteed="true" durationTurns="2" valuePercent="20"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="huyen_nguyen_ho_the_cuong" name="Huyền Nguyên Hộ Thể Cương" element="neutral" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Dùng Sinh mệnh và Phòng ngự ngưng tụ Hộ Thể Cương Khí.</Description>
-    <Affinity primaryElement="neutral" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="18" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="2" maxHpScale="0.06" defenseScale="0.40" shieldType="all"/></Grade>
-      <Grade id="hoang" manaCost="22" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="2" maxHpScale="0.09" defenseScale="0.55" shieldType="all"/></Grade>
-      <Grade id="huyen" manaCost="27" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="3" maxHpScale="0.12" defenseScale="0.70" shieldType="all"/><Effect id="MP_RESTORE_ON_SHIELD_BREAK" chance="20" valuePercent="5"/></Grade>
-      <Grade id="dia" manaCost="33" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="3" maxHpScale="0.17" defenseScale="0.90" shieldType="all"/><Effect id="MP_RESTORE_ON_SHIELD_BREAK" chance="50" valuePercent="8"/><ApplyStatus id="CLEAR_MIND" chance="30" removeCount="1" allowedStatuses="WEAKEN,SEAL"/></Grade>
-      <Grade id="thien" manaCost="41" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="4" maxHpScale="0.25" defenseScale="1.20" shieldType="all"/><Effect id="MP_RESTORE_ON_SHIELD_BREAK" guaranteed="true" valuePercent="12"/><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" allowedStatuses="WEAKEN,SEAL"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="bang_tam_thanh_than_chu" name="Băng Tâm Thanh Thần Chú" element="water" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Thanh tịnh tâm thần, giải trừ hiệu ứng xấu và bảo hộ linh đài.</Description>
-    <Affinity primaryElement="water" secondaryElement="wood" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="16" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" selectionMode="priority"/></Grade>
-      <Grade id="hoang" manaCost="19" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" selectionMode="priority"/><Heal maxHpScale="0.03"/></Grade>
-      <Grade id="huyen" manaCost="23" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" selectionMode="priority"/><Buff id="CONTROL_RESIST_UP" chance="20" durationTurns="1" valuePercent="10"/></Grade>
-      <Grade id="dia" manaCost="28" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="2" selectionMode="priority"/><Buff id="CONTROL_RESIST_UP" chance="50" durationTurns="1" valuePercent="18"/></Grade>
-      <Grade id="thien" manaCost="35" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeAll="true" selectionMode="all_dispellable"/><Buff id="CONTROL_IMMUNITY" guaranteed="true" durationTurns="1"/></Grade>
-    </Grades>
-  </DivineArt>
-
-  <DivineArt id="vo_anh_don_hu_thuat" name="Vô Ảnh Độn Hư Thuật" element="wind" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
-    <Description>Ẩn thân vào hư không, hóa giải đòn sát thương trực tiếp kế tiếp.</Description>
-    <Affinity primaryElement="wind" secondaryElement="dark" requireMatch="false"/>
-    <Grades>
-      <Grade id="pham" manaCost="20" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="2" charges="1"/></Grade>
-      <Grade id="hoang" manaCost="24" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="3" charges="1"/></Grade>
-      <Grade id="huyen" manaCost="29" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="3" charges="1"/><Buff id="ACTION_SPEED_UP_AFTER_AVOID" chance="25" durationTurns="1" valuePercent="10"/></Grade>
-      <Grade id="dia" manaCost="35" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="3" charges="1"/><Buff id="ACTION_SPEED_UP_AFTER_AVOID" chance="60" durationTurns="1" valuePercent="15"/><Buff id="CRIT_RATE_UP_AFTER_AVOID" chance="40" durationTurns="1" valuePercent="8"/></Grade>
-      <Grade id="thien" manaCost="44" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="4" charges="2"/><Buff id="ACTION_SPEED_UP_AFTER_AVOID" guaranteed="true" durationTurns="1" valuePercent="25"/><Buff id="CRIT_RATE_UP_AFTER_AVOID" guaranteed="true" durationTurns="1" valuePercent="15"/></Grade>
-    </Grades>
-  </DivineArt>
+<?xml version="1.0" encoding="utf-8"?>
+<DivineArts version="3.0" category="than_thong" categoryName="Thần Thông">
+  <Rules>
+    <Rule key="oneEquippedSlot" value="true"/>
+    <Rule key="rootAffinityBonusPercent" value="20"/>
+    <Rule key="activeSkill" value="true"/>
+    <Rule key="heavenGradeGuaranteedCoreEffect" value="true"/>
+  </Rules>
+  <Arts>
+    <RootGroup rootId="kim_linh_can" rootName="Kim Linh Căn" element="kim">
+      <DivineArt id="van_kiem_quy_tong" name="Vạn Kiếm Quy Tông" compatibleRootId="kim_linh_can" element="kim" slot="than_thong">
+        <Description>Thần thông kim chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Kim Linh Căn.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="kim" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="kim" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="kim" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="kim" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SEAL" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="kim" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vạn Kiếm Quy Tông: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="kim_cang_toai_hu" name="Kim Cang Toái Hư" compatibleRootId="kim_linh_can" element="kim" slot="than_thong">
+        <Description>Thần thông kim chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Kim Linh Căn.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="kim" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="kim" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="kim" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="kim" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="STUN" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="kim" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Kim Cang Toái Hư: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="thien_canh_ho_the" name="Thiên Canh Hộ Thể" compatibleRootId="kim_linh_can" element="kim" slot="than_thong">
+        <Description>Thần thông kim chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Kim Linh Căn.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="kim" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="kim" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="kim" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="kim" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SEAL" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="kim" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thiên Canh Hộ Thể: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="moc_linh_can" rootName="Mộc Linh Căn" element="mộc">
+      <DivineArt id="thanh_e_hoi_xuan" name="Thanh Đế Hồi Xuân" compatibleRootId="moc_linh_can" element="mộc" slot="than_thong">
+        <Description>Thần thông mộc chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Mộc Linh Căn.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="mộc" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="mộc" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="mộc" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="mộc" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="mộc" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thanh Đế Hồi Xuân: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="van_moc_trien_than" name="Vạn Mộc Triền Thân" compatibleRootId="moc_linh_can" element="mộc" slot="than_thong">
+        <Description>Thần thông mộc chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Mộc Linh Căn.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="mộc" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="mộc" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="mộc" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="mộc" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="POISON" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="mộc" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="POISON" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vạn Mộc Triền Thân: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="phe_sinh_yeu_ang" name="Phệ Sinh Yêu Đằng" compatibleRootId="moc_linh_can" element="mộc" slot="than_thong">
+        <Description>Thần thông mộc chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Mộc Linh Căn.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="mộc" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="mộc" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="mộc" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="mộc" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="mộc" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Phệ Sinh Yêu Đằng: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="thuy_linh_can" rootName="Thủy Linh Căn" element="thủy">
+      <DivineArt id="cuu_thien_huyen_thuy" name="Cửu Thiên Huyền Thủy" compatibleRootId="thuy_linh_can" element="thủy" slot="than_thong">
+        <Description>Thần thông thủy chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thủy Linh Căn.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="thủy" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="thủy" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="thủy" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="thủy" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="thủy" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Cửu Thiên Huyền Thủy: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="thuong_hai_no_trieu" name="Thương Hải Nộ Triều" compatibleRootId="thuy_linh_can" element="thủy" slot="than_thong">
+        <Description>Thần thông thủy chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thủy Linh Căn.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="thủy" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="thủy" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="thủy" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="thủy" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="thủy" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thương Hải Nộ Triều: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="thuy_kinh_thanh_tam" name="Thủy Kính Thanh Tâm" compatibleRootId="thuy_linh_can" element="thủy" slot="than_thong">
+        <Description>Thần thông thủy chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thủy Linh Căn.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="thủy" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="thủy" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="thủy" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="thủy" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="thủy" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thủy Kính Thanh Tâm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="hoa_linh_can" rootName="Hỏa Linh Căn" element="hỏa">
+      <DivineArt id="viem_long_phan_thien" name="Viêm Long Phần Thiên" compatibleRootId="hoa_linh_can" element="hỏa" slot="than_thong">
+        <Description>Thần thông hỏa chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Hỏa Linh Căn.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="hỏa" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="hỏa" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="hỏa" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BURN" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="hỏa" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BURN" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="hỏa" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BURN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Viêm Long Phần Thiên: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="cuu_duong_liet_diem" name="Cửu Dương Liệt Diễm" compatibleRootId="hoa_linh_can" element="hỏa" slot="than_thong">
+        <Description>Thần thông hỏa chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Hỏa Linh Căn.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="hỏa" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="hỏa" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="hỏa" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="hỏa" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="BURN" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="hỏa" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="BURN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Cửu Dương Liệt Diễm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="phan_thien_hoa_giap" name="Phần Thiên Hỏa Giáp" compatibleRootId="hoa_linh_can" element="hỏa" slot="than_thong">
+        <Description>Thần thông hỏa chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Hỏa Linh Căn.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="hỏa" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="hỏa" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="hỏa" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BURN" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="hỏa" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BURN" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="hỏa" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BURN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Phần Thiên Hỏa Giáp: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="tho_linh_can" rootName="Thổ Linh Căn" element="thổ">
+      <DivineArt id="thai_son_ap_inh" name="Thái Sơn Áp Đỉnh" compatibleRootId="tho_linh_can" element="thổ" slot="than_thong">
+        <Description>Thần thông thổ chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thổ Linh Căn.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="thổ" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="thổ" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="thổ" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="thổ" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="STUN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="thổ" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thái Sơn Áp Đỉnh: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="ia_mach_ho_thanh" name="Địa Mạch Hộ Thành" compatibleRootId="tho_linh_can" element="thổ" slot="than_thong">
+        <Description>Thần thông thổ chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thổ Linh Căn.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="thổ" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="thổ" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="thổ" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="thổ" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="SHIELD" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="thổ" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SHIELD" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Địa Mạch Hộ Thành: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="con_luan_chan_thien" name="Côn Luân Chấn Thiên" compatibleRootId="tho_linh_can" element="thổ" slot="than_thong">
+        <Description>Thần thông thổ chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thổ Linh Căn.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="thổ" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="thổ" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="thổ" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="thổ" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="STUN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="thổ" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Côn Luân Chấn Thiên: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="phong_linh_can" rootName="Phong Linh Căn" element="phong">
+      <DivineArt id="cuu_tieu_phong_bao" name="Cửu Tiêu Phong Bạo" compatibleRootId="phong_linh_can" element="phong" slot="than_thong">
+        <Description>Thần thông phong chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Phong Linh Căn.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="phong" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="phong" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="phong" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="phong" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="phong" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Cửu Tiêu Phong Bạo: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="vo_anh_phong_sat" name="Vô Ảnh Phong Sát" compatibleRootId="phong_linh_can" element="phong" slot="than_thong">
+        <Description>Thần thông phong chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Phong Linh Căn.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="phong" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="phong" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="phong" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="phong" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="INVISIBLE" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="phong" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="INVISIBLE" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vô Ảnh Phong Sát: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="thanh_phong_on_hinh" name="Thanh Phong Độn Hình" compatibleRootId="phong_linh_can" element="phong" slot="than_thong">
+        <Description>Thần thông phong chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Phong Linh Căn.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="phong" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="phong" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="phong" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="phong" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="phong" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thanh Phong Độn Hình: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="loi_linh_can" rootName="Lôi Linh Căn" element="lôi">
+      <DivineArt id="loi_nguc_chan_hon" name="Lôi Ngục Chấn Hồn" compatibleRootId="loi_linh_can" element="lôi" slot="than_thong">
+        <Description>Thần thông lôi chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Lôi Linh Căn.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="lôi" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="lôi" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="lôi" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="lôi" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="lôi" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Lôi Ngục Chấn Hồn: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="cuu_thien_loi_kiep" name="Cửu Thiên Lôi Kiếp" compatibleRootId="loi_linh_can" element="lôi" slot="than_thong">
+        <Description>Thần thông lôi chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Lôi Linh Căn.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="lôi" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="lôi" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="lôi" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="lôi" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="STUN" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="lôi" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Cửu Thiên Lôi Kiếp: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="loi_inh_van_quan" name="Lôi Đình Vạn Quân" compatibleRootId="loi_linh_can" element="lôi" slot="than_thong">
+        <Description>Thần thông lôi chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Lôi Linh Căn.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="lôi" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="lôi" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="lôi" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="lôi" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="lôi" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Lôi Đình Vạn Quân: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="bang_linh_can" rootName="Băng Linh Căn" element="băng">
+      <DivineArt id="han_nguyet_phong_thien_quyet" name="Hàn Nguyệt Phong Thiên Quyết" compatibleRootId="bang_linh_can" element="băng" slot="than_thong">
+        <Description>Thần thông băng chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Băng Linh Căn.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="băng" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="băng" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="băng" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FREEZE" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="băng" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FREEZE" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SLOW" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="băng" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FREEZE" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SLOW" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Hàn Nguyệt Phong Thiên Quyết: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="bang_phach_ho_tam" name="Băng Phách Hộ Tâm" compatibleRootId="bang_linh_can" element="băng" slot="than_thong">
+        <Description>Thần thông băng chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Băng Linh Căn.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="băng" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="băng" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="băng" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SLOW" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="băng" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SLOW" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="FREEZE" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="băng" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SLOW" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="FREEZE" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Băng Phách Hộ Tâm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="cuc_han_phong_mach" name="Cực Hàn Phong Mạch" compatibleRootId="bang_linh_can" element="băng" slot="than_thong">
+        <Description>Thần thông băng chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Băng Linh Căn.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="băng" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="băng" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="băng" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FREEZE" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="băng" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FREEZE" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SLOW" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="băng" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="FREEZE" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SLOW" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Cực Hàn Phong Mạch: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="quang_linh_can" rootName="Quang Linh Căn" element="quang">
+      <DivineArt id="ai_nhat_tham_phan" name="Đại Nhật Thẩm Phán" compatibleRootId="quang_linh_can" element="quang" slot="than_thong">
+        <Description>Thần thông quang chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Quang Linh Căn.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="quang" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="quang" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="quang" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="quang" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SHIELD" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="quang" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SHIELD" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Đại Nhật Thẩm Phán: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="thanh_quang_ho_gioi" name="Thánh Quang Hộ Giới" compatibleRootId="quang_linh_can" element="quang" slot="than_thong">
+        <Description>Thần thông quang chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Quang Linh Căn.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="quang" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="quang" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="quang" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="quang" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="quang" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SHIELD" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thánh Quang Hộ Giới: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="quang_minh_thanh_tam" name="Quang Minh Thanh Tâm" compatibleRootId="quang_linh_can" element="quang" slot="than_thong">
+        <Description>Thần thông quang chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Quang Linh Căn.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="quang" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="quang" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="quang" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="quang" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SHIELD" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="quang" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SHIELD" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Quang Minh Thanh Tâm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="am_linh_can" rootName="Ám Linh Căn" element="ám">
+      <DivineArt id="cuu_u_phong_linh_an" name="Cửu U Phong Linh Ấn" compatibleRootId="am_linh_can" element="ám" slot="than_thong">
+        <Description>Thần thông ám chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Ám Linh Căn.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="ám" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="ám" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="ám" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="ám" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="CONFUSION" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="ám" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="CONFUSION" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Cửu U Phong Linh Ấn: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="nghich_tam_loan_than_thuat" name="Nghịch Tâm Loạn Thần Thuật" compatibleRootId="am_linh_can" element="ám" slot="than_thong">
+        <Description>Thần thông ám chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Ám Linh Căn.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="ám" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="ám" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="ám" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CONFUSION" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="ám" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CONFUSION" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="SEAL" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="ám" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CONFUSION" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Nghịch Tâm Loạn Thần Thuật: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="vo_anh_on_hu_thuat" name="Vô Ảnh Độn Hư Thuật" compatibleRootId="am_linh_can" element="ám" slot="than_thong">
+        <Description>Thần thông ám chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Ám Linh Căn.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="ám" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="ám" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="ám" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="ám" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="CONFUSION" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="ám" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="CONFUSION" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vô Ảnh Độn Hư Thuật: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="doc_linh_can" rootName="Độc Linh Căn" element="độc">
+      <DivineArt id="van_oc_phe_thien" name="Vạn Độc Phệ Thiên" compatibleRootId="doc_linh_can" element="độc" slot="than_thong">
+        <Description>Thần thông độc chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Độc Linh Căn.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="độc" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="độc" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="độc" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="độc" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="độc" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vạn Độc Phệ Thiên: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="bich_lan_oc_vu" name="Bích Lân Độc Vụ" compatibleRootId="doc_linh_can" element="độc" slot="than_thong">
+        <Description>Thần thông độc chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Độc Linh Căn.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="độc" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="độc" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="độc" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="độc" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="POISON" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="độc" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="POISON" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Bích Lân Độc Vụ: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="ngu_oc_phong_mach" name="Ngũ Độc Phong Mạch" compatibleRootId="doc_linh_can" element="độc" slot="than_thong">
+        <Description>Thần thông độc chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Độc Linh Căn.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="độc" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="độc" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="độc" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="độc" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="độc" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="POISON" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Ngũ Độc Phong Mạch: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="huyet_linh_can" rootName="Huyết Linh Căn" element="huyết">
+      <DivineArt id="huyet_hai_ma_chuong" name="Huyết Hải Ma Chưởng" compatibleRootId="huyet_linh_can" element="huyết" slot="than_thong">
+        <Description>Thần thông huyết chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Huyết Linh Căn.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="huyết" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="huyết" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="huyết" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="huyết" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="huyết" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Huyết Hải Ma Chưởng: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="tu_la_huyet_nguc" name="Tu La Huyết Ngục" compatibleRootId="huyet_linh_can" element="huyết" slot="than_thong">
+        <Description>Thần thông huyết chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Huyết Linh Căn.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="huyết" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="huyết" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="huyết" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="huyết" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="huyết" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Tu La Huyết Ngục: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="huyet_than_hoi_sinh" name="Huyết Thần Hồi Sinh" compatibleRootId="huyet_linh_can" element="huyết" slot="than_thong">
+        <Description>Thần thông huyết chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Huyết Linh Căn.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="huyết" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="huyết" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="huyết" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="huyết" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="huyết" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="BLOOD_MARK" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Huyết Thần Hồi Sinh: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="sinh_linh_can" rootName="Sinh Linh Căn" element="sinh">
+      <DivineArt id="tao_hoa_hoi_thien" name="Tạo Hóa Hồi Thiên" compatibleRootId="sinh_linh_can" element="sinh" slot="than_thong">
+        <Description>Thần thông sinh chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Sinh Linh Căn.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="sinh" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="sinh" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="sinh" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="sinh" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="REVITALIZE" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="sinh" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="REVITALIZE" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Tạo Hóa Hồi Thiên: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="van_linh_phuc_to" name="Vạn Linh Phục Tô" compatibleRootId="sinh_linh_can" element="sinh" slot="than_thong">
+        <Description>Thần thông sinh chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Sinh Linh Căn.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="sinh" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="sinh" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="sinh" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="REVITALIZE" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="sinh" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="REVITALIZE" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="sinh" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="REVITALIZE" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vạn Linh Phục Tô: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="sinh_menh_ket_gioi" name="Sinh Mệnh Kết Giới" compatibleRootId="sinh_linh_can" element="sinh" slot="than_thong">
+        <Description>Thần thông sinh chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Sinh Linh Căn.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="sinh" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="sinh" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="sinh" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="sinh" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="REVITALIZE" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="sinh" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="CLEAR_MIND" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="REVITALIZE" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Sinh Mệnh Kết Giới: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="tu_linh_can" rootName="Tử Linh Căn" element="tử">
+      <DivineArt id="tich_diet_luan_hoi" name="Tịch Diệt Luân Hồi" compatibleRootId="tu_linh_can" element="tử" slot="than_thong">
+        <Description>Thần thông tử chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Tử Linh Căn.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="tử" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="tử" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="tử" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="tử" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="tử" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Tịch Diệt Luân Hồi: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="hoang_tuyen_dan_hon" name="Hoàng Tuyền Dẫn Hồn" compatibleRootId="tu_linh_can" element="tử" slot="than_thong">
+        <Description>Thần thông tử chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Tử Linh Căn.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="tử" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="tử" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="tử" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="tử" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="SEAL" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="tử" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Hoàng Tuyền Dẫn Hồn: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="van_hon_phong_an" name="Vạn Hồn Phong Ấn" compatibleRootId="tu_linh_can" element="tử" slot="than_thong">
+        <Description>Thần thông tử chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Tử Linh Căn.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="tử" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="tử" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="tử" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="tử" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="tử" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SOUL_DECAY" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Vạn Hồn Phong Ấn: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="khong_gian_linh_can" rootName="Không Gian Linh Căn" element="không_gian">
+      <DivineArt id="hu_khong_tram" name="Hư Không Trảm" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="than_thong">
+        <Description>Thần thông không_gian chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Không Gian Linh Căn.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="không_gian" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="không_gian" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="không_gian" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="không_gian" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SEAL" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="không_gian" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Hư Không Trảm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="khong_gian_giam_cam" name="Không Gian Giam Cầm" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="than_thong">
+        <Description>Thần thông không_gian chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Không Gian Linh Căn.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="không_gian" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="không_gian" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="không_gian" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="không_gian" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="INVISIBLE" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="không_gian" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="INVISIBLE" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Không Gian Giam Cầm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="di_hinh_hoan_anh" name="Di Hình Hoán Ảnh" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="than_thong">
+        <Description>Thần thông không_gian chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Không Gian Linh Căn.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="không_gian" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="không_gian" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="không_gian" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="không_gian" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="SEAL" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="không_gian" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="INVISIBLE" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="SEAL" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Di Hình Hoán Ảnh: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+    <RootGroup rootId="thoi_gian_linh_can" rootName="Thời Gian Linh Căn" element="thời_gian">
+      <DivineArt id="tue_nguyet_tram" name="Tuế Nguyệt Trảm" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="than_thong">
+        <Description>Thần thông thời_gian chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thời Gian Linh Căn.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="12" cooldownTurns="4">
+            <Damage element="thời_gian" attackScale="1.10" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="14" cooldownTurns="4">
+            <Damage element="thời_gian" attackScale="1.49" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="16" cooldownTurns="4">
+            <Damage element="thời_gian" attackScale="1.93" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="18" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="18" cooldownTurns="4">
+            <Damage element="thời_gian" attackScale="2.48" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="40" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="28" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="20" cooldownTurns="4">
+            <Damage element="thời_gian" attackScale="3.47" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Tuế Nguyệt Trảm: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="thoi_luan_nghich_chuyen" name="Thời Luân Nghịch Chuyển" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="than_thong">
+        <Description>Thần thông thời_gian chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thời Gian Linh Căn.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="16" cooldownTurns="3">
+            <Damage element="thời_gian" attackScale="1.35" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="18" cooldownTurns="3">
+            <Damage element="thời_gian" attackScale="1.82" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="21" cooldownTurns="3">
+            <Damage element="thời_gian" attackScale="2.36" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="22" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="24" cooldownTurns="3">
+            <Damage element="thời_gian" attackScale="3.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="45" durationTurns="2" dispellable="true"/>
+              <ApplyStatus id="STUN" chancePercent="32" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="27" cooldownTurns="3">
+            <Damage element="thời_gian" attackScale="4.25" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Thời Luân Nghịch Chuyển: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+      <DivineArt id="sat_na_vinh_hang" name="Sát Na Vĩnh Hằng" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="than_thong">
+        <Description>Thần thông thời_gian chủ động, kết hợp sát thương và hiệu ứng đặc trưng của Thời Gian Linh Căn.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1" manaCost="20" cooldownTurns="2">
+            <Damage element="thời_gian" attackScale="1.60" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="hoang" rank="2" manaCost="23" cooldownTurns="2">
+            <Damage element="thời_gian" attackScale="2.16" canCrit="true" direct="true"/>
+          </Grade>
+          <Grade id="huyen" rank="3" manaCost="27" cooldownTurns="2">
+            <Damage element="thời_gian" attackScale="2.80" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="26" durationTurns="1" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4" manaCost="30" cooldownTurns="2">
+            <Damage element="thời_gian" attackScale="3.60" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="50" durationTurns="1" dispellable="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="36" durationTurns="2" dispellable="true"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5" manaCost="34" cooldownTurns="2">
+            <Damage element="thời_gian" attackScale="5.04" canCrit="true" direct="true"/>
+            <Effects>
+              <ApplyStatus id="STUN" chancePercent="100" durationTurns="1" dispellable="true" guaranteed="true"/>
+              <ApplyStatus id="WEAKEN" chancePercent="100" durationTurns="2" dispellable="true" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm Sát Na Vĩnh Hằng: sát thương vượt trội, hiệu ứng chính và phụ luôn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </DivineArt>
+    </RootGroup>
+  </Arts>
 </DivineArts>

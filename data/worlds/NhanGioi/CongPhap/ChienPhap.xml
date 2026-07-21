@@ -1,0 +1,2586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CultivationArts version="3.0" category="chien_phap" categoryName="Chiến Pháp">
+  <Rules>
+    <Rule key="oneEquippedSlot" value="true"/>
+    <Rule key="rootAffinityBonusPercent" value="20"/>
+    <Rule key="offRootAllowed" value="true"/>
+  </Rules>
+  <Arts>
+    <RootGroup rootId="kim_linh_can" rootName="Kim Linh Căn" element="kim">
+      <Art id="canh_kim_pha_quan_quyet" name="Canh Kim Phá Quân Quyết" category="chien_phap" compatibleRootId="kim_linh_can" element="kim" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Kim Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận kim.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="32" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm kim: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="van_kiem_lien_hoan_kinh" name="Vạn Kiếm Liên Hoàn Kinh" category="chien_phap" compatibleRootId="kim_linh_can" element="kim" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Kim Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận kim.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="ACCURACY" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="ACCURACY" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="ACCURACY" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="ACCURACY" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="36" durationTurns="2"/>
+              <Effect id="STUN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="ACCURACY" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm kim: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="kim_mang_oan_nhac_phap" name="Kim Mang Đoạn Nhạc Pháp" category="chien_phap" compatibleRootId="kim_linh_can" element="kim" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Kim Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận kim.</Description>
+        <Affinity primaryRootId="kim_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="40" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm kim: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="moc_linh_can" rootName="Mộc Linh Căn" element="mộc">
+      <Art id="thanh_ang_phe_linh_phap" name="Thanh Đằng Phệ Linh Pháp" category="chien_phap" compatibleRootId="moc_linh_can" element="mộc" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Mộc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận mộc.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="HP_REGEN" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="HP_REGEN" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="HP_REGEN" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="HP_REGEN" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="HP_REGEN" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm mộc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="moc_linh_oc_kinh" name="Mộc Linh Độc Kinh" category="chien_phap" compatibleRootId="moc_linh_can" element="mộc" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Mộc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận mộc.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="POISON" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="POISON" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm mộc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="van_diep_lien_tram_quyet" name="Vạn Diệp Liên Trảm Quyết" category="chien_phap" compatibleRootId="moc_linh_can" element="mộc" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Mộc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận mộc.</Description>
+        <Affinity primaryRootId="moc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm mộc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="thuy_linh_can" rootName="Thủy Linh Căn" element="thủy">
+      <Art id="thuong_hai_iep_lang_quyet" name="Thương Hải Điệp Lãng Quyết" category="chien_phap" compatibleRootId="thuy_linh_can" element="thủy" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thủy Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thủy.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="MP_REGEN" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="MP_REGEN" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="MP_REGEN" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="MP_REGEN" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="32" durationTurns="1"/>
+              <Effect id="CLEAR_MIND" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="MP_REGEN" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thủy: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="han_tuyen_xuyen_tam_phap" name="Hàn Tuyền Xuyên Tâm Pháp" category="chien_phap" compatibleRootId="thuy_linh_can" element="thủy" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thủy Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thủy.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="ACTION_SPEED" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="ACTION_SPEED" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="ACTION_SPEED" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="ACTION_SPEED" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="36" durationTurns="2"/>
+              <Effect id="WEAKEN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="ACTION_SPEED" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thủy: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="van_luu_quy_hai_kinh" name="Vạn Lưu Quy Hải Kinh" category="chien_phap" compatibleRootId="thuy_linh_can" element="thủy" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thủy Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thủy.</Description>
+        <Affinity primaryRootId="thuy_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="40" durationTurns="1"/>
+              <Effect id="CLEAR_MIND" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thủy: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="hoa_linh_can" rootName="Hỏa Linh Căn" element="hỏa">
+      <Art id="liet_diem_pha_quan_phap" name="Liệt Diễm Phá Quân Pháp" category="chien_phap" compatibleRootId="hoa_linh_can" element="hỏa" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Hỏa Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận hỏa.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="CRIT_RATE" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="CRIT_RATE" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="CRIT_RATE" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="32" durationTurns="1"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="CRIT_RATE" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm hỏa: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hoa_vu_lien_thien_quyet" name="Hỏa Vũ Liên Thiên Quyết" category="chien_phap" compatibleRootId="hoa_linh_can" element="hỏa" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Hỏa Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận hỏa.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="BURN_CHANCE" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="BURN_CHANCE" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="BURN_CHANCE" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="BURN_CHANCE" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="36" durationTurns="2"/>
+              <Effect id="BURN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="BURN_CHANCE" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="BURN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm hỏa: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="xich_duong_bao_viem_kinh" name="Xích Dương Bạo Viêm Kinh" category="chien_phap" compatibleRootId="hoa_linh_can" element="hỏa" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Hỏa Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận hỏa.</Description>
+        <Affinity primaryRootId="hoa_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="40" durationTurns="1"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BURN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="FIRE_RESIST_DOWN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm hỏa: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="tho_linh_can" rootName="Thổ Linh Căn" element="thổ">
+      <Art id="ia_liet_chan_son_phap" name="Địa Liệt Chấn Sơn Pháp" category="chien_phap" compatibleRootId="tho_linh_can" element="thổ" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thổ Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thổ.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="DEFENSE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="DEFENSE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="DEFENSE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="DEFENSE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="32" durationTurns="1"/>
+              <Effect id="STUN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="DEFENSE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thổ: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hoang_sa_pha_quan_quyet" name="Hoàng Sa Phá Quân Quyết" category="chien_phap" compatibleRootId="tho_linh_can" element="thổ" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thổ Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thổ.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="MAX_HP" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="MAX_HP" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="MAX_HP" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="MAX_HP" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="36" durationTurns="2"/>
+              <Effect id="SHIELD" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="MAX_HP" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thổ: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="con_luan_trong_kich_kinh" name="Côn Luân Trọng Kích Kinh" category="chien_phap" compatibleRootId="tho_linh_can" element="thổ" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thổ Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thổ.</Description>
+        <Affinity primaryRootId="tho_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="40" durationTurns="1"/>
+              <Effect id="STUN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thổ: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="phong_linh_can" rootName="Phong Linh Căn" element="phong">
+      <Art id="phong_nhan_lien_hoan_quyet" name="Phong Nhận Liên Hoàn Quyết" category="chien_phap" compatibleRootId="phong_linh_can" element="phong" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Phong Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận phong.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="32" durationTurns="1"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm phong: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="cuong_phong_pha_anh_phap" name="Cuồng Phong Phá Ảnh Pháp" category="chien_phap" compatibleRootId="phong_linh_can" element="phong" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Phong Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận phong.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="DODGE" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="DODGE" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="DODGE" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="COMBO_RATE_UP" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="DODGE" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="COMBO_RATE_UP" chancePercent="36" durationTurns="2"/>
+              <Effect id="INVISIBLE" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="DODGE" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm phong: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="cuu_tieu_truy_menh_kinh" name="Cửu Tiêu Truy Mệnh Kinh" category="chien_phap" compatibleRootId="phong_linh_can" element="phong" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Phong Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận phong.</Description>
+        <Affinity primaryRootId="phong_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="40" durationTurns="1"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="COMBO_RATE_UP" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm phong: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="loi_linh_can" rootName="Lôi Linh Căn" element="lôi">
+      <Art id="cuong_loi_chien_ien" name="Cuồng Lôi Chiến Điển" category="chien_phap" compatibleRootId="loi_linh_can" element="lôi" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Lôi Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận lôi.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm lôi: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="loi_inh_lien_kich_quyet" name="Lôi Đình Liên Kích Quyết" category="chien_phap" compatibleRootId="loi_linh_can" element="lôi" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Lôi Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận lôi.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="COMBO_RATE" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="COMBO_RATE" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="COMBO_RATE" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="COMBO_RATE" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="STUN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="COMBO_RATE" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm lôi: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thien_phat_pha_quan_phap" name="Thiên Phạt Phá Quân Pháp" category="chien_phap" compatibleRootId="loi_linh_can" element="lôi" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Lôi Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận lôi.</Description>
+        <Affinity primaryRootId="loi_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm lôi: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="bang_linh_can" rootName="Băng Linh Căn" element="băng">
+      <Art id="bang_phach_oan_mach_phap" name="Băng Phách Đoạn Mạch Pháp" category="chien_phap" compatibleRootId="bang_linh_can" element="băng" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Băng Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận băng.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="FREEZE_CHANCE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="FREEZE_CHANCE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="FREEZE_CHANCE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="FREEZE_CHANCE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="32" durationTurns="1"/>
+              <Effect id="SLOW" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="FREEZE_CHANCE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SLOW" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm băng: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="han_suong_lien_tram_quyet" name="Hàn Sương Liên Trảm Quyết" category="chien_phap" compatibleRootId="bang_linh_can" element="băng" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Băng Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận băng.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="CRIT_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="CRIT_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="CRIT_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SLOW" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="CRIT_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SLOW" chancePercent="36" durationTurns="2"/>
+              <Effect id="FREEZE" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="CRIT_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SLOW" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="FREEZE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm băng: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="cuc_han_pha_quan_kinh" name="Cực Hàn Phá Quân Kinh" category="chien_phap" compatibleRootId="bang_linh_can" element="băng" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Băng Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận băng.</Description>
+        <Affinity primaryRootId="bang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="40" durationTurns="1"/>
+              <Effect id="SLOW" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="FREEZE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SLOW" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm băng: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="quang_linh_can" rootName="Quang Linh Căn" element="quang">
+      <Art id="hao_quang_pha_ta_phap" name="Hạo Quang Phá Tà Pháp" category="chien_phap" compatibleRootId="quang_linh_can" element="quang" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Quang Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận quang.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="ACCURACY" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="ACCURACY" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="ACCURACY" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="ACCURACY" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="32" durationTurns="1"/>
+              <Effect id="SHIELD" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="ACCURACY" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm quang: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="nhat_dieu_lien_kich_quyet" name="Nhật Diệu Liên Kích Quyết" category="chien_phap" compatibleRootId="quang_linh_can" element="quang" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Quang Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận quang.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="36" durationTurns="2"/>
+              <Effect id="CLEAR_MIND" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="STATUS_RESIST" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm quang: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thanh_quang_tram_ma_kinh" name="Thánh Quang Trảm Ma Kinh" category="chien_phap" compatibleRootId="quang_linh_can" element="quang" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Quang Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận quang.</Description>
+        <Affinity primaryRootId="quang_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="40" durationTurns="1"/>
+              <Effect id="SHIELD" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SHIELD" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm quang: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="am_linh_can" rootName="Ám Linh Căn" element="ám">
+      <Art id="anh_sat_oat_menh_phap" name="Ảnh Sát Đoạt Mệnh Pháp" category="chien_phap" compatibleRootId="am_linh_can" element="ám" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Ám Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận ám.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="DODGE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="DODGE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="DODGE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="DODGE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="32" durationTurns="1"/>
+              <Effect id="CONFUSION" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="DODGE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CONFUSION" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm ám: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="u_minh_phong_hon_quyet" name="U Minh Phong Hồn Quyết" category="chien_phap" compatibleRootId="am_linh_can" element="ám" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Ám Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận ám.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="CRIT_RATE" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="CRIT_RATE" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="CRIT_RATE" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CONFUSION" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="CRIT_RATE" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CONFUSION" chancePercent="36" durationTurns="2"/>
+              <Effect id="SEAL" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="CRIT_RATE" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="CONFUSION" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm ám: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hac_da_lien_kich_kinh" name="Hắc Dạ Liên Kích Kinh" category="chien_phap" compatibleRootId="am_linh_can" element="ám" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Ám Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận ám.</Description>
+        <Affinity primaryRootId="am_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="40" durationTurns="1"/>
+              <Effect id="CONFUSION" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CONFUSION" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm ám: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="doc_linh_can" rootName="Độc Linh Căn" element="độc">
+      <Art id="van_oc_phe_tam_phap" name="Vạn Độc Phệ Tâm Pháp" category="chien_phap" compatibleRootId="doc_linh_can" element="độc" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Độc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận độc.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="POISON_CHANCE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="POISON_CHANCE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="POISON_CHANCE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="POISON_CHANCE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="POISON_CHANCE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm độc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="bich_lan_truy_hon_quyet" name="Bích Lân Truy Hồn Quyết" category="chien_phap" compatibleRootId="doc_linh_can" element="độc" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Độc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận độc.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="POISON_DAMAGE" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="POISON_DAMAGE" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="POISON_DAMAGE" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="POISON_DAMAGE" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="POISON" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="POISON_DAMAGE" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="POISON" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm độc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="ngu_oc_lien_hoan_kinh" name="Ngũ Độc Liên Hoàn Kinh" category="chien_phap" compatibleRootId="doc_linh_can" element="độc" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Độc Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận độc.</Description>
+        <Affinity primaryRootId="doc_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="POISON" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm độc: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="huyet_linh_can" rootName="Huyết Linh Căn" element="huyết">
+      <Art id="huyet_anh_oat_menh_phap" name="Huyết Ảnh Đoạt Mệnh Pháp" category="chien_phap" compatibleRootId="huyet_linh_can" element="huyết" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Huyết Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận huyết.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="LIFE_STEAL" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="LIFE_STEAL" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="LIFE_STEAL" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="LIFE_STEAL" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="LIFE_STEAL" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm huyết: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="tu_la_lien_tram_quyet" name="Tu La Liên Trảm Quyết" category="chien_phap" compatibleRootId="huyet_linh_can" element="huyết" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Huyết Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận huyết.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="MAX_HP" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="MAX_HP" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="MAX_HP" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="MAX_HP" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="BLOOD_MARK" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="MAX_HP" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="BLOOD_MARK" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm huyết: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="huyet_hai_phe_linh_kinh" name="Huyết Hải Phệ Linh Kinh" category="chien_phap" compatibleRootId="huyet_linh_can" element="huyết" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Huyết Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận huyết.</Description>
+        <Affinity primaryRootId="huyet_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="BLOOD_MARK" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm huyết: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="sinh_linh_can" rootName="Sinh Linh Căn" element="sinh">
+      <Art id="sinh_menh_trien_phuoc_phap" name="Sinh Mệnh Triền Phược Pháp" category="chien_phap" compatibleRootId="sinh_linh_can" element="sinh" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Sinh Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận sinh.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="HP_REGEN" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="HP_REGEN" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="HP_REGEN" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="HP_REGEN" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="32" durationTurns="1"/>
+              <Effect id="REVITALIZE" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="HP_REGEN" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="REVITALIZE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm sinh: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="tao_hoa_oat_nguyen_quyet" name="Tạo Hóa Đoạt Nguyên Quyết" category="chien_phap" compatibleRootId="sinh_linh_can" element="sinh" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Sinh Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận sinh.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="MAX_HP" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="MAX_HP" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="MAX_HP" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="REVITALIZE" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="MAX_HP" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="REVITALIZE" chancePercent="36" durationTurns="2"/>
+              <Effect id="CLEAR_MIND" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="MAX_HP" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="REVITALIZE" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm sinh: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="van_linh_cong_chan_kinh" name="Vạn Linh Cộng Chấn Kinh" category="chien_phap" compatibleRootId="sinh_linh_can" element="sinh" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Sinh Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận sinh.</Description>
+        <Affinity primaryRootId="sinh_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="40" durationTurns="1"/>
+              <Effect id="REVITALIZE" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="CLEAR_MIND" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="REVITALIZE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm sinh: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="tu_linh_can" rootName="Tử Linh Căn" element="tử">
+      <Art id="tich_diet_oat_hon_phap" name="Tịch Diệt Đoạt Hồn Pháp" category="chien_phap" compatibleRootId="tu_linh_can" element="tử" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Tử Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận tử.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="32" durationTurns="1"/>
+              <Effect id="SOUL_DECAY" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SOUL_DECAY" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm tử: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="hoang_tuyen_tram_menh_quyet" name="Hoàng Tuyền Trảm Mệnh Quyết" category="chien_phap" compatibleRootId="tu_linh_can" element="tử" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Tử Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận tử.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SOUL_DECAY" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SOUL_DECAY" chancePercent="36" durationTurns="2"/>
+              <Effect id="SEAL" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="LIFE_STEAL" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SOUL_DECAY" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm tử: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="u_tu_phong_linh_kinh" name="U Tử Phong Linh Kinh" category="chien_phap" compatibleRootId="tu_linh_can" element="tử" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Tử Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận tử.</Description>
+        <Affinity primaryRootId="tu_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="40" durationTurns="1"/>
+              <Effect id="SOUL_DECAY" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SOUL_DECAY" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm tử: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="khong_gian_linh_can" rootName="Không Gian Linh Căn" element="không_gian">
+      <Art id="hu_khong_pha_gioi_phap" name="Hư Không Phá Giới Pháp" category="chien_phap" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Không Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận không_gian.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="DODGE" value="18.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="DODGE" value="24.3" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="DODGE" value="31.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="DODGE" value="40.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="32" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="DODGE" value="56.7" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm không_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="liet_khong_lien_tram_quyet" name="Liệt Không Liên Trảm Quyết" category="chien_phap" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Không Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận không_gian.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="ARMOR_PENETRATION" value="26.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="ARMOR_PENETRATION" value="35.1" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="ARMOR_PENETRATION" value="45.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="ARMOR_PENETRATION" value="58.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="36" durationTurns="2"/>
+              <Effect id="INVISIBLE" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="ARMOR_PENETRATION" value="81.9" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm không_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thai_hu_oan_diet_kinh" name="Thái Hư Đoạn Diệt Kinh" category="chien_phap" compatibleRootId="khong_gian_linh_can" element="không_gian" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Không Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận không_gian.</Description>
+        <Affinity primaryRootId="khong_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="40" durationTurns="1"/>
+              <Effect id="SEAL" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="INVISIBLE" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="SEAL" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm không_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+    <RootGroup rootId="thoi_gian_linh_can" rootName="Thời Gian Linh Căn" element="thời_gian">
+      <Art id="tue_nguyet_oat_menh_phap" name="Tuế Nguyệt Đoạt Mệnh Pháp" category="chien_phap" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thời Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thời_gian.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="8.0" unit="flat"/>
+              <Stat key="ACCURACY" value="13.0" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="18.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="10.8" unit="flat"/>
+              <Stat key="ACCURACY" value="17.55" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="24.3" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="14.0" unit="flat"/>
+              <Stat key="ACCURACY" value="22.75" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="31.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="15" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="18.0" unit="flat"/>
+              <Stat key="ACCURACY" value="29.25" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="40.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="32" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="22" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="25.2" unit="flat"/>
+              <Stat key="ACCURACY" value="40.95" unit="flat"/>
+              <Stat key="ACTION_SPEED" value="56.7" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thời_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="sat_na_lien_tram_quyet" name="Sát Na Liên Trảm Quyết" category="chien_phap" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thời Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thời_gian.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="16.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="21.0" unit="percent"/>
+              <Stat key="COOLDOWN_REDUCTION" value="26.0" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="21.6" unit="flat"/>
+              <Stat key="CRIT_RATE" value="28.35" unit="percent"/>
+              <Stat key="COOLDOWN_REDUCTION" value="35.1" unit="percent"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="28.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="36.75" unit="percent"/>
+              <Stat key="COOLDOWN_REDUCTION" value="45.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="18" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="36.0" unit="flat"/>
+              <Stat key="CRIT_RATE" value="47.25" unit="percent"/>
+              <Stat key="COOLDOWN_REDUCTION" value="58.5" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="36" durationTurns="2"/>
+              <Effect id="STUN" chancePercent="25" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="50.4" unit="flat"/>
+              <Stat key="CRIT_RATE" value="66.15" unit="percent"/>
+              <Stat key="COOLDOWN_REDUCTION" value="81.9" unit="percent"/>
+            </Stats>
+            <Effects>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="STUN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thời_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+      <Art id="thoi_luan_nghich_kich_kinh" name="Thời Luân Nghịch Kích Kinh" category="chien_phap" compatibleRootId="thoi_gian_linh_can" element="thời_gian" slot="chien_phap">
+        <Description>Chiến Pháp chuyên tu dành cho Thời Gian Linh Căn, có thiên hướng và hiệu ứng riêng theo đạo vận thời_gian.</Description>
+        <Affinity primaryRootId="thoi_gian_linh_can" matchingBonusPercent="20" requireMatch="false"/>
+        <Grades>
+          <Grade id="pham" rank="1">
+            <Stats>
+              <Stat key="ATTACK" value="24.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="29.0" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="34.0" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="hoang" rank="2">
+            <Stats>
+              <Stat key="ATTACK" value="32.4" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="39.15" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="45.9" unit="flat"/>
+            </Stats>
+          </Grade>
+          <Grade id="huyen" rank="3">
+            <Stats>
+              <Stat key="ATTACK" value="42.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="50.75" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="59.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="21" durationTurns="1"/>
+            </Effects>
+          </Grade>
+          <Grade id="dia" rank="4">
+            <Stats>
+              <Stat key="ATTACK" value="54.0" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="65.25" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="76.5" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="40" durationTurns="1"/>
+              <Effect id="WEAKEN" chancePercent="28" durationTurns="2"/>
+            </Effects>
+          </Grade>
+          <Grade id="thien" rank="5">
+            <Stats>
+              <Stat key="ATTACK" value="75.6" unit="flat"/>
+              <Stat key="CRIT_DAMAGE" value="91.35" unit="flat"/>
+              <Stat key="ARMOR_PENETRATION" value="107.1" unit="flat"/>
+            </Stats>
+            <Effects>
+              <Effect id="STUN" chancePercent="100" durationTurns="1" guaranteed="true" ignoreNormalResistance="true"/>
+              <Effect id="WEAKEN" chancePercent="100" durationTurns="2" guaranteed="true"/>
+            </Effects>
+            <Ultimate enabled="true" description="Thiên phẩm thời_gian: hiệu ứng cốt lõi chắc chắn kích hoạt nếu mục tiêu không miễn nhiễm tuyệt đối."/>
+          </Grade>
+        </Grades>
+      </Art>
+    </RootGroup>
+  </Arts>
+</CultivationArts>
