@@ -63,8 +63,10 @@ function showGate(message = '') {
   state.playerId = 0;
   state.profile = null;
   localStorage.removeItem('tutien_player_id');
+
   $('#game').classList.add('hidden');
   $('#gate').classList.remove('hidden');
+  $('#logoutBtn').classList.add('hidden');
   $('#gateMsg').textContent = message;
 }
 
@@ -76,9 +78,11 @@ function openGame(data) {
   state.profile = data;
   state.playerId = Number(data.player.id);
   localStorage.setItem('tutien_player_id', String(state.playerId));
+
   $('#gateMsg').textContent = '';
   $('#gate').classList.add('hidden');
   $('#game').classList.remove('hidden');
+  $('#logoutBtn').classList.remove('hidden');
   render();
 }
 
@@ -131,23 +135,18 @@ function render() {
   $('#overviewRecord').textContent =
     `${fmt(player.wins)} thắng · ${fmt(player.losses)} bại`;
 
-  $('#overviewRootName').textContent =
-    player.spiritual_root_name || 'Vô Danh Linh Căn';
   const rootGradeDisplay = player.is_innate_special_root
     ? `${player.spiritual_root_grade || 'không rõ'} · Thiên sinh đặc tính`
     : (player.spiritual_root_grade || 'không rõ');
-  $('#rootGrade').textContent = rootGradeDisplay;
   $('#rootGradeText').textContent = rootGradeDisplay;
 
-  const rootConfig = state.config.spiritualRoots?.find(
-    item => String(item.id) === String(player.spiritual_root)
-  );
-
-  $('#rootElement').textContent = rootConfig?.element || 'không rõ';
-  $('#rootDescription').textContent =
-    player.spiritual_root_description ||
-    rootConfig?.description ||
-    'Chưa có ghi chép về Linh Căn này.';
+  // Hiển thị Thiên Mệnh Linh Căn mở rộng.
+  if (window.ThienMenhUI?.render) {
+    window.ThienMenhUI.render(
+      player,
+      state.config.spiritualRoots || []
+    );
+  }
 
   $('#statHp').textContent =
     `${fmt(player.current_hp)} / ${fmt(player.max_hp)}`;
@@ -168,16 +167,6 @@ function render() {
   $('#statCultivation').textContent =
     `${fmt(player.cultivation_rate, 2)}/s`;
   $('#statPower').textContent = fmt(player.power);
-
-  const growth = player.spiritual_root_growth || {};
-  $('#rootGrowth').innerHTML = [
-    ['Sinh Lực', growth.hp],
-    ['Nội Lực', growth.mp],
-    ['Công Kích', growth.attack],
-    ['Phòng Thủ', growth.defense]
-  ].map(([label, value]) =>
-    `<span>${label} ×${fmt(value || 1, 2)}</span>`
-  ).join('');
 
   // Chiến Đạo chỉ giữ dữ liệu trực tiếp phục vụ giao chiến.
   $('#combatPlayerName').textContent = player.name;
@@ -420,6 +409,13 @@ $$('.tabs button').forEach(button => {
 
 $('#mapBtn').onclick = () => $('#modal').classList.remove('hidden');
 $('#closeModal').onclick = () => $('#modal').classList.add('hidden');
+$('#logoutBtn').onclick = () => {
+  closeAssessment();
+  $('#modal').classList.add('hidden');
+  $('#nameInput').value = '';
+  showGate('Đã thoát khỏi đạo cảnh hiện tại.');
+};
+
 $('#themeBtn').onclick = () => {
   document.body.classList.toggle('dark');
   localStorage.setItem(

@@ -13,7 +13,10 @@
       <h1>Nhân Giới Đạo Đồ</h1>
       <p>Tu tiên idle · Máy chủ quyết định toàn bộ tiến trình</p>
     </div>
-    <button id="themeBtn">Âm Dương</button>
+    <div class="row header-actions">
+      <button id="logoutBtn" class="hidden" type="button">Thoát tài khoản</button>
+      <button id="themeBtn" type="button">Âm Dương</button>
+    </div>
   </header>
 
   <main>
@@ -96,7 +99,7 @@
             </div>
           </article>
 		
-		<article class="panel destiny-root-panel">
+		<article class="card panel destiny-root-panel">
 		  <div class="panel-head"><h3>Thiên Mệnh Linh Căn</h3><span id="root-type-badge">Chưa thức tỉnh</span></div>
 		  <div class="destiny-root-main">
 			<div id="root-orb" class="root-orb">灵</div>
@@ -116,20 +119,6 @@
 			<div><span>Thiên Mệnh Khuyết</span><strong>???</strong></div>
 		  </div>
 		</article>
-
-          <article class="card root-card">
-            <p class="eyebrow">THIÊN MỆNH LINH CĂN</p>
-            <div class="title-row">
-              <h3 id="overviewRootName">—</h3>
-              <span id="rootGrade" class="badge">—</span>
-            </div>
-            <p id="rootDescription" class="muted"></p>
-            <div class="root-meta">
-              <div><span>Thuộc tính</span><b id="rootElement">—</b></div>
-            </div>
-            <h4>Thiên hướng tăng trưởng</h4>
-            <div id="rootGrowth" class="root-growth"></div>
-          </article>
         </div>
 
         <article class="card stat-card">
@@ -209,20 +198,8 @@
   </div>
 
   <div id="toast"></div>
+
   <script src="linh-can-ui.js"></script>
   <script src="script.js"></script>
-  <section id="destiny-assessment" class="destiny-overlay hidden" aria-modal="true" role="dialog">
-  <div class="destiny-dialog">
-    <div class="destiny-head">
-      <div><span class="destiny-kicker">THIÊN MỆNH KHẢO NGHIỆM</span><h2 id="destiny-title">Vấn Tâm Chi Lộ</h2></div>
-      <span id="destiny-progress-text" class="destiny-progress-text">1 / 10</span>
-    </div>
-    <div class="destiny-progress"><i id="destiny-progress-bar"></i></div>
-    <p id="destiny-question" class="destiny-question">Thiên cơ đang hội tụ...</p>
-    <div id="destiny-answers" class="destiny-answers"></div>
-    <p id="destiny-message" class="destiny-message"></p>
-  </div>
-  </section>
-
 </body>
 </html>
