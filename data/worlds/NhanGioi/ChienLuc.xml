@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CombatPowerConfig id="nhan_gioi_chien_luc" worldId="nhan_gioi" version="1.0.0">
+  <General roundMode="floor" minimumPower="0" recalculateOnLoad="true"/>
+
+  <!-- Tổng chiến lực = toàn bộ nguồn sức mạnh đang có hiệu lực. -->
+  <Sources>
+    <Source id="base_stats" name="Chỉ số nhân vật" enabled="true"/>
+    <Source id="realm" name="Cảnh giới" enabled="true"/>
+    <Source id="spiritual_root" name="Linh Căn" enabled="true"/>
+    <Source id="equipped_methods" name="Công pháp đang vận chuyển" enabled="true"/>
+    <Source id="equipment" name="Trang bị" enabled="true" fallbackValue="0"/>
+    <Source id="permanent_effects" name="Hiệu ứng vĩnh viễn" enabled="true" fallbackValue="0"/>
+  </Sources>
+
+  <!-- valueType="flat" dùng giá trị thẳng; percent dùng số phần trăm, ví dụ 5 nghĩa là 5%. -->
+  <StatWeights>
+    <!-- Đa dụng: không thuộc tấn công hoặc phòng thủ chuyên biệt. -->
+    <Stat key="MAX_HP" name="Sinh mệnh tối đa" valueType="flat" weight="0.10"/>
+    <Stat key="MAX_MP" name="Linh lực tối đa" valueType="flat" weight="0.08"/>
+    <Stat key="HP_REGEN" name="Hồi phục sinh mệnh" valueType="flat" weight="2.00"/>
+    <Stat key="MP_REGEN" name="Hồi phục linh lực" valueType="flat" weight="1.50"/>
+    <Stat key="ACTION_SPEED" name="Tốc độ hành động" valueType="percent" weight="18.00"/>
+    <Stat key="CULTIVATION_SPEED" name="Tốc độ tu luyện" valueType="percent" weight="10.00"/>
+    <Stat key="RESOURCE_BONUS" name="Tăng tài nguyên nhận được" valueType="percent" weight="8.00"/>
+    <Stat key="BUFF_DURATION" name="Thời gian hiệu ứng tốt" valueType="percent" weight="8.00"/>
+    <Stat key="DEBUFF_DURATION_REDUCTION" name="Giảm thời gian hiệu ứng xấu" valueType="percent" weight="14.00"/>
+
+    <!-- Tấn công. -->
+    <Stat key="ATTACK" name="Công kích" valueType="flat" weight="2.00"/>
+    <Stat key="ACCURACY" name="Chính xác" valueType="flat" weight="1.20"/>
+    <Stat key="CRIT_RATE" name="Bạo kích" valueType="percent" weight="22.00"/>
+    <Stat key="CRIT_DAMAGE" name="Sát thương bạo kích" valueType="percent" weight="12.00"/>
+    <Stat key="ARMOR_PENETRATION" name="Xuyên giáp" valueType="percent" weight="20.00"/>
+    <Stat key="COMBO_RATE" name="Liên kích" valueType="percent" weight="130.00"/>
+    <Stat key="LIFE_STEAL" name="Hút máu" valueType="percent" weight="90.00"/>
+    <Stat key="POISON_CHANCE" name="Tỷ lệ gây Độc" valueType="percent" weight="35.00"/>
+    <Stat key="BURN_CHANCE" name="Tỷ lệ Thiêu đốt" valueType="percent" weight="45.00"/>
+
+    <!-- Phòng thủ. -->
+    <Stat key="DEFENSE" name="Phòng ngự" valueType="flat" weight="1.50"/>
+    <Stat key="DODGE" name="Né tránh" valueType="percent" weight="24.00"/>
+    <Stat key="CRIT_RESIST" name="Kháng bạo" valueType="percent" weight="18.00"/>
+    <Stat key="DAMAGE_REDUCTION" name="Giảm sát thương" valueType="percent" weight="30.00"/>
+    <Stat key="COUNTER_RATE" name="Phản kích" valueType="percent" weight="120.00"/>
+    <Stat key="SHIELD_POWER" name="Cường độ Hộ Thể" valueType="percent" weight="35.00"/>
+
+    <!-- Kháng cơ chế và trạng thái; tỷ lệ xuất hiện thấp. -->
+    <Stat key="COMBO_RESIST" name="Kháng liên kích" valueType="percent" weight="50.00"/>
+    <Stat key="COUNTER_RESIST" name="Kháng phản kích" valueType="percent" weight="45.00"/>
+    <Stat key="LIFE_STEAL_RESIST" name="Kháng hút máu" valueType="percent" weight="30.00"/>
+    <Stat key="POISON_RESIST" name="Kháng Độc" valueType="percent" weight="25.00"/>
+    <Stat key="BURN_RESIST" name="Kháng Thiêu đốt" valueType="percent" weight="30.00"/>
+    <Stat key="FREEZE_RESIST" name="Kháng Đóng Băng" valueType="percent" weight="55.00"/>
+    <Stat key="STUN_RESIST" name="Kháng Choáng" valueType="percent" weight="55.00"/>
+    <Stat key="SEAL_RESIST" name="Kháng Phong Ấn" valueType="percent" weight="45.00"/>
+    <Stat key="WEAKEN_RESIST" name="Kháng Suy Yếu" valueType="percent" weight="35.00"/>
+    <Stat key="CONFUSION_RESIST" name="Kháng Hỗn Loạn" valueType="percent" weight="60.00"/>
+  </StatWeights>
+
+  <MethodGrades>
+    <Grade id="pham" name="Phàm" order="1" statMultiplier="1.00" powerMultiplier="1.00"/>
+    <Grade id="hoang" name="Hoàng" order="2" statMultiplier="1.45" powerMultiplier="1.35"/>
+    <Grade id="huyen" name="Huyền" order="3" statMultiplier="2.10" powerMultiplier="1.80"/>
+    <Grade id="dia" name="Địa" order="4" statMultiplier="3.10" powerMultiplier="2.60"/>
+    <Grade id="thien" name="Thiên" order="5" statMultiplier="4.80" powerMultiplier="4.20"/>
+  </MethodGrades>
+
+  <EffectPowerRules>
+    <Effect type="POISON" basePower="80" chanceWeight="3" damageWeight="0.40" durationWeight="10" stackWeight="18"/>
+    <Effect type="BURN" basePower="120" chanceWeight="4" damageWeight="0.55" durationWeight="16" stackWeight="0"/>
+    <Effect type="FREEZE" basePower="260" chanceWeight="8" damageWeight="0" durationWeight="30" stackWeight="0"/>
+    <Effect type="STUN" basePower="220" chanceWeight="7" damageWeight="0" durationWeight="35" stackWeight="0"/>
+    <Effect type="SEAL" basePower="170" chanceWeight="5" damageWeight="0" durationWeight="28" stackWeight="0"/>
+    <Effect type="WEAKEN" basePower="130" chanceWeight="4" damageWeight="0" durationWeight="22" stackWeight="0"/>
+    <Effect type="CONFUSION" basePower="280" chanceWeight="8" damageWeight="0.45" durationWeight="38" stackWeight="0"/>
+    <Effect type="SHIELD" basePower="110" chanceWeight="0" damageWeight="0.45" durationWeight="12" stackWeight="0"/>
+    <Effect type="CLEAR_MIND" basePower="180" chanceWeight="0" damageWeight="0" durationWeight="0" stackWeight="0"/>
+    <Effect type="INVISIBLE" basePower="240" chanceWeight="0" damageWeight="0" durationWeight="0" stackWeight="45"/>
+  </EffectPowerRules>
+
+  <ActiveSkillPower coefficientWeight="300" fixedDamageWeight="0.50" cooldownPenalty="8" manaCostPenalty="2" areaTargetBonus="150"/>
+
+  <AffinityRules>
+    <Rule id="neutral" name="Vô hệ" multiplier="1.00"/>
+    <Rule id="primary_match" name="Tương hợp Linh Căn chính" multiplier="1.20"/>
+    <Rule id="secondary_match" name="Tương hợp Linh Căn phụ" multiplier="1.10"/>
+    <Rule id="mismatch" name="Không tương hợp" multiplier="0.90"/>
+  </AffinityRules>
+</CombatPowerConfig>

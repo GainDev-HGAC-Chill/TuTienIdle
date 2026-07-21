@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DivineArts worldId="nhan_gioi" version="1.0.0">
+  <DivineArt id="viem_long_phan_thien" name="Viêm Long Phần Thiên" element="fire" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Triệu Viêm Long giáng thế, lấy Công kích làm căn cơ và gieo Thiêu Đốt.</Description>
+    <Affinity primaryElement="fire" secondaryElement="wood" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="20" cooldownTurns="3"><Damage attackScale="1.20" element="fire"/></Grade>
+      <Grade id="hoang" manaCost="24" cooldownTurns="3"><Damage attackScale="1.65" element="fire"/></Grade>
+      <Grade id="huyen" manaCost="28" cooldownTurns="3"><Damage attackScale="1.90" element="fire"/><ApplyStatus id="BURN" chance="20" durationTurns="3" attackScalePerTick="0.08"/></Grade>
+      <Grade id="dia" manaCost="34" cooldownTurns="3"><Damage attackScale="2.40" element="fire"/><ApplyStatus id="BURN" chance="45" durationTurns="3" attackScalePerTick="0.11"/><Debuff id="FIRE_RESIST_DOWN" chance="30" durationTurns="2" valuePercent="10"/></Grade>
+      <Grade id="thien" manaCost="42" cooldownTurns="3"><Damage attackScale="3.60" element="fire"/><ApplyStatus id="BURN" guaranteed="true" durationTurns="4" attackScalePerTick="0.15" damageBonusPercent="30"/><Debuff id="FIRE_RESIST_DOWN" guaranteed="true" durationTurns="3" valuePercent="15"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="han_nguyet_phong_thien_quyet" name="Hàn Nguyệt Phong Thiên Quyết" element="ice" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Hàn ý phong thiên, Đóng Băng đối phương và gia tăng uy lực của đòn phá băng.</Description>
+    <Affinity primaryElement="water" secondaryElement="ice" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="22" cooldownTurns="4"><Damage attackScale="1.30" element="ice"/></Grade>
+      <Grade id="hoang" manaCost="26" cooldownTurns="4"><Damage attackScale="1.75" element="ice"/></Grade>
+      <Grade id="huyen" manaCost="31" cooldownTurns="4"><Damage attackScale="2.00" element="ice"/><ApplyStatus id="FREEZE" chance="15" durationTurns="2" breakDamageBonusPercent="15"/></Grade>
+      <Grade id="dia" manaCost="37" cooldownTurns="4"><Damage attackScale="2.50" element="ice"/><ApplyStatus id="FREEZE" chance="35" durationTurns="2" breakDamageBonusPercent="25"/><Debuff id="ICE_RESIST_DOWN" chance="25" durationTurns="2" valuePercent="10"/></Grade>
+      <Grade id="thien" manaCost="46" cooldownTurns="4"><Damage attackScale="3.80" element="ice"/><ApplyStatus id="FREEZE" guaranteed="true" durationTurns="2" breakDamageBonusPercent="40"/><Debuff id="ICE_RESIST_DOWN" guaranteed="true" durationTurns="3" valuePercent="15"/><Rule breakHitCanCrit="true"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="loi_nguc_chan_hon" name="Lôi Ngục Chấn Hồn" element="thunder" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Lôi quang chấn hồn, có thể khiến mục tiêu Choáng nhưng mục tiêu vẫn được phản kích.</Description>
+    <Affinity primaryElement="thunder" secondaryElement="metal" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="20" cooldownTurns="3"><Damage attackScale="1.25" element="thunder"/></Grade>
+      <Grade id="hoang" manaCost="24" cooldownTurns="3"><Damage attackScale="1.60" element="thunder"/></Grade>
+      <Grade id="huyen" manaCost="29" cooldownTurns="3"><Damage attackScale="1.85" element="thunder"/><ApplyStatus id="STUN" chance="15" durationTurns="1"/></Grade>
+      <Grade id="dia" manaCost="34" cooldownTurns="3"><Damage attackScale="2.30" element="thunder"/><ApplyStatus id="STUN" chance="35" durationTurns="1"/><Debuff id="ACTION_SPEED_DOWN" chance="30" durationTurns="1" valuePercent="10"/></Grade>
+      <Grade id="thien" manaCost="42" cooldownTurns="3"><Damage attackScale="3.30" element="thunder"/><ApplyStatus id="STUN" guaranteed="true" durationTurns="1"/><Debuff id="ACTION_SPEED_DOWN" guaranteed="true" durationTurns="1" valuePercent="20"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="cuu_u_phong_linh_an" name="Cửu U Phong Linh Ấn" element="dark" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Phong bế linh lực, khiến đối phương chỉ có thể đánh thường.</Description>
+    <Affinity primaryElement="dark" secondaryElement="water" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="18" cooldownTurns="4"><Damage maxMpScale="0.08" fixed="30" element="dark"/></Grade>
+      <Grade id="hoang" manaCost="22" cooldownTurns="4"><Damage maxMpScale="0.11" fixed="45" element="dark"/></Grade>
+      <Grade id="huyen" manaCost="27" cooldownTurns="4"><Damage maxMpScale="0.14" fixed="60" element="dark"/><ApplyStatus id="SEAL" chance="20" durationTurns="1"/></Grade>
+      <Grade id="dia" manaCost="32" cooldownTurns="4"><Damage maxMpScale="0.18" fixed="80" element="dark"/><ApplyStatus id="SEAL" chance="45" durationTurns="2"/><ApplyStatus id="WEAKEN" chance="25" durationTurns="2" valuePercent="10"/></Grade>
+      <Grade id="thien" manaCost="40" cooldownTurns="4"><Damage maxMpScale="0.25" fixed="120" element="dark"/><ApplyStatus id="SEAL" guaranteed="true" durationTurns="2"/><ApplyStatus id="WEAKEN" guaranteed="true" durationTurns="2" valuePercent="18"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="nghich_tam_loan_than_thuat" name="Nghịch Tâm Loạn Thần Thuật" element="soul" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Nhiễu loạn thần trí, buộc mục tiêu tự công kích chính mình.</Description>
+    <Affinity primaryElement="soul" secondaryElement="dark" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="24" cooldownTurns="5"><Damage attackScale="0.80" element="soul"/></Grade>
+      <Grade id="hoang" manaCost="29" cooldownTurns="5"><Damage attackScale="1.10" element="soul"/></Grade>
+      <Grade id="huyen" manaCost="35" cooldownTurns="5"><Damage attackScale="1.35" element="soul"/><ApplyStatus id="CONFUSION" chance="12" durationTurns="1" selfAttackScale="0.60"/></Grade>
+      <Grade id="dia" manaCost="42" cooldownTurns="5"><Damage attackScale="1.70" element="soul"/><ApplyStatus id="CONFUSION" chance="30" durationTurns="1" selfAttackScale="0.80" ignoreOwnDefensePercent="10"/><ApplyStatus id="WEAKEN" chance="25" durationTurns="2" valuePercent="12"/></Grade>
+      <Grade id="thien" manaCost="52" cooldownTurns="5"><Damage attackScale="2.40" element="soul"/><ApplyStatus id="CONFUSION" guaranteed="true" durationTurns="1" selfAttackScale="1.00" ignoreOwnDefensePercent="25"/><ApplyStatus id="WEAKEN" guaranteed="true" durationTurns="2" valuePercent="20"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="huyen_nguyen_ho_the_cuong" name="Huyền Nguyên Hộ Thể Cương" element="neutral" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Dùng Sinh mệnh và Phòng ngự ngưng tụ Hộ Thể Cương Khí.</Description>
+    <Affinity primaryElement="neutral" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="18" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="2" maxHpScale="0.06" defenseScale="0.40" shieldType="all"/></Grade>
+      <Grade id="hoang" manaCost="22" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="2" maxHpScale="0.09" defenseScale="0.55" shieldType="all"/></Grade>
+      <Grade id="huyen" manaCost="27" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="3" maxHpScale="0.12" defenseScale="0.70" shieldType="all"/><Effect id="MP_RESTORE_ON_SHIELD_BREAK" chance="20" valuePercent="5"/></Grade>
+      <Grade id="dia" manaCost="33" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="3" maxHpScale="0.17" defenseScale="0.90" shieldType="all"/><Effect id="MP_RESTORE_ON_SHIELD_BREAK" chance="50" valuePercent="8"/><ApplyStatus id="CLEAR_MIND" chance="30" removeCount="1" allowedStatuses="WEAKEN,SEAL"/></Grade>
+      <Grade id="thien" manaCost="41" cooldownTurns="4"><ApplyStatus id="SHIELD" guaranteed="true" durationTurns="4" maxHpScale="0.25" defenseScale="1.20" shieldType="all"/><Effect id="MP_RESTORE_ON_SHIELD_BREAK" guaranteed="true" valuePercent="12"/><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" allowedStatuses="WEAKEN,SEAL"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="bang_tam_thanh_than_chu" name="Băng Tâm Thanh Thần Chú" element="water" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Thanh tịnh tâm thần, giải trừ hiệu ứng xấu và bảo hộ linh đài.</Description>
+    <Affinity primaryElement="water" secondaryElement="wood" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="16" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" selectionMode="priority"/></Grade>
+      <Grade id="hoang" manaCost="19" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" selectionMode="priority"/><Heal maxHpScale="0.03"/></Grade>
+      <Grade id="huyen" manaCost="23" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="1" selectionMode="priority"/><Buff id="CONTROL_RESIST_UP" chance="20" durationTurns="1" valuePercent="10"/></Grade>
+      <Grade id="dia" manaCost="28" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeCount="2" selectionMode="priority"/><Buff id="CONTROL_RESIST_UP" chance="50" durationTurns="1" valuePercent="18"/></Grade>
+      <Grade id="thien" manaCost="35" cooldownTurns="4"><ApplyStatus id="CLEAR_MIND" guaranteed="true" removeAll="true" selectionMode="all_dispellable"/><Buff id="CONTROL_IMMUNITY" guaranteed="true" durationTurns="1"/></Grade>
+    </Grades>
+  </DivineArt>
+
+  <DivineArt id="vo_anh_don_hu_thuat" name="Vô Ảnh Độn Hư Thuật" element="wind" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Ẩn thân vào hư không, hóa giải đòn sát thương trực tiếp kế tiếp.</Description>
+    <Affinity primaryElement="wind" secondaryElement="dark" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham" manaCost="20" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="2" charges="1"/></Grade>
+      <Grade id="hoang" manaCost="24" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="3" charges="1"/></Grade>
+      <Grade id="huyen" manaCost="29" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="3" charges="1"/><Buff id="ACTION_SPEED_UP_AFTER_AVOID" chance="25" durationTurns="1" valuePercent="10"/></Grade>
+      <Grade id="dia" manaCost="35" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="3" charges="1"/><Buff id="ACTION_SPEED_UP_AFTER_AVOID" chance="60" durationTurns="1" valuePercent="15"/><Buff id="CRIT_RATE_UP_AFTER_AVOID" chance="40" durationTurns="1" valuePercent="8"/></Grade>
+      <Grade id="thien" manaCost="44" cooldownTurns="5"><ApplyStatus id="INVISIBLE" guaranteed="true" durationTurns="4" charges="2"/><Buff id="ACTION_SPEED_UP_AFTER_AVOID" guaranteed="true" durationTurns="1" valuePercent="25"/><Buff id="CRIT_RATE_UP_AFTER_AVOID" guaranteed="true" durationTurns="1" valuePercent="15"/></Grade>
+    </Grades>
+  </DivineArt>
+</DivineArts>

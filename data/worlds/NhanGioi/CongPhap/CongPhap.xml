@@ -1,1 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?><Skills worldId="nhan_gioi"><Skill id="skill_tho_nap_quyet" name="Thổ Nạp Quyết" type="cultivation" grade="basic" maxLevel="9"><Effects><Effect type="main_exp_rate" value="5"/></Effects></Skill></Skills>
+<?xml version="1.0" encoding="UTF-8"?>
+<CultivationMethods worldId="nhan_gioi" version="1.0.0">
+  <Types>
+    <Type id="tam_phap" name="Tâm Pháp" slot="TAM_PHAP" description="Chỉ số đa dụng, không chuyên tấn công hoặc phòng thủ."/>
+    <Type id="chien_phap" name="Chiến Pháp" slot="CHIEN_PHAP" description="Chỉ số và cơ chế gây sát thương."/>
+    <Type id="luyen_the_phap" name="Luyện Thể Pháp" slot="LUYEN_THE_PHAP" description="Chỉ số phòng thủ, chống chịu và phản kích."/>
+    <Type id="than_thong" name="Thần Thông" slot="THAN_THONG" description="Kỹ năng chủ động; dữ liệu chi tiết nằm trong ThanThong.xml."/>
+  </Types>
+
+  <Method id="thanh_moc_duong_nguyen_quyet" name="Thanh Mộc Dưỡng Nguyên Quyết" type="tam_phap" element="wood" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Tâm pháp dưỡng sinh, chuyên Sinh mệnh, Linh lực và hồi phục.</Description>
+    <Affinity primaryElement="wood" secondaryElement="water" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham"><Stats><Stat key="MAX_HP" value="120"/><Stat key="MAX_MP" value="60"/></Stats></Grade>
+      <Grade id="hoang"><Stats><Stat key="MAX_HP" value="280"/><Stat key="MAX_MP" value="140"/><Stat key="HP_REGEN" value="2"/></Stats></Grade>
+      <Grade id="huyen"><Stats><Stat key="MAX_HP" value="520"/><Stat key="MAX_MP" value="260"/><Stat key="HP_REGEN" value="5"/></Stats><Effects><Effect id="thanh_moc_hoi_nguyen" chance="20" trigger="turn_end"/></Effects></Grade>
+      <Grade id="dia"><Stats><Stat key="MAX_HP" value="900"/><Stat key="MAX_MP" value="450"/><Stat key="HP_REGEN" value="9"/><Stat key="DEBUFF_DURATION_REDUCTION" value="3"/></Stats><Effects><Effect id="thanh_moc_hoi_nguyen" chance="45" trigger="turn_end"/><Effect id="moc_linh_thanh_tam" chance="20" trigger="on_debuff_received"/></Effects></Grade>
+      <Grade id="thien"><Stats><Stat key="MAX_HP" value="1500"/><Stat key="MAX_MP" value="760"/><Stat key="HP_REGEN" value="16"/><Stat key="DEBUFF_DURATION_REDUCTION" value="8"/></Stats><Ultimate id="thanh_de_truong_sinh" guaranteed="true" trigger="turn_end"/></Grade>
+    </Grades>
+  </Method>
+
+  <Method id="thien_anh_chien_quyet" name="Thiên Ảnh Chiến Quyết" type="chien_phap" element="wind" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Chiến pháp lấy tốc độ và Liên kích làm căn cơ.</Description>
+    <Affinity primaryElement="wind" secondaryElement="thunder" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham"><Stats><Stat key="ATTACK" value="20"/></Stats></Grade>
+      <Grade id="hoang"><Stats><Stat key="ATTACK" value="45"/><Stat key="COMBO_RATE" value="1"/></Stats></Grade>
+      <Grade id="huyen"><Stats><Stat key="ATTACK" value="80"/><Stat key="COMBO_RATE" value="3"/></Stats><Effects><Effect id="thien_anh_lien_kich" chance="100" trigger="on_combo" damagePercent="70"/></Effects></Grade>
+      <Grade id="dia"><Stats><Stat key="ATTACK" value="140"/><Stat key="COMBO_RATE" value="6"/></Stats><Effects><Effect id="thien_anh_lien_kich" chance="100" trigger="on_combo" damagePercent="85"/><Effect id="thien_anh_xuyen_giap" chance="20" trigger="on_combo" armorPenetrationPercent="10"/></Effects></Grade>
+      <Grade id="thien"><Stats><Stat key="ATTACK" value="240"/><Stat key="COMBO_RATE" value="10"/><Stat key="ARMOR_PENETRATION" value="5"/></Stats><Ultimate id="van_anh_vo_tung" guaranteed="true" trigger="on_combo" damagePercent="100" armorPenetrationPercent="15" allowLifeSteal="true" allowElementEffects="true"/></Grade>
+    </Grades>
+  </Method>
+
+  <Method id="huyen_quy_phan_chan_the" name="Huyền Quy Phản Chấn Thể" type="luyen_the_phap" element="earth" initialGrade="pham" maxGrade="thien" maxLevelPerGrade="9" enabled="true">
+    <Description>Luyện thể pháp lấy Phòng ngự và Phản kích làm đạo.</Description>
+    <Affinity primaryElement="earth" secondaryElement="metal" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham"><Stats><Stat key="DEFENSE" value="30"/></Stats></Grade>
+      <Grade id="hoang"><Stats><Stat key="DEFENSE" value="70"/><Stat key="COUNTER_RATE" value="1"/></Stats></Grade>
+      <Grade id="huyen"><Stats><Stat key="DEFENSE" value="120"/><Stat key="COUNTER_RATE" value="3"/></Stats><Effects><Effect id="huyen_quy_phan_kich" chance="100" trigger="on_counter" damagePercent="70"/></Effects></Grade>
+      <Grade id="dia"><Stats><Stat key="DEFENSE" value="210"/><Stat key="COUNTER_RATE" value="6"/><Stat key="CRIT_RESIST" value="3"/></Stats><Effects><Effect id="huyen_quy_phan_kich" chance="100" trigger="on_counter" damagePercent="85"/><Effect id="phan_chan_cuong_khi" chance="20" trigger="on_counter" defenseScale="0.20"/></Effects></Grade>
+      <Grade id="thien"><Stats><Stat key="DEFENSE" value="360"/><Stat key="COUNTER_RATE" value="10"/><Stat key="CRIT_RESIST" value="8"/></Stats><Ultimate id="huyen_vu_tran_nhac" guaranteed="true" trigger="on_counter" damagePercent="100" defenseScale="0.30" allowCrit="true" allowLifeSteal="true"/></Grade>
+    </Grades>
+  </Method>
+
+  <Method id="ngu_hanh_ho_than_kinh" name="Ngũ Hành Hộ Thân Kinh" type="luyen_the_phap" element="neutral" initialGrade="pham" maxGrade="dia" maxLevelPerGrade="9" enabled="true">
+    <Description>Luyện thể pháp thiên về kháng hiệu ứng, thích hợp nhiều loại Linh Căn.</Description>
+    <Affinity primaryElement="neutral" requireMatch="false"/>
+    <Grades>
+      <Grade id="pham"><Stats><Stat key="MAX_HP" value="80"/><Stat key="DEFENSE" value="20"/></Stats></Grade>
+      <Grade id="hoang"><Stats><Stat key="MAX_HP" value="180"/><Stat key="DEFENSE" value="45"/><Stat key="POISON_RESIST" value="1"/><Stat key="BURN_RESIST" value="1"/></Stats></Grade>
+      <Grade id="huyen"><Stats><Stat key="MAX_HP" value="360"/><Stat key="DEFENSE" value="90"/><Stat key="POISON_RESIST" value="3"/><Stat key="BURN_RESIST" value="3"/><Stat key="STUN_RESIST" value="1"/></Stats><Effects><Effect id="ngu_hanh_ho_the" chance="20" trigger="on_battle_start" status="SHIELD" maxHpScale="0.08"/></Effects></Grade>
+      <Grade id="dia"><Stats><Stat key="MAX_HP" value="650"/><Stat key="DEFENSE" value="160"/><Stat key="POISON_RESIST" value="5"/><Stat key="BURN_RESIST" value="5"/><Stat key="FREEZE_RESIST" value="3"/><Stat key="STUN_RESIST" value="3"/></Stats><Effects><Effect id="ngu_hanh_ho_the" chance="100" trigger="on_battle_start" status="SHIELD" maxHpScale="0.12"/><Effect id="ngu_hanh_tinh_tam" chance="15" trigger="on_debuff_received" status="CLEAR_MIND"/></Effects></Grade>
+    </Grades>
+  </Method>
+</CultivationMethods>

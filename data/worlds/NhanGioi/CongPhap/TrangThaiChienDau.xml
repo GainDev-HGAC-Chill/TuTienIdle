@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CombatStatuses worldId="nhan_gioi" version="1.0.0">
+  <GlobalRules minimumSuccessChance="1" maximumSuccessChance="95">
+    <ControlPriority>
+      <Status id="FREEZE" priority="300"/>
+      <Status id="CONFUSION" priority="200"/>
+      <Status id="STUN" priority="100"/>
+    </ControlPriority>
+  </GlobalRules>
+
+  <AttackSources>
+    <Source id="NORMAL" canCrit="true" canLifeSteal="true" canApplyOnHit="true" canCombo="true" canTriggerCounter="true" breaksFreeze="true"/>
+    <Source id="SKILL" canCrit="config" canLifeSteal="config" canApplyOnHit="config" canCombo="false" canTriggerCounter="config" breaksFreeze="true"/>
+    <Source id="COMBO" canCrit="true" canLifeSteal="true" canApplyOnHit="true" canCombo="false" canTriggerCounter="true" breaksFreeze="true"/>
+    <Source id="COUNTER" canCrit="true" canLifeSteal="true" canApplyOnHit="true" canCombo="false" canTriggerCounter="false" breaksFreeze="true"/>
+    <Source id="POISON" canCrit="false" canLifeSteal="false" canApplyOnHit="false" canCombo="false" canTriggerCounter="false" breaksFreeze="false"/>
+    <Source id="BURN" canCrit="false" canLifeSteal="false" canApplyOnHit="false" canCombo="false" canTriggerCounter="false" breaksFreeze="false"/>
+    <Source id="CONFUSION_SELF_HIT" canCrit="false" canLifeSteal="false" canApplyOnHit="false" canCombo="false" canTriggerCounter="false" breaksFreeze="false"/>
+  </AttackSources>
+
+  <NegativeStatuses>
+    <Status id="POISON" name="Độc" category="damage_over_time" resistStat="POISON_RESIST" dispellable="true" stackMode="add_and_refresh" maxStacks="5">
+      <Rules tickMoment="turn_end" snapshotDamage="true" breaksFreeze="false"/>
+      <Description>Sát thương duy trì thấp, cộng dồn nhiều tầng và làm mới thời gian khi nhận thêm tầng.</Description>
+    </Status>
+
+    <Status id="BURN" name="Thiêu Đốt" category="damage_over_time" resistStat="BURN_RESIST" dispellable="true" stackMode="replace_stronger_refresh" maxStacks="1">
+      <Rules tickMoment="turn_end" snapshotDamage="true" breaksFreeze="false"/>
+      <Description>Không cộng dồn; hiệu ứng mạnh hơn ghi đè, hiệu ứng yếu hơn chỉ làm mới thời gian.</Description>
+    </Status>
+
+    <Status id="FREEZE" name="Đóng Băng" category="control" resistStat="FREEZE_RESIST" dispellable="true" stackMode="replace_higher_priority" maxStacks="1">
+      <Rules blockActiveAction="true" blockCounter="true" blockPassiveRecovery="true" breakOnDirectDamage="true" breakDamageBonusPercent="25"/>
+      <Description>Gián đoạn toàn bộ hành động. Sát thương trực tiếp phá băng và nhận thêm sát thương thưởng.</Description>
+    </Status>
+
+    <Status id="STUN" name="Choáng" category="control" resistStat="STUN_RESIST" dispellable="true" stackMode="replace_higher_priority" maxStacks="1">
+      <Rules skipTurns="1" blockCounter="false" removeAfterSkippedTurn="true"/>
+      <Description>Bỏ qua toàn bộ hành động trong một lượt nhưng vẫn có thể phản kích.</Description>
+    </Status>
+
+    <Status id="SEAL" name="Phong Ấn" category="restriction" resistStat="SEAL_RESIST" dispellable="true" stackMode="refresh" maxStacks="1">
+      <Rules allowNormalAttack="true" allowActiveSkill="false" allowPassiveEffects="true"/>
+      <Description>Chỉ cho phép đánh thường; kỹ năng chủ động và Thần thông bị khóa.</Description>
+    </Status>
+
+    <Status id="WEAKEN" name="Suy Yếu" category="restriction" resistStat="WEAKEN_RESIST" dispellable="true" stackMode="replace_stronger_refresh" maxStacks="1">
+      <Rules affectsDirectDamage="true" affectsNewDotSnapshots="true" affectsExistingDots="false"/>
+      <Description>Giảm sát thương gây ra; Độc và Thiêu đốt mới sẽ chốt sát thương theo trạng thái Suy Yếu hiện tại.</Description>
+    </Status>
+
+    <Status id="CONFUSION" name="Hỗn Loạn" category="control" resistStat="CONFUSION_RESIST" dispellable="true" stackMode="replace_higher_priority" maxStacks="1">
+      <Rules replaceTurnAction="self_attack" attackSource="CONFUSION_SELF_HIT" useOwnDefense="true" canBeAvoidedByInvisible="false"/>
+      <Description>Khi đến lượt sẽ tự gây sát thương lên bản thân và không thực hiện hành động bình thường.</Description>
+    </Status>
+  </NegativeStatuses>
+
+  <PositiveStatuses>
+    <Status id="SHIELD" name="Hộ Thể" category="shield" dispellable="true" stackMode="replace_stronger" maxStacks="1">
+      <Rules absorbBeforeHp="true" supportedTypes="all,physical,spell,element"/>
+      <Description>Tạo khiên hấp thụ sát thương trước khi trừ Sinh mệnh.</Description>
+    </Status>
+
+    <Status id="CLEAR_MIND" name="Thanh Tâm" category="cleanse" dispellable="false" stackMode="none" maxStacks="1">
+      <Rules removeCount="1" selectionMode="priority" canTriggerWhileControlled="config">
+        <Priority status="FREEZE" value="800"/>
+        <Priority status="STUN" value="700"/>
+        <Priority status="CONFUSION" value="600"/>
+        <Priority status="SEAL" value="500"/>
+        <Priority status="WEAKEN" value="400"/>
+        <Priority status="BURN" value="300"/>
+        <Priority status="POISON" value="200"/>
+      </Rules>
+      <Description>Giải một hiệu ứng xấu theo thứ tự ưu tiên. Thiên phẩm có thể giải toàn bộ nếu kỹ năng khai báo.</Description>
+    </Status>
+
+    <Status id="INVISIBLE" name="Vô Hình" category="avoidance" dispellable="true" stackMode="add_charges" maxStacks="3">
+      <Rules nullifyNextDirectHit="true" consumeCharges="1" blocksOnHitEffects="true" blocksFreezeBreak="true"/>
+      <Description>Hóa giải hoàn toàn đòn sát thương trực tiếp tiếp theo; không né Độc, Đốt hoặc sát thương tự gây.</Description>
+    </Status>
+  </PositiveStatuses>
+</CombatStatuses>
