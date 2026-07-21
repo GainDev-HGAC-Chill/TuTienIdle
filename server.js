@@ -10,6 +10,8 @@ const dataManager = require('./src/config/dataManager');
 const playerRoutes = require('./src/routes/playerRoutes');
 const gameRoutes = require('./src/routes/gameRoutes');
 const configRoutes = require('./src/routes/configRoutes');
+const cultivationArtRoutes = require('./src/routes/cultivationArtRoutes');
+const cultivationArtManager = require('./src/config/cultivationArtManager');
 const { notFound, errorHandler } = require('./src/middleware/errorHandler');
 
 const app = express();
@@ -22,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/api/player', playerRoutes);
 app.use('/api/game', gameRoutes);
 app.use('/api/config', configRoutes);
+app.use('/api/cultivation-arts', cultivationArtRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -48,6 +51,8 @@ async function bootstrap() {
   );
 
   const summary = dataManager.load(manifestPath);
+  const artSummary = cultivationArtManager.load(path.dirname(manifestPath));
+  console.log(`[CONG_PHAP] ${artSummary.total} cuốn · ${artSummary.roots} Linh Căn.`);
 
   console.log(
     `[DAO_TANG] ${summary.world?.name || 'Nhân Giới'}: ` +

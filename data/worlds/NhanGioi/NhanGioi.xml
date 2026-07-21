@@ -8,7 +8,8 @@
     <Config type="pills" path="LuyenDan/DanDuoc.xml"/>
     <Config type="recipes" path="LuyenDan/CongThuc.xml"/>
     <Config type="herbs" path="LuyenDan/DuocLieu.xml"/>
-
+	<Config type="spiritualRoots" path="TuyenDao/LinhCan.xml"/>
+	
     <!-- Hệ thống chiến lực và công pháp Nhân Giới -->
     <Config type="combatPower" path="ChienLuc.xml"/>
     <Config type="cultivationMethods" path="CongPhap/CongPhap.xml"/>

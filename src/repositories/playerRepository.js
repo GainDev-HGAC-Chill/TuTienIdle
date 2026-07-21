@@ -1,3 +1,4 @@
+const cultivationArtRuntime = require('../runtime/cultivationArtRuntime');
 const { getPool, transaction } = require('../db/mysql');
 const dataManager = require('../config/dataManager');
 
@@ -49,8 +50,7 @@ async function findById(id, connection = getPool(), lock = false) {
     player.spiritual_root_scores = parseMetadata(player.spiritual_root_scores) || {};
     player.hidden_spiritual_roots = parseMetadata(player.hidden_spiritual_roots) || [];
   }
-  return player;
-}
+  if (player) await cultivationArtRuntime.applyToPlayer(player, connection); return player; }
 
 async function findByName(name) {
   const [rows] = await getPool().query(
