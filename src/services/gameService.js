@@ -1,4 +1,4 @@
-const repo = require('../repositories/playerRepository');
+const repo = require('../repositories/playerRepository'); const artProgression = require('./cultivationArtProgressionService');
 const { transaction } = require('../db/mysql');
 const dataManager = require('../config/dataManager');
 const formula = require('../formulas/cultivationFormula');
@@ -317,7 +317,7 @@ async function combatTick(connection, player, elapsed) {
     ? Number(player.monster_hp)
     : monster.hp;
 
-  let hp = Number(player.current_hp);
+  let hp = Number(player.current_hp); let mp = Number(player.current_mp); const divineContext = await artProgression.prepareDivineArt(connection, player.id);
   const rounds = Math.min(30, Math.max(1, Math.floor(elapsed)));
 
   let wins = 0;
@@ -368,7 +368,7 @@ async function combatTick(connection, player, elapsed) {
         )
       );
 
-      monsterHp -= playerDamage;
+      const divineResult = await artProgression.tryUseDivineArt(connection, player, divineContext, playerDamage, mp); playerDamage = divineResult.damage; mp = divineResult.mp; if (divineResult.used) await repo.addLog(connection, player.id, 'combat', `${divineResult.name} thi triển, gây thêm ${divineResult.extraDamage} sát thương, độ thông thạo +1.`); monsterHp -= playerDamage;
     }
 
     if (monsterHp <= 0) {
@@ -484,7 +484,7 @@ async function combatTick(connection, player, elapsed) {
     }
   }
 
-  if (wins > 0) {
+  if (wins > 0) { const artRewards = await artProgression.grantCombatResources(connection, player.id, wins, bodyExp);
     await connection.query(
       `UPDATE players
        SET spirit_stones = spirit_stones + ?
@@ -524,8 +524,8 @@ async function combatTick(connection, player, elapsed) {
   }
 
   await connection.query(
-    'UPDATE players SET current_hp = ? WHERE id = ?',
-    [Math.max(1, hp), player.id]
+    'UPDATE players SET current_hp = ?, current_mp = ? WHERE id = ?',
+    [Math.max(1, hp), Math.max(0, mp), player.id]
   );
 
   await connection.query(

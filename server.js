@@ -12,6 +12,7 @@ const gameRoutes = require('./src/routes/gameRoutes');
 const configRoutes = require('./src/routes/configRoutes');
 const cultivationArtRoutes = require('./src/routes/cultivationArtRoutes');
 const cultivationArtManager = require('./src/config/cultivationArtManager');
+const cultivationArtProgressionManager = require('./src/config/cultivationArtProgressionManager');
 const { notFound, errorHandler } = require('./src/middleware/errorHandler');
 
 const app = express();
@@ -52,6 +53,7 @@ async function bootstrap() {
 
   const summary = dataManager.load(manifestPath);
   const artSummary = cultivationArtManager.load(path.dirname(manifestPath));
+  const progressionSummary = cultivationArtProgressionManager.load(path.dirname(manifestPath));
   console.log(`[CONG_PHAP] ${artSummary.total} cuốn · ${artSummary.roots} Linh Căn.`);
 
   console.log(

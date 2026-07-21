@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CultivationArtProgression version="1.0" maxLevelPerGrade="100">
+  <Grades>
+    <Grade id="pham" rank="1" multiplier="1.00" next="hoang" realmIndexRequired="0" breakthroughStones="500" breakthroughEssence="10"/>
+    <Grade id="hoang" rank="2" multiplier="1.80" next="huyen" realmIndexRequired="1" breakthroughStones="2500" breakthroughEssence="30"/>
+    <Grade id="huyen" rank="3" multiplier="3.20" next="dia" realmIndexRequired="2" breakthroughStones="12000" breakthroughEssence="80"/>
+    <Grade id="dia" rank="4" multiplier="5.50" next="thien" realmIndexRequired="4" breakthroughStones="60000" breakthroughEssence="200"/>
+    <Grade id="thien" rank="5" multiplier="9.00" next="" realmIndexRequired="7" breakthroughStones="0" breakthroughEssence="0"/>
+  </Grades>
+  <Categories>
+    <Category id="tam_phap" resource="spirit_qi" baseCost="20" exponent="1.35"/>
+    <Category id="chien_phap" resource="battle_intent" baseCost="16" exponent="1.35"/>
+    <Category id="luyen_the" resource="blood_qi" baseCost="16" exponent="1.35"/>
+    <Category id="than_thong" resource="proficiency" baseCost="5" exponent="1.25"/>
+  </Categories>
+  <Income spiritQiPerSecond="0.50" battleIntentPerKill="2" bloodQiPerKill="2" bloodQiBodyExpRate="0.10"/>
+  <DivineArt activationChance="0.25" proficiencyPerUse="1" bossMultiplier="2"/>
+  <DuplicateEssence pham="1" hoang="3" huyen="8" dia="20" thien="50"/>
+</CultivationArtProgression>

@@ -1,36 +1,11 @@
-const { transaction } = require('../db/mysql');
-const playerRepository = require('../repositories/playerRepository');
-const repository = require('../repositories/cultivationArtRepository');
-const artManager = require('../config/cultivationArtManager');
-
-async function ensurePlayer(id) {
-  const player = await playerRepository.findById(id);
-  if (!player) { const error = new Error('Không tìm thấy đạo hữu.'); error.statusCode = 404; throw error; }
-  await repository.ensureStarterArts(player, artManager);
-  return player;
-}
-async function profile(playerId) {
-  const player = await ensurePlayer(playerId);
-  const owned = await repository.getOwned(playerId);
-  const equipped = await repository.getEquipped(playerId);
-  return { playerId: Number(playerId), rootId: player.spiritual_root, owned: owned.map(row => ({...row, art: artManager.get(row.art_id)})), equipped };
-}
-async function catalog(filters) { return { summary: artManager.summary(), arts: artManager.getAll(filters) }; }
-async function learn(playerId, artId, grade='pham') {
-  await ensurePlayer(playerId);
-  const art = artManager.get(artId);
-  if (!art) { const error = new Error('Công pháp không tồn tại trong Đạo Tàng.'); error.statusCode=404; throw error; }
-  await repository.learn(playerId, art, grade);
-  return profile(playerId);
-}
-async function equip(playerId, artId) {
-  await ensurePlayer(playerId);
-  const art = artManager.get(artId);
-  if (!art) { const error = new Error('Công pháp không tồn tại trong Đạo Tàng.'); error.statusCode=404; throw error; }
-  const owned = await repository.getOwned(playerId);
-  if (!owned.some(row => row.art_id === art.id)) { const error = new Error('Đạo hữu chưa lĩnh ngộ công pháp này.'); error.statusCode=400; throw error; }
-  await repository.equip(playerId, art);
-  return profile(playerId);
-}
-async function unequip(playerId, category) { await ensurePlayer(playerId); await repository.unequip(playerId, category); return profile(playerId); }
-module.exports = { profile, catalog, learn, equip, unequip };
+const playerRepository=require('../repositories/playerRepository');const repository=require('../repositories/cultivationArtRepository');const artManager=require('../config/cultivationArtManager');const progression=require('../config/cultivationArtProgressionManager');const progressService=require('./cultivationArtProgressionService');
+async function ensurePlayer(id){const player=await playerRepository.findById(id);if(!player){const e=new Error('Không tìm thấy đạo hữu.');e.statusCode=404;throw e;}await repository.ensureStarterArts(player,artManager);return player;}
+function decorateOwned(row){const art=artManager.get(row.art_id);const required=Number(row.art_level)>=progression.maxLevelPerGrade?0:progression.requiredExp(row.category,row.grade,row.art_level);return {...row,art,required_exp:required,progress_percent:required?Math.min(100,Number((((row.category==='than_thong'?row.proficiency:row.art_exp)/required)*100).toFixed(2))):100};}
+async function profile(playerId){const player=await ensurePlayer(playerId);const owned=await repository.getOwned(playerId);const equipped=await repository.getEquipped(playerId);const resources=await repository.getResources(playerId);return{playerId:Number(playerId),rootId:player.spiritual_root,owned:owned.map(decorateOwned),equipped,resources,progression:progression.summary()};}
+async function catalog(filters){return{summary:artManager.summary(),progression:progression.summary(),arts:artManager.getAll(filters)};}
+async function learn(playerId,artId,grade='pham'){await ensurePlayer(playerId);const art=artManager.get(artId);if(!art){const e=new Error('Công pháp không tồn tại trong Đạo Tàng.');e.statusCode=404;throw e;}const inserted=await repository.learn(playerId,art,grade);if(!inserted){const g=progression.getGrade(grade)||progression.getGrade('pham');await repository.addResources(playerId,{cultivation_essence:({pham:1,hoang:3,huyen:8,dia:20,thien:50})[g.id]||1});}return profile(playerId);}
+async function equip(playerId,artId){await ensurePlayer(playerId);const art=artManager.get(artId);if(!art){const e=new Error('Công pháp không tồn tại trong Đạo Tàng.');e.statusCode=404;throw e;}const owned=await repository.getOwned(playerId);if(!owned.some(x=>x.art_id===art.id)){const e=new Error('Đạo hữu chưa lĩnh ngộ công pháp này.');e.statusCode=400;throw e;}await repository.equip(playerId,art);return profile(playerId);}
+async function unequip(playerId,category){await ensurePlayer(playerId);await repository.unequip(playerId,category);return profile(playerId);}
+async function cultivate(playerId,artId,mode){await ensurePlayer(playerId);await progressService.cultivate(playerId,artId,mode);return profile(playerId);}
+async function breakthrough(playerId,artId){await ensurePlayer(playerId);await progressService.breakthrough(playerId,artId);return profile(playerId);}
+module.exports={profile,catalog,learn,equip,unequip,cultivate,breakthrough};

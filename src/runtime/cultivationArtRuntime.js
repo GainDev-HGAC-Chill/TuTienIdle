@@ -1,3 +1,4 @@
+const progression = require('../config/cultivationArtProgressionManager');
 const artManager = require('../config/cultivationArtManager');
 const repository = require('../repositories/cultivationArtRepository');
 
@@ -10,11 +11,11 @@ const FIELD_MAP = {
 };
 const PERCENT_AS_FRACTION = new Set(['dodge_rate','crit_rate','crit_damage','armor_penetration','crit_resistance','life_steal','cultivation_rate']);
 
-function addStat(player, stat, affinityMultiplier) {
+function addStat(player, stat, affinityMultiplier, levelMultiplier = 1) {
   const field = FIELD_MAP[stat.key];
   if (!field) return;
   const current = Number(player[field] || 0);
-  let value = Number(stat.value || 0) * affinityMultiplier;
+  let value = Number(stat.value || 0) * affinityMultiplier * levelMultiplier;
   if (stat.unit === 'percent') {
     if (PERCENT_AS_FRACTION.has(field)) value /= 100;
     else value = current * value / 100;
@@ -35,9 +36,10 @@ async function applyToPlayer(player, connection) {
     const grade = artManager.getGrade(art.id, ownedArt.grade);
     if (!grade) continue;
     const affinity = art.rootId === player.spiritual_root ? 1 + art.matchingBonusPercent / 100 : 1;
-    for (const stat of grade.stats || []) addStat(player, stat, affinity);
+    const levelMultiplier = progression.levelRatio(ownedArt.art_level);
+    for (const stat of grade.stats || []) addStat(player, stat, affinity, levelMultiplier);
     effects.push(...(grade.effects || []).map(effect => ({...effect, sourceArtId: art.id, sourceArtName: art.name})));
-    arts.push({id: art.id, name: art.name, category: art.category, grade: ownedArt.grade, affinityMatched: affinity > 1});
+    arts.push({id: art.id, name: art.name, category: art.category, grade: ownedArt.grade, level: Number(ownedArt.art_level), affinityMatched: affinity > 1});
   }
   player.cultivation_arts = arts;
   player.cultivation_art_effects = effects;
