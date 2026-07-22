@@ -75,7 +75,7 @@
   <DropTable id="loot_xac_thiet_ma_tich">
     <Drop itemId="huyen_thiet_quang" chance="62" minQuantity="1" maxQuantity="2"/>
     <Drop itemId="xich_dong_quang" chance="25" minQuantity="1" maxQuantity="1"/>
-    <Drop itemId="thanh_tam_thao" chance="8" minQuantity="1" maxQuantity="1"/>
+    <Drop itemId="huyen_thiet_quang" chance="8" minQuantity="1" maxQuantity="1"/>
   </DropTable>
 
   <DropTable id="loot_huyen_thiet_thu_vuong">
@@ -115,12 +115,12 @@
 
   <DropTable id="loot_kiem_si_thach_khoi">
     <Drop itemId="kiem_y_tan_phien" chance="40" minQuantity="1" maxQuantity="1"/>
-    <Drop itemId="thanh_tam_thao" chance="13" minQuantity="1" maxQuantity="1"/>
+    <Drop itemId="huyen_thiet_quang" chance="13" minQuantity="1" maxQuantity="1"/>
   </DropTable>
 
   <DropTable id="loot_phi_kiem_linh">
     <Drop itemId="kiem_y_tan_phien" chance="40" minQuantity="1" maxQuantity="1"/>
-    <Drop itemId="linh_thao_pham" chance="13" minQuantity="1" maxQuantity="1"/>
+    <Drop itemId="tinh_huyet" chance="13" minQuantity="1" maxQuantity="1"/>
   </DropTable>
 
   <DropTable id="loot_thien_nhan_dieu">
@@ -131,14 +131,14 @@
   <DropTable id="loot_doan_kiem_oan_hon">
     <Drop itemId="kiem_y_tan_phien" chance="66" minQuantity="1" maxQuantity="2"/>
     <Drop itemId="thanh_tam_thao" chance="26" minQuantity="1" maxQuantity="1"/>
-    <Drop itemId="lang_bi" chance="9" minQuantity="1" maxQuantity="1"/>
+    <Drop itemId="yeu_cot" chance="9" minQuantity="1" maxQuantity="1"/>
   </DropTable>
 
   <DropTable id="loot_vo_danh_kiem_chu">
     <Drop itemId="kiem_y_tan_phien" chance="88" minQuantity="1" maxQuantity="3"/>
     <Drop itemId="thanh_tam_thao" chance="42" minQuantity="1" maxQuantity="2"/>
     <Drop itemId="linh_thao_pham" chance="14" minQuantity="1" maxQuantity="1"/>
-    <Drop itemId="lang_nha" chance="4" minQuantity="1" maxQuantity="1"/>
+    <Drop itemId="huyen_thiet_quang" chance="4" minQuantity="1" maxQuantity="1"/>
   </DropTable>
 
   <DropTable id="loot_huyet_bat">

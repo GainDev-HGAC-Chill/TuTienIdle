@@ -78,8 +78,11 @@ async function bootstrap() {
     `${summary.monsters} yêu thú.`
   );
     console.log(`[VẬT PHẨM] ${itemSummary.total} vật phẩm từ ${itemSummary.files} đạo quyển.`);
-  console.log(`[CHIẾN LỢI PHẨM] ${dropSummary.tables} bảng rơi, ${dropSummary.monsters} yêu thú đã móc.`);
-console.log(
+	console.log(
+	  `[CHIẾN LỢI PHẨM] ${dropSummary.tables} bảng rơi ` +
+	  `từ ${dropSummary.source}.`
+	);
+	console.log(
     `[LICH_LUYEN] ${explorationSummary.resources} tài nguyên, ` +
     `${explorationSummary.npcs} NPC, ${explorationSummary.events} kỳ ngộ, ` +
     `${explorationSummary.bosses} boss.`

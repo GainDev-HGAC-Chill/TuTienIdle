@@ -850,118 +850,113 @@ class DataManager {
   }
 
 ingestMonsters(document) {
-    for (const raw of arrayOf(document.Monsters?.Monster)) {
-      const xmlId = String(raw.id || '');
+  for (const raw of arrayOf(document.Monsters?.Monster)) {
+    const xmlId = String(raw.id || '');
 
-      if (!xmlId) {
-        throw new Error('Yêu thú thiếu id.');
-      }
+    if (!xmlId) {
+      throw new Error('Yêu thú thiếu id.');
+    }
 
-      const stats = raw.Stats || {};
-      const rewardsRoot = raw.Rewards || {};
-      const rewardRows = arrayOf(rewardsRoot.Reward);
+    const stats = raw.Stats || {};
+    const rewardsRoot = raw.Rewards || {};
+    const rewardRows = arrayOf(rewardsRoot.Reward);
 
-      const currencyReward = rewardRows.find(
-        reward =>
-          String(reward.type || '') === 'currency' &&
-          String(reward.currencyId || '') === 'linh_thach'
+    const currencyReward = rewardRows.find(
+      reward =>
+        String(reward.type || '') === 'currency' &&
+        String(reward.currencyId || '') === 'linh_thach'
+    );
+
+    const experienceAmount = pathId => {
+      const reward = rewardRows.find(
+        row =>
+          String(row.type || '') === 'experience' &&
+          String(row.path || '') === pathId
       );
 
-      const experienceAmount = pathId => {
-        const reward = rewardRows.find(
-          row =>
-            String(row.type || '') === 'experience' &&
-            String(row.path || '') === pathId
-        );
+      return asNumber(reward?.amount, 0);
+    };
 
-        return asNumber(reward?.amount, 0);
-      };
-
-      let skillRefs = arrayOf(raw.Skills?.SkillRef)
-        .map(ref => ({
-          skillId: String(ref.skillId || '').trim(),
-          chance: Math.min(
-            1,
-            Math.max(0, asNumber(ref.chance, 0))
-          ),
-          unlockHpPercent: Math.min(
-            1,
-            Math.max(
-              0,
-              asNumber(ref.unlockHpPercent, 1)
-            )
-          ),
-          enabled: asBoolean(ref.enabled, true)
-        }));
-
-      const skillSetId = String(raw.skillSetId || '').trim();
-
-      if (!skillRefs.length && skillSetId) {
-        const set = this.monsterSkillSets.get(skillSetId) || [];
-        const totalWeight = set.reduce(
-          (sum, row) => sum + row.weight,
-          0
-        );
-
-        skillRefs = set.map(row => ({
-          skillId: row.skillId,
-          chance: totalWeight > 0
-            ? row.weight / totalWeight
-            : 0,
-          unlockHpPercent: 1,
-          enabled: true
-        }));
-      }
-
-      this.monsters.push({
-        id: 0,
-        runtimeId: 0,
-        xmlId,
-        name: String(raw.name || xmlId),
-        rank: String(raw.rank || 'normal'),
-        level: asNumber(raw.level, 1),
-        enabled: asBoolean(raw.enabled, true),
-
-        hp: asNumber(stats.hp, 1),
-        attack: asNumber(stats.attack, 1),
-        defense: asNumber(stats.defense, 0),
-        speed: asNumber(stats.speed, 0),
-        crit: asNumber(stats.crit, 5),
-        dodge: asNumber(stats.dodge, 3),
-
-        stonesMin: currencyReward
-          ? asNumber(currencyReward.min, 0)
-          : asNumber(rewardsRoot.spiritStonesMin, 0),
-
-        stonesMax: currencyReward
-          ? asNumber(currencyReward.max, 0)
-          : asNumber(rewardsRoot.spiritStonesMax, 0),
-
-        bodyExp: rewardRows.length
-          ? experienceAmount('body')
-          : asNumber(rewardsRoot.bodyExp, 0),
-
-        soulExp: rewardRows.length
-          ? experienceAmount('soul')
-          : asNumber(rewardsRoot.soulExp, 0),
-
-        mainExp: rewardRows.length
-          ? experienceAmount('main')
-          : asNumber(rewardsRoot.mainExp, 0),
-
-        lootTableId: String(
-          raw.lootTableId ||
-          raw.dropTableId ||
-          ''
+    let skillRefs = arrayOf(raw.Skills?.SkillRef)
+      .map(ref => ({
+        skillId: String(ref.skillId || '').trim(),
+        chance: Math.min(
+          1,
+          Math.max(0, asNumber(ref.chance, 0))
         ),
+        weight: 0,
+        selectionMode: 'independent',
+        unlockHpPercent: Math.min(
+          1,
+          Math.max(
+            0,
+            asNumber(ref.unlockHpPercent, 1)
+          )
+        ),
+        enabled: asBoolean(ref.enabled, true)
+      }))
+      .filter(ref => ref.skillId);
 
-        skillSetId,
-        skillRefs
-      });
+    const skillSetId = String(
+      raw.skillSetId || ''
+    ).trim();
+
+    if (!skillRefs.length && skillSetId) {
+      const set =
+        this.monsterSkillSets.get(skillSetId) || [];
+
+      skillRefs = set.map(row => ({
+        skillId: row.skillId,
+        chance: 1,
+        weight: Math.max(
+          0,
+          asNumber(row.weight, 0)
+        ),
+        selectionMode: 'weighted',
+        unlockHpPercent: 1,
+        enabled: true
+      }));
     }
-  }
 
-  finalize() {
+    this.monsters.push({
+      id: 0,
+      runtimeId: 0,
+      xmlId,
+      name: String(raw.name || xmlId),
+      rank: String(raw.rank || 'normal'),
+      level: asNumber(raw.level, 1),
+      enabled: asBoolean(raw.enabled, true),
+      hp: asNumber(stats.hp, 1),
+      attack: asNumber(stats.attack, 1),
+      defense: asNumber(stats.defense, 0),
+      speed: asNumber(stats.speed, 0),
+      crit: asNumber(stats.crit, 5),
+      dodge: asNumber(stats.dodge, 3),
+      stonesMin: currencyReward
+        ? asNumber(currencyReward.min, 0)
+        : asNumber(rewardsRoot.spiritStonesMin, 0),
+      stonesMax: currencyReward
+        ? asNumber(currencyReward.max, 0)
+        : asNumber(rewardsRoot.spiritStonesMax, 0),
+      bodyExp: rewardRows.length
+        ? experienceAmount('body')
+        : asNumber(rewardsRoot.bodyExp, 0),
+      soulExp: rewardRows.length
+        ? experienceAmount('soul')
+        : asNumber(rewardsRoot.soulExp, 0),
+      mainExp: rewardRows.length
+        ? experienceAmount('main')
+        : asNumber(rewardsRoot.mainExp, 0),
+      lootTableId: String(
+        raw.lootTableId || raw.dropTableId || ''
+      ),
+      skillSetId,
+      skillRefs
+    });
+  }
+}
+
+finalize() {
     this.realms.sort((a, b) => a.order - b.order);
     this.bodyRealms.sort((a, b) => a.order - b.order);
     this.soulRealms.sort((a, b) => a.order - b.order);
@@ -1166,8 +1161,41 @@ ingestMonsters(document) {
 
     if (!monster) return [];
 
-    return (monster.skillRefs || [])
-      .filter(reference => reference.enabled)
+    const references = (monster.skillRefs || [])
+      .filter(reference => reference.enabled);
+
+    const weightedReferences = references.filter(
+      reference =>
+        reference.selectionMode === 'weighted'
+    );
+
+    if (weightedReferences.length) {
+      const selected = weightedRandom(
+        weightedReferences,
+        reference => reference.weight
+      );
+
+      if (!selected) return [];
+
+      const skill = this.monsterSkills.get(
+        selected.skillId
+      );
+
+      if (!skill || !skill.enabled) {
+        return [];
+      }
+
+      return [{
+        ...skill,
+        chance: 1,
+        weight: selected.weight,
+        selectionMode: 'weighted',
+        unlockHpPercent:
+          selected.unlockHpPercent
+      }];
+    }
+
+    return references
       .map(reference => {
         const skill = this.monsterSkills.get(
           reference.skillId
@@ -1180,13 +1208,17 @@ ingestMonsters(document) {
         return {
           ...skill,
           chance: reference.chance,
-          unlockHpPercent: reference.unlockHpPercent
+          weight: reference.weight || 0,
+          selectionMode:
+            reference.selectionMode || 'independent',
+          unlockHpPercent:
+            reference.unlockHpPercent
         };
       })
       .filter(Boolean);
   }
 
-  getMonster(id) {
+getMonster(id) {
     this.ensureLoaded();
 
     if (

@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check src/config/dataManager.js && node --check src/config/monsterDropManager.js && node --check tools/kiem-dao-toan-he.js",
+    "validate:dao-tang": "node tools/kiem-dao-toan-he.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
