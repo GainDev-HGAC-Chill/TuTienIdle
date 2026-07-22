@@ -1,42 +1,23 @@
-# THIÊN TƯỢNG BẢN ĐỒ · TOÀN NHÂN GIỚI
+# PHỤC NGUYÊN CHIẾN LỢI PHẨM · MAP MONSTER
 
-## Có sẵn cho 8 bản đồ
+## Đạo tắc sau khi vá
 
-1. Ngoại Môn Sơn Lâm
-   - Sơn Lam Độc Trùng
-   - Linh Lộ Thấm Thể
+```text
+Maps.xml
+  → MonsterRef
+Monsters.xml
+  → lootTableId
+DropTables.xml
+  → Drop itemId
+monsterDropManager.js
+  → inventoryService
+```
 
-2. Bách Thảo Cốc
-   - Độc Phấn Phiêu Tán
-   - Dược Hương Dưỡng Thần
+Không còn bắt buộc `MonsterDrops.xml`.
 
-3. Huyền Thiết Sơn
-   - Kim Thạch Băng Lạc
-   - Địa Mạch Tôi Luyện
+## Cách dùng
 
-4. Vạn Độc Đàm
-   - Vạn Độc Xâm Thể
-   - Độc Tinh Ngưng Tụ
-
-5. Kiếm Trủng
-   - Kiếm Ý Xung Hồn
-   - Tàn Kiếm Cộng Minh
-
-6. Huyết Ma Vực
-   - Huyết Sát Thực Tâm
-   - Huyết Luyện Thân Thể
-
-7. Thái Hư Khe
-   - Hư Không Loạn Lưu
-   - Không Gian Tinh Hoa
-
-8. Cửu Tiêu Lôi Vực
-   - Lôi Kiếp Giáng Lâm
-   - Lôi Tinh Ngưng Tụ
-
-## Cách áp dụng
-
-Giải nén vào thư mục gốc project:
+Giải nén vào thư mục project:
 
 ```text
 C:\Users\gaingain\TuTienIdle
@@ -45,54 +26,43 @@ C:\Users\gaingain\TuTienIdle
 Chạy:
 
 ```bat
-node install-thien-tuong.js
-node tools\kiem-tra-thien-tuong.js
+node install-drop-fix.js
 npm start
 ```
 
-## MySQL
-
-Runtime tự tạo bảng:
-
-```text
-player_map_hazard_cooldowns
-```
-
-Nếu tài khoản MySQL không có quyền CREATE, chạy thủ công:
-
-```text
-database/migrations/20260722_map_environments.sql
-```
-
-## Cách chỉnh tỷ lệ
-
-```xml
-<Hazard chancePerMinute="3.2" cooldownSeconds="240">
-```
-
-- `chancePerMinute`: tỷ lệ trong một phút thám hiểm.
-- `cooldownSeconds`: thời gian tối thiểu trước khi thiên tượng đó có thể xảy ra lại.
-- Tỷ lệ được chuẩn hóa theo `elapsed`, không phụ thuộc trình duyệt gọi tick nhanh hay chậm.
-
-## Nhật ký
-
-Thiên Tượng ghi vào category:
-
-```text
-environment
-```
-
-Frontend hiện gom nhật ký không nhận diện category này vẫn có thể hiển thị như log thường.
-
-
-## Trường hợp đã chạy installer cũ và gặp lỗi log bootstrap
-
-Không cần xóa các file đã chép. Chạy lại installer bản FIX:
+Installer tự thực hiện:
 
 ```bat
-node install-thien-tuong.js
-node tools\kiem-tra-thien-tuong.js
-npm start
+node tools\tao-drop-tables.js
+node tools\kiem-tra-drop-tables.js
 ```
 
-Installer có kiểm tra trùng nội dung, nên không thêm require/load/runtime hai lần.
+## Nguyên tắc sinh bảng rơi
+
+- Giữ nguyên DropTable đã có dữ liệu.
+- Chỉ tạo bảng còn thiếu hoặc đang rỗng.
+- Chỉ sử dụng itemId thực sự tồn tại trong `VatPham`.
+- Ưu tiên nguyên liệu có tên phù hợp với quái.
+- Quái thường: 1 loại vật phẩm.
+- Quái biến dị/tinh anh: 2 loại.
+- Boss: 3 loại.
+- Không đưa Tiên Ngọc hoặc vật phẩm mở rộng túi vào bảng rơi tự động.
+
+Sau khi sinh, có thể tự chỉnh trực tiếp:
+
+```text
+data/worlds/NhanGioi/ChienDau/DropTables.xml
+```
+
+## Kiểm tra lại thủ công
+
+```bat
+node tools\kiem-tra-drop-tables.js
+```
+
+Kết quả đúng:
+
+```text
+[CHIẾN LỢI PHẨM VIÊN MÃN]
+Tất cả quái đều liên kết được DropTable và itemId hợp lệ.
+```

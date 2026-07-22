@@ -6,5 +6,6 @@
     <File path="LootTables.xml"/>
     <File path="Monsters.xml"/>
     <File path="Maps.xml"/>
+      <File path="DropTables.xml"/>
   </Files>
 </Module>

@@ -1,1 +1,188 @@
-<?xml version="1.0" encoding="UTF-8"?><DropTables worldId="nhan_gioi"></DropTables>
+<?xml version="1.0" encoding="UTF-8"?>
+<DropTables worldId="nhan_gioi" schemaVersion="2.0">
+
+  <DropTable id="loot_son_tho" monsterId="son_tho">
+    <Drop itemId="tinh_huyet" chance="28" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thanh_lang" monsterId="thanh_lang">
+    <Drop itemId="nhat_giai_yeu_dan" chance="28" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_son_tru" monsterId="son_tru">
+    <Drop itemId="linh_moc" chance="28" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_huyet_muc_lang" monsterId="huyet_muc_lang">
+    <Drop itemId="nhat_giai_yeu_dan" chance="62" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="lang_bi" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_lang_vuong" monsterId="lang_vuong">
+    <Drop itemId="lang_bi" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="nhat_giai_yeu_dan" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="lang_huyet" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_doc_tuyen_trung" monsterId="doc_tuyen_trung">
+    <Drop itemId="doc_nang" chance="28" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_moc_yeu" monsterId="moc_yeu">
+    <Drop itemId="yeu_cot" chance="28" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thanh_van_loc" monsterId="thanh_van_loc">
+    <Drop itemId="tinh_huyet" chance="28" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_tu_van_doc_hac" monsterId="tu_van_doc_hac">
+    <Drop itemId="doc_nang" chance="62" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="hu_khong_tinh_thach" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_bach_thao_yeu_vuong" monsterId="bach_thao_yeu_vuong">
+    <Drop itemId="yeu_cot" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="linh_moc" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="linh_thao_pham" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thiet_giap_tich" monsterId="thiet_giap_tich">
+    <Drop itemId="xich_dong_quang" chance="29" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_ham_son_hung" monsterId="ham_son_hung">
+    <Drop itemId="tinh_huyet" chance="30" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_kim_thach_quy" monsterId="kim_thach_quy">
+    <Drop itemId="hu_khong_tinh_thach" chance="30" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_xac_thiet_ma_tich" monsterId="xac_thiet_ma_tich">
+    <Drop itemId="hu_khong_tinh_thach" chance="62" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="doc_nang" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_huyen_thiet_thu_vuong" monsterId="huyen_thiet_thu_vuong">
+    <Drop itemId="huyen_thiet_quang" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="hu_khong_tinh_thach" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="loi_kiep_tinh" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_huyet_van_xa" monsterId="huyet_van_xa">
+    <Drop itemId="doc_nang" chance="31" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_am_trach_coc" monsterId="am_trach_coc">
+    <Drop itemId="linh_moc" chance="31" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thi_doc_nguu" monsterId="thi_doc_nguu">
+    <Drop itemId="hu_khong_tinh_thach" chance="31" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_cuu_muc_doc_xa" monsterId="cuu_muc_doc_xa">
+    <Drop itemId="tu_la_hoa" chance="62" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="doc_nang" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_van_doc_yeu_hau" monsterId="van_doc_yeu_hau">
+    <Drop itemId="yeu_cot" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="tinh_huyet" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="doc_nang" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_kiem_si_thach_khoi" monsterId="kiem_si_thach_khoi">
+    <Drop itemId="hu_khong_tinh_thach" chance="32" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_phi_kiem_linh" monsterId="phi_kiem_linh">
+    <Drop itemId="kiem_y_tan_phien" chance="32" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thien_nhan_dieu" monsterId="thien_nhan_dieu">
+    <Drop itemId="lang_bi" chance="33" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_doan_kiem_oan_hon" monsterId="doan_kiem_oan_hon">
+    <Drop itemId="kiem_y_tan_phien" chance="62" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="yeu_cot" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_vo_danh_kiem_chu" monsterId="vo_danh_kiem_chu">
+    <Drop itemId="tinh_huyet" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="yeu_cot" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="nhi_giai_yeu_dan" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_huyet_bat" monsterId="huyet_bat">
+    <Drop itemId="linh_moc" chance="34" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_ma_van_bao" monsterId="ma_van_bao">
+    <Drop itemId="linh_moc" chance="34" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_huyet_giap_quy" monsterId="huyet_giap_quy">
+    <Drop itemId="linh_moc" chance="35" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_thien_huyet_ma" monsterId="thien_huyet_ma">
+    <Drop itemId="yeu_cot" chance="62" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="linh_moc" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_huyet_ma_lao_to" monsterId="huyet_ma_lao_to">
+    <Drop itemId="linh_moc" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="yeu_cot" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="tu_giai_yeu_dan" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_hu_khong_anh_thu" monsterId="hu_khong_anh_thu">
+    <Drop itemId="hu_khong_tinh_thach" chance="36" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_thuc_gioi_trung" monsterId="thuc_gioi_trung">
+    <Drop itemId="tinh_huyet" chance="36" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_vo_dien_hanh_gia" monsterId="vo_dien_hanh_gia">
+    <Drop itemId="linh_moc" chance="36" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_nghich_khong_co_thu" monsterId="nghich_khong_co_thu">
+    <Drop itemId="loi_kiep_tinh" chance="62" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="tinh_huyet" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thai_hu_dao_anh" monsterId="thai_hu_dao_anh">
+    <Drop itemId="hu_khong_tinh_thach" chance="100" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="linh_moc" chance="48" minQuantity="1" maxQuantity="2"/>
+    <Drop itemId="yeu_cot" chance="12" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_loi_kiep_linh" monsterId="loi_kiep_linh">
+    <Drop itemId="loi_kiep_tinh" chance="38" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_thien_phat_co_thu" monsterId="thien_phat_co_thu">
+    <Drop itemId="tinh_huyet" chance="38" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_do_kiep_tan_tien" monsterId="do_kiep_tan_tien">
+    <Drop itemId="linh_moc" chance="38" minQuantity="1" maxQuantity="2"/>
+  </DropTable>
+
+  <DropTable id="loot_cuu_tieu_loi_thu" monsterId="cuu_tieu_loi_thu">
+    <Drop itemId="loi_kiep_tinh" chance="62" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="tinh_huyet" chance="18" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+  <DropTable id="loot_thien_kiep_hoa_than" monsterId="thien_kiep_hoa_than">
+    <Drop itemId="linh_moc" chance="100" minQuantity="2" maxQuantity="5"/>
+    <Drop itemId="huyen_thiet_quang" chance="65" minQuantity="1" maxQuantity="3"/>
+    <Drop itemId="tu_la_hoa" chance="20" minQuantity="1" maxQuantity="1"/>
+  </DropTable>
+
+</DropTables>
