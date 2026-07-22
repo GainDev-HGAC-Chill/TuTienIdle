@@ -342,10 +342,10 @@ async function combatTick(connection, player, elapsed) {
       playerHit = true;
 
       const effectiveCritRate = Math.max(
-        0,
-        Number(player.crit_rate || 0) -
-          Number(player.crit_resistance || 0)
-      );
+          0,
+          Number(player.crit_rate || 0) -
+            Number(monster.critResistance || monster.crit_resistance || 0)
+        );
 
       critical = Math.random() < effectiveCritRate;
 
