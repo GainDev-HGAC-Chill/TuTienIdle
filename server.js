@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 
 const { initializeDatabase, closeDatabase } = require('./src/db/mysql');
-const dataManager = require('./src/config/dataManager');
+const dataManager = require('./src/config/dataManager'); const mapEnvironmentManager = require('./src/config/mapEnvironmentManager');
 const itemManager = require('./src/config/itemManager');
 const monsterDropManager = require('./src/config/monsterDropManager');
 const explorationManager = require('./src/config/explorationManager');
@@ -61,7 +61,7 @@ async function bootstrap() {
   );
   const nhanGioiDirectory = path.dirname(manifestPath);
 
-  const summary = dataManager.load(manifestPath);
+  const summary = dataManager.load(manifestPath); const environmentSummary = mapEnvironmentManager.load(path.dirname(manifestPath)); console.log(`[THIEN_TUONG] ${environmentSummary.environments} khu vực · ${environmentSummary.hazards} thiên tượng.`);
   const itemSummary = itemManager.load(path.dirname(manifestPath));
   const dropSummary = monsterDropManager.load(path.dirname(manifestPath));
   const explorationSummary = explorationManager.load(nhanGioiDirectory);

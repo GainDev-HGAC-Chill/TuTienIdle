@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MapEnvironments schemaVersion="1.0" worldId="nhan_gioi">
+
+  <!--
+    chancePerMinute: tỷ lệ kích hoạt trong mỗi phút thám hiểm hợp lệ.
+    Runtime tự quy đổi theo elapsed:
+      P = 1 - (1 - chance/100)^(elapsed/60)
+    Vì vậy tick 5 giây hay 60 giây vẫn cho xác suất tương đương.
+  -->
+
+  <Environment id="env_ngoai_mon_son_lam" mapId="ngoai_mon_son_lam"
+               name="Ngoại Môn Sơn Lâm · Sơn Lam">
+    <Hazards>
+      <Hazard id="son_lam_doc_trung" name="Sơn Lam Độc Trùng"
+              chancePerMinute="2.4" cooldownSeconds="120"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="1" max="3"
+                  cannotKill="true"/>
+        </Effects>
+        <Log>Độc trùng ẩn trong sơn lam bất ngờ tập kích, khí huyết bị hao tổn {value}.</Log>
+      </Hazard>
+      <Hazard id="linh_lo_tham_the" name="Linh Lộ Thấm Thể"
+              chancePerMinute="1.5" cooldownSeconds="180"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="restore_hp_percent" min="2" max="5"/>
+        </Effects>
+        <Log>Linh lộ trên cổ thụ nhỏ xuống, sinh lực hồi phục {value}.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_bach_thao_coc" mapId="bach_thao_coc"
+               name="Bách Thảo Cốc · Dược Vụ">
+    <Hazards>
+      <Hazard id="doc_phan_phieu_tan" name="Độc Phấn Phiêu Tán"
+              chancePerMinute="2.2" cooldownSeconds="150"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="2" max="4"
+                  cannotKill="true"/>
+          <Effect type="drain_mp_percent" min="2" max="5"/>
+        </Effects>
+        <Log>Độc phấn lan trong cốc, hao tổn {hpDamage} sinh lực và {mpDamage} nội lực.</Log>
+      </Hazard>
+      <Hazard id="duoc_huong_duong_than" name="Dược Hương Dưỡng Thần"
+              chancePerMinute="1.3" cooldownSeconds="210"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="restore_hp_percent" min="3" max="6"/>
+          <Effect type="restore_mp_percent" min="4" max="8"/>
+        </Effects>
+        <Log>Dược hương thanh thuần nhập thể, hồi phục {hpRestore} sinh lực và {mpRestore} nội lực.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_huyen_thiet_son" mapId="huyen_thiet_son"
+               name="Huyền Thiết Sơn · Địa Mạch">
+    <Hazards>
+      <Hazard id="kim_thach_bang_lac" name="Kim Thạch Băng Lạc"
+              chancePerMinute="2.0" cooldownSeconds="180"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="3" max="6"
+                  cannotKill="true"/>
+        </Effects>
+        <Log>Địa mạch chấn động khiến kim thạch rơi xuống, sinh lực tổn thất {value}.</Log>
+      </Hazard>
+      <Hazard id="dia_mach_thoi_luyen" name="Địa Mạch Tôi Luyện"
+              chancePerMinute="1.0" cooldownSeconds="300"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="grant_experience" path="body" min="8" max="18"/>
+        </Effects>
+        <Log>Địa mạch trọng áp tôi luyện nhục thân, nhận {bodyExp} Luyện Thể.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_van_doc_dam" mapId="van_doc_dam"
+               name="Vạn Độc Đàm · Độc Vụ">
+    <Hazards>
+      <Hazard id="van_doc_xam_the" name="Vạn Độc Xâm Thể"
+              chancePerMinute="3.0" cooldownSeconds="180"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="4" max="8"
+                  cannotKill="true"/>
+          <Effect type="drain_mp_percent" min="3" max="7"/>
+        </Effects>
+        <Log>Vạn độc nhập thể, hao tổn {hpDamage} sinh lực và {mpDamage} nội lực.</Log>
+      </Hazard>
+      <Hazard id="doc_tinh_ngung_tu" name="Độc Tinh Ngưng Tụ"
+              chancePerMinute="0.7" cooldownSeconds="420"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="grant_item" itemId="doc_nang" min="1" max="2"/>
+        </Effects>
+        <Log>Độc vụ ngưng thành tinh nang, thu được {itemName} ×{quantity}.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_kiem_trung" mapId="kiem_trung"
+               name="Kiếm Trủng · Kiếm Ý">
+    <Hazards>
+      <Hazard id="kiem_y_xung_hon" name="Kiếm Ý Xung Hồn"
+              chancePerMinute="2.1" cooldownSeconds="210"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="3" max="7"
+                  cannotKill="true"/>
+          <Effect type="grant_experience" path="soul" min="6" max="15"/>
+        </Effects>
+        <Log>Kiếm ý xuyên qua thần hồn, tổn thất {hpDamage} sinh lực nhưng lĩnh ngộ {soulExp} Luyện Hồn.</Log>
+      </Hazard>
+      <Hazard id="tan_kiem_cong_minh" name="Tàn Kiếm Cộng Minh"
+              chancePerMinute="0.6" cooldownSeconds="480"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="grant_item" itemId="kiem_y_tan_phien" min="1" max="1"/>
+        </Effects>
+        <Log>Tàn kiếm cộng minh, một mảnh truyền thừa hiện thế: {itemName} ×{quantity}.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_huyet_ma_vuc" mapId="huyet_ma_vuc"
+               name="Huyết Ma Vực · Huyết Sát">
+    <Hazards>
+      <Hazard id="huyet_sat_thuc_tam" name="Huyết Sát Thực Tâm"
+              chancePerMinute="2.8" cooldownSeconds="210"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="5" max="10"
+                  cannotKill="true"/>
+          <Effect type="lose_currency_percent" currencyId="linh_thach"
+                  min="0.2" max="0.6" maximum="80"/>
+        </Effects>
+        <Log>Huyết sát thực tâm, tổn thất {hpDamage} sinh lực và {currencyLoss} Linh Thạch.</Log>
+      </Hazard>
+      <Hazard id="huyet_luyen_than_the" name="Huyết Luyện Thân Thể"
+              chancePerMinute="0.9" cooldownSeconds="360"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="grant_experience" path="body" min="20" max="45"/>
+        </Effects>
+        <Log>Huyết khí tôi luyện thân thể, nhận {bodyExp} Luyện Thể.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_thai_hu_khe" mapId="thai_hu_khe"
+               name="Thái Hư Khe · Không Gian Loạn Lưu">
+    <Hazards>
+      <Hazard id="hu_khong_loan_luu" name="Hư Không Loạn Lưu"
+              chancePerMinute="2.5" cooldownSeconds="240"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="6" max="12"
+                  cannotKill="true"/>
+          <Effect type="drain_mp_percent" min="5" max="12"/>
+        </Effects>
+        <Log>Hư không loạn lưu xé rách hộ thể, tổn thất {hpDamage} sinh lực và {mpDamage} nội lực.</Log>
+      </Hazard>
+      <Hazard id="khong_gian_tinh_hoa" name="Không Gian Tinh Hoa"
+              chancePerMinute="0.45" cooldownSeconds="600"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="grant_item" itemId="hu_khong_tinh_thach" min="1" max="1"/>
+        </Effects>
+        <Log>Không gian nứt mở rồi khép lại, để lại {itemName} ×{quantity}.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+  <Environment id="env_cuu_tieu_loi_vuc" mapId="cuu_tieu_loi_vuc"
+               name="Cửu Tiêu Lôi Vực · Thiên Lôi">
+    <Hazards>
+      <Hazard id="loi_kiep_giang_lam" name="Lôi Kiếp Giáng Lâm"
+              chancePerMinute="3.2" cooldownSeconds="240"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="damage_max_hp_percent" min="8" max="16"
+                  cannotKill="true"/>
+          <Effect type="drain_mp_percent" min="6" max="14"/>
+          <Effect type="grant_experience" path="body" min="30" max="70"/>
+        </Effects>
+        <Log>Thiên lôi xé trời giáng xuống, tổn thất {hpDamage} sinh lực và {mpDamage} nội lực; nhục thân nhận {bodyExp} Luyện Thể.</Log>
+      </Hazard>
+      <Hazard id="loi_tinh_ngung_tu" name="Lôi Tinh Ngưng Tụ"
+              chancePerMinute="0.35" cooldownSeconds="720"
+              triggerActivity="combat" enabled="true">
+        <Effects>
+          <Effect type="grant_item" itemId="loi_kiep_tinh" min="1" max="1"/>
+        </Effects>
+        <Log>Lôi quang sau kiếp vân ngưng tụ thành {itemName} ×{quantity}.</Log>
+      </Hazard>
+    </Hazards>
+  </Environment>
+
+</MapEnvironments>

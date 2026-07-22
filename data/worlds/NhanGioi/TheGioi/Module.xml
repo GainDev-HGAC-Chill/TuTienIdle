@@ -3,5 +3,6 @@
   <Files>
     <File path="NPCs.xml"/>
     <File path="GatheringNodes.xml"/>
+      <File path="MapEnvironments.xml"/>
   </Files>
 </Module>

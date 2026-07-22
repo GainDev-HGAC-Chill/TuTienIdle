@@ -5,7 +5,7 @@ const formula = require('../formulas/cultivationFormula');
 const cultivationArtRuntime = require('../runtime/cultivationArtRuntime');
 const inventoryService = require('./inventoryService');
 const itemManager = require('../config/itemManager');
-const monsterDropManager = require('../config/monsterDropManager');
+const monsterDropManager = require('../config/monsterDropManager'); const mapEnvironmentRuntime = require('../runtime/mapEnvironmentRuntime');
 
 function ensurePlayer(player) {
   if (!player) {
@@ -324,7 +324,7 @@ async function combatTick(connection, player, elapsed) {
     ? Number(player.monster_hp)
     : monster.hp;
 
-  let hp = Number(player.current_hp); let mp = Number(player.current_mp); const divineContext = await artProgression.prepareDivineArt(connection, player.id);
+  let hp = Number(player.current_hp); let mp = Number(player.current_mp); const environmentResult = await mapEnvironmentRuntime.process({ connection, player, map, elapsed, hp, mp }); hp = environmentResult.hp; mp = environmentResult.mp; const divineContext = await artProgression.prepareDivineArt(connection, player.id);
   const rounds = Math.min(30, Math.max(1, Math.floor(elapsed)));
 
   let wins = 0;
