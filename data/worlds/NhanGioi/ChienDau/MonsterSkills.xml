@@ -44,4 +44,9 @@
 
   <SkillSet id="skillset_boss_boss"><Use skillId="yeu_thu_trao" weight="50"/><Use skillId="kiem_khi" weight="50"/></SkillSet>
   <SkillSet id="skillset_world_boss"><Use skillId="loi_kiep" weight="70"/><Use skillId="hu_khong_thuan_di" weight="30"/></SkillSet>
+
+  <SkillSet id="skillset_mutated_snake">
+    <Use skillId="doc_phun" weight="80"/>
+    <Use skillId="yeu_thu_trao" weight="20"/>
+  </SkillSet>
 </MonsterSkillCatalog>

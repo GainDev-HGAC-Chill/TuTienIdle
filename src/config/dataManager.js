@@ -255,7 +255,7 @@ class DataManager {
       maps: 'maps',
       monsters: 'monsters',
       monsterskills: 'monsterSkills',
-      loottables: 'lootTables',
+      loottables: 'lootTables', droptables: 'lootTables',
       materials: 'items',
       ores: 'items',
       monstermaterials: 'items',
@@ -285,9 +285,7 @@ class DataManager {
     if (document.MonsterSkills || document.MonsterSkillCatalog) {
       return 'monsterSkills';
     }
-    if (document.LootTables || document.MonsterDropTables) {
-      return 'lootTables';
-    }
+    if (document.DropTables || document.LootTables || document.MonsterDropTables) { return 'lootTables'; }
     if (document.SpiritualRoots) return 'spiritualRoots';
     if (document.Items) return 'items';
     if (document.Pills) return 'pills';
@@ -780,28 +778,26 @@ class DataManager {
 
   ingestLootTables(document) {
     const root =
+      document.DropTables ||
       document.LootTables ||
       document.MonsterDropTables ||
       {};
 
-    for (const rawTable of arrayOf(root.LootTable || root.DropTable)) {
+    for (const rawTable of arrayOf(
+      root.DropTable || root.LootTable
+    )) {
       const id = String(rawTable.id || '').trim();
 
       if (!id) {
-        throw new Error('LootTable thiếu id.');
+        throw new Error('DropTable thiếu id.');
       }
 
       if (this.lootTables.has(id)) {
-        throw new Error(`Trùng LootTable: ${id}`);
+        throw new Error(`Trùng DropTable: ${id}`);
       }
 
-      const drops = arrayOf(rawTable.Drop).map(raw => ({
-        itemId: String(raw.itemId || ''),
-        chance: Math.max(
-          0,
-          Math.min(100, asNumber(raw.chance, 0))
-        ),
-        minQuantity: Math.max(
+      const drops = arrayOf(rawTable.Drop).map(raw => {
+        const minQuantity = Math.max(
           1,
           Math.floor(
             asNumber(
@@ -809,19 +805,33 @@ class DataManager {
               raw.min ?? 1
             )
           )
-        ),
-        maxQuantity: Math.max(
-          1,
+        );
+
+        const maxQuantity = Math.max(
+          minQuantity,
           Math.floor(
             asNumber(
               raw.maxQuantity,
-              raw.max ?? 1
+              raw.max ?? minQuantity
             )
           )
-        ),
-        bind: asBoolean(raw.bind, false),
-        announce: asBoolean(raw.announce, false)
-      }));
+        );
+
+        return {
+          itemId: String(raw.itemId || '').trim(),
+          chance: Math.max(
+            0,
+            Math.min(
+              100,
+              asNumber(raw.chance, 0)
+            )
+          ),
+          minQuantity,
+          maxQuantity,
+          bind: asBoolean(raw.bind, false),
+          announce: asBoolean(raw.announce, false)
+        };
+      });
 
       this.lootTables.set(id, {
         id,
@@ -830,32 +840,16 @@ class DataManager {
         ),
         rolls: Math.max(
           1,
-          Math.floor(asNumber(rawTable.rolls, 1))
+          Math.floor(
+            asNumber(rawTable.rolls, 1)
+          )
         ),
         drops
       });
     }
-
-    /*
-     * Tương thích MonsterDrops.xml cũ.
-     */
-    for (const reference of arrayOf(root.MonsterRef)) {
-      const monsterId = String(reference.monsterId || '');
-      const dropTableId = String(reference.dropTableId || '');
-
-      if (monsterId && dropTableId) {
-        const monster = this.monsters.find(
-          row => row.xmlId === monsterId
-        );
-
-        if (monster && !monster.lootTableId) {
-          monster.lootTableId = dropTableId;
-        }
-      }
-    }
   }
 
-  ingestMonsters(document) {
+ingestMonsters(document) {
     for (const raw of arrayOf(document.Monsters?.Monster)) {
       const xmlId = String(raw.id || '');
 

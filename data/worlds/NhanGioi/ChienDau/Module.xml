@@ -3,7 +3,6 @@
   <Files>
     <File path="CombatRules.xml"/>
     <File path="MonsterSkills.xml"/>
-    <File path="LootTables.xml"/>
     <File path="Monsters.xml"/>
     <File path="Maps.xml"/>
       <File path="DropTables.xml"/>
