@@ -203,6 +203,5 @@
   <script src="linh-can-ui.js"></script>
   <script src="script.js"></script>
   <script src="/js/cultivationArts.js"></script>
-  <script src="cultivation-art-ui.js"></script>
 </body>
 </html>

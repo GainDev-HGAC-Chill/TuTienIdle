@@ -10,43 +10,5 @@ async function updateProgress(playerId, artId, data, connection=getPool()) { awa
 async function addProficiency(playerId, artId, amount, connection=getPool()) { await connection.query('UPDATE player_cultivation_arts SET proficiency=proficiency+? WHERE player_id=? AND art_id=?',[amount,playerId,artId]); }
 async function equip(playerId, art, connection=getPool()) { await connection.query('INSERT INTO player_equipped_arts(player_id,category,art_id) VALUES(?,?,?) ON DUPLICATE KEY UPDATE art_id=VALUES(art_id),equipped_at=CURRENT_TIMESTAMP',[playerId,art.category,art.id]); }
 async function unequip(playerId, category, connection=getPool()) { await connection.query('DELETE FROM player_equipped_arts WHERE player_id=? AND category=?',[playerId,category]); }
-async function ensureStarterArts(player, artManager) {
-  const existing = await getOwned(player.id);
-  if (existing.length) return;
-
-  const rootIds = [
-    player.spiritual_root,
-    player.base_spiritual_root
-  ]
-    .map(value => String(value || '').trim())
-    .filter(Boolean);
-
-  let rootArts = [];
-
-  for (const rootId of rootIds) {
-    const found = artManager.getAll({ rootId });
-    if (found.length) {
-      rootArts = found;
-      break;
-    }
-  }
-
-  await transaction(async connection => {
-    for (const category of [
-      'tam_phap',
-      'chien_phap',
-      'luyen_the',
-      'than_thong'
-    ]) {
-      const art = rootArts.find(item => item.category === category);
-      if (!art) continue;
-
-      await learn(player.id, art, 'pham', connection);
-      await equip(player.id, art, connection);
-    }
-
-    await getResources(player.id, connection);
-  });
-}
-
+async function ensureStarterArts(player, artManager) { const existing=await getOwned(player.id); if(existing.length)return; const rootArts=artManager.getAll({rootId:player.spiritual_root}); await transaction(async c=>{for(const category of ['tam_phap','chien_phap','luyen_the','than_thong']){const art=rootArts.find(x=>x.category===category);if(art){await learn(player.id,art,'pham',c);await equip(player.id,art,c);}} await getResources(player.id,c);}); }
 module.exports={getOwned,getOwnedArt,getEquipped,getResources,addResources,spendResource,learn,updateProgress,addProficiency,equip,unequip,ensureStarterArts};

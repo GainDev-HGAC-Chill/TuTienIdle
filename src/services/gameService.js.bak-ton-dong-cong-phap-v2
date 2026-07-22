@@ -2,7 +2,6 @@ const repo = require('../repositories/playerRepository'); const artProgression =
 const { transaction } = require('../db/mysql');
 const dataManager = require('../config/dataManager');
 const formula = require('../formulas/cultivationFormula');
-const cultivationArtRuntime = require('../runtime/cultivationArtRuntime');
 
 function ensurePlayer(player) {
   if (!player) {
@@ -70,7 +69,7 @@ function decorate(player) {
       100,
       Number((Number(player.main_exp || 0) / required * 100).toFixed(2))
     ),
-    power: Number(player.combat_power || formula.calcPower(player, player.cultivation_art_effects || [])),
+    power: formula.calcPower(player),
     can_breakthrough: Number(player.main_exp || 0) >= required,
     breakthrough_rate: formula.breakthroughRate(realm),
     unlocked_maps: dataManager.getUnlockedMaps(player)
@@ -81,10 +80,13 @@ async function profile(id) {
   const playerRow = await repo.findById(id);
   ensurePlayer(playerRow);
 
-  const runtimePlayer = await cultivationArtRuntime.applyToPlayer({ ...playerRow });
   const inventory = await repo.inventory(id);
   const logs = await repo.logs(id);
-  const player = { ...decorate(runtimePlayer), inventory };
+
+  const player = {
+    ...decorate(playerRow),
+    inventory
+  };
 
   return { player, inventory, logs };
 }
@@ -213,31 +215,26 @@ async function tick(id) {
 
     const [timeRows] = await connection.query(
       `SELECT LEAST(
-        300,
-        GREATEST(
-          0,
-          TIMESTAMPDIFF(MICROSECOND, last_tick_at, NOW(3)) / 1000000
-        )
-      ) AS elapsed
-      FROM players
-      WHERE id = ?`,
+          300,
+          GREATEST(
+            0,
+            TIMESTAMPDIFF(MICROSECOND, last_tick_at, NOW(3)) / 1000000
+          )
+        ) AS elapsed
+       FROM players
+       WHERE id = ?`,
       [id]
     );
 
     const elapsed = Number(timeRows[0]?.elapsed || 0);
     if (elapsed < 0.2) return;
 
-    const runtimePlayer = await cultivationArtRuntime.applyToPlayer(
-      { ...player },
-      connection
-    );
-
-    if (runtimePlayer.current_activity === 'spirit_cultivation') {
-      await cultivationTick(connection, runtimePlayer, elapsed);
+    if (player.current_activity === 'spirit_cultivation') {
+      await cultivationTick(connection, player, elapsed);
     }
 
-    if (runtimePlayer.current_activity === 'combat') {
-      await combatTick(connection, runtimePlayer, elapsed);
+    if (player.current_activity === 'combat') {
+      await combatTick(connection, player, elapsed);
     }
 
     await connection.query(
