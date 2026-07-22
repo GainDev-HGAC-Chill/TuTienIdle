@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="luyen_dan" schemaVersion="2.0">
+  <Files>
+    <File path="AlchemyRules.xml"/>
+    <File path="PillRecipes.xml"/>
+  </Files>
+</Module>

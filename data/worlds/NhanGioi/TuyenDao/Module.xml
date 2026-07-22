@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="tuyen_dao" schemaVersion="2.0">
+  <Files>
+    <File path="Realms.xml"/>
+    <File path="BodyRealms.xml"/>
+    <File path="SoulRealms.xml"/>
+    <File path="SpiritualRoots.xml"/>
+    <File path="BreakthroughRules.xml"/>
+  </Files>
+</Module>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RandomEvents>
+  <EventPool id="pool_ky_ngo_chung">
+    <EventRef eventId="co_dong_phu" weight="20"/>
+    <EventRef eventId="thuong_nhan_bi_an" weight="25"/>
+    <EventRef eventId="tam_ma_dot_kich" weight="15"/>
+    <EventRef eventId="linh_thao_quan" weight="40"/>
+  </EventPool>
+
+  <Event id="co_dong_phu" name="Cổ Động Phủ" type="choice">
+    <Description>Một cửa động phủ phủ đầy bụi thời gian hiện ra trước mắt.</Description>
+    <Choices>
+      <Choice id="tien_vao" text="Tiến vào">
+        <Outcome weight="55">
+          <Rewards>
+            <Reward type="item" itemId="kiem_y_tan_phien" min="1" max="1"/>
+          </Rewards>
+        </Outcome>
+        <Outcome weight="45">
+          <Rewards>
+            <Reward type="status" statusEffectId="noi_thuong"/>
+          </Rewards>
+        </Outcome>
+      </Choice>
+      <Choice id="roi_di" text="Rời đi">
+        <Outcome weight="100"/>
+      </Choice>
+    </Choices>
+  </Event>
+
+  <Event id="thuong_nhan_bi_an" name="Thương Nhân Bí Ẩn" type="shop">
+    <ShopRef shopId="shop_hanh_cuoc"/>
+  </Event>
+
+  <Event id="tam_ma_dot_kich" name="Tâm Ma Đột Kích" type="automatic">
+    <Outcomes>
+      <Outcome weight="70"><Rewards><Reward type="status" statusEffectId="tam_ma"/></Rewards></Outcome>
+      <Outcome weight="30"><Rewards><Reward type="experience" path="soul" amount="20"/></Rewards></Outcome>
+    </Outcomes>
+  </Event>
+
+  <Event id="linh_thao_quan" name="Linh Thảo Quần" type="automatic">
+    <Outcomes>
+      <Outcome weight="100">
+        <Rewards><Reward type="item" itemId="linh_thao_pham" min="2" max="5"/></Rewards>
+      </Outcome>
+    </Outcomes>
+  </Event>
+</RandomEvents>

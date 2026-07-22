@@ -1,4 +1,5 @@
 const cultivationArtRuntime = require('../runtime/cultivationArtRuntime');
+const inventoryService = require('../services/inventoryService');
 const { getPool, transaction } = require('../db/mysql');
 const dataManager = require('../config/dataManager');
 
@@ -161,18 +162,8 @@ async function create(name, destiny) {
         [playerId]
       );
 
-      await connection.query(
-        `INSERT INTO player_inventory(
-           player_id,
-           item_id,
-           item_name,
-           item_type,
-           quantity
-         ) VALUES(?, ?, ?, ?, ?)`,
-        [playerId, 'linh_thach', 'Linh Thạch', 'currency', 100]
-      );
-
-      await addLog(
+      await inventoryService.ensureBag(connection, playerId);
+await addLog(
         connection,
         playerId,
         'system',
@@ -203,17 +194,7 @@ function parseMetadata(value) {
 }
 
 async function inventory(playerId, connection = getPool()) {
-  const [rows] = await connection.query(
-    `SELECT item_id, item_name, item_type, quantity, metadata
-     FROM player_inventory
-     WHERE player_id = ? AND quantity > 0
-     ORDER BY id`,
-    [playerId]
-  );
-  return rows.map(row => ({
-    ...row,
-    metadata: parseMetadata(row.metadata)
-  }));
+  return inventoryService.list(connection, playerId);
 }
 
 async function logs(playerId, limit = 80, connection = getPool()) {
@@ -238,37 +219,23 @@ async function addLog(connection, playerId, category, message) {
 }
 
 async function addItem(connection, playerId, item) {
-  await connection.query(
-    `INSERT INTO player_inventory(
-       player_id,
-       item_id,
-       item_name,
-       item_type,
-       quantity,
-       metadata
-     ) VALUES(?, ?, ?, ?, ?, ?)
-     ON DUPLICATE KEY UPDATE
-       quantity = quantity + VALUES(quantity),
-       item_name = VALUES(item_name),
-       item_type = VALUES(item_type),
-       metadata = VALUES(metadata)`,
-    [
-      playerId,
-      item.id,
-      item.name,
-      item.type,
-      item.quantity || 1,
-      item.metadata ? JSON.stringify(item.metadata) : null
-    ]
+  return inventoryService.addItem(
+    connection,
+    playerId,
+    item.id || item.itemId,
+    item.quantity || 1,
+    item.metadata || null
   );
 }
 
-module.exports = {
-  findById,
+async function bagInfo(playerId, connection = getPool()) {
+  return inventoryService.getBag(connection, playerId, false);
+}
+
+module.exports = {findById,
   findByName,
   create,
   inventory,
   logs,
   addLog,
-  addItem
-};
+  addItem, bagInfo};

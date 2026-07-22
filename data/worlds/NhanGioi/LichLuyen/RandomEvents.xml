@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RandomEvents>
+  <Event id="vach_nui_vo_danh" name="Vách Núi Vô Danh" weight="24">
+    <Prompt>Trước mặt là vực sâu không thấy đáy. Từ bên dưới truyền lên một tia linh quang yếu ớt.</Prompt>
+    <Choice id="nhay_xuong" text="Nhảy xuống">
+      <Outcome weight="46" type="injury" message="Ngươi rơi vào khe đá, trọng thương nhưng may mắn giữ được tính mạng."/>
+      <Outcome weight="28" type="resource" resourceId="huyen_thiet_quang" quantity="3" message="Dưới vực là một khoáng mạch nhỏ chưa từng có người khai phá."/>
+      <Outcome weight="18" type="stones" amount="600" message="Ngươi phát hiện một túi Linh Thạch bên cạnh hài cốt cổ tu."/>
+      <Outcome weight="7" type="resource" resourceId="kiem_y_tan_phien" quantity="1" message="Trong hang động có một mảnh truyền thừa phủ đầy kiếm ý."/>
+      <Outcome weight="1" type="secret_boss" bossId="co_dong_ma_anh" message="Một phong ấn cổ bị phá vỡ. Ma ảnh trong động đã thức tỉnh."/>
+    </Choice>
+    <Choice id="quay_lung" text="Quay lưng rời đi">
+      <Outcome weight="62" type="nothing" message="Ngươi rời khỏi vách núi. Mọi thứ phía sau vẫn chìm trong sương mù."/>
+      <Outcome weight="22" type="resource" resourceId="thanh_tam_thao" quantity="2" message="Trên đường quay lại, ngươi phát hiện hai gốc Thanh Tâm Thảo."/>
+      <Outcome weight="11" type="stones" amount="180" message="Một khe đá ven đường giấu vài viên Linh Thạch."/>
+      <Outcome weight="5" type="npc" npcId="phong_an_thu_mon" message="Ngươi gặp một bóng người đứng chờ ở lối cũ."/>
+    </Choice>
+  </Event>
+
+  <Event id="co_mieu_duoi_mua" name="Cổ Miếu Dưới Mưa" weight="22">
+    <Prompt>Một cổ miếu đổ nát hiện ra giữa màn mưa. Bên trong có tiếng gõ mõ đều đặn.</Prompt>
+    <Choice id="vao_mieu" text="Tiến vào cổ miếu">
+      <Outcome weight="38" type="stones" amount="420" message="Trên bàn thờ còn sót lại một hộp Linh Thạch."/>
+      <Outcome weight="34" type="injury" message="Tà khí trong miếu xâm nhập kinh mạch khiến ngươi trọng thương."/>
+      <Outcome weight="22" type="resource" resourceId="tu_la_hoa" quantity="2" message="Sau tượng đá mọc hai đóa Tử La Hoa."/>
+      <Outcome weight="6" type="secret_boss" bossId="co_mieu_ta_tang" message="Tiếng mõ dừng lại. Một tà tăng từ sau tượng Phật bước ra."/>
+    </Choice>
+    <Choice id="dung_ngoai" text="Đứng ngoài quan sát">
+      <Outcome weight="55" type="nothing" message="Mưa tạnh, cổ miếu cũng biến mất như chưa từng tồn tại."/>
+      <Outcome weight="25" type="npc" npcId="bach_dien_thu_sinh" message="Một thư sinh áo trắng xuất hiện dưới mái hiên."/>
+      <Outcome weight="20" type="resource" resourceId="linh_thao_pham" quantity="3" message="Nước mưa làm lộ ra một cụm linh thảo dưới chân tường."/>
+    </Choice>
+  </Event>
+
+  <Event id="lao_gia_hoi_dao" name="Lão Giả Hỏi Đạo" weight="20">
+    <Prompt>Một lão giả chắn đường và hỏi: Tu hành là thuận thiên hay nghịch thiên?</Prompt>
+    <Choice id="thuan_thien" text="Thuận thiên mà hành">
+      <Outcome weight="42" type="stones" amount="300" message="Lão giả gật đầu, để lại một túi Linh Thạch."/>
+      <Outcome weight="38" type="nothing" message="Lão giả im lặng rời đi, không lưu lại dấu vết."/>
+      <Outcome weight="20" type="injury" message="Lão giả phất tay, uy áp khiến kinh mạch ngươi chấn động."/>
+    </Choice>
+    <Choice id="nghich_thien" text="Nghịch thiên cầu đạo">
+      <Outcome weight="34" type="resource" resourceId="kiem_y_tan_phien" quantity="1" message="Lão giả cười lớn, truyền cho ngươi một mảnh đạo ý."/>
+      <Outcome weight="44" type="injury" message="Một đạo uy áp giáng xuống, ngươi không thể chống đỡ."/>
+      <Outcome weight="18" type="stones" amount="800" message="Lão giả thưởng cho lòng can đảm của ngươi."/>
+      <Outcome weight="4" type="secret_boss" bossId="dai_nang_hoa_than" message="Lão giả lộ ra chân thân và muốn thử đạo tâm của ngươi bằng một trận chiến."/>
+    </Choice>
+  </Event>
+
+  <Event id="nhan_co_trong_bun" name="Nhẫn Cổ Trong Bùn" weight="18">
+    <Prompt>Một chiếc nhẫn xám nằm nửa chìm trong bùn, linh thức không thể nhìn xuyên.</Prompt>
+    <Choice id="nhat_len" text="Nhặt chiếc nhẫn">
+      <Outcome weight="36" type="stones" amount="520" message="Trong nhẫn còn sót một ít Linh Thạch."/>
+      <Outcome weight="30" type="resource" resourceId="hu_khong_tinh_thach" quantity="1" message="Không gian trong nhẫn đã vỡ, chỉ còn một viên Hư Không Tinh Thạch."/>
+      <Outcome weight="28" type="injury" message="Tàn hồn trong nhẫn phản phệ khiến ngươi trọng thương."/>
+      <Outcome weight="6" type="secret_boss" bossId="tan_hon_doat_xa" message="Tàn hồn cổ tu thoát khỏi nhẫn và cưỡng ép đoạt xá."/>
+    </Choice>
+    <Choice id="bo_qua" text="Không chạm vào">
+      <Outcome weight="70" type="nothing" message="Ngươi bỏ lại chiếc nhẫn và tiếp tục lên đường."/>
+      <Outcome weight="20" type="resource" resourceId="linh_thao_pham" quantity="2" message="Dưới lớp bùn cạnh đó mọc hai gốc linh thảo."/>
+      <Outcome weight="10" type="npc" npcId="vo_danh_tan_tu" message="Một tán tu đi ngang qua và hỏi mua thông tin về chiếc nhẫn."/>
+    </Choice>
+  </Event>
+
+  <Event id="linh_tuyen_bat_chot" name="Linh Tuyền Bất Chợt" weight="16">
+    <Prompt>Mặt đất nứt ra, một dòng linh tuyền chỉ tồn tại trong chốc lát phun lên.</Prompt>
+    <Choice id="hap_thu" text="Lập tức hấp thu">
+      <Outcome weight="55" type="cultivation" amount="250" message="Linh khí tinh thuần nhập thể, tu vi tăng mạnh."/>
+      <Outcome weight="30" type="injury" message="Linh khí xung đột khiến kinh mạch bị thương."/>
+      <Outcome weight="15" type="cultivation" amount="1200" message="Ngươi bắt được khoảnh khắc đạo vận hội tụ, tu vi tăng vọt."/>
+    </Choice>
+    <Choice id="thu_thap" text="Thu vào pháp khí">
+      <Outcome weight="58" type="resource" resourceId="thanh_tam_thao" quantity="3" message="Linh tuyền nuôi dưỡng dược thảo xung quanh."/>
+      <Outcome weight="28" type="stones" amount="460" message="Dưới đáy linh tuyền kết tụ một ít Linh Thạch."/>
+      <Outcome weight="14" type="nothing" message="Linh tuyền tan biến trước khi pháp khí kịp thu giữ."/>
+    </Choice>
+  </Event>
+</RandomEvents>

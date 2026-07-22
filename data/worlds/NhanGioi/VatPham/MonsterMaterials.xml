@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items category="monster_material">
+  <Item id="lang_bi" name="Lang Bì" category="monster_material" subCategory="fur"
+        qualityId="pham" stackLimit="999" sellPrice="8" tradable="true" usable="false"/>
+  <Item id="lang_nha" name="Lang Nha" category="monster_material" subCategory="fang"
+        qualityId="pham" stackLimit="999" sellPrice="10" tradable="true" usable="false"/>
+  <Item id="lang_huyet" name="Lang Huyết" category="monster_material" subCategory="blood"
+        qualityId="hoang" stackLimit="999" sellPrice="15" tradable="true" usable="false"/>
+  <Item id="doc_nang" name="Độc Nang" category="monster_material" subCategory="poison_sac"
+        qualityId="huyen" stackLimit="999" sellPrice="48" tradable="true" usable="false"/>
+  <Item id="tinh_huyet" name="Yêu Thú Tinh Huyết" category="monster_material" subCategory="essence_blood"
+        qualityId="dia" stackLimit="99" sellPrice="260" tradable="true" usable="false"/>
+  <Item id="nhat_giai_yeu_dan" name="Nhất Giai Yêu Đan" category="monster_material" subCategory="monster_core"
+        qualityId="hoang" stackLimit="999" sellPrice="35" tradable="true" usable="false"/>
+  <Item id="nhi_giai_yeu_dan" name="Nhị Giai Yêu Đan" category="monster_material" subCategory="monster_core"
+        qualityId="huyen" stackLimit="999" sellPrice="120" tradable="true" usable="false"/>
+  <Item id="tam_giai_yeu_dan" name="Tam Giai Yêu Đan" category="monster_material" subCategory="monster_core"
+        qualityId="dia" stackLimit="999" sellPrice="480" tradable="true" usable="false"/>
+  <Item id="tu_giai_yeu_dan" name="Tứ Giai Yêu Đan" category="monster_material" subCategory="monster_core"
+        qualityId="thien" stackLimit="999" sellPrice="1800" tradable="true" usable="false"/>
+</Items>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items category="consumable">
+  <Item id="hoi_khi_dan" name="Hồi Khí Đan" category="consumable" subCategory="pill"
+        qualityId="pham" stackLimit="99" sellPrice="12" tradable="true" usable="true">
+    <UseEffect type="restore_hp" amount="25"/>
+  </Item>
+  <Item id="thanh_tam_dan" name="Thanh Tâm Đan" category="consumable" subCategory="pill"
+        qualityId="hoang" stackLimit="99" sellPrice="80" tradable="true" usable="true">
+    <UseEffect type="apply_status" statusEffectId="thanh_tam"/>
+  </Item>
+</Items>

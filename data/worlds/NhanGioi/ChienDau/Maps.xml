@@ -1,12 +1,153 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Maps worldId="nhan_gioi">
-	<Region id="region_ngoai_mon" name="Ngoại Môn" order="1">
-		<Map id="map_ngoai_mon_son_lam" name="Ngoại Vi Sơn Lâm" order="1" enabled="true">
-			<UnlockRequirement realmId="realm_luyen_khi" layer="1"/>
-			<Monsters>
-				<MonsterRef monsterId="monster_son_lang" weight="70"/>
-				<MonsterRef monsterId="monster_doc_nha" weight="30"/>
-			</Monsters>
-		</Map>
-	</Region>
+<?xml version='1.0' encoding='utf-8'?>
+<Maps worldId="nhan_gioi" schemaVersion="2.0">
+  <Map id="ngoai_mon_son_lam" name="Ngoại Môn Sơn Lâm" enabled="true" recommendedMinLevel="1" recommendedMaxLevel="9">
+    <Description>Khu vực lịch luyện từ cấp 1 đến 9.</Description>
+    <Encounters>
+      <MonsterRef monsterId="son_tho" weight="100" />
+      <MonsterRef monsterId="thanh_lang" weight="100" />
+      <MonsterRef monsterId="son_tru" weight="100" />
+      <MonsterRef monsterId="huyet_muc_lang" weight="14" />
+      <MonsterRef monsterId="lang_vuong" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_tap_hoa" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_linh_thao_pham" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="bach_thao_coc" name="Bách Thảo Cốc" enabled="true" recommendedMinLevel="6" recommendedMaxLevel="14">
+    <Description>Khu vực lịch luyện từ cấp 6 đến 14.</Description>
+    <Encounters>
+      <MonsterRef monsterId="doc_tuyen_trung" weight="100" />
+      <MonsterRef monsterId="moc_yeu" weight="100" />
+      <MonsterRef monsterId="thanh_van_loc" weight="100" />
+      <MonsterRef monsterId="tu_van_doc_hac" weight="14" />
+      <MonsterRef monsterId="bach_thao_yeu_vuong" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_dan_su" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_thanh_tam_thao" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="huyen_thiet_son" name="Huyền Thiết Sơn" enabled="true" recommendedMinLevel="18" recommendedMaxLevel="28">
+    <Description>Khu vực lịch luyện từ cấp 18 đến 28.</Description>
+    <Encounters>
+      <MonsterRef monsterId="thiet_giap_tich" weight="100" />
+      <MonsterRef monsterId="ham_son_hung" weight="100" />
+      <MonsterRef monsterId="kim_thach_quy" weight="100" />
+      <MonsterRef monsterId="xac_thiet_ma_tich" weight="14" />
+      <MonsterRef monsterId="huyen_thiet_thu_vuong" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_luyen_khi_su" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_huyen_thiet" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="van_doc_dam" name="Vạn Độc Đàm" enabled="true" recommendedMinLevel="30" recommendedMaxLevel="42">
+    <Description>Khu vực lịch luyện từ cấp 30 đến 42.</Description>
+    <Encounters>
+      <MonsterRef monsterId="huyet_van_xa" weight="100" />
+      <MonsterRef monsterId="am_trach_coc" weight="100" />
+      <MonsterRef monsterId="thi_doc_nguu" weight="100" />
+      <MonsterRef monsterId="cuu_muc_doc_xa" weight="14" />
+      <MonsterRef monsterId="van_doc_yeu_hau" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_doc_y" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_tu_la_hoa" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="kiem_trung" name="Kiếm Trủng" enabled="true" recommendedMinLevel="45" recommendedMaxLevel="60">
+    <Description>Khu vực lịch luyện từ cấp 45 đến 60.</Description>
+    <Encounters>
+      <MonsterRef monsterId="kiem_si_thach_khoi" weight="100" />
+      <MonsterRef monsterId="phi_kiem_linh" weight="100" />
+      <MonsterRef monsterId="thien_nhan_dieu" weight="100" />
+      <MonsterRef monsterId="doan_kiem_oan_hon" weight="14" />
+      <MonsterRef monsterId="vo_danh_kiem_chu" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_kiem_lao" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_xich_dong" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="huyet_ma_vuc" name="Huyết Ma Vực" enabled="true" recommendedMinLevel="64" recommendedMaxLevel="78">
+    <Description>Khu vực lịch luyện từ cấp 64 đến 78.</Description>
+    <Encounters>
+      <MonsterRef monsterId="huyet_bat" weight="100" />
+      <MonsterRef monsterId="ma_van_bao" weight="100" />
+      <MonsterRef monsterId="huyet_giap_quy" weight="100" />
+      <MonsterRef monsterId="thien_huyet_ma" weight="14" />
+      <MonsterRef monsterId="huyet_ma_lao_to" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_hanh_cuoc" />
+    </NPCs>
+    <Gathering />
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="thai_hu_khe" name="Thái Hư Khe" enabled="true" recommendedMinLevel="82" recommendedMaxLevel="96">
+    <Description>Khu vực lịch luyện từ cấp 82 đến 96.</Description>
+    <Encounters>
+      <MonsterRef monsterId="hu_khong_anh_thu" weight="100" />
+      <MonsterRef monsterId="thuc_gioi_trung" weight="100" />
+      <MonsterRef monsterId="vo_dien_hanh_gia" weight="100" />
+      <MonsterRef monsterId="nghich_khong_co_thu" weight="14" />
+      <MonsterRef monsterId="thai_hu_dao_anh" weight="4" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_hu_khong_khach" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_hu_khong_tinh" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
+  <Map id="cuu_tieu_loi_vuc" name="Cửu Tiêu Lôi Vực" enabled="true" recommendedMinLevel="100" recommendedMaxLevel="118">
+    <Description>Khu vực lịch luyện từ cấp 100 đến 118.</Description>
+    <Encounters>
+      <MonsterRef monsterId="loi_kiep_linh" weight="100" />
+      <MonsterRef monsterId="thien_phat_co_thu" weight="100" />
+      <MonsterRef monsterId="do_kiep_tan_tien" weight="100" />
+      <MonsterRef monsterId="cuu_tieu_loi_thu" weight="14" />
+      <MonsterRef monsterId="thien_kiep_hoa_than" weight="100" />
+    </Encounters>
+    <NPCs>
+      <NPCRef npcId="npc_do_kiep_tan_nhan" />
+    </NPCs>
+    <Gathering>
+      <NodeRef nodeId="node_loi_kiep_tinh" />
+    </Gathering>
+    <Events>
+      <EventPoolRef eventPoolId="pool_ky_ngo_chung" chancePerTick="1.5" />
+    </Events>
+  </Map>
 </Maps>

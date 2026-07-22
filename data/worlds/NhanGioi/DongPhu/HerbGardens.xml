@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HerbGardens>
+  <Garden id="duoc_vien_so_khai" name="Sơ Khai Dược Viên" plots="4" growthSpeedPercent="0"/>
+  <Garden id="linh_dien" name="Linh Điền" plots="8" growthSpeedPercent="15"/>
+</HerbGardens>

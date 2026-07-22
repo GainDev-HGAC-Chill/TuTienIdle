@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<World id="nhan_gioi" name="Nhân Giới" version="1.1.0" enabled="true">
-  <Configs>
-    <Config type="realms" path="TuyenDao/CanhGioi.xml"/>
-    <Config type="maps" path="ChienDau/Maps.xml"/>
-    <Config type="monsters" path="ChienDau/Monsters.xml"/>
-    <Config type="items" path="VatPham/Items.xml"/>
-    <Config type="pills" path="LuyenDan/DanDuoc.xml"/>
-    <Config type="recipes" path="LuyenDan/CongThuc.xml"/>
-    <Config type="herbs" path="LuyenDan/DuocLieu.xml"/>
-	<Config type="spiritualRoots" path="TuyenDao/LinhCan.xml"/>
+<World id="nhan_gioi" name="Nhân Giới" schemaVersion="2.0" enabled="true">
+  <Description>Hạ giới nơi phàm nhân nhập đạo, yêu thú hoành hành và cơ duyên ẩn hiện.</Description>
 
-    <!-- Hệ thống chiến lực và công pháp Nhân Giới -->
-    <Config type="combatPower" path="ChienLuc.xml"/>
-    <Config type="cultivationMethods" path="CongPhap/CongPhap.xml"/>
-    <Config type="divineArts" path="CongPhap/ThanThong.xml"/>
-    <Config type="combatStatuses" path="CongPhap/TrangThaiChienDau.xml"/>
-
-    <!-- Giữ tương thích với hệ thống cũ trong thời gian chuyển đổi -->
-    <Config type="cultivationSkills" path="CongPhap/CongPhap.xml"/>
-    <Config type="combatSkills" path="CongPhap/VuKy.xml" optional="true"/>
-  </Configs>
+  <Modules>
+    <Module id="he_thong" path="HeThong/Module.xml" required="true"/>
+    <Module id="tuyen_dao" path="TuyenDao/Module.xml" required="true"/>
+    <Module id="vat_pham" path="VatPham/Module.xml" required="true"/>
+    <Module id="chien_dau" path="ChienDau/Module.xml" required="true"/>
+    <Module id="the_gioi" path="TheGioi/Module.xml" required="true"/>
+    <Module id="kinh_te" path="KinhTe/Module.xml" required="true"/>
+    <Module id="luyen_dan" path="LuyenDan/Module.xml" required="false"/>
+    <Module id="dong_phu" path="DongPhu/Module.xml" required="false"/>
+    <Module id="cong_phap" path="CongPhap/Module.xml" required="false"/>
+    <Module id="ky_ngo" path="KyNgo/Module.xml" required="false"/>
+  </Modules>
 </World>

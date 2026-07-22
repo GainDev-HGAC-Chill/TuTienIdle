@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Equipment version="1.0.0">
-  <!-- Trang bị: vũ khí, pháp bào, giày, nhẫn, pháp bảo... -->
-  <Item
-    id="eq_thanh_moc_kiem"
-    name="Thanh Mộc Kiếm"
-    slot="weapon"
-    rarity="common"
-    requiredRealmId="luyen_khi"
-    requiredLayer="1"
-    attack="8"
-    defense="0"
-    maxHp="0"
-    maxMp="0"
-    critRate="0"
-    sellPrice="20"
-    stackable="false"
-    enabled="true">
-    <Description>Mộc kiếm nhập môn dành cho tu sĩ mới bước lên tiên lộ.</Description>
+<Items category="equipment">
+  <Item id="thanh_phong_kiem" name="Thanh Phong Kiếm" category="equipment" subCategory="weapon"
+        qualityId="hoang" stackLimit="1" sellPrice="220" tradable="true" usable="false">
+    <Equipment slot="weapon" requiredRealmId="luyen_khi" requiredLayer="3">
+      <Stats><Stat id="attack" value="18"/><Stat id="speed" value="2"/></Stats>
+    </Equipment>
   </Item>
-</Equipment>
+  <Item id="huyen_thiet_gia" name="Huyền Thiết Giáp" category="equipment" subCategory="armor"
+        qualityId="huyen" stackLimit="1" sellPrice="750" tradable="true" usable="false">
+    <Equipment slot="armor" requiredRealmId="truc_co" requiredLayer="1">
+      <Stats><Stat id="defense" value="48"/><Stat id="maxHp" value="180"/></Stats>
+    </Equipment>
+  </Item>
+</Items>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AlchemyRules>
+  <Level id="1" name="Đan Đồ" baseSuccessChance="70"/>
+  <Level id="2" name="Nhất Phẩm Đan Sư" baseSuccessChance="78"/>
+  <Level id="3" name="Nhị Phẩm Đan Sư" baseSuccessChance="84"/>
+  <Failure consumeMaterials="true" produceResidue="false"/>
+</AlchemyRules>

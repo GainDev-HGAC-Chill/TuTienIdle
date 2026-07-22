@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TradeRules>
+  <SellToNpc defaultPriceRatio="0.65" minimumPrice="1"/>
+  <PlayerTrade enabled="true" boundItemsAllowed="false"/>
+  <Auction enabled="false"/>
+</TradeRules>

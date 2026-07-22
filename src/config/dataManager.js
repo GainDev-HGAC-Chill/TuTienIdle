@@ -246,6 +246,11 @@ class DataManager {
           realmId: String(rawMap.UnlockRequirement?.realmId || ''),
           realmRequired: 0,
           layerRequired: asNumber(rawMap.UnlockRequirement?.layer, 1),
+		  description: String(rawMap.Description || ''),
+		  environment: String(rawMap.Environment || ''),
+		  preparation: String(rawMap.Preparation || ''),
+		  focusType: String(rawMap.Focus?.type || 'balanced'),
+		  focusResourceId: String(rawMap.Focus?.resource || ''),
           monsterRefs: arrayOf(rawMap.Monsters?.MonsterRef).map(ref => ({
             monsterId: String(ref.monsterId || ''),
             weight: asNumber(ref.weight, 1)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="dong_phu" schemaVersion="2.0">
+  <Files>
+    <File path="Caves.xml"/>
+    <File path="HerbGardens.xml"/>
+    <File path="PlantingRules.xml"/>
+  </Files>
+</Module>

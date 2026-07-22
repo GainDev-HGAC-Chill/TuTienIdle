@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bosses>
+  <Boss id="co_dong_ma_anh" name="Cổ Động Ma Ảnh" type="secret" monsterId="doan_kiem_oan_hon" mapId="thien_kiem_son"/>
+  <Boss id="co_mieu_ta_tang" name="Cổ Miếu Tà Tăng" type="secret" monsterId="thien_huyet_ma" mapId="huyet_ma_coc"/>
+  <Boss id="dai_nang_hoa_than" name="Hóa Thần Đại Năng" type="secret" monsterId="vo_danh_kiem_chu" mapId="thien_kiem_son"/>
+  <Boss id="tan_hon_doat_xa" name="Đoạt Xá Tàn Hồn" type="secret" monsterId="thai_hu_dao_anh" mapId="thai_hu_co_lo"/>
+  <Boss id="nhan_gioi_thien_kiep" name="Nhân Giới Thiên Kiếp" type="world" monsterId="thien_kiep_hoa_than" mapId="do_kiep_thien_dai" respawnHours="12"/>
+</Bosses>

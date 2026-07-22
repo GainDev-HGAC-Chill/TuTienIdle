@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items category="treasure">
+  <Item id="kiem_y_tan_phien" name="Kiếm Ý Tàn Phiến" category="treasure" subCategory="inheritance_fragment"
+        qualityId="dia" stackLimit="99" sellPrice="800" tradable="true" usable="false"/>
+  <Item id="bi_canh_lenh" name="Bí Cảnh Lệnh" category="treasure" subCategory="key"
+        qualityId="huyen" stackLimit="99" sellPrice="0" tradable="false" usable="true">
+    <UseEffect type="unlock" targetId="bi_canh_so_khai"/>
+  </Item>
+</Items>

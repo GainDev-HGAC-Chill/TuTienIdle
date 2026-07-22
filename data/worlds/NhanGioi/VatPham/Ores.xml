@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items category="ore">
+  <Item id="xich_dong_quang" name="Xích Đồng Khoáng" category="ore" subCategory="metal"
+        qualityId="hoang" stackLimit="999" sellPrice="20" tradable="true" usable="false"/>
+  <Item id="huyen_thiet_quang" name="Huyền Thiết Khoáng" category="ore" subCategory="metal"
+        qualityId="huyen" stackLimit="999" sellPrice="45" tradable="true" usable="false"/>
+  <Item id="hu_khong_tinh_thach" name="Hư Không Tinh Thạch" category="ore" subCategory="space"
+        qualityId="thien" stackLimit="99" sellPrice="2400" tradable="true" usable="false"/>
+  <Item id="loi_kiep_tinh" name="Lôi Kiếp Tinh" category="ore" subCategory="thunder"
+        qualityId="thien" stackLimit="99" sellPrice="3200" tradable="true" usable="false"/>
+</Items>

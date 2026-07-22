@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Materials version="1.0.0">
-  <!-- Nguyên liệu luyện khí, luyện đan, nhiệm vụ và xây dựng động phủ. -->
-  <Material
-    id="mat_thiet_tinh"
-    name="Thiết Tinh"
-    category="forging"
-    rarity="common"
-    maxStack="9999"
-    buyPrice="0"
-    sellPrice="3"
-    enabled="true">
-    <Description>Mảnh khoáng thạch chứa một tia linh khí, dùng để luyện chế trang bị sơ cấp.</Description>
-  </Material>
-</Materials>
+<Items category="material">
+  <Item id="linh_moc" name="Linh Mộc" category="material" subCategory="wood"
+        qualityId="pham" stackLimit="999" sellPrice="8" tradable="true" usable="false">
+    <Description>Gỗ mang linh khí yếu, dùng trong luyện khí và xây dựng động phủ.</Description>
+  </Item>
+  <Item id="yeu_cot" name="Yêu Cốt" category="material" subCategory="bone"
+        qualityId="pham" stackLimit="999" sellPrice="9" tradable="true" usable="false">
+    <Description>Xương yêu thú đã được làm sạch.</Description>
+  </Item>
+</Items>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ArtRules>
+  <EquipSlots initial="1" maximum="4"/>
+  <Compatibility mismatchPenaltyPercent="20" matchingElementBonusPercent="10"/>
+  <Upgrade consumeDuplicate="false" consumeCurrencyId="linh_thach"/>
+</ArtRules>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="cong_phap" schemaVersion="2.0">
+  <Files>
+    <File path="CultivationArts.xml"/>
+    <File path="ArtRules.xml"/>
+  </Files>
+</Module>

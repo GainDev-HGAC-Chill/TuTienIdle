@@ -3,6 +3,9 @@ const { transaction } = require('../db/mysql');
 const dataManager = require('../config/dataManager');
 const formula = require('../formulas/cultivationFormula');
 const cultivationArtRuntime = require('../runtime/cultivationArtRuntime');
+const inventoryService = require('./inventoryService');
+const itemManager = require('../config/itemManager');
+const monsterDropManager = require('../config/monsterDropManager');
 
 function ensurePlayer(player) {
   if (!player) {
@@ -82,11 +85,12 @@ async function profile(id) {
   ensurePlayer(playerRow);
 
   const runtimePlayer = await cultivationArtRuntime.applyToPlayer({ ...playerRow });
-  const inventory = await repo.inventory(id);
+  const inventoryData = await repo.inventory(id);
+  const inventory = inventoryData.items;
+  const bag = inventoryData.bag;
   const logs = await repo.logs(id);
-  const player = { ...decorate(runtimePlayer), inventory };
-
-  return { player, inventory, logs };
+  const player = { ...decorate(runtimePlayer), inventory, bag };
+  return { player, inventory, bag, logs };
 }
 
 async function byName(name) {
@@ -376,19 +380,30 @@ async function combatTick(connection, player, elapsed) {
 
     if (monsterHp <= 0) {
       wins += 1;
+      const rolledDrops = monsterDropManager.roll(monster);
+      for (const drop of rolledDrops) {
+        const added = await inventoryService.addItem(
+          connection,
+          player.id,
+          drop.itemId,
+          drop.quantity,
+          { source: 'monster', monsterId: String(monster.xmlId || monster.id) }
+        );
+        if (added.rejected > 0) {
+          const itemDef = itemManager.require(drop.itemId);
+          await repo.addLog(
+            connection,
+            player.id,
+            'item',
+            `[TÚI CÀN KHÔN] Không đủ chỗ chứa ${itemDef.name} ×${added.rejected}.`
+          );
+        }
+      }
       stones += dataManager.rollMonsterStones(monster);
 		bodyExp += Number(monster.bodyExp || 0);
 		soulExp += Number(monster.soulExp || 0);
       if (Math.random() < 0.12) {
-        await repo.addItem(connection, player.id, {
-          id: 'hoi_khi_dan',
-          name: 'Hồi Khí Đan',
-          type: 'pill',
-          quantity: 1,
-          metadata: {
-            effect: 'Khôi phục 25 sinh lực'
-          }
-        });
+        await repo.addItem(connection, player.id, { id: 'hoi_khi_dan', quantity: 1, metadata: { source: 'combat' } });
       }
 
       monster = dataManager.getRandomMonster(map.id);
@@ -509,13 +524,6 @@ async function combatTick(connection, player, elapsed) {
        WHERE player_id = ?`,
       [wins, player.id]
     );
-
-    await repo.addItem(connection, player.id, {
-      id: 'linh_thach',
-      name: 'Linh Thạch',
-      type: 'currency',
-      quantity: stones
-    });
 
     await repo.addLog(
       connection,
@@ -667,73 +675,78 @@ async function breakthrough(id) {
 }
 
 async function useItem(id, itemId) {
+  const inventoryData = await repo.inventory(id);
+  const target = inventoryData.items.find(item => item.item_id === String(itemId));
+  if (!target) {
+    const error = new Error('Vật phẩm không tồn tại trong Túi Càn Khôn.');
+    error.statusCode = 404;
+    throw error;
+  }
+  return useInventorySlot(id, target.id);
+}
+
+async function useInventorySlot(id, inventoryId) {
   await transaction(async connection => {
     const player = await repo.findById(id, connection, true);
     ensurePlayer(player);
 
     const [rows] = await connection.query(
-      `SELECT *
+      `SELECT id, item_id, quantity
        FROM player_inventory
-       WHERE player_id = ?
-         AND item_id = ?
-         AND quantity > 0
+       WHERE player_id = ? AND id = ? AND quantity > 0
        FOR UPDATE`,
-      [id, itemId]
+      [id, inventoryId]
     );
-
-    const item = rows[0];
-
-    if (!item) {
-      const error = new Error('Vật phẩm không tồn tại.');
+    const row = rows[0];
+    if (!row) {
+      const error = new Error('Ô vật phẩm không tồn tại.');
       error.statusCode = 404;
       throw error;
     }
 
-    if (itemId === 'hoi_khi_dan') {
-      await connection.query(
-        `UPDATE players
-         SET current_hp = LEAST(?, current_hp + 25)
-         WHERE id = ?`,
-        [player.max_hp, id]
-      );
-    } else {
+    const definition = itemManager.require(row.item_id);
+    if (!definition.usable || !definition.useEffect) {
       const error = new Error('Vật phẩm này chưa thể sử dụng.');
       error.statusCode = 400;
       throw error;
     }
 
-    await connection.query(
-      `UPDATE player_inventory
-       SET quantity = quantity - 1
-       WHERE id = ?`,
-      [item.id]
-    );
+    const effect = definition.useEffect;
+    if (effect.type === 'restore_hp') {
+      await connection.query(
+        'UPDATE players SET current_hp = LEAST(?, current_hp + ?) WHERE id = ?',
+        [player.max_hp, effect.amount, id]
+      );
+    } else if (effect.type === 'expand_bag') {
+      const expansion = await inventoryService.expandBag(
+        connection,
+        id,
+        effect.slots,
+        effect.itemMaximumSlots
+      );
+      await repo.addLog(
+        connection,
+        id,
+        'item',
+        `Dùng ${definition.name}, Túi Càn Khôn mở từ ${expansion.before} lên ${expansion.after} ô.`
+      );
+    } else {
+      const error = new Error('Hiệu quả vật phẩm chưa được hỗ trợ.');
+      error.statusCode = 400;
+      throw error;
+    }
 
-    await connection.query(
-      `DELETE FROM player_inventory
-       WHERE id = ?
-         AND quantity <= 0`,
-      [item.id]
-    );
-
-    await repo.addLog(
-      connection,
-      id,
-      'item',
-      `Đã sử dụng ${item.item_name}.`
-    );
+    await inventoryService.removeItem(connection, id, row.id, 1);
+    await repo.addLog(connection, id, 'item', `Đã sử dụng ${definition.name}.`);
   });
-
   return profile(id);
 }
 
-module.exports = {
-  profile,
+module.exports = { profile,
   byName,
   create,
   setActivity,
   selectMap,
   tick,
   breakthrough,
-  useItem
-};
+  useItem, useInventorySlot };

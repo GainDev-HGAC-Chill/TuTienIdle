@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExplorationNPCs>
+  <NPC id="lang_du_thuong_nhan" name="Lãng Du Thương Nhân" weight="30">
+    <Description>Một thương nhân mang theo túi hàng cũ kỹ, không rõ đến từ đâu.</Description>
+    <Behavior>buy_sell_material</Behavior>
+  </NPC>
+  <NPC id="duoc_coc_laohan" name="Dược Cốc Lão Hán" weight="22">
+    <Description>Lão giả áo vải mang mùi dược thảo, ánh mắt rất tinh tường.</Description>
+    <Behavior>herb_trade</Behavior>
+  </NPC>
+  <NPC id="huyen_thiet_tho" name="Huyền Thiết Thợ Rèn" weight="18">
+    <Description>Người thợ rèn lưng đeo búa lớn, chỉ quan tâm đến khoáng vật hiếm.</Description>
+    <Behavior>ore_trade</Behavior>
+  </NPC>
+  <NPC id="vo_danh_tan_tu" name="Vô Danh Tán Tu" weight="14">
+    <Description>Một tán tu đứng chặn đường, lời nói nửa thật nửa giả.</Description>
+    <Behavior>random_offer</Behavior>
+  </NPC>
+  <NPC id="bach_dien_thu_sinh" name="Bạch Diện Thư Sinh" weight="10">
+    <Description>Thư sinh áo trắng hỏi đạo, nhưng khí tức không thể dò xét.</Description>
+    <Behavior>question_event</Behavior>
+  </NPC>
+  <NPC id="phong_an_thu_mon" name="Phong Ấn Thủ Môn" weight="6">
+    <Description>Một bóng người giữ chìa khóa mở phong ấn cổ xưa.</Description>
+    <Behavior>secret_boss_key</Behavior>
+  </NPC>
+</ExplorationNPCs>

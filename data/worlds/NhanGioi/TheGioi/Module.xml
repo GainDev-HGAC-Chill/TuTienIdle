@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="the_gioi" schemaVersion="2.0">
+  <Files>
+    <File path="NPCs.xml"/>
+    <File path="GatheringNodes.xml"/>
+  </Files>
+</Module>

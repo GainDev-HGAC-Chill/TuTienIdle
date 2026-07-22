@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='utf-8'?>
+<LootTables schemaVersion="2.0">
+  <LootTable id="loot_son_tho" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thanh_lang" rollMode="independent" rolls="1">
+    <Drop itemId="lang_bi" chance="42" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="lang_nha" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="lang_huyet" chance="15" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_son_tru" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_huyet_muc_lang" rollMode="independent" rolls="1">
+    <Drop itemId="lang_bi" chance="42" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="lang_nha" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="lang_huyet" chance="15" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_lang_vuong" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_doc_tuyen_trung" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_moc_yeu" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thanh_van_loc" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_tu_van_doc_hac" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_bach_thao_yeu_vuong" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_thiet_giap_tich" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_ham_son_hung" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_kim_thach_quy" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhat_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_xac_thiet_ma_tich" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_huyen_thiet_thu_vuong" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_huyet_van_xa" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_am_trach_coc" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thi_doc_nguu" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_cuu_muc_doc_xa" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_van_doc_yeu_hau" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_kiem_si_thach_khoi" rollMode="independent" rolls="1">
+    <Drop itemId="doc_nang" chance="30" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="15" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_phi_kiem_linh" rollMode="independent" rolls="1">
+    <Drop itemId="kiem_y_tan_phien" chance="3" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="18" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thien_nhan_dieu" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_doan_kiem_oan_hon" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="nhi_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_vo_danh_kiem_chu" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_huyet_bat" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_ma_van_bao" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_huyet_giap_quy" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thien_huyet_ma" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_huyet_ma_lao_to" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_hu_khong_anh_thu" rollMode="independent" rolls="1">
+    <Drop itemId="hu_khong_tinh_thach" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thuc_gioi_trung" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_vo_dien_hanh_gia" rollMode="independent" rolls="1">
+    <Drop itemId="hu_khong_tinh_thach" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_nghich_khong_co_thu" rollMode="independent" rolls="1">
+    <Drop itemId="hu_khong_tinh_thach" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tam_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thai_hu_dao_anh" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tu_giai_yeu_dan" chance="35" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+  <LootTable id="loot_loi_kiep_linh" rollMode="independent" rolls="1">
+    <Drop itemId="loi_kiep_tinh" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tu_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thien_phat_co_thu" rollMode="independent" rolls="1">
+    <Drop itemId="loi_kiep_tinh" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tu_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_do_kiep_tan_tien" rollMode="independent" rolls="1">
+    <Drop itemId="loi_kiep_tinh" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tu_giai_yeu_dan" chance="1.5" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_cuu_tieu_loi_thu" rollMode="independent" rolls="1">
+    <Drop itemId="loi_kiep_tinh" chance="4" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="yeu_cot" chance="20" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tu_giai_yeu_dan" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+  </LootTable>
+  <LootTable id="loot_thien_kiep_hoa_than" rollMode="independent" rolls="1">
+    <Drop itemId="yeu_cot" chance="25" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="linh_thao_pham" chance="8" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tu_giai_yeu_dan" chance="100" minQuantity="1" maxQuantity="1" bind="false" announce="false" />
+    <Drop itemId="tinh_huyet" chance="45" minQuantity="1" maxQuantity="2" bind="false" announce="false" />
+    <Drop itemId="tieu_can_khon_phu" chance="2.5" minQuantity="1" maxQuantity="1" bind="false" announce="true" />
+  </LootTable>
+</LootTables>

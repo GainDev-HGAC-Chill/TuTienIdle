@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RealmPath id="soul" name="Luyện Hồn">
+  <Realm id="duong_hon" name="Dưỡng Hồn" order="1" layers="9"/>
+  <Realm id="ngung_than" name="Ngưng Thần" order="2" layers="9"/>
+  <Realm id="xuat_khieu" name="Xuất Khiếu" order="3" layers="9"/>
+  <Realm id="phan_than" name="Phân Thần" order="4" layers="9"/>
+  <Realm id="than_du" name="Thần Du" order="5" layers="9"/>
+  <Realm id="bat_hu" name="Bất Hủ Hồn" order="6" layers="9"/>
+</RealmPath>

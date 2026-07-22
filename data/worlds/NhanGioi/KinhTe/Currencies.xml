@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Currencies>
+  <Currency id="linh_thach" name="Linh Thạch" databaseField="spirit_stones" bagSlot="false"/>
+  <Currency id="tien_ngoc" name="Tiên Ngọc" databaseField="immortal_jade" bagSlot="false"/>
+  <Currency id="tong_mon_cong_hien" name="Tông Môn Cống Hiến" databaseField="sect_contribution" bagSlot="false"/>
+</Currencies>

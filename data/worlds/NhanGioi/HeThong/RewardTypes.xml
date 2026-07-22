@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RewardTypes>
+  <RewardType id="currency" handler="currency"/>
+  <RewardType id="experience" handler="experience"/>
+  <RewardType id="item" handler="inventory"/>
+  <RewardType id="status" handler="status_effect"/>
+  <RewardType id="unlock" handler="unlock"/>
+</RewardTypes>

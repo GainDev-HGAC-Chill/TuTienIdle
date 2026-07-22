@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Qualities>
+  <Quality id="pham" name="Phàm Phẩm" rank="1" colorKey="gray"/>
+  <Quality id="hoang" name="Hoàng Phẩm" rank="2" colorKey="yellow"/>
+  <Quality id="huyen" name="Huyền Phẩm" rank="3" colorKey="blue"/>
+  <Quality id="dia" name="Địa Phẩm" rank="4" colorKey="purple"/>
+  <Quality id="thien" name="Thiên Phẩm" rank="5" colorKey="red"/>
+  <Quality id="tien" name="Tiên Phẩm" rank="6" colorKey="gold"/>
+  <Quality id="than" name="Thần Phẩm" rank="7" colorKey="rainbow"/>
+</Qualities>

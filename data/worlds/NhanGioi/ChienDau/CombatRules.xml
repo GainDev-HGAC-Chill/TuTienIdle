@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><CombatRules worldId="nhan_gioi"></CombatRules>
+<?xml version="1.0" encoding="UTF-8"?>
+<CombatRules tickMilliseconds="1000" maximumRounds="300">
+  <Damage minimum="1" variancePercent="8"/>
+  <Critical baseChance="5" baseMultiplier="1.5"/>
+  <Dodge baseChance="3" maximumChance="60"/>
+  <Defeat>
+    <CultivationLoss percent="1" maximumPercent="90"/>
+    <Restore currentHpPercent="30" currentMpPercent="30"/>
+  </Defeat>
+  <Victory resetMonsterHp="true"/>
+</CombatRules>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InventoryRules>
+  <Bag id="can_khon" name="Túi Càn Khôn" initialSlots="30" maximumSlots="200">
+    <Stacking compareMetadata="true"/>
+    <FullPolicy mode="reject">
+      <Log>[TÚI CÀN KHÔN] Không đủ chỗ chứa {itemName} ×{quantity}.</Log>
+    </FullPolicy>
+  </Bag>
+  <CurrencyStorage consumesBagSlot="false"/>
+</InventoryRules>

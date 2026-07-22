@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GatheringNodes>
+  <Node id="node_linh_thao_pham" name="Phàm Giai Linh Thảo" respawnSeconds="45">
+    <Yield itemId="linh_thao_pham" min="1" max="3" chance="100"/>
+  </Node>
+  <Node id="node_thanh_tam_thao" name="Thanh Tâm Thảo" respawnSeconds="90">
+    <Yield itemId="thanh_tam_thao" min="1" max="2" chance="100"/>
+  </Node>
+  <Node id="node_huyen_thiet" name="Huyền Thiết Khoáng Mạch" respawnSeconds="120">
+    <Yield itemId="huyen_thiet_quang" min="1" max="3" chance="100"/>
+  </Node>
+  <Node id="node_tu_la_hoa" name="Tử La Hoa Tùng" respawnSeconds="150">
+    <Yield itemId="tu_la_hoa" min="1" max="2" chance="100"/>
+  </Node>
+  <Node id="node_xich_dong" name="Xích Đồng Khoáng Mạch" respawnSeconds="100">
+    <Yield itemId="xich_dong_quang" min="1" max="3" chance="100"/>
+  </Node>
+  <Node id="node_hu_khong_tinh" name="Hư Không Tinh Mạch" respawnSeconds="600">
+    <Yield itemId="hu_khong_tinh_thach" min="1" max="1" chance="25"/>
+  </Node>
+  <Node id="node_loi_kiep_tinh" name="Lôi Kiếp Tinh Mạch" respawnSeconds="900">
+    <Yield itemId="loi_kiep_tinh" min="1" max="1" chance="20"/>
+  </Node>
+</GatheringNodes>

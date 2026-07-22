@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PillRecipes>
+  <Recipe id="recipe_hoi_khi_dan" name="Hồi Khí Đan" alchemyLevel="1" durationSeconds="30">
+    <Ingredients>
+      <Ingredient itemId="linh_thao_pham" quantity="3"/>
+    </Ingredients>
+    <Output itemId="hoi_khi_dan" quantity="1"/>
+  </Recipe>
+  <Recipe id="recipe_thanh_tam_dan" name="Thanh Tâm Đan" alchemyLevel="2" durationSeconds="90">
+    <Ingredients>
+      <Ingredient itemId="thanh_tam_thao" quantity="2"/>
+      <Ingredient itemId="linh_thao_pham" quantity="5"/>
+    </Ingredients>
+    <Output itemId="thanh_tam_dan" quantity="1"/>
+  </Recipe>
+</PillRecipes>

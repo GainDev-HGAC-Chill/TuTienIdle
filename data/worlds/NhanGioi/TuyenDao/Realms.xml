@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RealmPath id="main" name="Tu Vi Chính">
+  <Realm id="luyen_khi" name="Luyện Khí" order="1" layers="9"/>
+  <Realm id="truc_co" name="Trúc Cơ" order="2" layers="9"/>
+  <Realm id="kim_dan" name="Kim Đan" order="3" layers="9"/>
+  <Realm id="nguyen_anh" name="Nguyên Anh" order="4" layers="9"/>
+  <Realm id="hoa_than" name="Hóa Thần" order="5" layers="9"/>
+  <Realm id="luyen_hu" name="Luyện Hư" order="6" layers="9"/>
+  <Realm id="hop_the" name="Hợp Thể" order="7" layers="9"/>
+  <Realm id="dai_thua" name="Đại Thừa" order="8" layers="9"/>
+  <Realm id="do_kiep" name="Độ Kiếp" order="9" layers="9"/>
+</RealmPath>

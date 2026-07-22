@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="he_thong" schemaVersion="2.0">
+  <Files>
+    <File path="Qualities.xml"/>
+    <File path="RewardTypes.xml"/>
+    <File path="StatusEffects.xml"/>
+    <File path="InventoryRules.xml"/>
+  </Files>
+</Module>

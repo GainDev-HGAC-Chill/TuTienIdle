@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<MonsterSkills version="1.0.0">
-
-  <Skill
-    id="skill_son_lang_trao"
-    name="Sơn Lang Trảo"
-    type="damage"
-    target="player"
-    element="physical"
-    powerMultiplier="1.20"
-    flatDamage="0"
-    hitRate="1.00"
-    cooldownRounds="3"
-    priority="10"
-    enabled="true">
-    <Description>
-      Sơn Lang vung lợi trảo, gây 120% công kích vật lý.
-    </Description>
+<MonsterSkillCatalog>
+  <Skill id="yeu_thu_trao" name="Yêu Thú Trảo" type="damage" cooldownRounds="2">
+    <Formula attackScale="1.20"/>
+  </Skill>
+  <Skill id="doc_phun" name="Độc Phun" type="damage_status" cooldownRounds="3">
+    <Formula attackScale="0.85"/>
+    <ApplyStatus statusEffectId="noi_thuong" chance="20"/>
+  </Skill>
+  <Skill id="kiem_khi" name="Kiếm Khí" type="damage" cooldownRounds="3">
+    <Formula attackScale="1.45"/>
+  </Skill>
+  <Skill id="hu_khong_thuan_di" name="Hư Không Thuấn Di" type="buff" cooldownRounds="4">
+    <Modifier stat="dodge" operation="add" value="18" durationRounds="2"/>
+  </Skill>
+  <Skill id="loi_kiep" name="Lôi Kiếp" type="damage" cooldownRounds="4">
+    <Formula attackScale="1.65"/>
   </Skill>
 
-  <Skill
-    id="skill_son_lang_cuong_no"
-    name="Sơn Lang Cuồng Nộ"
-    type="buff"
-    target="self"
-    trigger="hp_below"
-    triggerValue="0.30"
-    effectId="effect_son_lang_cuong_no"
-    cooldownRounds="99"
-    priority="100"
-    enabled="true">
-    <Description>
-      Khi sinh lực dưới 30%, Sơn Lang tiến vào trạng thái cuồng nộ.
-    </Description>
-  </Skill>
+  <SkillSet id="skillset_normal_beast"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_wolf"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_reptile"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_snake"><Use skillId="doc_phun" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_poison"><Use skillId="doc_phun" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_insect"><Use skillId="doc_phun" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_demon"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_ghost"><Use skillId="kiem_khi" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_sword"><Use skillId="kiem_khi" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_bird"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_blood"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_void"><Use skillId="hu_khong_thuan_di" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_thunder"><Use skillId="loi_kiep" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_wood"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_normal_stone"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
 
-</MonsterSkills>
+  <SkillSet id="skillset_mutated_wolf"><Use skillId="yeu_thu_trao" weight="75"/><Use skillId="doc_phun" weight="25"/></SkillSet>
+  <SkillSet id="skillset_mutated_poison"><Use skillId="doc_phun" weight="100"/></SkillSet>
+  <SkillSet id="skillset_mutated_reptile"><Use skillId="yeu_thu_trao" weight="70"/><Use skillId="doc_phun" weight="30"/></SkillSet>
+  <SkillSet id="skillset_mutated_ghost"><Use skillId="kiem_khi" weight="100"/></SkillSet>
+  <SkillSet id="skillset_mutated_blood"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+  <SkillSet id="skillset_mutated_void"><Use skillId="hu_khong_thuan_di" weight="45"/><Use skillId="kiem_khi" weight="55"/></SkillSet>
+  <SkillSet id="skillset_mutated_thunder"><Use skillId="loi_kiep" weight="100"/></SkillSet>
+  <SkillSet id="skillset_mutated_beast"><Use skillId="yeu_thu_trao" weight="100"/></SkillSet>
+
+  <SkillSet id="skillset_boss_boss"><Use skillId="yeu_thu_trao" weight="50"/><Use skillId="kiem_khi" weight="50"/></SkillSet>
+  <SkillSet id="skillset_world_boss"><Use skillId="loi_kiep" weight="70"/><Use skillId="hu_khong_thuan_di" weight="30"/></SkillSet>
+</MonsterSkillCatalog>

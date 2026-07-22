@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RealmPath id="body" name="Luyện Thể">
+  <Realm id="luyen_bi" name="Luyện Bì" order="1" layers="9"/>
+  <Realm id="luyen_nhuc" name="Luyện Nhục" order="2" layers="9"/>
+  <Realm id="luyen_can" name="Luyện Cân" order="3" layers="9"/>
+  <Realm id="luyen_cot" name="Luyện Cốt" order="4" layers="9"/>
+  <Realm id="luyen_tang" name="Luyện Tạng" order="5" layers="9"/>
+  <Realm id="kim_than" name="Kim Thân" order="6" layers="9"/>
+  <Realm id="bat_diet" name="Bất Diệt" order="7" layers="9"/>
+</RealmPath>

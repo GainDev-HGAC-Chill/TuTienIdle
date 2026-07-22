@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NPCs>
+  <NPC id="npc_tap_hoa" name="Tạp Hóa Chưởng Quầy" role="merchant" shopId="shop_tap_hoa"/>
+  <NPC id="npc_dan_su" name="Thanh Mộc Đan Sư" role="alchemist" shopId="shop_dan_duoc"/>
+  <NPC id="npc_luyen_khi_su" name="Huyền Thiết Luyện Khí Sư" role="blacksmith" shopId="shop_luyen_khi"/>
+  <NPC id="npc_doc_y" name="Độc Y Ẩn Sĩ" role="healer"/>
+  <NPC id="npc_kiem_lao" name="Kiếm Lão" role="elder"/>
+  <NPC id="npc_hanh_cuoc" name="Hành Cước Thương Nhân" role="merchant" shopId="shop_hanh_cuoc"/>
+  <NPC id="npc_hu_khong_khach" name="Hư Không Khách" role="mysterious"/>
+  <NPC id="npc_do_kiep_tan_nhan" name="Độ Kiếp Tán Nhân" role="elder"/>
+</NPCs>

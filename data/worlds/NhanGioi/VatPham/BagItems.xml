@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items category="bag_expansion">
+  <Item id="tieu_can_khon_phu" name="Tiểu Càn Khôn Phù" category="bag_expansion"
+        qualityId="hoang" stackLimit="99" sellPrice="0" tradable="true" usable="true">
+    <UseEffect type="expand_bag" slots="5" itemMaximumSlots="100"/>
+  </Item>
+  <Item id="dai_can_khon_phu" name="Đại Càn Khôn Phù" category="bag_expansion"
+        qualityId="dia" stackLimit="99" sellPrice="0" tradable="true" usable="true">
+    <UseEffect type="expand_bag" slots="10" itemMaximumSlots="150"/>
+  </Item>
+  <Item id="hu_khong_gioi_thach" name="Hư Không Giới Thạch" category="bag_expansion"
+        qualityId="thien" stackLimit="9" sellPrice="0" tradable="false" usable="true">
+    <UseEffect type="expand_bag" slots="20" itemMaximumSlots="200"/>
+  </Item>
+</Items>

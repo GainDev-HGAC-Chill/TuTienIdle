@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StatusEffects>
+  <StatusEffect id="noi_thuong" name="Nội Thương" category="debuff" stackMode="refresh">
+    <Duration seconds="1800"/>
+    <Modifiers><Modifier stat="maxHpPercent" operation="add" value="-10"/></Modifiers>
+  </StatusEffect>
+  <StatusEffect id="tam_ma" name="Tâm Ma Quấy Nhiễu" category="debuff" stackMode="refresh">
+    <Duration seconds="3600"/>
+    <Modifiers><Modifier stat="cultivationGainPercent" operation="add" value="-15"/></Modifiers>
+  </StatusEffect>
+  <StatusEffect id="thanh_tam" name="Thanh Tâm" category="buff" stackMode="refresh">
+    <Duration seconds="900"/>
+    <Modifiers><Modifier stat="soulExpGainPercent" operation="add" value="10"/></Modifiers>
+  </StatusEffect>
+</StatusEffects>

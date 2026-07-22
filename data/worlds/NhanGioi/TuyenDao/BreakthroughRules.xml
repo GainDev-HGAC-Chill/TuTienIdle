@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BreakthroughRules>
+  <Rule path="main" baseChance="75" failureKeepsRealm="true">
+    <FailurePenalty cultivationLossPercent="5" statusEffectId="noi_thuong"/>
+  </Rule>
+  <Rule path="body" baseChance="82" cannotExceedPath="main"/>
+  <Rule path="soul" baseChance="78" cannotExceedPath="main"/>
+</BreakthroughRules>

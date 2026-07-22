@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Items category="herb">
+  <Item id="linh_thao_pham" name="Phàm Giai Linh Thảo" category="herb" subCategory="common"
+        qualityId="pham" stackLimit="999" sellPrice="6" tradable="true" usable="false">
+    <Description>Phụ liệu luyện đan thông dụng.</Description>
+  </Item>
+  <Item id="thanh_tam_thao" name="Thanh Tâm Thảo" category="herb" subCategory="spirit"
+        qualityId="hoang" stackLimit="999" sellPrice="18" tradable="true" usable="false">
+    <Description>Dược thảo giúp ổn định tâm thần.</Description>
+  </Item>
+  <Item id="tu_la_hoa" name="Tử La Hoa" category="herb" subCategory="poison"
+        qualityId="huyen" stackLimit="999" sellPrice="45" tradable="true" usable="false">
+    <Description>Linh hoa màu tím dùng cho đan dược và độc thuật.</Description>
+  </Item>
+</Items>

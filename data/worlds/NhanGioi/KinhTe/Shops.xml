@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shops>
+  <Shop id="shop_tap_hoa" name="Tạp Hóa Các" currencyId="linh_thach">
+    <Offer itemId="hoi_khi_dan" price="30" stock="-1"/>
+    <Offer itemId="tieu_can_khon_phu" price="3500" stock="1" refreshSeconds="86400"/>
+  </Shop>
+  <Shop id="shop_dan_duoc" name="Bách Thảo Đan Các" currencyId="linh_thach">
+    <Offer itemId="hoi_khi_dan" price="25" stock="-1"/>
+    <Offer itemId="thanh_tam_dan" price="180" stock="20" refreshSeconds="86400"/>
+  </Shop>
+  <Shop id="shop_luyen_khi" name="Huyền Thiết Khí Các" currencyId="linh_thach">
+    <Offer itemId="thanh_phong_kiem" price="650" stock="5" refreshSeconds="86400"/>
+    <Offer itemId="huyen_thiet_gia" price="2200" stock="2" refreshSeconds="86400"/>
+  </Shop>
+  <Shop id="shop_hanh_cuoc" name="Hành Cước Kỳ Trân" currencyId="linh_thach">
+    <Offer itemId="dai_can_khon_phu" price="18000" stock="1" refreshSeconds="604800"/>
+  </Shop>
+</Shops>

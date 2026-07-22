@@ -1,13 +1,317 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Monsters worldId="nhan_gioi">
-	<Monster id="monster_son_lang" name="Sơn Lang" rank="normal" level="1">
-		<Stats hp="300" attack="18" defense="5" speed="8"/><Rewards spiritStonesMin="2" spiritStonesMax="4" bodyExp="25" soulExp="5" mainExp="0" dropTableId="none"/>
-		    <Skills>
-			  <SkillRef skillId="skill_son_lang_trao" chance="0.30" unlockHpPercent="1.00" enabled="true" />
-			  <SkillRef skillId="skill_son_lang_cuong_no" chance="1.00" unlockHpPercent="0.30" enabled="true" />
-			</Skills>
-	</Monster>
-	<Monster id="monster_doc_nha" name="Độc Nha Xà" rank="normal" level="2">
-		<Stats hp="380" attack="22" defense="7" speed="10"/><Rewards spiritStonesMin="3" spiritStonesMax="6" bodyExp="30" soulExp="7" mainExp="0" dropTableId="none"/>
-	</Monster>
+<?xml version='1.0' encoding='utf-8'?>
+<Monsters worldId="nhan_gioi" schemaVersion="2.0">
+  <Monster id="son_tho" name="Sơn Thổ" rank="normal" level="1" enabled="true" lootTableId="loot_son_tho" skillSetId="skillset_normal_beast">
+    <Stats hp="80" attack="8" defense="2" speed="6" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="1" max="2" />
+      <Reward type="experience" path="body" amount="3" />
+    </Rewards>
+  </Monster>
+  <Monster id="thanh_lang" name="Thanh Lang" rank="normal" level="3" enabled="true" lootTableId="loot_thanh_lang" skillSetId="skillset_normal_wolf">
+    <Stats hp="130" attack="13" defense="5" speed="8" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="2" max="4" />
+      <Reward type="experience" path="body" amount="6" />
+    </Rewards>
+  </Monster>
+  <Monster id="son_tru" name="Sơn Trư" rank="normal" level="5" enabled="true" lootTableId="loot_son_tru" skillSetId="skillset_normal_beast">
+    <Stats hp="180" attack="16" defense="8" speed="6" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="2" max="5" />
+      <Reward type="experience" path="body" amount="7" />
+    </Rewards>
+  </Monster>
+  <Monster id="huyet_muc_lang" name="Huyết Mục Thanh Lang" rank="mutated" level="8" enabled="true" lootTableId="loot_huyet_muc_lang" skillSetId="skillset_mutated_wolf">
+    <Stats hp="420" attack="34" defense="16" speed="12" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="8" max="14" />
+      <Reward type="experience" path="body" amount="20" />
+      <Reward type="experience" path="soul" amount="1" />
+    </Rewards>
+  </Monster>
+  <Monster id="lang_vuong" name="Thanh Nha Lang Vương" rank="boss" level="9" enabled="true" lootTableId="loot_lang_vuong" skillSetId="skillset_boss_boss">
+    <Stats hp="1900" attack="74" defense="28" speed="14" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="30" max="55" />
+      <Reward type="experience" path="body" amount="80" />
+      <Reward type="experience" path="soul" amount="4" />
+    </Rewards>
+  </Monster>
+  <Monster id="doc_tuyen_trung" name="Độc Tuyến Trùng" rank="normal" level="6" enabled="true" lootTableId="loot_doc_tuyen_trung" skillSetId="skillset_normal_beast">
+    <Stats hp="210" attack="19" defense="8" speed="9" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="3" max="6" />
+      <Reward type="experience" path="body" amount="8" />
+    </Rewards>
+  </Monster>
+  <Monster id="moc_yeu" name="Mộc Yêu" rank="normal" level="7" enabled="true" lootTableId="loot_moc_yeu" skillSetId="skillset_normal_demon">
+    <Stats hp="260" attack="21" defense="13" speed="5" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="3" max="7" />
+      <Reward type="experience" path="body" amount="9" />
+    </Rewards>
+  </Monster>
+  <Monster id="thanh_van_loc" name="Thanh Vân Lộc" rank="normal" level="9" enabled="true" lootTableId="loot_thanh_van_loc" skillSetId="skillset_normal_beast">
+    <Stats hp="310" attack="26" defense="11" speed="16" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="4" max="9" />
+      <Reward type="experience" path="body" amount="11" />
+    </Rewards>
+  </Monster>
+  <Monster id="tu_van_doc_hac" name="Tử Văn Độc Hạt" rank="mutated" level="12" enabled="true" lootTableId="loot_tu_van_doc_hac" skillSetId="skillset_mutated_poison">
+    <Stats hp="620" attack="48" defense="22" speed="11" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="12" max="20" />
+      <Reward type="experience" path="body" amount="28" />
+      <Reward type="experience" path="soul" amount="2" />
+    </Rewards>
+  </Monster>
+  <Monster id="bach_thao_yeu_vuong" name="Bách Thảo Yêu Vương" rank="boss" level="14" enabled="true" lootTableId="loot_bach_thao_yeu_vuong" skillSetId="skillset_boss_boss">
+    <Stats hp="2800" attack="105" defense="45" speed="10" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="50" max="90" />
+      <Reward type="experience" path="body" amount="120" />
+      <Reward type="experience" path="soul" amount="6" />
+    </Rewards>
+  </Monster>
+  <Monster id="thiet_giap_tich" name="Thiết Giáp Tích" rank="normal" level="18" enabled="true" lootTableId="loot_thiet_giap_tich" skillSetId="skillset_normal_reptile">
+    <Stats hp="650" attack="58" defense="38" speed="8" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="8" max="18" />
+      <Reward type="experience" path="body" amount="23" />
+      <Reward type="experience" path="soul" amount="2" />
+    </Rewards>
+  </Monster>
+  <Monster id="ham_son_hung" name="Hám Sơn Hùng" rank="normal" level="20" enabled="true" lootTableId="loot_ham_son_hung" skillSetId="skillset_normal_beast">
+    <Stats hp="820" attack="72" defense="44" speed="7" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="10" max="22" />
+      <Reward type="experience" path="body" amount="28" />
+      <Reward type="experience" path="soul" amount="2" />
+    </Rewards>
+  </Monster>
+  <Monster id="kim_thach_quy" name="Kim Thạch Quỷ" rank="normal" level="22" enabled="true" lootTableId="loot_kim_thach_quy" skillSetId="skillset_normal_poison">
+    <Stats hp="760" attack="68" defense="52" speed="5" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="10" max="24" />
+      <Reward type="experience" path="body" amount="30" />
+      <Reward type="experience" path="soul" amount="3" />
+    </Rewards>
+  </Monster>
+  <Monster id="xac_thiet_ma_tich" name="Xích Thiết Ma Tích" rank="mutated" level="25" enabled="true" lootTableId="loot_xac_thiet_ma_tich" skillSetId="skillset_mutated_reptile">
+    <Stats hp="1600" attack="126" defense="82" speed="10" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="25" max="45" />
+      <Reward type="experience" path="body" amount="58" />
+      <Reward type="experience" path="soul" amount="6" />
+    </Rewards>
+  </Monster>
+  <Monster id="huyen_thiet_thu_vuong" name="Huyền Thiết Thú Vương" rank="boss" level="28" enabled="true" lootTableId="loot_huyen_thiet_thu_vuong" skillSetId="skillset_boss_boss">
+    <Stats hp="7200" attack="260" defense="145" speed="9" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="100" max="170" />
+      <Reward type="experience" path="body" amount="220" />
+      <Reward type="experience" path="soul" amount="14" />
+    </Rewards>
+  </Monster>
+  <Monster id="huyet_van_xa" name="Huyết Văn Xà" rank="normal" level="30" enabled="true" lootTableId="loot_huyet_van_xa" skillSetId="skillset_normal_snake">
+    <Stats hp="1800" attack="150" defense="74" speed="15" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="18" max="42" />
+      <Reward type="experience" path="body" amount="55" />
+      <Reward type="experience" path="soul" amount="5" />
+    </Rewards>
+  </Monster>
+  <Monster id="am_trach_coc" name="Âm Trạch Cóc" rank="normal" level="32" enabled="true" lootTableId="loot_am_trach_coc" skillSetId="skillset_normal_poison">
+    <Stats hp="2200" attack="164" defense="90" speed="7" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="20" max="48" />
+      <Reward type="experience" path="body" amount="62" />
+      <Reward type="experience" path="soul" amount="6" />
+    </Rewards>
+  </Monster>
+  <Monster id="thi_doc_nguu" name="Thi Độc Ngưu" rank="normal" level="35" enabled="true" lootTableId="loot_thi_doc_nguu" skillSetId="skillset_normal_poison">
+    <Stats hp="2800" attack="185" defense="126" speed="6" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="24" max="55" />
+      <Reward type="experience" path="body" amount="70" />
+      <Reward type="experience" path="soul" amount="7" />
+    </Rewards>
+  </Monster>
+  <Monster id="cuu_muc_doc_xa" name="Cửu Mục Độc Xà" rank="mutated" level="39" enabled="true" lootTableId="loot_cuu_muc_doc_xa" skillSetId="skillset_mutated_snake">
+    <Stats hp="5200" attack="310" defense="182" speed="17" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="55" max="100" />
+      <Reward type="experience" path="body" amount="128" />
+      <Reward type="experience" path="soul" amount="14" />
+    </Rewards>
+  </Monster>
+  <Monster id="van_doc_yeu_hau" name="Vạn Độc Yêu Hậu" rank="boss" level="42" enabled="true" lootTableId="loot_van_doc_yeu_hau" skillSetId="skillset_boss_boss">
+    <Stats hp="22000" attack="650" defense="320" speed="14" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="220" max="390" />
+      <Reward type="experience" path="body" amount="500" />
+      <Reward type="experience" path="soul" amount="35" />
+    </Rewards>
+  </Monster>
+  <Monster id="kiem_si_thach_khoi" name="Kiếm Si Thạch Khôi" rank="normal" level="45" enabled="true" lootTableId="loot_kiem_si_thach_khoi" skillSetId="skillset_normal_poison">
+    <Stats hp="6000" attack="360" defense="240" speed="10" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="60" max="120" />
+      <Reward type="experience" path="body" amount="155" />
+      <Reward type="experience" path="soul" amount="16" />
+    </Rewards>
+  </Monster>
+  <Monster id="phi_kiem_linh" name="Phi Kiếm Linh" rank="normal" level="48" enabled="true" lootTableId="loot_phi_kiem_linh" skillSetId="skillset_normal_sword">
+    <Stats hp="5200" attack="410" defense="180" speed="26" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="65" max="130" />
+      <Reward type="experience" path="body" amount="165" />
+      <Reward type="experience" path="soul" amount="18" />
+    </Rewards>
+  </Monster>
+  <Monster id="thien_nhan_dieu" name="Thiên Nhận Điêu" rank="normal" level="52" enabled="true" lootTableId="loot_thien_nhan_dieu" skillSetId="skillset_normal_bird">
+    <Stats hp="6800" attack="470" defense="220" speed="28" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="70" max="145" />
+      <Reward type="experience" path="body" amount="185" />
+      <Reward type="experience" path="soul" amount="20" />
+    </Rewards>
+  </Monster>
+  <Monster id="doan_kiem_oan_hon" name="Đoạn Kiếm Oán Hồn" rank="mutated" level="56" enabled="true" lootTableId="loot_doan_kiem_oan_hon" skillSetId="skillset_mutated_ghost">
+    <Stats hp="14000" attack="850" defense="420" speed="24" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="150" max="280" />
+      <Reward type="experience" path="body" amount="360" />
+      <Reward type="experience" path="soul" amount="42" />
+    </Rewards>
+  </Monster>
+  <Monster id="vo_danh_kiem_chu" name="Vô Danh Kiếm Chủ" rank="boss" level="60" enabled="true" lootTableId="loot_vo_danh_kiem_chu" skillSetId="skillset_boss_boss">
+    <Stats hp="65000" attack="1800" defense="920" speed="30" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="650" max="1100" />
+      <Reward type="experience" path="body" amount="1450" />
+      <Reward type="experience" path="soul" amount="100" />
+    </Rewards>
+  </Monster>
+  <Monster id="huyet_bat" name="Huyết Bức" rank="normal" level="64" enabled="true" lootTableId="loot_huyet_bat" skillSetId="skillset_normal_blood">
+    <Stats hp="15000" attack="900" defense="430" speed="29" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="170" max="320" />
+      <Reward type="experience" path="body" amount="410" />
+      <Reward type="experience" path="soul" amount="45" />
+    </Rewards>
+  </Monster>
+  <Monster id="ma_van_bao" name="Ma Văn Báo" rank="normal" level="67" enabled="true" lootTableId="loot_ma_van_bao" skillSetId="skillset_normal_beast">
+    <Stats hp="19000" attack="1080" defense="520" speed="34" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="190" max="360" />
+      <Reward type="experience" path="body" amount="460" />
+      <Reward type="experience" path="soul" amount="50" />
+    </Rewards>
+  </Monster>
+  <Monster id="huyet_giap_quy" name="Huyết Giáp Quỷ" rank="normal" level="70" enabled="true" lootTableId="loot_huyet_giap_quy" skillSetId="skillset_normal_ghost">
+    <Stats hp="25000" attack="1200" defense="760" speed="18" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="220" max="410" />
+      <Reward type="experience" path="body" amount="520" />
+      <Reward type="experience" path="soul" amount="58" />
+    </Rewards>
+  </Monster>
+  <Monster id="thien_huyet_ma" name="Thiên Huyết Ma" rank="mutated" level="74" enabled="true" lootTableId="loot_thien_huyet_ma" skillSetId="skillset_mutated_blood">
+    <Stats hp="52000" attack="2350" defense="1180" speed="25" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="480" max="900" />
+      <Reward type="experience" path="body" amount="1150" />
+      <Reward type="experience" path="soul" amount="130" />
+    </Rewards>
+  </Monster>
+  <Monster id="huyet_ma_lao_to" name="Huyết Ma Lão Tổ" rank="boss" level="78" enabled="true" lootTableId="loot_huyet_ma_lao_to" skillSetId="skillset_boss_boss">
+    <Stats hp="260000" attack="5200" defense="2600" speed="31" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="2200" max="3900" />
+      <Reward type="experience" path="body" amount="5000" />
+      <Reward type="experience" path="soul" amount="380" />
+    </Rewards>
+  </Monster>
+  <Monster id="hu_khong_anh_thu" name="Hư Không Ảnh Thú" rank="normal" level="82" enabled="true" lootTableId="loot_hu_khong_anh_thu" skillSetId="skillset_normal_void">
+    <Stats hp="58000" attack="2500" defense="1400" speed="40" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="520" max="980" />
+      <Reward type="experience" path="body" amount="1250" />
+      <Reward type="experience" path="soul" amount="150" />
+    </Rewards>
+  </Monster>
+  <Monster id="thuc_gioi_trung" name="Thực Giới Trùng" rank="normal" level="85" enabled="true" lootTableId="loot_thuc_gioi_trung" skillSetId="skillset_normal_beast">
+    <Stats hp="72000" attack="2900" defense="1680" speed="20" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="600" max="1100" />
+      <Reward type="experience" path="body" amount="1420" />
+      <Reward type="experience" path="soul" amount="170" />
+    </Rewards>
+  </Monster>
+  <Monster id="vo_dien_hanh_gia" name="Vô Diện Hành Giả" rank="normal" level="88" enabled="true" lootTableId="loot_vo_dien_hanh_gia" skillSetId="skillset_normal_void">
+    <Stats hp="86000" attack="3300" defense="1900" speed="32" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="680" max="1260" />
+      <Reward type="experience" path="body" amount="1600" />
+      <Reward type="experience" path="soul" amount="190" />
+    </Rewards>
+  </Monster>
+  <Monster id="nghich_khong_co_thu" name="Nghịch Không Cổ Thú" rank="mutated" level="92" enabled="true" lootTableId="loot_nghich_khong_co_thu" skillSetId="skillset_mutated_void">
+    <Stats hp="180000" attack="6200" defense="3500" speed="38" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="1400" max="2600" />
+      <Reward type="experience" path="body" amount="3300" />
+      <Reward type="experience" path="soul" amount="420" />
+    </Rewards>
+  </Monster>
+  <Monster id="thai_hu_dao_anh" name="Thái Hư Đạo Ảnh" rank="boss" level="96" enabled="true" lootTableId="loot_thai_hu_dao_anh" skillSetId="skillset_boss_boss">
+    <Stats hp="900000" attack="13500" defense="7200" speed="46" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="6500" max="11800" />
+      <Reward type="experience" path="body" amount="15000" />
+      <Reward type="experience" path="soul" amount="1200" />
+    </Rewards>
+  </Monster>
+  <Monster id="loi_kiep_linh" name="Lôi Kiếp Linh" rank="normal" level="100" enabled="true" lootTableId="loot_loi_kiep_linh" skillSetId="skillset_normal_thunder">
+    <Stats hp="220000" attack="7200" defense="4200" speed="44" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="1600" max="3100" />
+      <Reward type="experience" path="body" amount="3900" />
+      <Reward type="experience" path="soul" amount="500" />
+    </Rewards>
+  </Monster>
+  <Monster id="thien_phat_co_thu" name="Thiên Phạt Cổ Thú" rank="normal" level="104" enabled="true" lootTableId="loot_thien_phat_co_thu" skillSetId="skillset_normal_thunder">
+    <Stats hp="300000" attack="8600" defense="5200" speed="35" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="1900" max="3600" />
+      <Reward type="experience" path="body" amount="4600" />
+      <Reward type="experience" path="soul" amount="600" />
+    </Rewards>
+  </Monster>
+  <Monster id="do_kiep_tan_tien" name="Độ Kiếp Tán Tiên" rank="normal" level="108" enabled="true" lootTableId="loot_do_kiep_tan_tien" skillSetId="skillset_normal_thunder">
+    <Stats hp="420000" attack="10500" defense="6500" speed="48" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="2400" max="4500" />
+      <Reward type="experience" path="body" amount="5800" />
+      <Reward type="experience" path="soul" amount="760" />
+    </Rewards>
+  </Monster>
+  <Monster id="cuu_tieu_loi_thu" name="Cửu Tiêu Lôi Thú" rank="mutated" level="112" enabled="true" lootTableId="loot_cuu_tieu_loi_thu" skillSetId="skillset_mutated_thunder">
+    <Stats hp="880000" attack="19000" defense="11000" speed="52" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="5200" max="9800" />
+      <Reward type="experience" path="body" amount="12500" />
+      <Reward type="experience" path="soul" amount="1700" />
+    </Rewards>
+  </Monster>
+  <Monster id="thien_kiep_hoa_than" name="Thiên Kiếp Hóa Thân" rank="world_boss" level="118" enabled="true" lootTableId="loot_thien_kiep_hoa_than" skillSetId="skillset_world_boss">
+    <Stats hp="4800000" attack="42000" defense="24000" speed="58" crit="5" dodge="3" />
+    <Rewards>
+      <Reward type="currency" currencyId="linh_thach" min="28000" max="52000" />
+      <Reward type="experience" path="body" amount="68000" />
+      <Reward type="experience" path="soul" amount="8000" />
+    </Rewards>
+  </Monster>
 </Monsters>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlantingRules>
+  <Crop itemId="linh_thao_pham" growSeconds="300" yieldMin="2" yieldMax="4"/>
+  <Crop itemId="thanh_tam_thao" growSeconds="900" yieldMin="1" yieldMax="3"/>
+  <Crop itemId="tu_la_hoa" growSeconds="1800" yieldMin="1" yieldMax="2"/>
+</PlantingRules>

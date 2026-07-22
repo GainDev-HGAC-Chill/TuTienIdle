@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpiritualRoots>
+  <Root id="kim" name="Kim Linh Căn" element="metal"><Growth attack="1.18" defense="1.04"/></Root>
+  <Root id="moc" name="Mộc Linh Căn" element="wood"><Growth maxHp="1.16" healing="1.12"/></Root>
+  <Root id="thuy" name="Thủy Linh Căn" element="water"><Growth maxMp="1.18" dodge="1.08"/></Root>
+  <Root id="hoa" name="Hỏa Linh Căn" element="fire"><Growth attack="1.14" crit="1.12"/></Root>
+  <Root id="tho" name="Thổ Linh Căn" element="earth"><Growth defense="1.18" maxHp="1.10"/></Root>
+  <Root id="loi" name="Lôi Linh Căn" element="thunder"><Growth speed="1.12" crit="1.10"/></Root>
+  <Root id="bang" name="Băng Linh Căn" element="ice"><Growth defense="1.08" control="1.14"/></Root>
+  <Root id="phong" name="Phong Linh Căn" element="wind"><Growth speed="1.18" dodge="1.12"/></Root>
+  <Root id="am" name="Ám Linh Căn" element="dark"><Growth critDamage="1.16" soul="1.10"/></Root>
+  <Root id="quang" name="Quang Linh Căn" element="light"><Growth healing="1.16" resistance="1.10"/></Root>
+</SpiritualRoots>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CultivationArts>
+  <Art id="thanh_moc_quyet" name="Thanh Mộc Quyết" qualityId="hoang" element="wood" maxLevel="10">
+    <Description>Công pháp dưỡng sinh, thiên về khí huyết và hồi phục.</Description>
+    <LevelGrowth maxHpPercent="2" healingPercent="1"/>
+  </Art>
+  <Art id="xich_hoa_cong" name="Xích Hỏa Công" qualityId="hoang" element="fire" maxLevel="10">
+    <Description>Công pháp hỏa hệ mạnh về công kích.</Description>
+    <LevelGrowth attackPercent="2" crit="0.5"/>
+  </Art>
+  <Art id="huyen_thiet_than_cong" name="Huyền Thiết Thần Công" qualityId="huyen" element="earth" maxLevel="10">
+    <Description>Công pháp luyện thể tăng phòng ngự và sinh lực.</Description>
+    <LevelGrowth defensePercent="2.5" maxHpPercent="1.5"/>
+  </Art>
+</CultivationArts>
