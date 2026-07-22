@@ -996,6 +996,8 @@ class DataManager {
       this.mapByRuntimeId.set(map.runtimeId, map);
     });
 
+    this.rebuildSpiritualRootAliases();
+
     this.monsters.forEach((monster, index) => {
       monster.id = index + 1;
       monster.runtimeId = monster.id;
@@ -1215,9 +1217,79 @@ class DataManager {
     }));
   }
 
+  normalizeSpiritualRootKey(value) {
+    return String(value ?? '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+  }
+
+  rebuildSpiritualRootAliases() {
+    this.spiritualRootAliases = new Map();
+
+    const addAlias = (alias, root) => {
+      const key = this.normalizeSpiritualRootKey(alias);
+      if (key && root && !this.spiritualRootAliases.has(key)) {
+        this.spiritualRootAliases.set(key, root);
+      }
+    };
+
+    for (const root of this.spiritualRoots) {
+      addAlias(root.id, root);
+      addAlias(root.name, root);
+      addAlias(root.element, root);
+
+      const id = this.normalizeSpiritualRootKey(root.id);
+      addAlias(id.replace(/_linh_can$/, ''), root);
+      addAlias(id.replace(/_tap_linh_can$/, ''), root);
+      addAlias(id.replace(/_thien_linh_can$/, ''), root);
+      addAlias(id.replace(/_dia_linh_can$/, ''), root);
+      addAlias(id.replace(/_pham_linh_can$/, ''), root);
+    }
+  }
+
   getSpiritualRoot(id) {
     this.ensureLoaded();
-    return this.spiritualRootById.get(String(id)) || null;
+
+    const rawId = String(id ?? '').trim();
+    if (!rawId) return null;
+
+    const exact = this.spiritualRootById.get(rawId);
+    if (exact) return exact;
+
+    if (!this.spiritualRootAliases) {
+      this.rebuildSpiritualRootAliases();
+    }
+
+    return this.spiritualRootAliases.get(
+      this.normalizeSpiritualRootKey(rawId)
+    ) || null;
+  }
+
+  resolvePlayerSpiritualRoot(player) {
+    this.ensureLoaded();
+
+    const candidates = [
+      player?.spiritual_root,
+      player?.base_spiritual_root,
+      player?.spiritual_root_id,
+      player?.base_spiritual_root_id,
+      player?.root_id,
+      player?.element
+    ];
+
+    for (const candidate of candidates) {
+      const root = this.getSpiritualRoot(candidate);
+      if (root) return root;
+    }
+
+    return this.getSpiritualRoot('ngu_hanh_tap_linh_can') ||
+      this.spiritualRoots[0] ||
+      null;
   }
 
   getAllSpiritualRoots() {
@@ -1239,6 +1311,7 @@ class DataManager {
   getRealmGrowth(spiritualRootId, baseGrowth) {
     const root =
       this.getSpiritualRoot(spiritualRootId) ||
+      this.getSpiritualRoot('ngu_hanh_tap_linh_can') ||
       this.spiritualRoots[0];
 
     if (!root) {

@@ -1,5 +1,5 @@
 const progression = require('../config/cultivationArtProgressionManager');
-const artManager = require('../config/cultivationArtManager');
+const artManager = require('../config/cultivationArtManager'); const dataManager = require('../config/dataManager');
 const formula = require('../formulas/cultivationFormula');
 const repository = require('../repositories/cultivationArtRepository');
 
@@ -54,16 +54,30 @@ function addStat(player, stat, affinityMultiplier, levelMultiplier = 1) {
 }
 
 function isAffinityMatched(player, art) {
-  const artRootId = String(art?.rootId || '').trim();
-  if (!artRootId) return false;
+  const playerRoot = dataManager.resolvePlayerSpiritualRoot(player);
+  if (!playerRoot || !art) return false;
 
-  const currentRootId = String(player?.spiritual_root || '').trim();
-  const baseRootId = String(player?.base_spiritual_root || '').trim();
+  const artRoot =
+    dataManager.getSpiritualRoot(art.rootId) ||
+    dataManager.getSpiritualRoot(art.element);
 
-  return artRootId === currentRootId || artRootId === baseRootId;
-}
+  if (artRoot) {
+    return artRoot.id === playerRoot.id;
+  }
 
-async function applyToPlayer(player, connection) {
+  const normalize = value =>
+    String(value ?? '')
+      .trim()
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+
+  return normalize(art.rootId) === normalize(playerRoot.id) ||
+    normalize(art.element) === normalize(playerRoot.element);
+} async function applyToPlayer(player, connection) {
   if (!player?.id || !artManager.loaded) return player;
 
   const equipped = await repository.getEquipped(player.id, connection);

@@ -54,7 +54,7 @@ function decorate(player) {
   const realm = dataManager.getRealm(player.main_realm_index);
   const required = formula.expRequired(realm, player.main_layer);
 
-  const spiritualRoot = dataManager.getSpiritualRoot(player.spiritual_root);
+  const spiritualRoot = dataManager.resolvePlayerSpiritualRoot(player);
 
   return {
     ...player,
