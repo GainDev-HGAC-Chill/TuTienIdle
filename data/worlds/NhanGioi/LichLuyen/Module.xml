@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module id="lich_luyen" schemaVersion="3.0">
+  <Files>
+    <File type="bosses" path="Bosses.xml" required="0"/>
+    <File type="explorationNpcs" path="NPCs.xml" required="0"/>
+    <File type="explorationResources" path="Resources.xml" required="0"/>
+    <File type="explorationEvents" path="RandomEvents.xml" required="0"/>
+  </Files>
+</Module>

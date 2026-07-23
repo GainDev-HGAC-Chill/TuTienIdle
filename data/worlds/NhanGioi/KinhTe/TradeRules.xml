@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TradeRules>
-  <SellToNpc defaultPriceRatio="0.65" minimumPrice="1"/>
-  <PlayerTrade enabled="true" boundItemsAllowed="false"/>
-  <Auction enabled="false"/>
-</TradeRules>
+<TradeRules version="1.0"><Rule id="direct_trade_enabled" value="true" unit="boolean" description="Giao dịch trực tiếp."/><Rule id="auction_enabled" value="true" unit="boolean" description="Đấu giá."/><Rule id="minimum_player_level" value="10" unit="level" description="Cấp tối thiểu."/><Rule id="listing_fee_percent" value="2" unit="percent" description="Phí niêm yết."/><Rule id="sale_tax_percent" value="5" unit="percent" description="Thuế giao dịch."/><Rule id="minimum_listing_duration" value="3600" unit="seconds" description="Thời gian tối thiểu."/><Rule id="maximum_listing_duration" value="259200" unit="seconds" description="Thời gian tối đa."/><Rule id="maximum_active_listings" value="20" unit="listing" description="Số niêm yết tối đa."/><Rule id="bound_items_tradable" value="false" unit="boolean" description="Vật phẩm khóa không giao dịch."/><Rule id="allow_self_purchase" value="false" unit="boolean" description="Không tự mua."/><Rule id="cancel_listing_refund_percent" value="0" unit="percent" description="Hoàn phí khi hủy."/><Rule id="maximum_price_multiplier" value="1000" unit="multiplier" description="Giá tối đa so với giá NPC."/></TradeRules>

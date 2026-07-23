@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="dong_phu" schemaVersion="2.0">
+<Module id="dong_phu" schemaVersion="3.0">
   <Files>
-    <File path="Caves.xml"/>
-    <File path="HerbGardens.xml"/>
-    <File path="PlantingRules.xml"/>
+    <File type="caves" path="Caves.xml" required="1"/>
+    <File type="caveUpgradeRules" path="CaveUpgradeRules.xml" required="1"/>
+    <File type="beastPens" path="LinhThu/BeastPens.xml" required="0"/>
+    <File type="spiritBeasts" path="LinhThu/SpiritBeasts.xml" required="0"/>
+    <File type="beastFeedingRules" path="LinhThu/BeastFeedingRules.xml" required="0"/>
+    <File type="beastGrowthRules" path="LinhThu/BeastGrowthRules.xml" required="0"/>
+    <File type="courtyards" path="HauVien/Courtyards.xml" required="0"/>
+    <File type="companionRules" path="HauVien/CompanionRules.xml" required="0"/>
+    <File type="affectionRules" path="HauVien/AffectionRules.xml" required="0"/>
   </Files>
 </Module>

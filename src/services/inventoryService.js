@@ -1,7 +1,10 @@
 const itemManager = require('../config/itemManager');
+const dataManager = require('../config/dataManager');
 
-const DEFAULT_SLOTS = 30;
+const DEFAULT_SLOTS = 40;
 const MAXIMUM_SLOTS = 200;
+function initialSlots() { return Math.max(1, dataManager.getRuleNumber('initial_slot_count', DEFAULT_SLOTS)); }
+function maximumSlots() { return Math.max(initialSlots(), dataManager.getRuleNumber('maximum_slot_count', MAXIMUM_SLOTS)); }
 
 function json(value) {
   if (value === undefined || value === null) return null;
@@ -13,7 +16,7 @@ async function ensureBag(connection, playerId) {
     `INSERT INTO player_bags(player_id, unlocked_slots, maximum_slots)
      VALUES(?, ?, ?)
      ON DUPLICATE KEY UPDATE player_id = VALUES(player_id)`,
-    [playerId, DEFAULT_SLOTS, MAXIMUM_SLOTS]
+    [playerId, initialSlots(), maximumSlots()]
   );
 }
 
@@ -189,7 +192,7 @@ async function expandBag(connection, playerId, slots, itemMaximumSlots) {
   const hardMaximum = Math.min(
     Number(bag.maximum_slots),
     Number(itemMaximumSlots || bag.maximum_slots),
-    MAXIMUM_SLOTS
+    maximumSlots()
   );
   const before = Number(bag.unlocked_slots);
   const after = Math.min(hardMaximum, before + Math.max(0, Number(slots) || 0));

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InventoryRules version="1.0">
+  <Rule id="initial_slot_count" value="40" unit="slot" description="Số ô túi ban đầu."/>
+  <Rule id="maximum_slot_count" value="200" unit="slot" description="Số ô túi tối đa."/>
+  <Rule id="default_stack_limit" value="999" unit="item" description="Giới hạn stack mặc định."/>
+  <StackRule itemType="currency" limit="999999999" description="Giới hạn tiền tệ."/>
+  <StackRule itemType="material" limit="9999" description="Giới hạn nguyên liệu."/>
+  <StackRule itemType="consumable" limit="999" description="Giới hạn vật phẩm tiêu hao."/>
+  <StackRule itemType="equipment" limit="1" description="Trang bị không xếp chồng."/>
+  <Rule id="auto_merge_stacks" value="true" unit="boolean" description="Tự gộp stack."/>
+  <Rule id="auto_sort_after_receive" value="false" unit="boolean" description="Tự sắp xếp sau khi nhận."/>
+  <Rule id="full_inventory_behavior" value="reject" unit="enum" allowedValues="reject,mail,temporary_storage,drop_on_ground" description="Xử lý khi túi đầy."/>
+  <Rule id="quest_items_consume_slot" value="true" unit="boolean" description="Vật phẩm nhiệm vụ chiếm ô."/>
+  <Rule id="bound_items_can_sell" value="false" unit="boolean" description="Vật phẩm khóa có thể bán."/>
+  <Rule id="bound_items_can_trade" value="false" unit="boolean" description="Vật phẩm khóa có thể giao dịch."/>
+  <Rule id="allow_item_discard" value="true" unit="boolean" description="Cho phép vứt vật phẩm."/>
+  <Rule id="confirm_discard_quality" value="rare" unit="quality" description="Phẩm chất cần xác nhận khi vứt."/>
+  <Rule id="remove_zero_quantity_stack" value="true" unit="boolean" description="Xóa stack khi về 0."/>
+  <Rule id="reject_negative_quantity" value="true" unit="boolean" description="Từ chối số lượng âm."/>
+  <Rule id="expired_item_behavior" value="remove" unit="enum" allowedValues="remove,convert,disable" description="Xử lý vật phẩm hết hạn."/>
+</InventoryRules>

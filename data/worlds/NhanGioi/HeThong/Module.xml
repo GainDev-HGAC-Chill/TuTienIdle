@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="he_thong" schemaVersion="2.0">
+<Module id="he_thong" schemaVersion="3.0">
   <Files>
-    <File path="Qualities.xml"/>
-    <File path="RewardTypes.xml"/>
-    <File path="StatusEffects.xml"/>
-    <File path="InventoryRules.xml"/>
+    <File type="gameRules" path="QuyTac/GameRules.xml" required="1"/>
+    <File type="offlineRules" path="QuyTac/OfflineRules.xml" required="1"/>
+    <File type="deathRules" path="QuyTac/DeathRules.xml" required="1"/>
+    <File type="inventoryRules" path="QuyTac/InventoryRules.xml" required="1"/>
+    <File type="startingPlayer" path="QuyTac/StartingPlayer.xml" required="1"/>
+    <File type="qualities" path="DanhMuc/Qualities.xml" required="1"/>
+    <File type="rewardTypes" path="DanhMuc/RewardTypes.xml" required="1"/>
+    <File type="statusEffects" path="DanhMuc/StatusEffects.xml" required="1"/>
   </Files>
 </Module>

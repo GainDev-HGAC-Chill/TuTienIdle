@@ -1,11 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Caves>
-  <Cave id="dong_phu_so_khai" name="Sơ Khai Động Phủ" level="1">
-    <Slots herbGarden="4" formation="1" storageBonus="0"/>
-    <Cultivation cultivationGainPercent="5"/>
-  </Cave>
-  <Cave id="linh_tuyen_dong_phu" name="Linh Tuyền Động Phủ" level="2">
-    <Slots herbGarden="8" formation="2" storageBonus="10"/>
-    <Cultivation cultivationGainPercent="12"/>
-  </Cave>
-</Caves>
+<Caves version="1.0"><Cave id="so_khai_dong_phu" name="Sơ Khai Động Phủ" level="1" spiritualQiBonus="5" maxBeastPens="1" maxCourtyardRooms="1" upgradeCostCurrencyId="linh_thach_ha_pham" upgradeCost="100"/></Caves>

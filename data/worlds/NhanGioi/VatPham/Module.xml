@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="vat_pham" schemaVersion="2.0">
+<Module id="vat_pham" schemaVersion="3.0">
   <Files>
-    <File path="Materials.xml"/>
-    <File path="Herbs.xml"/>
-    <File path="Ores.xml"/>
-    <File path="MonsterMaterials.xml"/>
-    <File path="Consumables.xml"/>
-    <File path="Equipment.xml"/>
-    <File path="Treasures.xml"/>
-    <File path="BagItems.xml"/>
+    <File type="items" path="Materials.xml" required="1"/>
+    <File type="items" path="Herbs.xml" required="1"/>
+    <File type="items" path="Ores.xml" required="1"/>
+    <File type="items" path="MonsterMaterials.xml" required="1"/>
+    <File type="items" path="Consumables.xml" required="1"/>
+    <File type="items" path="Equipment.xml" required="1"/>
+    <File type="items" path="Treasures.xml" required="1"/>
+    <File type="items" path="BagItems.xml" required="1"/>
   </Files>
 </Module>

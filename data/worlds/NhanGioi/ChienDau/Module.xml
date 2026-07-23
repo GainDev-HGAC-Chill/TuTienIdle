@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="chien_dau" schemaVersion="2.0">
+<Module id="chien_dau" schemaVersion="3.0">
   <Files>
-    <File path="CombatRules.xml"/>
-    <File path="MonsterSkills.xml"/>
-    <File path="Monsters.xml"/>
-    <File path="Maps.xml"/>
-      <File path="DropTables.xml"/>
+    <File type="combatRules" path="CombatRules.xml" required="1"/>
+    <File type="monsterSkills" path="MonsterSkills.xml" required="1"/>
+    <File type="monsters" path="Monsters.xml" required="1"/>
+    <File type="lootTables" path="DropTables.xml" required="1"/>
+    <File type="combatStatuses" path="TrangThaiChienDau.xml" required="0"/>
+    <File type="combatPower" path="ChienLuc.xml" required="0"/>
   </Files>
 </Module>

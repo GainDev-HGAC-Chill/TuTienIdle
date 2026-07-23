@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="luyen_dan" schemaVersion="2.0">
+<Module id="luyen_dan" schemaVersion="3.0">
   <Files>
-    <File path="AlchemyRules.xml"/>
-    <File path="PillRecipes.xml"/>
+    <File type="alchemyRules" path="AlchemyRules.xml" required="1"/>
+    <File type="recipes" path="PillRecipes.xml" required="1"/>
+    <File type="pills" path="Pills.xml" required="0"/>
+    <File type="herbs" path="Herbs.xml" required="0"/>
+    <File type="alchemistRanks" path="AlchemistRanks.xml" required="0"/>
   </Files>
 </Module>

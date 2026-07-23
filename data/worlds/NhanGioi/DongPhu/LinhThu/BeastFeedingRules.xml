@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BeastFeedingRules version="1.0" enabled="false"><Rule id="feeding_interval_seconds" value="21600" unit="seconds" description="Khoảng cách cho ăn."/><Rule id="offline_feeding_enabled" value="false" unit="boolean" description="Tự cho ăn offline."/><Rule id="hunger_growth_penalty" value="50" unit="percent" description="Giảm trưởng thành khi đói."/></BeastFeedingRules>

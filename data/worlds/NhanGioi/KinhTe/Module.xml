@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="kinh_te" schemaVersion="2.0">
+<Module id="kinh_te" schemaVersion="3.0">
   <Files>
-    <File path="Currencies.xml"/>
-    <File path="Shops.xml"/>
-    <File path="TradeRules.xml"/>
+    <File type="currencies" path="Currencies.xml" required="1"/>
+    <File type="shops" path="Shops.xml" required="1"/>
+    <File type="tradeRules" path="TradeRules.xml" required="1"/>
   </Files>
 </Module>

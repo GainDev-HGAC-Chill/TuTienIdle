@@ -49,7 +49,7 @@
           <div class="stats">
             <div><span>Cảnh giới</span><b id="realm">—</b></div>
             <div><span>Linh Căn</span><b id="spiritualRoot">—</b></div>
-            <div><span>Chiến lực</span><b id="power">0</b></div>
+            <div><span>Tiềm lực</span><b id="power">0</b></div>
             <div><span>Linh thạch</span><b id="stones">0</b></div>
           </div>
         </article>
@@ -71,12 +71,13 @@
       <nav class="tabs">
         <button class="active" data-tab="overviewTab">Tổng Quan</button>
         <button data-tab="caveTab">Động Phủ</button>
+        <button data-tab="cultivationArtTab">Công Pháp</button>
         <button data-tab="combatTab">Chiến Đạo</button>
         <button data-tab="inventoryTab">Túi Càn Khôn</button>
         <button data-tab="logTab">Thiên Cơ Ký</button>
       </nav>
 
-      <section id="overviewTab" class="tab-pane active">
+      <section id="overviewTab" class="tab-pane active" aria-hidden="false">
         <div class="overview-grid">
           <article class="card overview-profile">
             <div class="title-row">
@@ -94,7 +95,7 @@
               <div class="bar mp"><i id="overviewMpBar"></i></div>
             </div>
             <div class="minor-grid overview-summary">
-              <div><span>Chiến lực</span><b id="overviewPower">0</b></div>
+              <div><span>Tiềm lực</span><b id="overviewPower">0</b></div>
               <div><span>Linh thạch</span><b id="overviewStones">0</b></div>
               <div><span>Chiến tích</span><b id="overviewRecord">0 thắng · 0 bại</b></div>
               <div><span>Phẩm Linh Căn</span><b id="rootGradeText">—</b></div>
@@ -141,12 +142,12 @@
             <div><span>Hồi sinh lực</span><b id="statHpRegen">0/s</b></div>
             <div><span>Hồi nội lực</span><b id="statMpRegen">0/s</b></div>
             <div><span>Tốc độ tu luyện</span><b id="statCultivation">0/s</b></div>
-            <div><span>Tổng chiến lực</span><b id="statPower">0</b></div>
+            <div><span>Tổng tiềm lực</span><b id="statPower">0</b></div>
           </div>
         </article>
       </section>
 
-      <section id="caveTab" class="tab-pane">
+      <section id="caveTab" class="tab-pane" hidden aria-hidden="true">
         <article class="card action-card">
           <div><h3>Linh Tu</h3><p>Về động phủ hấp thu linh khí. Khi tu vi viên mãn, nhấn đột phá.</p></div>
           <div class="actions">
@@ -155,8 +156,42 @@
           </div>
         </article>
       </section>
+      <section id="cultivationArtTab" class="tab-pane cultivation-tab" hidden aria-hidden="true">
+        <article class="card">
+          <div class="art-tab-header">
+            <div>
+              <p class="eyebrow">CÔNG PHÁP CHÂN GIẢI</p>
+              <h2>Vận chuyển Đạo Tàng</h2>
+              <p class="muted">Mỗi hệ được mang tối đa ba cuốn. Chọn một ô trước khi thay thế Công Pháp.</p>
+            </div>
+            <button id="artRefreshBtn" class="art-refresh" type="button">Làm mới Đạo Tàng</button>
+          </div>
+          <div id="artResources" class="art-resource-grid"></div>
+        </article>
 
-      <section id="combatTab" class="tab-pane">
+        <div id="artLoadoutGrid" class="art-loadout-grid"></div>
+
+        <article class="card art-library-panel">
+          <div class="art-library-head">
+            <div>
+              <p class="eyebrow">ĐÃ LĨNH NGỘ</p>
+              <h3>Túi Công Pháp</h3>
+            </div>
+            <span id="artLibraryCount" class="muted">0 công pháp</span>
+          </div>
+          <div class="art-library-controls">
+            <button type="button" class="active" data-art-filter="all">Tất cả</button>
+            <button type="button" data-art-filter="tam_phap">Tâm Pháp</button>
+            <button type="button" data-art-filter="chien_phap">Chiến Pháp</button>
+            <button type="button" data-art-filter="luyen_the">Luyện Thể</button>
+            <button type="button" data-art-filter="than_thong">Thần Thông</button>
+            <input id="artSearch" type="search" placeholder="Tìm tên hoặc mô tả Công Pháp">
+          </div>
+          <div id="artLibraryGrid" class="art-library-grid"></div>
+          <div id="artStatus" class="art-status"></div>
+        </article>
+      </section>
+<section id="combatTab" class="tab-pane" hidden aria-hidden="true">
         <div class="combat-grid">
           <article class="card">
             <div class="between"><div><p class="eyebrow">KHU VỰC LỊCH LUYỆN</p><h3 id="mapName">—</h3></div><button id="mapBtn">Chọn bản đồ</button></div>
@@ -177,8 +212,8 @@
         </div>
       </section>
 
-      <section id="inventoryTab" class="tab-pane"><div id="inventoryGrid" class="inventory-grid"></div></section>
-      <section id="logTab" class="tab-pane"><article class="card"><h3>Thiên Cơ Ký</h3><div id="logList" class="log-list"></div></article></section>
+      <section id="inventoryTab" class="tab-pane" hidden aria-hidden="true"><div id="inventoryGrid" class="inventory-grid"></div></section>
+      <section id="logTab" class="tab-pane" hidden aria-hidden="true"><article class="card"><h3>Thiên Cơ Ký</h3><div id="logList" class="log-list"></div></article></section>
     </section>
   </main>
 
@@ -199,11 +234,11 @@
     </div>
   </div>
 
+  <div id="artTooltip" class="art-tooltip hidden"></div>
   <div id="toast"></div>
 
   <script src="linh-can-ui.js"></script>
   <script src="script.js"></script>
-  <script src="/js/cultivationArts.js"></script>
   <script src="cultivation-art-ui.js"></script>
   <script src="/inventory-ui.js"></script>
 </body>

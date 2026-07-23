@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompanionRules version="1.0" enabled="false"><Rule id="maximum_companions" value="1" unit="count" description="Số Hồng Nhan tối đa."/><Rule id="combat_support_enabled" value="false" unit="boolean" description="Hỗ trợ chiến đấu."/><Rule id="children_system_enabled" value="false" unit="boolean" description="Tính năng con cái chưa mở."/></CompanionRules>

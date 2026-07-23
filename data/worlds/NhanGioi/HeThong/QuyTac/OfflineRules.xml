@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfflineRules version="1.0">
+  <Rule id="offline_minimum_seconds" value="60" unit="seconds" description="Thời gian offline tối thiểu."/>
+  <Rule id="offline_maximum_seconds" value="43200" unit="seconds" description="Tối đa 12 giờ."/>
+  <Rule id="offline_cultivation_efficiency" value="70" unit="percent" description="Hiệu suất tu luyện offline."/>
+  <Rule id="offline_hp_regeneration_efficiency" value="100" unit="percent" description="Hiệu suất hồi máu offline."/>
+  <Rule id="offline_mp_regeneration_efficiency" value="100" unit="percent" description="Hiệu suất hồi nội lực offline."/>
+  <Rule id="offline_combat_enabled" value="false" unit="boolean" description="Cho phép chiến đấu offline."/>
+  <Rule id="offline_boss_encounter_enabled" value="false" unit="boolean" description="Cho gặp boss offline."/>
+  <Rule id="offline_random_encounter_enabled" value="false" unit="boolean" description="Cho phát sinh kỳ ngộ offline."/>
+  <Rule id="offline_alchemy_progress_enabled" value="true" unit="boolean" description="Lò luyện đan tiếp tục chạy."/>
+  <Rule id="offline_drop_item_limit" value="100" unit="stack" description="Giới hạn dòng vật phẩm offline."/>
+  <Rule id="offline_log_limit" value="50" unit="entry" description="Giới hạn nhật ký offline."/>
+  <Rule id="offline_reward_rounding" value="floor" unit="enum" allowedValues="floor,round,ceil" description="Cách làm tròn phần thưởng."/>
+  <Rule id="offline_duplicate_guard_seconds" value="10" unit="seconds" description="Chống tính trùng offline."/>
+</OfflineRules>

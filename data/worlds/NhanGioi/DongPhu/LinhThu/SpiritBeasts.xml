@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpiritBeasts version="1.0" enabled="false"><SpiritBeast id="thanh_phong_lang" name="Thanh Phong Lang" quality="pham" element="moc" baseAttack="5" baseDefense="3" baseHp="50" growthAttack="1.2" growthDefense="0.8" growthHp="10" captureMapId="ngoai_mon_son_lam"/></SpiritBeasts>

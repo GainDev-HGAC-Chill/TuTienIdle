@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Currencies>
-  <Currency id="linh_thach" name="Linh Thạch" databaseField="spirit_stones" bagSlot="false"/>
-  <Currency id="tien_ngoc" name="Tiên Ngọc" databaseField="immortal_jade" bagSlot="false"/>
-  <Currency id="tong_mon_cong_hien" name="Tông Môn Cống Hiến" databaseField="sect_contribution" bagSlot="false"/>
-</Currencies>
+<Currencies version="1.0" baseCurrencyId="linh_thach_ha_pham"><Currency id="linh_thach_ha_pham" name="Linh Thạch Hạ Phẩm" tier="1" baseValue="1" tradable="true"/><Currency id="linh_thach_trung_pham" name="Linh Thạch Trung Phẩm" tier="2" baseValue="100" tradable="true"/><Currency id="linh_thach_thuong_pham" name="Linh Thạch Thượng Phẩm" tier="3" baseValue="10000" tradable="true"/><Currency id="linh_thach_cuc_pham" name="Linh Thạch Cực Phẩm" tier="4" baseValue="1000000" tradable="true"/></Currencies>

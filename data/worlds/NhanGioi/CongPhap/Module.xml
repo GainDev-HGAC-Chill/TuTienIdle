@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="cong_phap" schemaVersion="2.0">
+<Module id="cong_phap" schemaVersion="3.0">
   <Files>
-    <File path="CultivationArts.xml"/>
-    <File path="ArtRules.xml"/>
+    <File type="cultivationArtManifest" path="CongPhap.xml" required="0"/>
+    <File type="cultivationArts" path="TamPhap.xml" required="1"/>
+    <File type="cultivationArts" path="ChienPhap.xml" required="1"/>
+    <File type="cultivationArts" path="LuyenThePhap.xml" required="1"/>
+    <File type="cultivationArts" path="ThanThong.xml" required="1"/>
+    <File type="artRules" path="ArtRules.xml" required="1"/>
+    <File type="cultivationArtProgression" path="TienGiaiCongPhap.xml" required="1"/>
   </Files>
 </Module>

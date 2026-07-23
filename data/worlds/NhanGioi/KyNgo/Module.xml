@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="ky_ngo" schemaVersion="2.0">
+<Module id="ky_ngo" schemaVersion="3.0">
   <Files>
-    <File path="RandomEvents.xml"/>
+    <File type="encounters" path="RandomEvents.xml" required="1"/>
+    <File type="encounterChoices" path="EncounterChoices.xml" required="0"/>
+    <File type="encounterRewards" path="EncounterRewards.xml" required="0"/>
   </Files>
 </Module>

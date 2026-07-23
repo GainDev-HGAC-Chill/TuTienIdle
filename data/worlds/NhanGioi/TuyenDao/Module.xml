@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="tuyen_dao" schemaVersion="2.0">
+<Module id="tuyen_dao" schemaVersion="3.0">
   <Files>
-    <File path="Realms.xml"/>
-    <File path="BodyRealms.xml"/>
-    <File path="SoulRealms.xml"/>
-    <File path="SpiritualRoots.xml"/>
-    <File path="BreakthroughRules.xml"/>
+    <File type="realms" path="CanhGioi/Realms.xml" required="1"/>
+    <File type="breakthroughRules" path="CanhGioi/BreakthroughRules.xml" required="1"/>
+    <File type="spiritualRoots" path="LinhCan/SpiritualRoots.xml" required="1"/>
+    <File type="spiritualRootAssessment" path="LinhCan/KhaoNghiemLinhCan.xml" required="0"/>
   </Files>
 </Module>

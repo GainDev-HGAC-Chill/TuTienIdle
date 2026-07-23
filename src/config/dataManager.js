@@ -49,6 +49,7 @@ class DataManager {
     this.world = null;
 
     this.realms = [];
+    // Giữ mảng tương thích nội bộ, nhưng Đạo Tàng Đợt 4 không còn nạp hai hệ này.
     this.bodyRealms = [];
     this.soulRealms = [];
 
@@ -74,6 +75,11 @@ class DataManager {
     this.skills = new Map();
 
     this.loadedFiles = new Set();
+    this.fileRegistry = new Map();
+    this.rules = new Map();
+    this.stackRules = new Map();
+    this.currencies = new Map();
+    this.startingPlayer = null;
   }
 
   load(manifestPath) {
@@ -211,18 +217,22 @@ class DataManager {
       );
 
       if (!fs.existsSync(filePath)) {
-        console.warn(
-          `[ĐẠO TÀNG] Module ${moduleRoot.id || reference.id} ` +
-          `chưa có ${relativePath}, tạm bỏ qua.`
-        );
+        if (asBoolean(fileReference.required, false)) {
+          throw new Error(`Module ${moduleRoot.id || reference.id} thiếu đạo quyển bắt buộc: ${relativePath}`);
+        }
+        console.warn(`[ĐẠO TÀNG] Module ${moduleRoot.id || reference.id} chưa có ${relativePath}, tạm bỏ qua.`);
         continue;
       }
 
-      this.loadAndIngestFile(filePath);
+      this.loadAndIngestFile(filePath, String(fileReference.type || ''), {
+        moduleId: String(moduleRoot.id || reference.id || ''),
+        relativePath,
+        required: asBoolean(fileReference.required, false)
+      });
     }
   }
 
-  loadAndIngestFile(filePath, declaredType = '') {
+  loadAndIngestFile(filePath, declaredType = '', metadata = {}) {
     const absolutePath = path.resolve(filePath);
 
     if (this.loadedFiles.has(absolutePath)) {
@@ -242,6 +252,8 @@ class DataManager {
     );
 
     this.loadedFiles.add(absolutePath);
+    const rootTag = Object.keys(document || {})[0] || '';
+    this.fileRegistry.set(absolutePath, { absolutePath, type: inferredType, rootTag, moduleId: metadata.moduleId || '', relativePath: metadata.relativePath || path.basename(absolutePath), required: Boolean(metadata.required), loaded: true });
   }
 
   inferType(filePath, document) {
@@ -265,7 +277,8 @@ class DataManager {
       bagitems: 'items',
       herbs: 'items',
       pillrecipes: 'recipes',
-      cultivationarts: 'cultivationSkills'
+      cultivationarts: 'cultivationSkills',
+      gamerules: 'gameRules', offlinerules: 'offlineRules', deathrules: 'deathRules', inventoryrules: 'inventoryRules', startingplayer: 'startingPlayer', currencies: 'currencies'
     };
 
     if (byFileName[fileName]) {
@@ -367,6 +380,31 @@ class DataManager {
         );
         break;
 
+      case 'gameRules':
+      case 'offlineRules':
+      case 'deathRules':
+      case 'tradeRules':
+      case 'alchemyRules':
+      case 'caveUpgradeRules':
+      case 'beastFeedingRules':
+      case 'beastGrowthRules':
+      case 'companionRules':
+        this.ingestRules(document, type);
+        break;
+
+      case 'inventoryRules':
+        this.ingestRules(document, type);
+        this.ingestStackRules(document);
+        break;
+
+      case 'startingPlayer':
+        this.startingPlayer = document.StartingPlayer || null;
+        break;
+
+      case 'currencies':
+        this.ingestSimple(document.Currencies?.Currency, this.currencies, type);
+        break;
+
       case 'cultivationSkills':
       case 'combatSkills':
         this.ingestSimple(
@@ -385,6 +423,38 @@ class DataManager {
         break;
     }
   }
+
+  ingestRules(document, type) {
+    const root = Object.values(document || {})[0] || {};
+    for (const row of arrayOf(root.Rule)) {
+      const id = String(row.id || '').trim();
+      if (!id) throw new Error(`${type} có luật thiếu id.`);
+      if (this.rules.has(id)) throw new Error(`Trùng luật runtime: ${id}`);
+      let value = row.value;
+      if (String(row.unit || '') === 'boolean') value = asBoolean(value, false);
+      else if (['percent','seconds','multiplier','count','point','slot','item','level','entry','stack','listing'].includes(String(row.unit || ''))) value = asNumber(value, 0);
+      this.rules.set(id, { ...row, id, value, sourceType: type });
+    }
+  }
+
+  ingestStackRules(document) {
+    for (const row of arrayOf(document.InventoryRules?.StackRule)) {
+      const itemType = String(row.itemType || '').trim();
+      if (itemType) this.stackRules.set(itemType, Math.max(1, asNumber(row.limit, 1)));
+    }
+  }
+
+  getRule(id, fallback = null) {
+    const row = this.rules.get(String(id));
+    return row ? row.value : fallback;
+  }
+
+  getRuleNumber(id, fallback = 0) { return asNumber(this.getRule(id, fallback), fallback); }
+  getRuleBoolean(id, fallback = false) { return asBoolean(this.getRule(id, fallback), fallback); }
+  getStackLimit(itemType, fallback = null) { return this.stackRules.get(String(itemType)) || this.getRuleNumber('default_stack_limit', fallback || 999); }
+  getCurrency(id) { return this.currencies.get(String(id)) || null; }
+  getStartingPlayer() { return this.startingPlayer; }
+  getFileRegistry() { return [...this.fileRegistry.values()]; }
 
   ingestSimple(source, target, type) {
     for (const row of arrayOf(source)) {
@@ -1462,9 +1532,13 @@ getMonster(id) {
 
     const results = [];
 
-    for (let rollIndex = 0; rollIndex < table.rolls; rollIndex += 1) {
+    const maximumRolls = Math.max(1, this.getRuleNumber('maximum_drop_rolls', 20));
+    const globalRate = Math.max(0, this.getRuleNumber('global_drop_rate', 100)) / 100;
+    const actualRolls = Math.min(maximumRolls, Math.max(0, table.rolls));
+    for (let rollIndex = 0; rollIndex < actualRolls; rollIndex += 1) {
       for (const drop of table.drops) {
-        if (Math.random() * 100 >= drop.chance) {
+        const adjustedChance = Math.min(100, Math.max(0, drop.chance * globalRate));
+        if (Math.random() * 100 >= adjustedChance) {
           continue;
         }
 
@@ -1493,7 +1567,11 @@ getMonster(id) {
 
   rollMonsterDrops(monster) {
     if (!monster?.lootTableId) return [];
-    return this.rollLootTable(monster.lootTableId);
+    const drops = this.rollLootTable(monster.lootTableId);
+    const rank = String(monster.rank || '').toLowerCase();
+    const bonus = ['boss','world_boss'].includes(rank) ? Math.max(0, this.getRuleNumber('boss_drop_rate', 100)) / 100 : 1;
+    if (bonus <= 1) return drops;
+    return drops.map(drop => ({ ...drop, quantity: Math.max(1, Math.floor(drop.quantity * bonus)) }));
   }
 
   getItem(id) {
@@ -1510,8 +1588,6 @@ getMonster(id) {
     return {
       world: this.world,
       realms: this.realms.length,
-      bodyRealms: this.bodyRealms.length,
-      soulRealms: this.soulRealms.length,
       maps: this.maps.length,
       monsters: this.monsters.length,
       spiritualRoots: this.spiritualRoots.length,

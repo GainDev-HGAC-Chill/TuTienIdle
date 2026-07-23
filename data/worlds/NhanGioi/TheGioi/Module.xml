@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Module id="the_gioi" schemaVersion="2.0">
+<Module id="the_gioi" schemaVersion="3.0">
   <Files>
-    <File path="NPCs.xml"/>
-    <File path="GatheringNodes.xml"/>
-      <File path="MapEnvironments.xml"/>
+    <File type="maps" path="Maps.xml" required="1"/>
+    <File type="npcs" path="NPCs.xml" required="0"/>
+    <File type="gatheringNodes" path="GatheringNodes.xml" required="0"/>
+    <File type="mapEnvironments" path="MapEnvironments.xml" required="0"/>
   </Files>
 </Module>

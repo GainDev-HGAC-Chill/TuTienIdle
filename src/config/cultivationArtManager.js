@@ -72,7 +72,7 @@ class CultivationArtManager {
         stats: arrayOf(grade.Stats?.Stat).map(stat => ({
           key: String(stat.key || ''), value: num(stat.value), unit: String(stat.unit || 'flat')
         })),
-        effects: arrayOf(grade.Effects?.Effect).map(effect => ({
+        effects: arrayOf(grade.Effects?.Effect || grade.Effects?.ApplyStatus).map(effect => ({
           ...effect,
           id: String(effect.id || ''),
           chancePercent: num(effect.chancePercent, bool(effect.guaranteed) ? 100 : 0),

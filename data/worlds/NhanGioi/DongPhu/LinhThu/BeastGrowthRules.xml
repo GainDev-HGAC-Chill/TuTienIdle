@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BeastGrowthRules version="1.0" enabled="false"><Rule id="maximum_beast_level" value="100" unit="level" description="Cấp Linh Thú tối đa."/><Rule id="owner_realm_limit_enabled" value="true" unit="boolean" description="Giới hạn theo cảnh giới chủ nhân."/><Rule id="evolution_failure_level_loss" value="0" unit="level" description="Mất cấp khi tiến hóa thất bại."/></BeastGrowthRules>

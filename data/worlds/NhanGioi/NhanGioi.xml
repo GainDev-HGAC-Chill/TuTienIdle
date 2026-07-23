@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<World id="nhan_gioi" name="Nhân Giới" schemaVersion="2.0" enabled="true">
-  <Description>Hạ giới nơi phàm nhân nhập đạo, yêu thú hoành hành và cơ duyên ẩn hiện.</Description>
-
+<World id="nhan_gioi" name="Nhân Giới" schemaVersion="3.0" enabled="true">
+  <Description>Đạo Tàng Nhân Giới đã chỉnh lý theo module và luật runtime.</Description>
   <Modules>
     <Module id="he_thong" path="HeThong/Module.xml" required="true"/>
     <Module id="tuyen_dao" path="TuyenDao/Module.xml" required="true"/>
@@ -13,5 +12,6 @@
     <Module id="dong_phu" path="DongPhu/Module.xml" required="false"/>
     <Module id="cong_phap" path="CongPhap/Module.xml" required="false"/>
     <Module id="ky_ngo" path="KyNgo/Module.xml" required="false"/>
+    <Module id="lich_luyen" path="LichLuyen/Module.xml" required="false"/>
   </Modules>
 </World>

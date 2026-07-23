@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AffectionRules version="1.0" enabled="false"><Level id="so_giao" minValue="0" maxValue="999" cultivationBonus="0"/><Level id="tri_ky" minValue="1000" maxValue="4999" cultivationBonus="3"/></AffectionRules>

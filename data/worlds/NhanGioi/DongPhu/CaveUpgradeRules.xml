@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CaveUpgradeRules version="1.0"><Rule id="maximum_cave_level" value="10" unit="level" description="Cấp Động Phủ tối đa."/><Rule id="offline_upgrade_enabled" value="true" unit="boolean" description="Cho nâng cấp khi offline."/><Rule id="cancel_refund_percent" value="80" unit="percent" description="Tỷ lệ hoàn trả khi hủy."/></CaveUpgradeRules>

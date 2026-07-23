@@ -6,6 +6,7 @@ const cultivationArtRuntime = require('../runtime/cultivationArtRuntime');
 const inventoryService = require('./inventoryService');
 const itemManager = require('../config/itemManager');
 const monsterDropManager = require('../config/monsterDropManager'); const mapEnvironmentRuntime = require('../runtime/mapEnvironmentRuntime');
+const combatEffects = require('./combatEffectService');
 
 function ensurePlayer(player) {
   if (!player) {
@@ -73,7 +74,14 @@ function decorate(player) {
       100,
       Number((Number(player.main_exp || 0) / required * 100).toFixed(2))
     ),
-    power: Number(player.combat_power || formula.calcPower(player, player.cultivation_art_effects || [])),
+    potential: player.potential || formula.calcPotential(
+      player,
+      player.cultivation_art_effects || []
+    ),
+    power: Number(
+      player.combat_power ||
+      formula.calcPower(player, player.cultivation_art_effects || [])
+    ),
     can_breakthrough: Number(player.main_exp || 0) >= required,
     breakthrough_rate: formula.breakthroughRate(realm),
     unlocked_maps: dataManager.getUnlockedMaps(player)
@@ -216,19 +224,21 @@ async function tick(id) {
     ensurePlayer(player);
 
     const [timeRows] = await connection.query(
-      `SELECT LEAST(
-        300,
-        GREATEST(
+      `SELECT GREATEST(
           0,
           TIMESTAMPDIFF(MICROSECOND, last_tick_at, NOW(3)) / 1000000
-        )
-      ) AS elapsed
+        ) AS elapsed
       FROM players
       WHERE id = ?`,
       [id]
     );
 
-    const elapsed = Number(timeRows[0]?.elapsed || 0);
+    const rawElapsed = Number(timeRows[0]?.elapsed || 0);
+    const onlineCap = 300;
+    const offlineMinimum = dataManager.getRuleNumber('offline_minimum_seconds', 60);
+    const offlineMaximum = dataManager.getRuleNumber('offline_maximum_seconds', 43200);
+    const isOffline = rawElapsed >= offlineMinimum;
+    const elapsed = Math.min(rawElapsed, isOffline ? offlineMaximum : onlineCap);
     if (elapsed < 0.2) return;
 
     const runtimePlayer = await cultivationArtRuntime.applyToPlayer(
@@ -236,12 +246,19 @@ async function tick(id) {
       connection
     );
 
+    await resourceRegenTick(connection, runtimePlayer, elapsed);
+
     if (runtimePlayer.current_activity === 'spirit_cultivation') {
-      await cultivationTick(connection, runtimePlayer, elapsed);
+      const cultivationElapsed = isOffline
+        ? elapsed * Math.max(0, dataManager.getRuleNumber('offline_cultivation_efficiency', 70)) / 100
+        : elapsed;
+      await cultivationTick(connection, runtimePlayer, cultivationElapsed);
     }
 
     if (runtimePlayer.current_activity === 'combat') {
-      await combatTick(connection, runtimePlayer, elapsed);
+      if (!isOffline || dataManager.getRuleBoolean('offline_combat_enabled', false)) {
+        await combatTick(connection, runtimePlayer, elapsed);
+      }
     }
 
     await connection.query(
@@ -251,6 +268,29 @@ async function tick(id) {
   });
 
   return profile(id);
+}
+
+async function resourceRegenTick(connection, player, elapsed) {
+  const maxHp = Math.max(1, Number(player.max_hp || 1));
+  const maxMp = Math.max(1, Number(player.max_mp || 1));
+  const regenMultiplier = player.current_activity === 'combat' ? 1 : Math.max(0, dataManager.getRuleNumber('out_of_combat_regeneration_multiplier', 2));
+  const hpRegen = Math.max(0, Number(player.hp_regen || 0)) * regenMultiplier;
+  const mpRegen = Math.max(2, Number(player.mp_regen || 0)) * regenMultiplier;
+
+  const currentHp = Math.max(1, Number(player.current_hp || 1));
+  const currentMp = Math.max(0, Number(player.current_mp || 0));
+  const nextHp = Math.min(maxHp, currentHp + hpRegen * elapsed);
+  const nextMp = Math.min(maxMp, currentMp + mpRegen * elapsed);
+
+  player.current_hp = Math.floor(nextHp);
+  player.current_mp = Math.floor(nextMp);
+
+  await connection.query(
+    `UPDATE players
+     SET current_hp = ?, current_mp = ?
+     WHERE id = ?`,
+    [player.current_hp, player.current_mp, player.id]
+  );
 }
 
 async function cultivationTick(connection, player, elapsed) {
@@ -324,15 +364,29 @@ async function combatTick(connection, player, elapsed) {
     ? Number(player.monster_hp)
     : monster.hp;
 
-  let hp = Number(player.current_hp); let mp = Number(player.current_mp); const environmentResult = await mapEnvironmentRuntime.process({ connection, player, map, elapsed, hp, mp }); hp = environmentResult.hp; mp = environmentResult.mp; const divineContext = await artProgression.prepareDivineArt(connection, player.id);
+  let hp = Number(player.current_hp); let mp = Number(player.current_mp); const environmentResult = await mapEnvironmentRuntime.process({ connection, player, map, elapsed, hp, mp }); hp = environmentResult.hp; mp = environmentResult.mp; const divineContexts = await artProgression.prepareDivineArt(connection, player.id);
+  let playerEffects = [];
+  let monsterEffects = [];
+  const dropSummary = new Map();
+  const skillSummary = new Map();
   const rounds = Math.min(30, Math.max(1, Math.floor(elapsed)));
 
   let wins = 0;
   let stones = 0;
-  let bodyExp = 0;
-  let soulExp = 0;
+  // Tu Thể và Tu Hồn đã tạm phong ấn khỏi gameplay Đợt 4.
+  const bodyExp = 0;
+  const soulExp = 0;
 
   for (let round = 0; round < rounds; round += 1) {
+    const playerDot = combatEffects.startTurn(playerEffects, { hp, maxHp: player.max_hp });
+    if (playerDot > 0) hp -= playerDot;
+    const monsterDot = combatEffects.startTurn(monsterEffects, { hp: monsterHp, maxHp: monster.hp });
+    if (monsterDot > 0) monsterHp -= monsterDot;
+    const playerMods = combatEffects.modifiers(playerEffects);
+    const monsterMods = combatEffects.modifiers(monsterEffects);
+    const playerTurnBlocked = combatEffects.blocksTurn(playerEffects);
+    const monsterTurnBlocked = combatEffects.blocksTurn(monsterEffects);
+
     const hitChance = Math.min(
       0.98,
       Math.max(
@@ -345,7 +399,7 @@ async function combatTick(connection, player, elapsed) {
     let playerHit = false;
     let critical = false;
 
-    if (Math.random() <= hitChance) {
+    if (!playerTurnBlocked && Math.random() <= hitChance) {
       playerHit = true;
 
       const effectiveCritRate = Math.max(
@@ -363,9 +417,9 @@ async function combatTick(connection, player, elapsed) {
       );
 
       playerDamage = Math.max(
-        1,
+        Math.max(0, dataManager.getRuleNumber('minimum_damage', 1)),
         Math.floor(
-          Number(player.attack_value || 1) *
+          Number(player.attack_value || 1) * playerMods.attack *
             (
               critical
                 ? Number(player.crit_damage || 1.5)
@@ -375,7 +429,15 @@ async function combatTick(connection, player, elapsed) {
         )
       );
 
-      const divineResult = await artProgression.tryUseDivineArt(connection, player, divineContext, playerDamage, mp); playerDamage = divineResult.damage; mp = divineResult.mp; if (divineResult.used) await repo.addLog(connection, player.id, 'combat', `${divineResult.name} thi triển, gây thêm ${divineResult.extraDamage} sát thương, độ thông thạo +1.`); monsterHp -= playerDamage;
+      const divineResult = await artProgression.tryUseDivineArt(connection, player, divineContexts, playerDamage, mp, { sealed: combatEffects.blocksSkill(playerEffects) });
+      playerDamage = divineResult.damage; mp = divineResult.mp;
+      if (divineResult.used) {
+        skillSummary.set(divineResult.name, (skillSummary.get(divineResult.name) || 0) + 1);
+        const applied = [];
+        for (const effect of divineResult.effects || []) { const result = combatEffects.apply(monsterEffects, effect, divineResult.name); if (result) applied.push(result.name); }
+        await repo.addLog(connection, player.id, 'combat', `[THẦN THÔNG] ${divineResult.name} tiêu hao ${divineResult.manaCost} Nội Lực, gây thêm ${divineResult.extraDamage} sát thương${applied.length ? ` và áp ${applied.join(', ')}` : ''}.`);
+      }
+      monsterHp -= playerDamage;
     }
 
     if (monsterHp <= 0) {
@@ -389,8 +451,12 @@ async function combatTick(connection, player, elapsed) {
           drop.quantity,
           { source: 'monster', monsterId: String(monster.xmlId || monster.id) }
         );
+        const itemDef = itemManager.require(drop.itemId);
+        if (added.added > 0) {
+          const current = dropSummary.get(drop.itemId) || { name: itemDef.name, quantity: 0 };
+          current.quantity += added.added; dropSummary.set(drop.itemId, current);
+        }
         if (added.rejected > 0) {
-          const itemDef = itemManager.require(drop.itemId);
           await repo.addLog(
             connection,
             player.id,
@@ -400,26 +466,26 @@ async function combatTick(connection, player, elapsed) {
         }
       }
       stones += dataManager.rollMonsterStones(monster);
-		bodyExp += Number(monster.bodyExp || 0);
-		soulExp += Number(monster.soulExp || 0);
+
       if (Math.random() < 0.12) {
         await repo.addItem(connection, player.id, { id: 'hoi_khi_dan', quantity: 1, metadata: { source: 'combat' } });
       }
 
       monster = dataManager.getRandomMonster(map.id);
+      monsterEffects = [];
 	  monsterHp = Number(monster.hp || 1);
       continue;
     }
 	
     const dodgeChance = Math.min(
-      0.75,
+      Math.max(0, dataManager.getRuleNumber('maximum_dodge_rate', 75) / 100),
       Math.max(
         0,
         Number(player.dodge_rate || 0)
       )
     );
 
-    if (Math.random() >= dodgeChance) {
+    if (!monsterTurnBlocked && Math.random() >= Math.min(0.9, dodgeChance + playerMods.dodge)) {
       const monsterSkill = selectMonsterSkill(
         monster,
         monsterHp
@@ -430,10 +496,10 @@ async function combatTick(connection, player, elapsed) {
 
       if (
         monsterSkill &&
-        monsterSkill.type === 'damage'
+        ['damage', 'damage_status'].includes(monsterSkill.type)
       ) {
         monsterAttack =
-          monsterAttack *
+          monsterAttack * monsterMods.attack *
             Number(monsterSkill.powerMultiplier || 1) +
           Number(monsterSkill.flatDamage || 0);
 
@@ -451,11 +517,17 @@ async function combatTick(connection, player, elapsed) {
           1,
           Math.floor(
             monsterAttack -
-              Number(player.defense_value || 0)
+              Number(player.defense_value || 0) * playerMods.defense
           )
         );
 
         hp -= monsterDamage;
+        if (monsterSkill?.effectId) {
+          const applied = combatEffects.apply(playerEffects, { id: monsterSkill.effectId, chancePercent: 25, durationTurns: 2 }, monsterSkill.name);
+          if (applied) await repo.addLog(connection, player.id, 'combat', `[YÊU THUẬT] ${monster.name} thi triển ${monsterSkill.name}, gây ${monsterDamage} sát thương và áp ${applied.name}.`);
+        } else if (monsterSkill) {
+          await repo.addLog(connection, player.id, 'combat', `[YÊU THUẬT] ${monster.name} thi triển ${monsterSkill.name}, gây ${monsterDamage} sát thương.`);
+        }
       }
     }
 
@@ -472,16 +544,22 @@ async function combatTick(connection, player, elapsed) {
 	  );
 	}
 	
+    playerEffects = combatEffects.endTurn(playerEffects);
+    monsterEffects = combatEffects.endTurn(monsterEffects);
+
     if (hp <= 0) {
-      const lost = Math.floor(Number(player.spirit_stones) * 0.01);
-      hp = Number(player.max_hp);
+      const stoneLossPercent = Math.max(0, dataManager.getRuleNumber('spirit_stone_loss_percent', 0));
+      const lost = Math.floor(Number(player.spirit_stones) * stoneLossPercent / 100);
+      hp = Math.max(1, Math.floor(Number(player.max_hp) * dataManager.getRuleNumber('respawn_hp_percent', 30) / 100));
+      mp = Math.max(0, Math.floor(Number(player.max_mp) * dataManager.getRuleNumber('respawn_mp_percent', 20) / 100));
+      const stopCombat = dataManager.getRuleBoolean('stop_auto_combat_on_death', true);
 
       await connection.query(
         `UPDATE players
-         SET current_activity = 'idle',
+         SET current_activity = ?,
              spirit_stones = GREATEST(0, spirit_stones - ?)
          WHERE id = ?`,
-        [lost, player.id]
+        [stopCombat ? 'idle' : player.current_activity, lost, player.id]
       );
 
       await connection.query(
@@ -495,14 +573,14 @@ async function combatTick(connection, player, elapsed) {
         connection,
         player.id,
         'combat',
-        `Thân tử đạo tiêu, tổn thất ${lost} Linh Thạch và đã tự rời chiến đấu.`
+        `Thân tử đạo tiêu, tổn thất ${lost} Linh Thạch; hồi sinh với ${hp} Sinh Mệnh và ${mp} Nội Lực${stopCombat ? ', đã tự rời chiến đấu' : ''}.`
       );
 
       break;
     }
   }
 
-  if (wins > 0) { const artRewards = await artProgression.grantCombatResources(connection, player.id, wins, bodyExp);
+  if (wins > 0) { const artRewards = await artProgression.grantCombatResources(connection, player.id, wins, 0);
     await connection.query(
       `UPDATE players
        SET spirit_stones = spirit_stones + ?
@@ -510,13 +588,6 @@ async function combatTick(connection, player, elapsed) {
       [stones, player.id]
     );
 
-    await connection.query(
-      `UPDATE player_cultivation
-       SET body_exp = body_exp + ?,
-           soul_exp = soul_exp + ?
-       WHERE player_id = ?`,
-      [bodyExp, soulExp, player.id]
-    );
 
     await connection.query(
       `UPDATE player_combat_state
@@ -529,9 +600,15 @@ async function combatTick(connection, player, elapsed) {
       connection,
       player.id,
       'combat',
-      `Chém hạ ${wins} yêu thú, nhận ${stones} Linh Thạch, ` +
-      `${bodyExp} Luyện Thể và ${soulExp} Luyện Hồn.`
+      `Chém hạ ${wins} yêu thú, nhận ${stones} Linh Thạch.`
     );
+
+    await repo.addLog(connection, player.id, 'reward', `[THƯỞNG] Linh Thạch ×${stones}.`);
+    if (dropSummary.size) {
+      for (const drop of dropSummary.values()) await repo.addLog(connection, player.id, 'item', `[RƠI ĐỒ] ${drop.name} ×${drop.quantity}.`);
+    } else {
+      await repo.addLog(connection, player.id, 'item', '[RƠI ĐỒ] Không thu được vật phẩm trong lượt chiến đấu này.');
+    }
   }
 
   await connection.query(

@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS player_attributes (
   crit_resistance DECIMAL(7,4) NOT NULL DEFAULT 0.0000,
   life_steal DECIMAL(7,4) NOT NULL DEFAULT 0.0000,
   hp_regen DECIMAL(12,4) NOT NULL DEFAULT 0.0000,
-  mp_regen DECIMAL(12,4) NOT NULL DEFAULT 0.0000,
+  mp_regen DECIMAL(12,4) NOT NULL DEFAULT 2.0000,
 
   cultivation_rate DECIMAL(10,4) NOT NULL DEFAULT 2.0000,
 
@@ -67,12 +67,14 @@ CREATE TABLE IF NOT EXISTS player_combat_state (
 CREATE TABLE IF NOT EXISTS player_inventory (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   player_id BIGINT UNSIGNED NOT NULL,
+  slot_index INT UNSIGNED NULL,
   item_id VARCHAR(64) NOT NULL,
   item_name VARCHAR(128) NOT NULL,
   item_type VARCHAR(32) NOT NULL,
   quantity BIGINT NOT NULL DEFAULT 0,
   metadata JSON NULL,
-  UNIQUE KEY uq_inventory_item (player_id, item_id),
+  UNIQUE KEY uq_inventory_slot (player_id, slot_index),
+  KEY ix_inventory_item (player_id, item_id),
   FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

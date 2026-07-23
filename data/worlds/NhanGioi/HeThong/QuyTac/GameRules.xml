@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GameRules version="1.0">
+  <Rule id="base_spiritual_qi_rate" group="cultivation" value="1" unit="multiplier" min="0" max="100" description="Hệ số Linh Khí toàn cục."/>
+  <Rule id="cultivation_tick_seconds" group="cultivation" value="5" unit="seconds" min="1" max="3600" description="Chu kỳ nhận tu vi."/>
+  <Rule id="global_drop_rate" group="drop" value="100" unit="percent" min="0" max="10000" description="Hệ số rơi đồ toàn cục."/>
+  <Rule id="rare_drop_rate" group="drop" value="100" unit="percent" min="0" max="10000" description="Hệ số rơi vật phẩm hiếm."/>
+  <Rule id="boss_drop_rate" group="drop" value="150" unit="percent" min="0" max="10000" description="Hệ số rơi đồ từ boss."/>
+  <Rule id="maximum_drop_rolls" group="drop" value="20" unit="count" min="1" max="100" description="Số lượt quay rơi đồ tối đa."/>
+  <Rule id="world_boss_spawn_interval" group="boss" value="21600" unit="seconds" min="60" max="604800" description="Chu kỳ xuất hiện boss thế giới."/>
+  <Rule id="random_boss_spawn_chance" group="boss" value="5" unit="percent" min="0" max="100" description="Tỷ lệ boss ngẫu nhiên xuất hiện."/>
+  <Rule id="boss_alive_duration" group="boss" value="3600" unit="seconds" min="60" max="86400" description="Thời gian boss tồn tại."/>
+  <Rule id="minimum_damage" group="combat" value="1" unit="point" min="0" max="999999999" description="Sát thương tối thiểu."/>
+  <Rule id="critical_damage_base" group="combat" value="150" unit="percent" min="100" max="1000" description="Sát thương chí mạng cơ bản."/>
+  <Rule id="maximum_dodge_rate" group="combat" value="75" unit="percent" min="0" max="100" description="Giới hạn né tránh."/>
+  <Rule id="maximum_critical_rate" group="combat" value="100" unit="percent" min="0" max="100" description="Giới hạn chí mạng."/>
+  <Rule id="hp_regeneration_interval" group="regeneration" value="5" unit="seconds" min="1" max="3600" description="Chu kỳ hồi Sinh Mệnh."/>
+  <Rule id="mp_regeneration_interval" group="regeneration" value="5" unit="seconds" min="1" max="3600" description="Chu kỳ hồi Nội Lực."/>
+  <Rule id="out_of_combat_regeneration_multiplier" group="regeneration" value="2" unit="multiplier" min="0" max="100" description="Hồi phục ngoài chiến đấu."/>
+  <Rule id="random_encounter_chance" group="encounter" value="3" unit="percent" min="0" max="100" description="Tỷ lệ kỳ ngộ cơ bản."/>
+</GameRules>

@@ -144,7 +144,8 @@ function isAffinityMatched(player, art) {
 
   player.cultivation_arts = arts;
   player.cultivation_art_effects = effects;
-  player.combat_power = formula.calcPower(player, effects);
+  player.potential = formula.calcPotential(player, effects);
+  player.combat_power = player.potential.totalPot;
 
   return player;
 }

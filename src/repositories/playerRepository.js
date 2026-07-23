@@ -153,8 +153,18 @@ async function create(name, destiny) {
           spiritualRoot.bonusCritResistance,
           spiritualRoot.bonusLifeSteal,
           spiritualRoot.bonusHpRegen,
-          spiritualRoot.bonusMpRegen
+          Math.max(2, Number(spiritualRoot.bonusMpRegen || 0))
         ]
+      );
+
+      // Nhập đạo với Sinh Lực và Nội Lực đầy theo thuộc tính thực tế.
+      await connection.query(
+        `UPDATE players AS p
+         JOIN player_attributes AS a ON a.player_id = p.id
+         SET p.current_hp = a.max_hp,
+             p.current_mp = a.max_mp
+         WHERE p.id = ?`,
+        [playerId]
       );
 
       await connection.query(

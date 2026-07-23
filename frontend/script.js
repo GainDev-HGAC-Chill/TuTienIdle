@@ -398,14 +398,31 @@ $$('[data-action]').forEach(button => {
   button.onclick = () => changeActivity(button.dataset.action);
 });
 
+function activateMainTab(tabId) {
+  $$('.tabs button').forEach(button => {
+    const active = button.dataset.tab === tabId;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+
+  $$('.tab-pane').forEach(pane => {
+    const active = pane.id === tabId;
+    pane.classList.toggle('active', active);
+    pane.hidden = !active;
+    pane.setAttribute('aria-hidden', active ? 'false' : 'true');
+  });
+
+  window.dispatchEvent(new CustomEvent('tutien:tab-change', {
+    detail: { tabId }
+  }));
+}
+
 $$('.tabs button').forEach(button => {
-  button.onclick = () => {
-    $$('.tabs button').forEach(item => item.classList.remove('active'));
-    $$('.tab-pane').forEach(item => item.classList.remove('active'));
-    button.classList.add('active');
-    $('#' + button.dataset.tab).classList.add('active');
-  };
+  button.onclick = () => activateMainTab(button.dataset.tab);
 });
+
+// Khóa trạng thái ban đầu, không chỉ phụ thuộc CSS/class active.
+activateMainTab($('.tabs button.active')?.dataset.tab || 'overviewTab');
 
 $('#mapBtn').onclick = () => $('#modal').classList.remove('hidden');
 $('#closeModal').onclick = () => $('#modal').classList.add('hidden');

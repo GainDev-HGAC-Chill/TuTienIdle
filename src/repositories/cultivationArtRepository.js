@@ -1,28 +1,177 @@
+'use strict';
+
 const { getPool, transaction } = require('../db/mysql');
-async function getOwned(playerId, connection = getPool(), forUpdate = false) { const [rows] = await connection.query(`SELECT art_id,category,grade,art_level,art_exp,proficiency,learned_at,updated_at FROM player_cultivation_arts WHERE player_id=? ORDER BY category,art_id${forUpdate?' FOR UPDATE':''}`,[playerId]); return rows; }
-async function getOwnedArt(playerId, artId, connection = getPool(), forUpdate = false) { const [rows] = await connection.query(`SELECT * FROM player_cultivation_arts WHERE player_id=? AND art_id=?${forUpdate?' FOR UPDATE':''}`,[playerId,artId]); return rows[0]||null; }
-async function getEquipped(playerId, connection = getPool()) { const [rows] = await connection.query('SELECT category,art_id FROM player_equipped_arts WHERE player_id=?',[playerId]); return rows; }
-async function getResources(playerId, connection = getPool(), forUpdate = false) { await connection.query('INSERT INTO player_art_resources(player_id) VALUES(?) ON DUPLICATE KEY UPDATE player_id=VALUES(player_id)',[playerId]); const [rows]=await connection.query(`SELECT spirit_qi,battle_intent,blood_qi,cultivation_essence FROM player_art_resources WHERE player_id=?${forUpdate?' FOR UPDATE':''}`,[playerId]); return rows[0]; }
-async function addResources(playerId, gains, connection = getPool()) { await connection.query(`INSERT INTO player_art_resources(player_id,spirit_qi,battle_intent,blood_qi,cultivation_essence) VALUES(?,?,?,?,?) ON DUPLICATE KEY UPDATE spirit_qi=spirit_qi+VALUES(spirit_qi),battle_intent=battle_intent+VALUES(battle_intent),blood_qi=blood_qi+VALUES(blood_qi),cultivation_essence=cultivation_essence+VALUES(cultivation_essence)`,[playerId,gains.spirit_qi||0,gains.battle_intent||0,gains.blood_qi||0,gains.cultivation_essence||0]); }
-async function spendResource(playerId, field, amount, connection=getPool()) { const allowed=new Set(['spirit_qi','battle_intent','blood_qi','cultivation_essence']); if(!allowed.has(field)) throw new Error('Tài nguyên Công Pháp không hợp lệ.'); const [result]=await connection.query(`UPDATE player_art_resources SET ${field}=${field}-? WHERE player_id=? AND ${field}>=?`,[amount,playerId,amount]); return result.affectedRows===1; }
-async function learn(playerId, art, grade='pham', connection=getPool()) { const [result]=await connection.query('INSERT IGNORE INTO player_cultivation_arts(player_id,art_id,category,grade) VALUES(?,?,?,?)',[playerId,art.id,art.category,grade]); return result.affectedRows===1; }
-async function updateProgress(playerId, artId, data, connection=getPool()) { await connection.query('UPDATE player_cultivation_arts SET grade=?,art_level=?,art_exp=?,proficiency=? WHERE player_id=? AND art_id=?',[data.grade,data.art_level,data.art_exp,data.proficiency,playerId,artId]); }
-async function addProficiency(playerId, artId, amount, connection=getPool()) { await connection.query('UPDATE player_cultivation_arts SET proficiency=proficiency+? WHERE player_id=? AND art_id=?',[amount,playerId,artId]); }
-async function equip(playerId, art, connection=getPool()) { await connection.query('INSERT INTO player_equipped_arts(player_id,category,art_id) VALUES(?,?,?) ON DUPLICATE KEY UPDATE art_id=VALUES(art_id),equipped_at=CURRENT_TIMESTAMP',[playerId,art.category,art.id]); }
-async function unequip(playerId, category, connection=getPool()) { await connection.query('DELETE FROM player_equipped_arts WHERE player_id=? AND category=?',[playerId,category]); }
+
+async function getOwned(playerId, connection = getPool(), forUpdate = false) {
+  const [rows] = await connection.query(
+    `SELECT art_id, category, grade, art_level, art_exp, proficiency, learned_at, updated_at
+       FROM player_cultivation_arts
+      WHERE player_id=?
+      ORDER BY category, art_id${forUpdate ? ' FOR UPDATE' : ''}`,
+    [playerId]
+  );
+  return rows;
+}
+
+async function getOwnedArt(playerId, artId, connection = getPool(), forUpdate = false) {
+  const [rows] = await connection.query(
+    `SELECT *
+       FROM player_cultivation_arts
+      WHERE player_id=? AND art_id=?${forUpdate ? ' FOR UPDATE' : ''}`,
+    [playerId, artId]
+  );
+  return rows[0] || null;
+}
+
+async function getEquipped(playerId, connection = getPool()) {
+  const [rows] = await connection.query(
+    `SELECT category, slot_index, art_id, equipped_at
+       FROM player_equipped_arts
+      WHERE player_id=?
+      ORDER BY category, slot_index`,
+    [playerId]
+  );
+  return rows;
+}
+
+async function getResources(playerId, connection = getPool(), forUpdate = false) {
+  await connection.query(
+    `INSERT INTO player_art_resources(player_id)
+     VALUES(?)
+     ON DUPLICATE KEY UPDATE player_id=VALUES(player_id)`,
+    [playerId]
+  );
+
+  const [rows] = await connection.query(
+    `SELECT spirit_qi, battle_intent, blood_qi, cultivation_essence
+       FROM player_art_resources
+      WHERE player_id=?${forUpdate ? ' FOR UPDATE' : ''}`,
+    [playerId]
+  );
+  return rows[0];
+}
+
+async function addResources(playerId, gains, connection = getPool()) {
+  await connection.query(
+    `INSERT INTO player_art_resources(
+       player_id, spirit_qi, battle_intent, blood_qi, cultivation_essence
+     ) VALUES(?,?,?,?,?)
+     ON DUPLICATE KEY UPDATE
+       spirit_qi=spirit_qi+VALUES(spirit_qi),
+       battle_intent=battle_intent+VALUES(battle_intent),
+       blood_qi=blood_qi+VALUES(blood_qi),
+       cultivation_essence=cultivation_essence+VALUES(cultivation_essence)`,
+    [
+      playerId,
+      gains.spirit_qi || 0,
+      gains.battle_intent || 0,
+      gains.blood_qi || 0,
+      gains.cultivation_essence || 0
+    ]
+  );
+}
+
+async function spendResource(playerId, field, amount, connection = getPool()) {
+  const allowed = new Set([
+    'spirit_qi',
+    'battle_intent',
+    'blood_qi',
+    'cultivation_essence'
+  ]);
+  if (!allowed.has(field)) throw new Error('Tài nguyên Công Pháp không hợp lệ.');
+
+  const [result] = await connection.query(
+    `UPDATE player_art_resources
+        SET ${field}=${field}-?
+      WHERE player_id=? AND ${field}>=?`,
+    [amount, playerId, amount]
+  );
+  return result.affectedRows === 1;
+}
+
+async function learn(playerId, art, grade = 'pham', connection = getPool()) {
+  const [result] = await connection.query(
+    `INSERT IGNORE INTO player_cultivation_arts(player_id, art_id, category, grade)
+     VALUES(?,?,?,?)`,
+    [playerId, art.id, art.category, grade]
+  );
+  return result.affectedRows === 1;
+}
+
+async function updateProgress(playerId, artId, data, connection = getPool()) {
+  await connection.query(
+    `UPDATE player_cultivation_arts
+        SET grade=?, art_level=?, art_exp=?, proficiency=?
+      WHERE player_id=? AND art_id=?`,
+    [data.grade, data.art_level, data.art_exp, data.proficiency, playerId, artId]
+  );
+}
+
+async function addProficiency(playerId, artId, amount, connection = getPool()) {
+  await connection.query(
+    `UPDATE player_cultivation_arts
+        SET proficiency=proficiency+?
+      WHERE player_id=? AND art_id=?`,
+    [amount, playerId, artId]
+  );
+}
+
+async function findFirstFreeSlot(playerId, category, connection = getPool()) {
+  const [rows] = await connection.query(
+    `SELECT slot_index
+       FROM player_equipped_arts
+      WHERE player_id=? AND category=?
+      ORDER BY slot_index`,
+    [playerId, category]
+  );
+
+  const occupied = new Set(rows.map(row => Number(row.slot_index)));
+  for (let slotIndex = 1; slotIndex <= 3; slotIndex += 1) {
+    if (!occupied.has(slotIndex)) return slotIndex;
+  }
+  return 1;
+}
+
+async function equip(playerId, art, slotIndex, connection = getPool()) {
+  const normalizedSlot = Number(slotIndex);
+  if (!Number.isInteger(normalizedSlot) || normalizedSlot < 1 || normalizedSlot > 3) {
+    throw new Error('Ô vận hành Công Pháp phải từ 1 đến 3.');
+  }
+
+  // Một Công Pháp chỉ được nằm ở một ô. Xóa vị trí cũ trước khi chuyển ô.
+  await connection.query(
+    `DELETE FROM player_equipped_arts
+      WHERE player_id=? AND art_id=?`,
+    [playerId, art.id]
+  );
+
+  await connection.query(
+    `INSERT INTO player_equipped_arts(player_id, category, slot_index, art_id)
+     VALUES(?,?,?,?)
+     ON DUPLICATE KEY UPDATE
+       art_id=VALUES(art_id),
+       equipped_at=CURRENT_TIMESTAMP`,
+    [playerId, art.category, normalizedSlot, art.id]
+  );
+}
+
+async function unequip(playerId, category, slotIndex, connection = getPool()) {
+  await connection.query(
+    `DELETE FROM player_equipped_arts
+      WHERE player_id=? AND category=? AND slot_index=?`,
+    [playerId, category, slotIndex]
+  );
+}
+
 async function ensureStarterArts(player, artManager) {
   const existing = await getOwned(player.id);
   if (existing.length) return;
 
-  const rootIds = [
-    player.spiritual_root,
-    player.base_spiritual_root
-  ]
+  const rootIds = [player.spiritual_root, player.base_spiritual_root]
     .map(value => String(value || '').trim())
     .filter(Boolean);
 
   let rootArts = [];
-
   for (const rootId of rootIds) {
     const found = artManager.getAll({ rootId });
     if (found.length) {
@@ -32,21 +181,30 @@ async function ensureStarterArts(player, artManager) {
   }
 
   await transaction(async connection => {
-    for (const category of [
-      'tam_phap',
-      'chien_phap',
-      'luyen_the',
-      'than_thong'
-    ]) {
+    for (const category of ['tam_phap', 'chien_phap', 'luyen_the', 'than_thong']) {
       const art = rootArts.find(item => item.category === category);
       if (!art) continue;
 
       await learn(player.id, art, 'pham', connection);
-      await equip(player.id, art, connection);
+      await equip(player.id, art, 1, connection);
     }
 
     await getResources(player.id, connection);
   });
 }
 
-module.exports={getOwned,getOwnedArt,getEquipped,getResources,addResources,spendResource,learn,updateProgress,addProficiency,equip,unequip,ensureStarterArts};
+module.exports = {
+  getOwned,
+  getOwnedArt,
+  getEquipped,
+  getResources,
+  addResources,
+  spendResource,
+  learn,
+  updateProgress,
+  addProficiency,
+  findFirstFreeSlot,
+  equip,
+  unequip,
+  ensureStarterArts
+};

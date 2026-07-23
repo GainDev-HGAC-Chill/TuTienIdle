@@ -99,8 +99,16 @@ const EXPECTED_COLUMNS = {
       sql: 'ALTER TABLE player_attributes ADD COLUMN crit_rate DECIMAL(6,4) NOT NULL DEFAULT 0.0500 AFTER defense_value'
     },
     {
+      name: 'hp_regen',
+      sql: 'ALTER TABLE player_attributes ADD COLUMN hp_regen DECIMAL(12,4) NOT NULL DEFAULT 0.0000 AFTER crit_rate'
+    },
+    {
+      name: 'mp_regen',
+      sql: 'ALTER TABLE player_attributes ADD COLUMN mp_regen DECIMAL(12,4) NOT NULL DEFAULT 2.0000 AFTER hp_regen'
+    },
+    {
       name: 'cultivation_rate',
-      sql: 'ALTER TABLE player_attributes ADD COLUMN cultivation_rate DECIMAL(10,4) NOT NULL DEFAULT 2.0000 AFTER crit_rate'
+      sql: 'ALTER TABLE player_attributes ADD COLUMN cultivation_rate DECIMAL(10,4) NOT NULL DEFAULT 2.0000 AFTER mp_regen'
     }
   ],
 
@@ -143,6 +151,10 @@ const EXPECTED_COLUMNS = {
     {
       name: 'quantity',
       sql: 'ALTER TABLE player_inventory ADD COLUMN quantity BIGINT NOT NULL DEFAULT 0 AFTER item_type'
+    },
+    {
+      name: 'slot_index',
+      sql: 'ALTER TABLE player_inventory ADD COLUMN slot_index INT UNSIGNED NULL AFTER player_id'
     },
     {
       name: 'metadata',
@@ -273,33 +285,31 @@ async function migrateLegacyInventory(connection, databaseName) {
 }
 
 async function addMissingIndexes(connection, databaseName) {
-  if (
-    await tableExists(connection, databaseName, 'player_inventory') &&
-    !(await indexExists(
-      connection,
-      databaseName,
-      'player_inventory',
-      'uq_inventory_item'
-    ))
-  ) {
-    const [duplicates] = await connection.query(`
-      SELECT player_id, item_id, COUNT(*) AS duplicate_count
-        FROM player_inventory
-       GROUP BY player_id, item_id
-      HAVING COUNT(*) > 1
-       LIMIT 1
-    `);
-
-    if (duplicates.length === 0) {
-      console.log('[HO_MACH] Bổ sung unique index uq_inventory_item');
+  if (await tableExists(connection, databaseName, 'player_inventory')) {
+    // Kiến trúc Túi Càn Khôn hỗ trợ nhiều chồng cùng item_id.
+    // Khóa cũ (player_id, item_id) làm mọi lần rơi vật phẩm lặp lại bị ER_DUP_ENTRY.
+    if (await indexExists(connection, databaseName, 'player_inventory', 'uq_inventory_item')) {
+      console.log('[HO_MACH] Gỡ khóa cũ uq_inventory_item để cho phép nhiều chồng vật phẩm');
       await connection.query(`
         ALTER TABLE player_inventory
-        ADD UNIQUE KEY uq_inventory_item (player_id, item_id)
+        DROP INDEX uq_inventory_item
       `);
-    } else {
-      console.warn(
-        '[HO_MACH] Chưa thể tạo uq_inventory_item vì tồn tại vật phẩm trùng dòng.'
-      );
+    }
+
+    if (!(await indexExists(connection, databaseName, 'player_inventory', 'uq_inventory_slot'))) {
+      console.log('[HO_MACH] Bổ sung unique index uq_inventory_slot');
+      await connection.query(`
+        ALTER TABLE player_inventory
+        ADD UNIQUE KEY uq_inventory_slot (player_id, slot_index)
+      `);
+    }
+
+    if (!(await indexExists(connection, databaseName, 'player_inventory', 'ix_inventory_item'))) {
+      console.log('[HO_MACH] Bổ sung index ix_inventory_item');
+      await connection.query(`
+        ALTER TABLE player_inventory
+        ADD INDEX ix_inventory_item (player_id, item_id)
+      `);
     }
   }
 
