@@ -431,8 +431,20 @@ class DataManager {
       if (!id) throw new Error(`${type} có luật thiếu id.`);
       if (this.rules.has(id)) throw new Error(`Trùng luật runtime: ${id}`);
       let value = row.value;
-      if (String(row.unit || '') === 'boolean') value = asBoolean(value, false);
-      else if (['percent','seconds','multiplier','count','point','slot','item','level','entry','stack','listing'].includes(String(row.unit || ''))) value = asNumber(value, 0);
+      const unit = String(row.unit || '');
+      if (unit === 'boolean') value = asBoolean(value, false);
+      else if (['percent','seconds','multiplier','count','point','slot','item','level','entry','stack','listing'].includes(unit)) value = asNumber(value, 0);
+
+      if (row.min !== undefined && Number(value) < Number(row.min)) {
+        throw new Error(`Luật ${id} thấp hơn min=${row.min}.`);
+      }
+      if (row.max !== undefined && Number(value) > Number(row.max)) {
+        throw new Error(`Luật ${id} vượt max=${row.max}.`);
+      }
+      if (row.allowedValues) {
+        const allowed = String(row.allowedValues).split(',').map(x => x.trim());
+        if (!allowed.includes(String(value))) throw new Error(`Luật ${id} có giá trị không hợp lệ: ${value}.`);
+      }
       this.rules.set(id, { ...row, id, value, sourceType: type });
     }
   }
@@ -1524,41 +1536,32 @@ getMonster(id) {
     return this.lootTables.get(String(id)) || null;
   }
 
-  rollLootTable(id) {
+  rollLootTable(id, context = {}) {
     this.ensureLoaded();
 
     const table = this.getLootTable(id);
     if (!table) return [];
 
     const results = [];
-
     const maximumRolls = Math.max(1, this.getRuleNumber('maximum_drop_rolls', 20));
     const globalRate = Math.max(0, this.getRuleNumber('global_drop_rate', 100)) / 100;
+    const bossRate = ['boss', 'world_boss'].includes(String(context.rank || '').toLowerCase())
+      ? Math.max(0, this.getRuleNumber('boss_drop_rate', 100)) / 100
+      : 1;
+    const rareQualities = new Set(['rare', 'epic', 'legendary', 'mythic', 'hiem', 'quy', 'thien']);
     const actualRolls = Math.min(maximumRolls, Math.max(0, table.rolls));
+
     for (let rollIndex = 0; rollIndex < actualRolls; rollIndex += 1) {
       for (const drop of table.drops) {
-        const adjustedChance = Math.min(100, Math.max(0, drop.chance * globalRate));
-        if (Math.random() * 100 >= adjustedChance) {
-          continue;
-        }
+        const item = this.items.get(String(drop.itemId));
+        const rareRate = item && rareQualities.has(String(item.quality || '').toLowerCase())
+          ? Math.max(0, this.getRuleNumber('rare_drop_rate', 100)) / 100
+          : 1;
+        const adjustedChance = Math.min(100, Math.max(0, drop.chance * globalRate * bossRate * rareRate));
+        if (Math.random() * 100 >= adjustedChance) continue;
 
-        const quantity =
-          Math.floor(
-            Math.random() *
-            (
-              drop.maxQuantity -
-              drop.minQuantity +
-              1
-            )
-          ) +
-          drop.minQuantity;
-
-        results.push({
-          itemId: drop.itemId,
-          quantity,
-          bind: drop.bind,
-          announce: drop.announce
-        });
+        const quantity = Math.floor(Math.random() * (drop.maxQuantity - drop.minQuantity + 1)) + drop.minQuantity;
+        results.push({ itemId: drop.itemId, quantity, bind: drop.bind, announce: drop.announce });
       }
     }
 
@@ -1567,11 +1570,7 @@ getMonster(id) {
 
   rollMonsterDrops(monster) {
     if (!monster?.lootTableId) return [];
-    const drops = this.rollLootTable(monster.lootTableId);
-    const rank = String(monster.rank || '').toLowerCase();
-    const bonus = ['boss','world_boss'].includes(rank) ? Math.max(0, this.getRuleNumber('boss_drop_rate', 100)) / 100 : 1;
-    if (bonus <= 1) return drops;
-    return drops.map(drop => ({ ...drop, quantity: Math.max(1, Math.floor(drop.quantity * bonus)) }));
+    return this.rollLootTable(monster.lootTableId, { rank: monster.rank });
   }
 
   getItem(id) {

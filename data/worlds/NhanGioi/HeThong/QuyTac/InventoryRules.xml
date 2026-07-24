@@ -18,4 +18,5 @@
   <Rule id="remove_zero_quantity_stack" value="true" unit="boolean" description="Xóa stack khi về 0."/>
   <Rule id="reject_negative_quantity" value="true" unit="boolean" description="Từ chối số lượng âm."/>
   <Rule id="expired_item_behavior" value="remove" unit="enum" allowedValues="remove,convert,disable" description="Xử lý vật phẩm hết hạn."/>
+  <Rule id="metadata_separates_stacks" value="true" unit="boolean" description="Metadata khác nhau tạo chồng vật phẩm riêng."/>
 </InventoryRules>

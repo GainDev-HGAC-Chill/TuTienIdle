@@ -17,4 +17,12 @@
   <Rule id="mp_regeneration_interval" group="regeneration" value="5" unit="seconds" min="1" max="3600" description="Chu kỳ hồi Nội Lực."/>
   <Rule id="out_of_combat_regeneration_multiplier" group="regeneration" value="2" unit="multiplier" min="0" max="100" description="Hồi phục ngoài chiến đấu."/>
   <Rule id="random_encounter_chance" group="encounter" value="3" unit="percent" min="0" max="100" description="Tỷ lệ kỳ ngộ cơ bản."/>
+  <Rule id="online_tick_maximum_seconds" group="runtime" value="300" unit="seconds" min="1" max="3600" description="Giới hạn thời gian xử lý của một tick trực tuyến."/>
+  <Rule id="combat_maximum_rounds_per_tick" group="combat" value="30" unit="count" min="1" max="1000" description="Số hiệp chiến đấu tối đa trong một tick."/>
+  <Rule id="player_hit_chance_minimum" group="combat" value="35" unit="percent" min="0" max="100" description="Tỷ lệ đánh trúng tối thiểu của người chơi."/>
+  <Rule id="player_hit_chance_maximum" group="combat" value="98" unit="percent" min="0" max="100" description="Tỷ lệ đánh trúng tối đa của người chơi."/>
+  <Rule id="monster_effect_chance" group="combat" value="25" unit="percent" min="0" max="100" description="Tỷ lệ kỹ năng yêu thú áp hiệu ứng mặc định."/>
+  <Rule id="monster_effect_duration_turns" group="combat" value="2" unit="count" min="1" max="100" description="Số lượt tồn tại mặc định của hiệu ứng yêu thú."/>
+  <Rule id="fallback_pill_drop_chance" group="drop" value="12" unit="percent" min="0" max="100" description="Tỷ lệ rơi Hồi Khí Đan bổ sung sau khi hạ yêu thú."/>
+  <Rule id="fallback_pill_item_id" group="drop" value="hoi_khi_dan" unit="itemId" description="Vật phẩm rơi bổ sung sau khi hạ yêu thú."/>
 </GameRules>

@@ -13,4 +13,5 @@
   <Rule id="offline_log_limit" value="50" unit="entry" description="Giới hạn nhật ký offline."/>
   <Rule id="offline_reward_rounding" value="floor" unit="enum" allowedValues="floor,round,ceil" description="Cách làm tròn phần thưởng."/>
   <Rule id="offline_duplicate_guard_seconds" value="10" unit="seconds" description="Chống tính trùng offline."/>
+  <Rule id="offline_apply_regeneration" value="true" unit="boolean" description="Cho phép hồi Sinh Mệnh và Nội Lực khi offline."/>
 </OfflineRules>

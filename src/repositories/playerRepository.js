@@ -95,6 +95,12 @@ async function create(name, destiny) {
     }
 
     try {
+      const starting = dataManager.getStartingPlayer() || {};
+      const startingBase = starting.Base || {};
+      const startingRealm = dataManager.getRealm(String(startingBase.realmId || '')) || dataManager.getRealm(0);
+      const startingMap = dataManager.getMap(String(startingBase.mapId || '')) || dataManager.getAllMaps()[0] || null;
+      const startingStones = Math.max(0, Number(startingBase.spiritStones || 0));
+
       const [result] = await connection.query(
         `INSERT INTO players(
            name,
@@ -118,14 +124,21 @@ async function create(name, destiny) {
           JSON.stringify(destiny.hiddenRootLevels),
           destiny.missingRootId,
           destiny.innateSpecialRootId,
-          destiny.innateSpecialAwakened ? 1 : 0
+          destiny.innateSpecialAwakened ? 1 : 0,
+          startingStones
         ]
       );
 
       const playerId = result.insertId;
       await connection.query(
-        'INSERT INTO player_cultivation(player_id) VALUES(?)',
-        [playerId]
+        `INSERT INTO player_cultivation(player_id, main_realm_index, main_layer, main_exp)
+         VALUES(?, ?, ?, ?)`,
+        [
+          playerId,
+          Number(startingRealm?.index || 0),
+          Math.max(1, Number(startingBase.layer || 1)),
+          Math.max(0, Number(startingBase.cultivation || 0))
+        ]
       );
 
       await connection.query(
@@ -161,18 +174,36 @@ async function create(name, destiny) {
       await connection.query(
         `UPDATE players AS p
          JOIN player_attributes AS a ON a.player_id = p.id
-         SET p.current_hp = a.max_hp,
-             p.current_mp = a.max_mp
+         SET p.current_hp = GREATEST(1, FLOOR(a.max_hp * ? / 100)),
+             p.current_mp = GREATEST(0, FLOOR(a.max_mp * ? / 100))
          WHERE p.id = ?`,
-        [playerId]
+        [
+          Math.max(0, Math.min(100, Number(startingBase.hpPercent || 100))),
+          Math.max(0, Math.min(100, Number(startingBase.mpPercent || 100))),
+          playerId
+        ]
       );
 
       await connection.query(
-        'INSERT INTO player_combat_state(player_id) VALUES(?)',
-        [playerId]
+        'INSERT INTO player_combat_state(player_id, map_id) VALUES(?, ?)',
+        [playerId, Number(startingMap?.id || 1)]
       );
 
       await inventoryService.ensureBag(connection, playerId);
+      const configuredSlots = Math.max(1, Number(startingBase.inventorySlots || dataManager.getRuleNumber('initial_slot_count', 40)));
+      await connection.query(
+        `UPDATE player_bags SET unlocked_slots = LEAST(maximum_slots, ?) WHERE player_id = ?`,
+        [configuredSlots, playerId]
+      );
+      for (const item of [].concat(starting.StartingItem || [])) {
+        await inventoryService.addItem(
+          connection,
+          playerId,
+          String(item.itemId || ''),
+          Math.max(1, Number(item.quantity || 1)),
+          { source: 'starting_player', bound: String(item.bound || 'false') === 'true' }
+        );
+      }
 await addLog(
         connection,
         playerId,

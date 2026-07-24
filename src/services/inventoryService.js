@@ -97,37 +97,48 @@ function findFreeSlot(occupied, unlockedSlots) {
 
 async function addItem(connection, playerId, itemId, quantity = 1, metadata = null) {
   const definition = itemManager.require(itemId);
-  let remaining = Math.max(0, Math.floor(Number(quantity) || 0));
-  if (remaining <= 0) {
-    return { requested: 0, added: 0, rejected: 0, full: false };
+  const numericQuantity = Math.floor(Number(quantity) || 0);
+  if (numericQuantity < 0 && dataManager.getRuleBoolean('reject_negative_quantity', true)) {
+    const error = new Error('Số lượng vật phẩm không được âm.');
+    error.statusCode = 400;
+    throw error;
   }
+  let remaining = Math.max(0, numericQuantity);
+  if (remaining <= 0) return { requested: 0, added: 0, rejected: 0, full: false };
 
   const requested = remaining;
   const bag = await getBag(connection, playerId, true);
   const unlockedSlots = Number(bag.unlocked_slots);
   const metadataJson = json(metadata);
+  const stackLimit = Math.max(1, dataManager.getStackLimit(definition.category, definition.stackLimit || 999));
+  const autoMerge = dataManager.getRuleBoolean('auto_merge_stacks', true);
+  const separateMetadata = dataManager.getRuleBoolean('metadata_separates_stacks', true);
+  let stackRows = [];
 
-  // Chỉ gộp vào chồng có cùng itemId và metadata.
-	const [stackRows] = await connection.query(
-	  `SELECT id, slot_index, quantity
-	   FROM player_inventory
-	   WHERE player_id = ?
-		 AND item_id = ?
-		 AND COALESCE(metadata, '{}') = COALESCE(?, '{}')
-		 AND quantity < ?
-	   ORDER BY slot_index ASC
-	   FOR UPDATE`,
-	  [
-		playerId,
-		definition.id,
-		metadataJson,
-		definition.stackLimit
-	  ]
-	);
+  if (autoMerge) {
+    const metadataClause = separateMetadata
+      ? "AND COALESCE(metadata, '{}') = COALESCE(?, '{}')"
+      : '';
+    const params = separateMetadata
+      ? [playerId, definition.id, metadataJson, stackLimit]
+      : [playerId, definition.id, stackLimit];
+    const [rows] = await connection.query(
+      `SELECT id, slot_index, quantity
+       FROM player_inventory
+       WHERE player_id = ?
+         AND item_id = ?
+         ${metadataClause}
+         AND quantity < ?
+       ORDER BY slot_index ASC
+       FOR UPDATE`,
+      params
+    );
+    stackRows = rows;
+  }
 
   for (const stack of stackRows) {
     if (remaining <= 0) break;
-    const capacity = definition.stackLimit - Number(stack.quantity);
+    const capacity = stackLimit - Number(stack.quantity);
     const moved = Math.min(capacity, remaining);
     if (moved <= 0) continue;
     await connection.query(
@@ -142,7 +153,7 @@ async function addItem(connection, playerId, itemId, quantity = 1, metadata = nu
     const slotIndex = findFreeSlot(occupied, unlockedSlots);
     if (slotIndex === null) break;
 
-    const moved = Math.min(definition.stackLimit, remaining);
+    const moved = Math.min(stackLimit, remaining);
     await connection.query(
       `INSERT INTO player_inventory(player_id, slot_index, item_id, quantity, metadata)
        VALUES(?, ?, ?, ?, ?)`,
@@ -180,10 +191,12 @@ async function removeItem(connection, playerId, inventoryId, quantity = 1) {
     'UPDATE player_inventory SET quantity = quantity - ? WHERE id = ?',
     [amount, row.id]
   );
-  await connection.query(
-    'DELETE FROM player_inventory WHERE id = ? AND quantity <= 0',
-    [row.id]
-  );
+  if (dataManager.getRuleBoolean('remove_zero_quantity_stack', true)) {
+    await connection.query(
+      'DELETE FROM player_inventory WHERE id = ? AND quantity <= 0',
+      [row.id]
+    );
+  }
   return itemManager.require(row.item_id);
 }
 
